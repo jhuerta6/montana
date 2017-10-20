@@ -13,7 +13,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>TX-ISC</title>
+  <title>PMMC</title>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link href="css/bootstrap.css" rel="stylesheet">
   <link href="css/custom.css" rel="stylesheet" type="text/css">
@@ -25,37 +25,28 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   .slider {
     width: 100% !important;
   }
-  /*#slide_depth .slider-selection{
-  background: yellow;
-}
-.slider-track-high {
-background: green;
-}
-.slider-track-low {
-background: red;
-}*/
-#legend {
-  font-family: Arial, sans-serif;
-  background: #fff;
-  padding: 6px;
-  margin: 30px;
-  border: 3px solid #000;
-  margin-top: 25px;
-  margin-bottom: 20px;
-}
-#legend h3 {
-  margin-top: 0;
-}
-#legend img {
-  vertical-align: middle;
-}
-</style>
+  #legend {
+    font-family: Arial, sans-serif;
+    background: #fff;
+    padding: 6px;
+    margin: 30px;
+    border: 3px solid #000;
+    margin-top: 25px;
+    margin-bottom: 20px;
+  }
+  #legend h3 {
+    margin-top: 0;
+  }
+  #legend img {
+    vertical-align: middle;
+  }
+  </style>
 </head>
 <body>
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <h3 class="text-center" style="color:#FF8000;"> Interactive Soil Characterization</h3>
+    <h3 class="text-center" style="color:#FF8000;"> Performance Measures for Montana Corridor</h3>
     <h6 class="hidden-xs text-center"><i style="color: white;">"</i><strong><i style="color:#FF8000;" class="text-center">CTIS </i></strong><i class="text-center" style="color:white;">is designated as a Member of National, Regional, and Tier 1 University Transportation Center."</i></h6>
-    <p class="hidden-xs text-right" style="color: white"> Version 4 (10/18/2017)</p>
+    <p class="hidden-xs text-right" style="color: white"> Version 1 (10/18/2017)</p>
     <!--<p class="hidden-md hidden-lg text-center" style="color: white"> Version 4 (9/27/2017)</p> -->
   </nav>
   <div>
@@ -76,14 +67,6 @@ background: red;
               <div class="chart" id="chart_area_2"> </div>
             </div>
           </div>
-          <!--<div class="col-lg-6">
-          <div class="row">
-          <div class="chart" id="chart_histogram_1"> </div>
-        </div>
-        <div class="row">
-        <div class="chart" id="chart_histogram_2"> </div>
-      </div>
-    </div> -->
   </div>
   <div class="row">
     <div class="col-lg-6">
@@ -96,14 +79,6 @@ background: red;
         <div class="chart" id="chart_area_4"> </div>
       </div>
     </div>
-    <!-- <div class="col-lg-6">
-    <div class="row">
-    <div class="chart" id="chart_histogram_3"> </div>
-  </div>
-  <div class="row">
-  <div class="chart" id="chart_histogram_4"> </div>
-</div>
-</div> -->
 </div>
 </div> <!-- End main column 1 -->
 <div class="col-md-3">
@@ -455,6 +430,7 @@ function runFilters(){
   }
 }
 
+
 function mpo(){
   removePolygons();
   var getparams = app.payload;
@@ -464,8 +440,32 @@ function mpo(){
   getparams.SW = bounds.getSouthWest().toJSON(); //south-west corner
   var to_send = {NE:getparams.NE, SW: getparams.SW};
   $.get('mpo_handler.php', to_send, function(data){
+
+    shapecolor = ["#84857B", "#13FF00", "#009BFF", "#EBF20D", "#fe9253", "#FF0000", "#8C0909", "#0051FF", "#AB77FF", "#EBF20D", "#8C0909", "#07FDCA", "#008C35", "FFDBA5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
+    shapeoutline = ["#000000", "#0b9b00", "#007fd1", "#aaaf0a", "#d18f0a", "#c10000", "#8c0909", "#0037ad", "#873dff", "#aaaf0a", "8c0909", "36c9bd", "#008c35", "#ffdba5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
+    colorSelector = 0;
+    newzIndex = 0;
+    legendText = "";
+    maximum = -1;
+    //console.log(typeof data);
+    console.log(data.coords.length);
+    //console.log(data);
+    //var myObject = {0: 8, 1: 9, 2: 10};
+    //length = Object.keys(data.coords).length;
+    //console.log(length);
+    for(var i = 0; i < data.coords.length; i++){
+      if(maximum < parseFloat(data.coords[i]['value'])){
+        maximum = data.coords[i]['value'];
+      }
+    }
+    console.log(maximum);
+    var div = document.createElement('div');
+    div.innerHTML = "<strong>" + "Legend for " + "Car Free" + "</strong>";
+    var l = document.createElement('div');
+    l = document.getElementById('legend');
+    l.appendChild(div);
+
     for(key in data.coords){
-      //if(data.coords.hasOwnProperty(key)){
       var polyCoordis = [];
       temp = wktFormatter(data.coords[key]['POLYGON']);
       for (var i = 0; i < temp.length; i++) {
@@ -475,10 +475,10 @@ function mpo(){
         description: "b_carfrhh", //value that appears when you click the map
         description_value: data.coords[key]['value'],
         paths: polyCoordis,
-        strokeColor: 'red',
+        strokeColor: colorSelector,
         strokeOpacity: 0.60,
         strokeWeight: 0.70,
-        fillColor: 'grey',
+        fillColor: colorSelector,
         fillOpacity: 0.60,
         zIndex: -1
       });
@@ -539,6 +539,7 @@ function getPolygons(){
             maximum = data.coords[i][app.payload.property];
           }
         }
+
         var div = document.createElement('div');
         div.innerHTML = "<strong>" + "Legend for " + app.payload.value + "</strong>";
         var l = document.createElement('div');
@@ -729,8 +730,6 @@ function getPolygons(){
       //if(app.polygons.length > 1){ //still testing
       var property = object_poly;
       $.post("kmlWriter.php", property);
-      //}
-
       $(document.body).css({'cursor': 'auto'});
       descripciones(app.payload.property);
       if(!hecho){
@@ -815,9 +814,10 @@ function initialize () {
 }
 var rec, rectangle, map, infoWindow, selectedRec, drawingManager, paths;
 function initMap() {
+  //31.7910342,-106.409785,12z
   app.map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 6,
-    center: new google.maps.LatLng(31.6929976,-98.9689529),
+    zoom: 11,
+    center: new google.maps.LatLng(31.7910342,-106.409785),
     mapTypeId: 'terrain'
   });
   app.infoWindow = new google.maps.InfoWindow;

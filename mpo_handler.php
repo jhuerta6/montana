@@ -29,12 +29,19 @@ $toReturn['query2'] = $query;
 $result = mysqli_query($conn, $query);
 $result = fetchAll($result);
 
+$ordered =  array();
 $ids = array();
-//var_dump($result);
 $ids = array_unique($result, SORT_REGULAR);
 //var_dump($ids);
+for($i = 0; $i < sizeof($result); $i++){
+	//echo isset($ids[$i]);
+	if(isset($ids[$i])){
+		array_push($ordered, $ids[$i]);
+	}
+}
+//var_dump($ids);
 
-$toReturn['coords'] = $ids;
+$toReturn['coords'] = $ordered;
 
 header('Content-Type: application/json');
 echo json_encode($toReturn);
