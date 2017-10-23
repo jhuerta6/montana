@@ -230,12 +230,12 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 <div class="col-md-5"><br>
   <div class="tab-content">
     <div id="defaultbtn" class="tab-pane fade in active">
-      <button data-toggle="tooltip" data-placement="top" title="Bring up the data for the whole section currently displayed on the map" class="btn btn-success form-control" type="button" id="run" onClick="getPolygonsHelper()">Run</button><br><br>
-      <button data-toggle="tooltip" data-placement="top" title="Only bring up the data touched by the Area Of Interest" class="btn btn-success form-control" type="button" id="runAOI" onClick="runAOI()">Run AOI</button><br><br>
+      <!--<button data-toggle="tooltip" data-placement="top" title="Bring up the data for the whole section currently displayed on the map" class="btn btn-success form-control" type="button" id="run" onClick="getPolygonsHelper()">Run</button><br><br>
+      <button data-toggle="tooltip" data-placement="top" title="Only bring up the data touched by the Area Of Interest" class="btn btn-success form-control" type="button" id="runAOI" onClick="runAOI()">Run AOI</button><br><br> -->
+      <br><br><br><br><button type="button" class="btn btn-success form-control" id="mpo_draw" onclick="mpo();">Draw</button><br><br>
       <button class="btn btn-warning form-control" type="button" id="clear" onClick="removePolygons()">Clear</button><br><br>
       <!--<button type="button" class="map-print" id="print" onClick="printMaps()">Print</button><br><br>-->
       <!--<a href="./ctis_isc_polygon.kml" download><button type="button" class="btn btn-outline-secondary form-control" id="download_kml" onClick="clearKML()">KML</button></a>-->
-      <button type="button" class="btn btn-default form-control" id="mpo_draw" onclick="mpo();">Draw</button><br><br>
     </div>
     <div id="filtersbtn" class="tab-pane fade"><br><br><br><br>
       <button class="btn btn-success form-control" type="button" id="runFilters" onClick="runFilters()">Run Filter</button>
@@ -272,6 +272,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 //Components.utils.import("resource://gre/modules/osfile.jsm");
 
 var app = {map:null, polygons:null, label:"no filter", payload:{getMode:"polygons", runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, property:null, district:null, depth:0, from_depth:0, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0}};
+var pm = {name_pm:null};
 var hecho = false;
 var depth = app.payload.depth;
 $(document).ready(function(){
@@ -376,17 +377,18 @@ $('#target').on('change', setDistrict);
 });*/
 
 var performance_measures = [
-  "A-2-3 Car Free HHs"
+  "A-2-3) Car Free HHs"
 ];
 var select_mpo = document.getElementById("select_mpo");
 for(var i = 0; i < performance_measures.length; i++) {
   var elem = document.createElement("option");
   elem.textContent = performance_measures[i];
-  elem.value = "A23";
+  elem.value = performance_measures[i];
   select_mpo.appendChild(elem);
 }
 $("#select_mpo").change(function(){
   console.log(this.value);
+  pm.name_pm = this.value;
 });
 
 //app.payload.district = $('#target').children("option:selected").data('district');
@@ -443,7 +445,7 @@ function mpo(){
       }
     }
     var div = document.createElement('div');
-    div.innerHTML = "<strong>" + "Legend for " + "Car Free" + "</strong>";
+    div.innerHTML = "<strong>" + "Legend for " + pm.name_pm + "</strong>";
     var l = document.createElement('div');
     l = document.getElementById('legend');
     l.appendChild(div);
@@ -465,7 +467,7 @@ function mpo(){
         polyCoordis.push(temp[i]);
       }
       var polygon = new google.maps.Polygon({
-        description: "b_carfrhh", //value that appears when you click the map
+        description: pm.name_pm, //value that appears when you click the map
         description_value: data.coords[key]['value'],
         paths: polyCoordis,
         strokeColor: shapeoutline[colorSelector],
