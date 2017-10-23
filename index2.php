@@ -444,8 +444,8 @@ function mpo(){
         maximum = data.coords[i]['value'];
       }
     }
-    console.log(data.coords.length);
-    console.log(maximum);
+    //console.log(data.coords.length);
+  //  console.log(maximum);
     if(maximum == -1){
       maximum = 1;
     }
@@ -455,8 +455,8 @@ function mpo(){
     l = document.getElementById('legend');
     l.appendChild(div);
     var num_labels = spawn(maximum);
-    console.log("num_labels: "+num_labels);
-    console.log(data);
+    //console.log("num_labels: "+num_labels);
+    //console.log(data);
     for(key in data.coords){
       var polyCoordis = [];
       var valor_actual = parseFloat(data.coords[key]['value']);
@@ -729,14 +729,10 @@ function getPolygons(){
           whole_poly += xy.lat() + ", 0 ";
         }
         object_poly[i] = whole_poly;
-        //whole_poly += "end polygon " + i + "\n";
       }
 
       object_poly["length"] = app.polygons.length;
 
-      //console.log(object_poly);
-
-      //if(app.polygons.length > 1){ //still testing
       var property = object_poly;
       $.post("kmlWriter.php", property);
       $(document.body).css({'cursor': 'auto'});
@@ -1281,7 +1277,7 @@ function spawn(value){
   }
   //else{
     var range = (value/labels);
-    console.log(range);
+    //console.log(range);
     var count = 0;
     var cnt = 0;
     var spawner = document.getElementById('legendSpawner');
