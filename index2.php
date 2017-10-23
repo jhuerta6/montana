@@ -88,7 +88,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         <center><h3 class="panel-title">Toolbar</h3></center>
       </div>
       <div class="panel-body">
-        <div class="row panel panel-default">
+        <!--<div class="row panel panel-default">
           <label>District:</label>
           <select id="target" class="form-control">
             <option value="" disabled selected>Select a district</option>
@@ -118,9 +118,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             <option value="33.77914733128647, -98.37158203125" data-district="wichitaFalls">Wichita Falls</option>
             <option value="29.05616970274342, -96.8115234375" data-district="yoakum">Yoakum</option>
           </select>
-        </div>
+        </div>-->
         <div class="row panel panel-default">
-          <center><label>Soil Mapping</label></center>
+          <!--  <center><label>Performance Measures</label></center> -->
           <div class="row">
             <ul class="nav nav-tabs">
               <li class="active"><a data-toggle="tab" href="#default,#defaultbtn" data-target="#default, #defaultbtn">Tools</a></li>
@@ -128,20 +128,19 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               <li data-toggle="tooltip" data-placement="top" title="Click your drawn Area Of Interest to display statistics">
                 <a data-toggle="tab" href="#statistics,#statisticsbtn" data-target="#statistics, #statisticsbtn">Statistics</a>
               </li>
-              <li><a data-toggle="tab" href="#mpo,#mpobtn" data-target="#mpo, #mpobtn">MPO</a></li>
             </ul>
             <div class="col-md-5 col-sm-11 col-lg-7">
               <div class="tab-content">
-                <div id="default" class="tab-pane fade in active">
-                  <label> Soil Property:</label>
+                <div id="default" class="tab-pane fade in active"><br>
+                  <center><label> Performance Measures:</label></center>
                   <div class="input-group">
                     <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
-                    <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="selectProp">
-                      <option value="" disabled selected>Select a ground property</option>
+                    <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_mpo">
+                      <option value="" disabled selected>Select a performance measure</option>
                     </select>
                   </div> <br>
-                  <label> Depth:</label>
-                  <input id="slide_depth" type="text" class="span2" value="" data-slider-min="0" data-slider-max="79" data-slider-step="1" data-slider-value="[0,0]"/>
+                  <!--<label> Depth:</label>
+                  <input id="slide_depth" type="text" class="span2" value="" data-slider-min="0" data-slider-max="79" data-slider-step="1" data-slider-value="[0,0]"/> -->
                   <!---<div class="input-group">
                   <span class="input-group-addon" id="basic-addon3">To.....</span>
                   <input type="number" class="form-control" value="0" min="0" placeholder="...inches" id="depthTo" aria-describedby="basic-addon3">
@@ -149,7 +148,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 <div class="input-group">
                 <span class="input-group-addon" id="basic-addon3">From</span>
                 <input type="number" class="form-control" value="0" min="0" max="77" placeholder="...inches" id="depth" aria-describedby="basic-addon3">
-              </div>--><br><br>
+              </div>-->
               <label> Method:</label>
               <select data-toggle="tooltip" data-placement="top" title="Method by which the data will be gathered" id="methods" class="form-control">
                 <option value="" disabled selected>Select method</option>
@@ -199,6 +198,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               </div><br>
             </div>
             <div id="statistics" class="tab-pane fade"><br>
+              <!--
               <label>Select parameters:</label>
               <div class="input-group">
                 <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
@@ -223,18 +223,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_chart_4">
                   <option value="" disabled selected>Select a ground property</option>
                 </select>
-              </div> <br>
-            </div>
-            <div id="mpo" class="tab-pane fade"><br>
-              <h5> For Montana </h5>
-              <h5> El Paso, Texas </h5>
-              <label> Performance Measures:</label>
-              <div class="input-group">
-                <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
-                <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_mpo">
-                  <option value="" disabled selected>Select a performance measure</option>
-                </select>
-              </div> <br>
+              </div> <br> -->
             </div>
           </div>
         </div> <!--end column for selectors-->
@@ -244,8 +233,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               <button data-toggle="tooltip" data-placement="top" title="Bring up the data for the whole section currently displayed on the map" class="btn btn-success form-control" type="button" id="run" onClick="getPolygonsHelper()">Run</button><br><br>
               <button data-toggle="tooltip" data-placement="top" title="Only bring up the data touched by the Area Of Interest" class="btn btn-success form-control" type="button" id="runAOI" onClick="runAOI()">Run AOI</button><br><br>
               <button class="btn btn-warning form-control" type="button" id="clear" onClick="removePolygons()">Clear</button><br><br>
-              <button type="button" class="map-print" id="print" onClick="printMaps()">Print</button><br><br>
-              <a href="./ctis_isc_polygon.kml" download><button type="button" class="btn btn-outline-secondary form-control" id="download_kml" onClick="clearKML()">KML</button></a>
+              <!--<button type="button" class="map-print" id="print" onClick="printMaps()">Print</button><br><br>-->
+              <!--<a href="./ctis_isc_polygon.kml" download><button type="button" class="btn btn-outline-secondary form-control" id="download_kml" onClick="clearKML()">KML</button></a>-->
+              <button type="button" class="btn btn-default form-control" id="mpo_draw" onclick="mpo();">Draw</button><br><br>
             </div>
             <div id="filtersbtn" class="tab-pane fade"><br><br><br><br>
               <button class="btn btn-success form-control" type="button" id="runFilters" onClick="runFilters()">Run Filter</button>
@@ -253,7 +243,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             <br>
             <div id="statisticsbtn" class="tab-pane fade">
               <button type="button" class="btn btn-default form-control" id="draw" onclick="drawAnotherRectangle();">Clear AOI</button><br><br>
-              <button type="button" class="btn btn-default form-control" id="clearCharts" onclick="clearCharts();">Clear Charts</button>
+              <button type="button" class="btn btn-default form-control" id="clearCharts" onclick="clearCharts();">Clear Charts</button><br><br>
             </div>
             <div id="mpobtn" class="tab-pane fade">
               <button type="button" class="btn btn-default form-control" id="mpo_draw" onclick="mpo();">Draw</button><br><br>
@@ -285,7 +275,7 @@ var app = {map:null, polygons:null, label:"no filter", payload:{getMode:"polygon
 var hecho = false;
 var depth = app.payload.depth;
 $(document).ready(function(){
-  $("#slide_depth").slider({
+  /*$("#slide_depth").slider({
     natural_arrow_keys: true,
     //range: true,
     formatter: function(value) {
@@ -299,18 +289,18 @@ $(document).ready(function(){
   $("#slide_depth").on("change", function(e) {
     depth = e.value.newValue[1];
     app.payload.from_depth = e.value.newValue[0];
-  });
+  });*/
 
   $('[data-toggle="tooltip"]').tooltip();
 
-  $.post('polygonHandler.php', {'columns': true}, function(result){
+  /*$.post('polygonHandler.php', {'columns': true}, function(result){
     var properties;
     if(result.hasOwnProperty('columns')){
       properties = $.map(result.columns, function(val, i){
         return {value: val[2], data: val[1], table: val[3]};
       });
     }
-    var divs = [];
+    /*var divs = [];
     var selectProp = document.getElementById("selectProp");
     var ch1 = document.getElementById("select_chart_1");
     var ch2 = document.getElementById("select_chart_2");
@@ -383,7 +373,7 @@ $(document).ready(function(){
       app.label = "filter";
     });
     $('#target').on('change', setDistrict);
-  });
+  });*/
 
   var performance_measures = [
     "A-2-3 Car Free HHs"
