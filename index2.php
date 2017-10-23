@@ -444,12 +444,19 @@ function mpo(){
         maximum = data.coords[i]['value'];
       }
     }
+    console.log(data.coords.length);
+    console.log(maximum);
+    if(maximum == -1){
+      maximum = 1;
+    }
     var div = document.createElement('div');
     div.innerHTML = "<strong>" + "Legend for " + pm.name_pm + "</strong>";
     var l = document.createElement('div');
     l = document.getElementById('legend');
     l.appendChild(div);
     var num_labels = spawn(maximum);
+    console.log("num_labels: "+num_labels);
+    console.log(data);
     for(key in data.coords){
       var polyCoordis = [];
       var valor_actual = parseFloat(data.coords[key]['value']);
@@ -1270,9 +1277,11 @@ function spawn(value){
     var labels = document.getElementById('labels_filter').value;
   }
   if(labels <= 0 || value <= 0 ){
+    value = 1;
   }
-  else{
+  //else{
     var range = (value/labels);
+    console.log(range);
     var count = 0;
     var cnt = 0;
     var spawner = document.getElementById('legendSpawner');
@@ -1292,7 +1301,7 @@ function spawn(value){
       newLegend.appendChild(div);
     }
     return separations;
-  }
+  //}
 }
 // ***********
 </script>

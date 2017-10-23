@@ -25,7 +25,7 @@
 	    <div class='tooltip'>Register</div>
 	  </div>
 	  <div class='login'>
-	    <h2>Interactive Soil Characterization</h2>
+	    <h2>Performance Measures for Montana Corridor</h2>
 	    <!-- <img src="img/logo.bmp" style="width: 60%; height: 60%"> original -->
       <img src="img/ctis_transparent_2017.png" style="width: 60%; height: 60%"> <br> <br>
       <!-- <img src="" style="height: max-width: 80px; max-height: 80px;" align="right"> -->
