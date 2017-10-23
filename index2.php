@@ -67,198 +67,198 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               <div class="chart" id="chart_area_2"> </div>
             </div>
           </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-6">
-      <div class="row">
-        <div class="chart" id="chart_area_3"> </div>
-      </div>
-    </div>
-    <div class="col-lg-6">
-      <div class="row">
-        <div class="chart" id="chart_area_4"> </div>
-      </div>
-    </div>
-</div>
-</div> <!-- End main column 1 -->
-<div class="col-md-3">
-  <div class="col-md-13">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <center><h3 class="panel-title">Toolbar</h3></center>
-      </div>
-      <div class="panel-body">
-        <!--<div class="row panel panel-default">
-          <label>District:</label>
-          <select id="target" class="form-control">
-            <option value="" disabled selected>Select a district</option>
-            <option value="32.43561304116276, -100.1953125" data-district="abeline">Abilene</option>
-            <option value="35.764343479667176, -101.49169921875" data-district="amarillo">Amarillo</option>
-            <option value="32.69651010951669, -94.691162109375" data-district="atlanta">Atlanta</option>
-            <option value="30.25391637229704, -98.23212890625" data-district="austin">Austin</option>
-            <option value="30.40211367909724, -94.39453125" data-district="beaumont">Beaumont</option>
-            <option value="31.765537409484374, -99.140625" data-district="brownwood">Brownwood</option>
-            <option value="30.894611546632302, -96.30615234375" data-district="bryan">Bryan</option>
-            <option value="34.397844946449865, -100.37109375" data-district="childress">Childress</option>
-            <option value="28.110748760633534, -97.71240234375" data-district="corpus">Corpus Christi</option>
-            <option value="32.54681317351514, -96.85546875" data-district="dallas">Dallas</option>
-            <option value="31.770546, -106.504874" data-district="elPaso">El Paso</option>
-            <option value="32.62087018318113, -97.75634765625" data-district="fortWorth">Fort Worth</option>
-            <option value="29.661670115197377, -95.33935546875" data-district="houston">Houston</option>
-            <option value="28.613459424004418, -99.90966796875" data-district="laredo">Laredo</option>
-            <option value="33.43144133557529, -101.93115234375" data-district="lubbock">Lubbock</option>
-            <option value="31.203404950917395, -94.7021484375" data-district="lufkin">Lufkin</option>
-            <option value="31.203404950917395, -102.568359375" data-district="odessa">Odessa</option>
-            <option value="33.43144133557529, -95.625" data-district="paris">Paris</option>
-            <option value="26.951453083498258, -98.32763671875" data-district="pharr">Pharr</option>
-            <option value="31.10819929911196, -100.48095703125" data-district="sanAngelo">San Angelo</option>
-            <option value="29.13297013087864, -98.89892578125" data-district="sanAntonio">San Antonio</option>
-            <option value="32.222095840502334, -95.33935546875" data-district="tyler">Tyler</option>
-            <option value="31.403404950917395, -97.119140625" data-district="waco">Waco</option>
-            <option value="33.77914733128647, -98.37158203125" data-district="wichitaFalls">Wichita Falls</option>
-            <option value="29.05616970274342, -96.8115234375" data-district="yoakum">Yoakum</option>
-          </select>
-        </div>-->
-        <div class="row panel panel-default">
-          <!--  <center><label>Performance Measures</label></center> -->
-          <div class="row">
-            <ul class="nav nav-tabs">
-              <li class="active"><a data-toggle="tab" href="#default,#defaultbtn" data-target="#default, #defaultbtn">Tools</a></li>
-              <li><a data-toggle="tab" href="#filters,#filtersbtn" data-target="#filters, #filtersbtn">Filter</a></li>
-              <li data-toggle="tooltip" data-placement="top" title="Click your drawn Area Of Interest to display statistics">
-                <a data-toggle="tab" href="#statistics,#statisticsbtn" data-target="#statistics, #statisticsbtn">Statistics</a>
-              </li>
-            </ul>
-            <div class="col-md-5 col-sm-11 col-lg-7">
-              <div class="tab-content">
-                <div id="default" class="tab-pane fade in active"><br>
-                  <center><label> Performance Measures:</label></center>
-                  <div class="input-group">
-                    <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
-                    <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_mpo">
-                      <option value="" disabled selected>Select a performance measure</option>
-                    </select>
-                  </div> <br>
-                  <!--<label> Depth:</label>
-                  <input id="slide_depth" type="text" class="span2" value="" data-slider-min="0" data-slider-max="79" data-slider-step="1" data-slider-value="[0,0]"/> -->
-                  <!---<div class="input-group">
-                  <span class="input-group-addon" id="basic-addon3">To.....</span>
-                  <input type="number" class="form-control" value="0" min="0" placeholder="...inches" id="depthTo" aria-describedby="basic-addon3">
-                </div>
-                <div class="input-group">
-                <span class="input-group-addon" id="basic-addon3">From</span>
-                <input type="number" class="form-control" value="0" min="0" max="77" placeholder="...inches" id="depth" aria-describedby="basic-addon3">
-              </div>-->
-              <label> Method:</label>
-              <select data-toggle="tooltip" data-placement="top" title="Method by which the data will be gathered" id="methods" class="form-control">
-                <option value="" disabled selected>Select method</option>
-                <option value="1" id="max_method">Max</option>
-                <option value="2" id="min_method">Min</option>
-                <option value="3" id="med_method">Median</option>
-                <option value="4" id="weight_method">Weighted average</option>
-                <option value="5" id="specific_method">At Specific Depth</option>
-              </select><br>
-              <div class="input-group">
-                <span data-toggle="tooltip" data-placement="top" title="Number of representations for the data" class="input-group-addon" id="basic-addon3"># labels</span>
-                <input type="number" class="form-control" value="1" min="1"placeholder="...labels" id="labels" aria-describedby="basic-addon3">
-              </div><br>
-            </div>
-            <div id="filters" class="tab-pane fade"><br>
-              <div class="form-check">
-                <p class="form-check-label">
-                  <input class="form-check-input" type="radio" name="radios" id="biggerThan" value="bigger">
-                  Color polygons that are bigger than the unit value
-                </p>
-              </div>
-              <div class="form-check">
-                <p class="form-check-label">
-                  <input class="form-check-input" type="radio" name="radios" id="smallerThan" value="smaller">
-                  Color polygons that are smaller than the unit value
-                </p>
-              </div>
-              <div class="form-check">
-                <p class="form-check-label">
-                  <input class="form-check-input" type="radio" name="radios" id="equalTo" value="equal">
-                  Color polygons that are equal to the unit value
-                </p>
-              </div>
-              <div class="input-group">
-                <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
-                <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_prop_filters">
-                  <option value="" disabled selected>Select a ground property</option>
-                </select>
-              </div> <br>
-              <div class="input-group">
-                <span data-toggle="tooltip" data-placement="top" title="The unit value used to compare the data values" class="input-group-addon" id="basic-addon3">unit</span>
-                <input type="number" class="form-control" value="1" min="0"placeholder="...units" id="filter_units" aria-describedby="basic-addon3">
-              </div><br>
-              <div class="input-group">
-                <span class="input-group-addon" id="basic-addon3"># labels</span>
-                <input type="number" class="form-control" value="1" min="1"placeholder="...labels" id="labels_filter" aria-describedby="basic-addon3">
-              </div><br>
-            </div>
-            <div id="statistics" class="tab-pane fade"><br>
-              <!--
-              <label>Select parameters:</label>
-              <div class="input-group">
-                <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
-                <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_chart_1">
-                  <option value="" disabled selected>Select a ground property</option>
-                </select>
-              </div> <br>
-              <div class="input-group" style='visibility: hidden' id="chartAppear1">
-                <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
-                <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_chart_2">
-                  <option value="" disabled selected>Select a ground property</option>
-                </select>
-              </div> <br>
-              <div class="input-group" style='visibility: hidden' id="chartAppear2">
-                <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
-                <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_chart_3">
-                  <option value="" disabled selected>Select a ground property</option>
-                </select>
-              </div> <br>
-              <div class="input-group" style='visibility: hidden' id="chartAppear3">
-                <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
-                <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_chart_4">
-                  <option value="" disabled selected>Select a ground property</option>
-                </select>
-              </div> <br> -->
-            </div>
-          </div>
-        </div> <!--end column for selectors-->
-        <div class="col-md-5"><br>
-          <div class="tab-content">
-            <div id="defaultbtn" class="tab-pane fade in active">
-              <button data-toggle="tooltip" data-placement="top" title="Bring up the data for the whole section currently displayed on the map" class="btn btn-success form-control" type="button" id="run" onClick="getPolygonsHelper()">Run</button><br><br>
-              <button data-toggle="tooltip" data-placement="top" title="Only bring up the data touched by the Area Of Interest" class="btn btn-success form-control" type="button" id="runAOI" onClick="runAOI()">Run AOI</button><br><br>
-              <button class="btn btn-warning form-control" type="button" id="clear" onClick="removePolygons()">Clear</button><br><br>
-              <!--<button type="button" class="map-print" id="print" onClick="printMaps()">Print</button><br><br>-->
-              <!--<a href="./ctis_isc_polygon.kml" download><button type="button" class="btn btn-outline-secondary form-control" id="download_kml" onClick="clearKML()">KML</button></a>-->
-              <button type="button" class="btn btn-default form-control" id="mpo_draw" onclick="mpo();">Draw</button><br><br>
-            </div>
-            <div id="filtersbtn" class="tab-pane fade"><br><br><br><br>
-              <button class="btn btn-success form-control" type="button" id="runFilters" onClick="runFilters()">Run Filter</button>
-            </div>
-            <br>
-            <div id="statisticsbtn" class="tab-pane fade">
-              <button type="button" class="btn btn-default form-control" id="draw" onclick="drawAnotherRectangle();">Clear AOI</button><br><br>
-              <button type="button" class="btn btn-default form-control" id="clearCharts" onclick="clearCharts();">Clear Charts</button><br><br>
-            </div>
-            <div id="mpobtn" class="tab-pane fade">
-              <button type="button" class="btn btn-default form-control" id="mpo_draw" onclick="mpo();">Draw</button><br><br>
-            </div>
-          </div> <!-- end column for buttons-->
         </div>
         <div class="row">
-          <div class="col-sm-12">
-            <div id="legend" style='visibility: visible'>
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="chart" id="chart_area_3"> </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="chart" id="chart_area_4"> </div>
             </div>
           </div>
         </div>
-      </div>
+      </div> <!-- End main column 1 -->
+      <div class="col-md-3">
+        <div class="col-md-13">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <center><h3 class="panel-title">Toolbar</h3></center>
+            </div>
+            <div class="panel-body">
+              <!--<div class="row panel panel-default">
+              <label>District:</label>
+              <select id="target" class="form-control">
+              <option value="" disabled selected>Select a district</option>
+              <option value="32.43561304116276, -100.1953125" data-district="abeline">Abilene</option>
+              <option value="35.764343479667176, -101.49169921875" data-district="amarillo">Amarillo</option>
+              <option value="32.69651010951669, -94.691162109375" data-district="atlanta">Atlanta</option>
+              <option value="30.25391637229704, -98.23212890625" data-district="austin">Austin</option>
+              <option value="30.40211367909724, -94.39453125" data-district="beaumont">Beaumont</option>
+              <option value="31.765537409484374, -99.140625" data-district="brownwood">Brownwood</option>
+              <option value="30.894611546632302, -96.30615234375" data-district="bryan">Bryan</option>
+              <option value="34.397844946449865, -100.37109375" data-district="childress">Childress</option>
+              <option value="28.110748760633534, -97.71240234375" data-district="corpus">Corpus Christi</option>
+              <option value="32.54681317351514, -96.85546875" data-district="dallas">Dallas</option>
+              <option value="31.770546, -106.504874" data-district="elPaso">El Paso</option>
+              <option value="32.62087018318113, -97.75634765625" data-district="fortWorth">Fort Worth</option>
+              <option value="29.661670115197377, -95.33935546875" data-district="houston">Houston</option>
+              <option value="28.613459424004418, -99.90966796875" data-district="laredo">Laredo</option>
+              <option value="33.43144133557529, -101.93115234375" data-district="lubbock">Lubbock</option>
+              <option value="31.203404950917395, -94.7021484375" data-district="lufkin">Lufkin</option>
+              <option value="31.203404950917395, -102.568359375" data-district="odessa">Odessa</option>
+              <option value="33.43144133557529, -95.625" data-district="paris">Paris</option>
+              <option value="26.951453083498258, -98.32763671875" data-district="pharr">Pharr</option>
+              <option value="31.10819929911196, -100.48095703125" data-district="sanAngelo">San Angelo</option>
+              <option value="29.13297013087864, -98.89892578125" data-district="sanAntonio">San Antonio</option>
+              <option value="32.222095840502334, -95.33935546875" data-district="tyler">Tyler</option>
+              <option value="31.403404950917395, -97.119140625" data-district="waco">Waco</option>
+              <option value="33.77914733128647, -98.37158203125" data-district="wichitaFalls">Wichita Falls</option>
+              <option value="29.05616970274342, -96.8115234375" data-district="yoakum">Yoakum</option>
+            </select>
+          </div>-->
+          <div class="row panel panel-default">
+            <!--  <center><label>Performance Measures</label></center> -->
+            <div class="row">
+              <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#default,#defaultbtn" data-target="#default, #defaultbtn">Tools</a></li>
+                <li><a data-toggle="tab" href="#filters,#filtersbtn" data-target="#filters, #filtersbtn">Filter</a></li>
+                <li data-toggle="tooltip" data-placement="top" title="Click your drawn Area Of Interest to display statistics">
+                  <a data-toggle="tab" href="#statistics,#statisticsbtn" data-target="#statistics, #statisticsbtn">Statistics</a>
+                </li>
+              </ul>
+              <div class="col-md-5 col-sm-11 col-lg-7">
+                <div class="tab-content">
+                  <div id="default" class="tab-pane fade in active"><br>
+                    <center><label> Performance Measures:</label></center>
+                    <div class="input-group">
+                      <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
+                      <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_mpo">
+                        <option value="" disabled selected>Select a performance measure</option>
+                      </select>
+                    </div> <br>
+                    <!--<label> Depth:</label>
+                    <input id="slide_depth" type="text" class="span2" value="" data-slider-min="0" data-slider-max="79" data-slider-step="1" data-slider-value="[0,0]"/> -->
+                    <!---<div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3">To.....</span>
+                    <input type="number" class="form-control" value="0" min="0" placeholder="...inches" id="depthTo" aria-describedby="basic-addon3">
+                  </div>
+                  <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon3">From</span>
+                  <input type="number" class="form-control" value="0" min="0" max="77" placeholder="...inches" id="depth" aria-describedby="basic-addon3">
+                </div>-->
+                <label> Method:</label>
+                <select data-toggle="tooltip" data-placement="top" title="Method by which the data will be gathered" id="methods" class="form-control">
+                  <option value="" disabled selected>Select method</option>
+                  <option value="1" id="max_method">Max</option>
+                  <option value="2" id="min_method">Min</option>
+                  <option value="3" id="med_method">Median</option>
+                  <option value="4" id="weight_method">Weighted average</option>
+                  <option value="5" id="specific_method">At Specific Depth</option>
+                </select><br>
+                <div class="input-group">
+                  <span data-toggle="tooltip" data-placement="top" title="Number of representations for the data" class="input-group-addon" id="basic-addon3"># labels</span>
+                  <input type="number" class="form-control" value="1" min="1"placeholder="...labels" id="labels" aria-describedby="basic-addon3">
+                </div><br>
+              </div>
+              <div id="filters" class="tab-pane fade"><br>
+                <div class="form-check">
+                  <p class="form-check-label">
+                    <input class="form-check-input" type="radio" name="radios" id="biggerThan" value="bigger">
+                    Color polygons that are bigger than the unit value
+                  </p>
+                </div>
+                <div class="form-check">
+                  <p class="form-check-label">
+                    <input class="form-check-input" type="radio" name="radios" id="smallerThan" value="smaller">
+                    Color polygons that are smaller than the unit value
+                  </p>
+                </div>
+                <div class="form-check">
+                  <p class="form-check-label">
+                    <input class="form-check-input" type="radio" name="radios" id="equalTo" value="equal">
+                    Color polygons that are equal to the unit value
+                  </p>
+                </div>
+                <div class="input-group">
+                  <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
+                  <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_prop_filters">
+                    <option value="" disabled selected>Select a ground property</option>
+                  </select>
+                </div> <br>
+                <div class="input-group">
+                  <span data-toggle="tooltip" data-placement="top" title="The unit value used to compare the data values" class="input-group-addon" id="basic-addon3">unit</span>
+                  <input type="number" class="form-control" value="1" min="0"placeholder="...units" id="filter_units" aria-describedby="basic-addon3">
+                </div><br>
+                <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon3"># labels</span>
+                  <input type="number" class="form-control" value="1" min="1"placeholder="...labels" id="labels_filter" aria-describedby="basic-addon3">
+                </div><br>
+              </div>
+              <div id="statistics" class="tab-pane fade"><br>
+                <!--
+                <label>Select parameters:</label>
+                <div class="input-group">
+                <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
+                <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_chart_1">
+                <option value="" disabled selected>Select a ground property</option>
+              </select>
+            </div> <br>
+            <div class="input-group" style='visibility: hidden' id="chartAppear1">
+            <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
+            <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_chart_2">
+            <option value="" disabled selected>Select a ground property</option>
+          </select>
+        </div> <br>
+        <div class="input-group" style='visibility: hidden' id="chartAppear2">
+        <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
+        <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_chart_3">
+        <option value="" disabled selected>Select a ground property</option>
+      </select>
+    </div> <br>
+    <div class="input-group" style='visibility: hidden' id="chartAppear3">
+    <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
+    <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_chart_4">
+    <option value="" disabled selected>Select a ground property</option>
+  </select>
+</div> <br> -->
+</div>
+</div>
+</div> <!--end column for selectors-->
+<div class="col-md-5"><br>
+  <div class="tab-content">
+    <div id="defaultbtn" class="tab-pane fade in active">
+      <button data-toggle="tooltip" data-placement="top" title="Bring up the data for the whole section currently displayed on the map" class="btn btn-success form-control" type="button" id="run" onClick="getPolygonsHelper()">Run</button><br><br>
+      <button data-toggle="tooltip" data-placement="top" title="Only bring up the data touched by the Area Of Interest" class="btn btn-success form-control" type="button" id="runAOI" onClick="runAOI()">Run AOI</button><br><br>
+      <button class="btn btn-warning form-control" type="button" id="clear" onClick="removePolygons()">Clear</button><br><br>
+      <!--<button type="button" class="map-print" id="print" onClick="printMaps()">Print</button><br><br>-->
+      <!--<a href="./ctis_isc_polygon.kml" download><button type="button" class="btn btn-outline-secondary form-control" id="download_kml" onClick="clearKML()">KML</button></a>-->
+      <button type="button" class="btn btn-default form-control" id="mpo_draw" onclick="mpo();">Draw</button><br><br>
+    </div>
+    <div id="filtersbtn" class="tab-pane fade"><br><br><br><br>
+      <button class="btn btn-success form-control" type="button" id="runFilters" onClick="runFilters()">Run Filter</button>
+    </div>
+    <br>
+    <div id="statisticsbtn" class="tab-pane fade">
+      <button type="button" class="btn btn-default form-control" id="draw" onclick="drawAnotherRectangle();">Clear AOI</button><br><br>
+      <button type="button" class="btn btn-default form-control" id="clearCharts" onclick="clearCharts();">Clear Charts</button><br><br>
+    </div>
+    <div id="mpobtn" class="tab-pane fade">
+      <button type="button" class="btn btn-default form-control" id="mpo_draw" onclick="mpo();">Draw</button><br><br>
+    </div>
+  </div> <!-- end column for buttons-->
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <div id="legend" style='visibility: visible'>
     </div>
   </div>
+</div>
+</div>
+</div>
+</div>
 </div> <!-- End main column 2 -->
 </div>
 <script src="js/jquery.js"></script>
@@ -276,124 +276,124 @@ var hecho = false;
 var depth = app.payload.depth;
 $(document).ready(function(){
   /*$("#slide_depth").slider({
-    natural_arrow_keys: true,
-    //range: true,
-    formatter: function(value) {
-      return 'From: ' + value[0] + ' inches, To: ' + value[1] + ' inches';
-    }
-  });
-  $("#slide_depth").on("slide", function(e) {
-    depth = e.value[1];
-    app.payload.from_depth = e.value[0];
-  });
-  $("#slide_depth").on("change", function(e) {
-    depth = e.value.newValue[1];
-    app.payload.from_depth = e.value.newValue[0];
-  });*/
+  natural_arrow_keys: true,
+  //range: true,
+  formatter: function(value) {
+  return 'From: ' + value[0] + ' inches, To: ' + value[1] + ' inches';
+}
+});
+$("#slide_depth").on("slide", function(e) {
+depth = e.value[1];
+app.payload.from_depth = e.value[0];
+});
+$("#slide_depth").on("change", function(e) {
+depth = e.value.newValue[1];
+app.payload.from_depth = e.value.newValue[0];
+});*/
 
-  $('[data-toggle="tooltip"]').tooltip();
+$('[data-toggle="tooltip"]').tooltip();
 
-  /*$.post('polygonHandler.php', {'columns': true}, function(result){
-    var properties;
-    if(result.hasOwnProperty('columns')){
-      properties = $.map(result.columns, function(val, i){
-        return {value: val[2], data: val[1], table: val[3]};
-      });
-    }
-    /*var divs = [];
-    var selectProp = document.getElementById("selectProp");
-    var ch1 = document.getElementById("select_chart_1");
-    var ch2 = document.getElementById("select_chart_2");
-    var ch3 = document.getElementById("select_chart_3");
-    var ch4 = document.getElementById("select_chart_4");
-    var filt = document.getElementById("select_prop_filters");
-    divs.push(selectProp, ch1, ch2, ch3, ch4, filt);
-    var prop = [];
-    for(var i = 0; i < 37; i++){
-      prop.push({number: i, value: null, table: null});
-    }
-    for (var i = 0; i < properties.length; i++) {
-      prop[i].number = i;
-      prop[i].value = properties[i].value;
-      prop[i].data = properties[i].data;
-      prop[i].table = properties[i].table;
-    }
-    for (var j = 0; j < divs.length; j++) {
-      for(var i = 0; i < properties.length; i++) {
-        var propr = prop[i].number;
-        var elem = document.createElement("option");
-        elem.textContent = prop[i].value;
-        elem.value = propr;
-        elem.data = prop[i].data;
-        elem.table = prop[i].table;
-        divs[j].appendChild(elem);
-      }
-    }
-    $("#selectProp").change(function(){
-      app.payload.property =  prop[this.value].data; //ex. pi_r
-      app.payload.table =  prop[this.value].table;
-      app.payload.value =  prop[this.value].value;
-    });
-    $("#chartAppear1").hide();
-    $("#chartAppear2").hide();
-    $("#chartAppear3").hide();
-    $("#select_chart_1").change(function(){
-      document.getElementById('chartAppear1').style.visibility = "visible";
-      app.payload.chart1 =  prop[this.value].data;
-      app.payload.chart1n = prop[this.value].value;
-      $("#chartAppear1").show();
-    });
-    $("#select_chart_2").change(function(){
-      document.getElementById('chartAppear2').style.visibility = "visible";
-      app.payload.chart2 =  prop[this.value].data;
-      app.payload.chart2n = prop[this.value].value;
-      $("#chartAppear2").show();
-    });
-    $("#select_chart_3").change(function(){
-      document.getElementById('chartAppear3').style.visibility = "visible";
-      app.payload.chart3 =  prop[this.value].data;
-      app.payload.chart3n = prop[this.value].value;
-      $("#chartAppear3").show();
-    });
-    $("#select_chart_4").change(function(){
-      app.payload.chart4 =  prop[this.value].data;
-      app.payload.chart4n = prop[this.value].value;
-    });
-    $("#select_prop_filters").change(function(){
-      app.payload.filter_prop =  prop[this.value].data;
-      app.payload.filter_prop_n = prop[this.value].value;
-    });
-    $("#biggerThan,#smallerThan,#equalTo").click(function(){
-      app.payload.filter_value = this.value;
-    });
-    $("#labels,#run,#default,#defaultbtn").click(function(){
-      app.label = "no filter";
-    });
-    $("#labels_filter,#filters,#filtersbtn").click(function(){
-      app.label = "filter";
-    });
-    $('#target').on('change', setDistrict);
-  });*/
+/*$.post('polygonHandler.php', {'columns': true}, function(result){
+var properties;
+if(result.hasOwnProperty('columns')){
+properties = $.map(result.columns, function(val, i){
+return {value: val[2], data: val[1], table: val[3]};
+});
+}
+/*var divs = [];
+var selectProp = document.getElementById("selectProp");
+var ch1 = document.getElementById("select_chart_1");
+var ch2 = document.getElementById("select_chart_2");
+var ch3 = document.getElementById("select_chart_3");
+var ch4 = document.getElementById("select_chart_4");
+var filt = document.getElementById("select_prop_filters");
+divs.push(selectProp, ch1, ch2, ch3, ch4, filt);
+var prop = [];
+for(var i = 0; i < 37; i++){
+prop.push({number: i, value: null, table: null});
+}
+for (var i = 0; i < properties.length; i++) {
+prop[i].number = i;
+prop[i].value = properties[i].value;
+prop[i].data = properties[i].data;
+prop[i].table = properties[i].table;
+}
+for (var j = 0; j < divs.length; j++) {
+for(var i = 0; i < properties.length; i++) {
+var propr = prop[i].number;
+var elem = document.createElement("option");
+elem.textContent = prop[i].value;
+elem.value = propr;
+elem.data = prop[i].data;
+elem.table = prop[i].table;
+divs[j].appendChild(elem);
+}
+}
+$("#selectProp").change(function(){
+app.payload.property =  prop[this.value].data; //ex. pi_r
+app.payload.table =  prop[this.value].table;
+app.payload.value =  prop[this.value].value;
+});
+$("#chartAppear1").hide();
+$("#chartAppear2").hide();
+$("#chartAppear3").hide();
+$("#select_chart_1").change(function(){
+document.getElementById('chartAppear1').style.visibility = "visible";
+app.payload.chart1 =  prop[this.value].data;
+app.payload.chart1n = prop[this.value].value;
+$("#chartAppear1").show();
+});
+$("#select_chart_2").change(function(){
+document.getElementById('chartAppear2').style.visibility = "visible";
+app.payload.chart2 =  prop[this.value].data;
+app.payload.chart2n = prop[this.value].value;
+$("#chartAppear2").show();
+});
+$("#select_chart_3").change(function(){
+document.getElementById('chartAppear3').style.visibility = "visible";
+app.payload.chart3 =  prop[this.value].data;
+app.payload.chart3n = prop[this.value].value;
+$("#chartAppear3").show();
+});
+$("#select_chart_4").change(function(){
+app.payload.chart4 =  prop[this.value].data;
+app.payload.chart4n = prop[this.value].value;
+});
+$("#select_prop_filters").change(function(){
+app.payload.filter_prop =  prop[this.value].data;
+app.payload.filter_prop_n = prop[this.value].value;
+});
+$("#biggerThan,#smallerThan,#equalTo").click(function(){
+app.payload.filter_value = this.value;
+});
+$("#labels,#run,#default,#defaultbtn").click(function(){
+app.label = "no filter";
+});
+$("#labels_filter,#filters,#filtersbtn").click(function(){
+app.label = "filter";
+});
+$('#target').on('change', setDistrict);
+});*/
 
-  var performance_measures = [
-    "A-2-3 Car Free HHs"
-  ];
-  var select_mpo = document.getElementById("select_mpo");
-  for(var i = 0; i < performance_measures.length; i++) {
-    var elem = document.createElement("option");
-    elem.textContent = performance_measures[i];
-    elem.value = "A23";
-    select_mpo.appendChild(elem);
-  }
-  $("#select_mpo").change(function(){
-    console.log(this.value);
-  });
+var performance_measures = [
+  "A-2-3 Car Free HHs"
+];
+var select_mpo = document.getElementById("select_mpo");
+for(var i = 0; i < performance_measures.length; i++) {
+  var elem = document.createElement("option");
+  elem.textContent = performance_measures[i];
+  elem.value = "A23";
+  select_mpo.appendChild(elem);
+}
+$("#select_mpo").change(function(){
+  console.log(this.value);
+});
 
-  app.payload.district = $('#target').children("option:selected").data('district');
-  $("#methods").change(function(){ //0: max / 1: min / 2: median / 3: weight/
-    app.payload.depth_method = this.value;
-  });
-  $("#legend").hide();
+//app.payload.district = $('#target').children("option:selected").data('district');
+$("#methods").change(function(){ //0: max / 1: min / 2: median / 3: weight/
+  app.payload.depth_method = this.value;
+});
+$("#legend").hide();
 });
 function runAOI(){
   app.payload.runAOI = true;
@@ -422,6 +422,7 @@ function runFilters(){
 
 
 function mpo(){
+  $('#legend').hide();
   removePolygons();
   var getparams = app.payload;
   //app.polygons = [];
@@ -430,33 +431,35 @@ function mpo(){
   getparams.SW = bounds.getSouthWest().toJSON(); //south-west corner
   var to_send = {NE:getparams.NE, SW: getparams.SW};
   $.get('mpo_handler.php', to_send, function(data){
-
     shapecolor = ["#84857B", "#13FF00", "#009BFF", "#EBF20D", "#fe9253", "#FF0000", "#8C0909", "#0051FF", "#AB77FF", "#EBF20D", "#8C0909", "#07FDCA", "#008C35", "FFDBA5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
     shapeoutline = ["#000000", "#0b9b00", "#007fd1", "#aaaf0a", "#d18f0a", "#c10000", "#8c0909", "#0037ad", "#873dff", "#aaaf0a", "8c0909", "36c9bd", "#008c35", "#ffdba5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
     colorSelector = 0;
     newzIndex = 0;
     legendText = "";
     maximum = -1;
-    //console.log(typeof data);
-    console.log(data.coords.length);
-    //console.log(data);
-    //var myObject = {0: 8, 1: 9, 2: 10};
-    //length = Object.keys(data.coords).length;
-    //console.log(length);
     for(var i = 0; i < data.coords.length; i++){
       if(maximum < parseFloat(data.coords[i]['value'])){
         maximum = data.coords[i]['value'];
       }
     }
-    console.log(maximum);
     var div = document.createElement('div');
     div.innerHTML = "<strong>" + "Legend for " + "Car Free" + "</strong>";
     var l = document.createElement('div');
     l = document.getElementById('legend');
     l.appendChild(div);
-
+    var num_labels = spawn(maximum);
     for(key in data.coords){
       var polyCoordis = [];
+      var valor_actual = parseFloat(data.coords[key]['value']);
+      colorSelector = 0;
+      if(valor_actual == 0){
+        colorSelector = 1;
+      }
+      for(var i = 0; i < num_labels.length; i++){
+        if(valor_actual > num_labels[i]){
+          colorSelector = i+1;
+        }
+      }
       temp = wktFormatter(data.coords[key]['POLYGON']);
       for (var i = 0; i < temp.length; i++) {
         polyCoordis.push(temp[i]);
@@ -465,10 +468,10 @@ function mpo(){
         description: "b_carfrhh", //value that appears when you click the map
         description_value: data.coords[key]['value'],
         paths: polyCoordis,
-        strokeColor: colorSelector,
+        strokeColor: shapeoutline[colorSelector],
         strokeOpacity: 0.60,
         strokeWeight: 0.70,
-        fillColor: colorSelector,
+        fillColor: shapecolor[colorSelector],
         fillOpacity: 0.60,
         zIndex: -1
       });
@@ -476,6 +479,13 @@ function mpo(){
       polygon.addListener('click', polyInfo);
       app.polygons.push(polygon);
       polygon.setMap(app.map);
+    }
+  }).done(function(data){
+    if($('#legend').css('display')=='none'){
+      $('#legend').slideToggle("slow");
+    }
+    else{
+      $('#legend').slideToggle("fast");
     }
   });
 }
