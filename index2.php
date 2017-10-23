@@ -272,7 +272,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 //Components.utils.import("resource://gre/modules/osfile.jsm");
 
 var app = {map:null, polygons:null, label:"no filter", payload:{getMode:"polygons", runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, property:null, district:null, depth:0, from_depth:0, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0}};
-var pm = {name_pm:null};
+var pm_mpo = {name_pm:null, pm:null};
 var hecho = false;
 var depth = app.payload.depth;
 $(document).ready(function(){
@@ -377,18 +377,26 @@ $('#target').on('change', setDistrict);
 });*/
 
 var performance_measures = [
-  "A-2-3) Car Free HHs"
+  "A-2-3) Car Free HHs", "A-2-4) Tpt disadvantaged HHs"
+];
+var pm_attributes = [
+  "b_carfrhh", "B_TpDisadv"
 ];
 var select_mpo = document.getElementById("select_mpo");
 for(var i = 0; i < performance_measures.length; i++) {
   var elem = document.createElement("option");
+  elem.id = pm_attributes[i];
   elem.textContent = performance_measures[i];
   elem.value = performance_measures[i];
   select_mpo.appendChild(elem);
 }
 $("#select_mpo").change(function(){
-  console.log(this.value);
-  pm.name_pm = this.value;
+  pm_mpo.name_pm = this.value;
+  for (var i = 0; i < performance_measures.length; i++) {
+    if(performance_measures[i] == this.value){
+      pm_mpo.pm = pm_attributes[i];
+    }
+  }
 });
 
 //app.payload.district = $('#target').children("option:selected").data('district');
@@ -431,7 +439,7 @@ function mpo(){
   var bounds = app.map.getBounds();
   getparams.NE = bounds.getNorthEast().toJSON(); //north east corner
   getparams.SW = bounds.getSouthWest().toJSON(); //south-west corner
-  var to_send = {NE:getparams.NE, SW: getparams.SW};
+  var to_send = {pm:pm_mpo.pm, NE:getparams.NE, SW: getparams.SW};
   $.get('mpo_handler.php', to_send, function(data){
     shapecolor = ["#84857B", "#13FF00", "#009BFF", "#EBF20D", "#fe9253", "#FF0000", "#8C0909", "#0051FF", "#AB77FF", "#EBF20D", "#8C0909", "#07FDCA", "#008C35", "FFDBA5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
     shapeoutline = ["#000000", "#0b9b00", "#007fd1", "#aaaf0a", "#d18f0a", "#c10000", "#8c0909", "#0037ad", "#873dff", "#aaaf0a", "8c0909", "36c9bd", "#008c35", "#ffdba5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
@@ -450,7 +458,7 @@ function mpo(){
       maximum = 1;
     }
     var div = document.createElement('div');
-    div.innerHTML = "<strong>" + "Legend for " + pm.name_pm + "</strong>";
+    div.innerHTML = "<strong>" + "Legend for " + pm_mpo.name_pm + "</strong>";
     var l = document.createElement('div');
     l = document.getElementById('legend');
     l.appendChild(div);
@@ -474,7 +482,7 @@ function mpo(){
         polyCoordis.push(temp[i]);
       }
       var polygon = new google.maps.Polygon({
-        description: pm.name_pm, //value that appears when you click the map
+        description: pm_mpo.name_pm, //value that appears when you click the map
         description_value: data.coords[key]['value'],
         paths: polyCoordis,
         strokeColor: shapeoutline[colorSelector],
