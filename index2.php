@@ -377,10 +377,10 @@ $('#target').on('change', setDistrict);
 });*/
 
 var performance_measures = [
-  "A-2-3) Car Free HHs", "A-2-4) Tpt disadvantaged HHs"
+  "A-2-3) Car Free HHs", "A-2-4) Tpt disadvantaged HHs", "B-1-4) Jobs Housing Ratio"
 ];
 var pm_attributes = [
-  "b_carfrhh", "B_TpDisadv"
+  "b_carfrhh", "B_TpDisadv", "b_jobphh"
 ];
 var select_mpo = document.getElementById("select_mpo");
 for(var i = 0; i < performance_measures.length; i++) {
