@@ -462,6 +462,7 @@ function mpo(){
     var l = document.createElement('div');
     l = document.getElementById('legend');
     l.appendChild(div);
+    maximum++;
     var num_labels = spawn(maximum);
     //console.log("num_labels: "+num_labels);
     //console.log(data);
