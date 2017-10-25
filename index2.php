@@ -399,12 +399,27 @@ function mpo(){
   $('#legend').hide();
   removePolygons();
   pm_mpo.getMode = "polygons";
-  var getparams = app.payload;
+  if(pm_mpo.runAOI == true && typeof rec != 'undefined' && rec.type == 'rectangle'){
+    var getparams = app.payload;
+    var bounds = rec.getBounds();
+    getparams.NE = bounds.getNorthEast().toJSON();
+    getparams.SW = bounds.getSouthWest().toJSON();
+    pm_mpo.NE = getparams.NE;
+    pm_mpo.SW = getparams.SW;
+  }
+  else{
+    var getparams = app.payload;
+    var bounds = app.map.getBounds();
+    getparams.NE = bounds.getNorthEast().toJSON(); //north east corner
+    getparams.SW = bounds.getSouthWest().toJSON(); //south-west corner
+    pm_mpo.NE = getparams.NE;
+    pm_mpo.SW = getparams.SW;
+  }
+  /*var getparams = app.payload;
   var bounds = app.map.getBounds();
   getparams.NE = bounds.getNorthEast().toJSON(); //north east corner
-  getparams.SW = bounds.getSouthWest().toJSON(); //south-west corner
-  pm_mpo.NE = getparams.NE;
-  pm_mpo.SW = getparams.SW;
+  getparams.SW = bounds.getSouthWest().toJSON(); //south-west corner*/
+
   //var to_send = {pm:pm_mpo.pm, NE:getparams.NE, SW: getparams.SW};
   $.get('mpo_handler.php', pm_mpo, function(data){
     shapecolor = ["#84857B", "#13FF00", "#009BFF", "#EBF20D", "#fe9253", "#FF0000", "#8C0909", "#0051FF", "#AB77FF", "#EBF20D", "#8C0909", "#07FDCA", "#008C35", "FFDBA5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
@@ -469,6 +484,8 @@ function mpo(){
     else{
       $('#legend').slideToggle("fast");
     }
+    pm_mpo.runAOI = false;
+    pm_mpo.runFilters = false;
   });
 }
 
@@ -792,7 +809,6 @@ function initialize () {
 }
 var rec, rectangle, map, infoWindow, selectedRec, drawingManager, paths;
 function initMap() {
-  //31.7910342,-106.409785,12z
   app.map = new google.maps.Map(document.getElementById('map'), {
     zoom: 11,
     center: new google.maps.LatLng(31.7910342,-106.409785),
@@ -877,10 +893,10 @@ function initMap() {
 
 function drawAnotherRectangle(){
   if (selectedRec) {
-    app.payload.lineString = null;
-    app.payload.runLine = false;
-    app.payload.runPoly = false;
-    app.payload.runRec = false;
+    pm_mpo.lineString = null;
+    pm_mpo.runLine = false;
+    pm_mpo.runPoly = false;
+    pm_mpo.runRec = false;
     selectedRec.setMap(null);
     infoWindow.close();
     drawingManager.setOptions({
@@ -916,7 +932,7 @@ function drawAnotherRectangle(){
 
 function deleteSelectedShape() {
   if (selectedShape) {
-    app.payload.AoI = 0;
+    pm_mpo.AoI = 0;
     selectedShape.setMap(null);
     drawingManager.setOptions({
       drawingControl: true
@@ -970,7 +986,7 @@ var chart, chart_2, chart_3, chart_4, chart_histo, chart_histo_2, chart_histo_3,
 function nullSelector(x){
   for (var i = 0; i < 4; i++) {
     if(x != i){
-      var temp = 'app.payload.chart'+(i+1)+' = null;';
+      var temp = 'pm_mpo.chart'+(i+1)+' = null;';
       temp = eval(temp);
     }
   }
@@ -978,7 +994,7 @@ function nullSelector(x){
 function nullChecker(){
   var nulls = [];
   for (var i = 0; i < 4; i++) {
-    var temp = 'app.payload.chart'+(i+1);
+    var temp = 'pm_mpo.chart'+(i+1);
     temp = eval(temp);
     if(temp == null){
       var n = (i+1);
@@ -1119,7 +1135,7 @@ app.payload.chart4 = previous4;
 }
 
 function lineParser(){
-  app.payload.getMode = "line";
+  pm_mpo.getMode = "line";
   var lineString = "";
   paths = rec.getPath();
   paths = paths.getArray();
@@ -1132,11 +1148,11 @@ function lineParser(){
       lineString += paths[i].lng() + ' ' + paths[i].lat();
     }
   }
-  app.payload.lineString = lineString;
-  app.payload.runLine = true;
+  pm_mpo.lineString = lineString;
+  pm_mpo.runLine = true;
 }
 function polyParser(){
-  app.payload.getMode = "line";
+  pm_mpo.getMode = "line";
   var lineString = "";
   var first = "";
   var count = 0;
@@ -1156,8 +1172,8 @@ function polyParser(){
     }
   }
   lineString += first;
-  app.payload.lineString = lineString;
-  app.payload.runPoly = true;
+  pm_mpo.lineString = lineString;
+  pm_mpo.runPoly = true;
 }
 /******************************************************************************/
 function clearCharts(){
