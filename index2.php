@@ -132,7 +132,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               <div class="col-md-5 col-sm-11 col-lg-7">
                 <div class="tab-content">
                   <div id="default" class="tab-pane fade in active"><br>
-                    <center><label> Performance Measures:</label></center>
+                    <center><label> Performance Measures:</label></center><br>
                     <div class="input-group">
                       <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
                       <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_mpo">
@@ -149,7 +149,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   <span class="input-group-addon" id="basic-addon3">From</span>
                   <input type="number" class="form-control" value="0" min="0" max="77" placeholder="...inches" id="depth" aria-describedby="basic-addon3">
                 </div>-->
-                <label> Method:</label>
+                <!-- <label> Method:</label>
                 <select data-toggle="tooltip" data-placement="top" title="Method by which the data will be gathered" id="methods" class="form-control">
                   <option value="" disabled selected>Select method</option>
                   <option value="1" id="max_method">Max</option>
@@ -157,7 +157,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   <option value="3" id="med_method">Median</option>
                   <option value="4" id="weight_method">Weighted average</option>
                   <option value="5" id="specific_method">At Specific Depth</option>
-                </select><br>
+                </select><br> -->
                 <div class="input-group">
                   <span data-toggle="tooltip" data-placement="top" title="Number of representations for the data" class="input-group-addon" id="basic-addon3"># labels</span>
                   <input type="number" class="form-control" value="1" min="1"placeholder="...labels" id="labels" aria-describedby="basic-addon3">
