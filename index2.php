@@ -198,7 +198,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 </div><br>
               </div>
               <div id="statistics" class="tab-pane fade"><br>
-                <!--
+
                 <label>Select parameters:</label>
                 <div class="input-group">
                 <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
@@ -218,7 +218,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         <option value="" disabled selected>Select a ground property</option>
       </select>
     </div> <br>
-    <div class="input-group" style='visibility: hidden' id="chartAppear3">
+    <!--<div class="input-group" style='visibility: hidden' id="chartAppear3">
     <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
     <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_chart_4">
     <option value="" disabled selected>Select a ground property</option>
@@ -232,7 +232,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     <div id="defaultbtn" class="tab-pane fade in active">
       <!--<button data-toggle="tooltip" data-placement="top" title="Bring up the data for the whole section currently displayed on the map" class="btn btn-success form-control" type="button" id="run" onClick="getPolygonsHelper()">Run</button><br><br>
       <button data-toggle="tooltip" data-placement="top" title="Only bring up the data touched by the Area Of Interest" class="btn btn-success form-control" type="button" id="runAOI" onClick="runAOI()">Run AOI</button><br><br> -->
-      <br><br><br><br><button type="button" class="btn btn-success form-control" id="mpo_draw" onclick="mpo();">Draw</button><br><br>
+      <br><br><button type="button" class="btn btn-success form-control" id="mpo_draw" onclick="mpo();">Draw</button><br><br>
+      <button data-toggle="tooltip" data-placement="top" title="Only bring up the data touched by the Area Of Interest" class="btn btn-success form-control" type="button" id="runAOI" onClick="runAOI()">Run AOI</button> <br><br>
       <button class="btn btn-warning form-control" type="button" id="clear" onClick="removePolygons()">Clear</button><br><br>
       <!--<button type="button" class="map-print" id="print" onClick="printMaps()">Print</button><br><br>-->
       <!--<a href="./ctis_isc_polygon.kml" download><button type="button" class="btn btn-outline-secondary form-control" id="download_kml" onClick="clearKML()">KML</button></a>-->
@@ -272,175 +273,140 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 //Components.utils.import("resource://gre/modules/osfile.jsm");
 
 var app = {map:null, polygons:null, label:"no filter", payload:{getMode:"polygons", runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, property:null, district:null, depth:0, from_depth:0, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0}};
-var pm_mpo = {name_pm:null, pm:null};
+var pm_mpo = {name_pm:null, pm:null, NE:null, SW:null, label:"no filter", getMode:"polygons", runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0};
 var hecho = false;
-var depth = app.payload.depth;
+
 $(document).ready(function(){
-  /*$("#slide_depth").slider({
-  natural_arrow_keys: true,
-  //range: true,
-  formatter: function(value) {
-  return 'From: ' + value[0] + ' inches, To: ' + value[1] + ' inches';
-}
-});
-$("#slide_depth").on("slide", function(e) {
-depth = e.value[1];
-app.payload.from_depth = e.value[0];
-});
-$("#slide_depth").on("change", function(e) {
-depth = e.value.newValue[1];
-app.payload.from_depth = e.value.newValue[0];
-});*/
+  $('[data-toggle="tooltip"]').tooltip();
 
-$('[data-toggle="tooltip"]').tooltip();
+  var performance_measures = [
+    "A-2-3) Car Free HHs", "A-2-4) Tpt disadvantaged HHs", "B-1-4) Jobs Housing Ratio"
+  ];
+  var pm_attributes = [
+    "b_carfrhh", "B_TpDisadv", "b_jobphh"
+  ];
 
-/*$.post('polygonHandler.php', {'columns': true}, function(result){
-var properties;
-if(result.hasOwnProperty('columns')){
-properties = $.map(result.columns, function(val, i){
-return {value: val[2], data: val[1], table: val[3]};
-});
-}
-/*var divs = [];
-var selectProp = document.getElementById("selectProp");
-var ch1 = document.getElementById("select_chart_1");
-var ch2 = document.getElementById("select_chart_2");
-var ch3 = document.getElementById("select_chart_3");
-var ch4 = document.getElementById("select_chart_4");
-var filt = document.getElementById("select_prop_filters");
-divs.push(selectProp, ch1, ch2, ch3, ch4, filt);
-var prop = [];
-for(var i = 0; i < 37; i++){
-prop.push({number: i, value: null, table: null});
-}
-for (var i = 0; i < properties.length; i++) {
-prop[i].number = i;
-prop[i].value = properties[i].value;
-prop[i].data = properties[i].data;
-prop[i].table = properties[i].table;
-}
-for (var j = 0; j < divs.length; j++) {
-for(var i = 0; i < properties.length; i++) {
-var propr = prop[i].number;
-var elem = document.createElement("option");
-elem.textContent = prop[i].value;
-elem.value = propr;
-elem.data = prop[i].data;
-elem.table = prop[i].table;
-divs[j].appendChild(elem);
-}
-}
-$("#selectProp").change(function(){
-app.payload.property =  prop[this.value].data; //ex. pi_r
-app.payload.table =  prop[this.value].table;
-app.payload.value =  prop[this.value].value;
-});
-$("#chartAppear1").hide();
-$("#chartAppear2").hide();
-$("#chartAppear3").hide();
-$("#select_chart_1").change(function(){
-document.getElementById('chartAppear1').style.visibility = "visible";
-app.payload.chart1 =  prop[this.value].data;
-app.payload.chart1n = prop[this.value].value;
-$("#chartAppear1").show();
-});
-$("#select_chart_2").change(function(){
-document.getElementById('chartAppear2').style.visibility = "visible";
-app.payload.chart2 =  prop[this.value].data;
-app.payload.chart2n = prop[this.value].value;
-$("#chartAppear2").show();
-});
-$("#select_chart_3").change(function(){
-document.getElementById('chartAppear3').style.visibility = "visible";
-app.payload.chart3 =  prop[this.value].data;
-app.payload.chart3n = prop[this.value].value;
-$("#chartAppear3").show();
-});
-$("#select_chart_4").change(function(){
-app.payload.chart4 =  prop[this.value].data;
-app.payload.chart4n = prop[this.value].value;
-});
-$("#select_prop_filters").change(function(){
-app.payload.filter_prop =  prop[this.value].data;
-app.payload.filter_prop_n = prop[this.value].value;
-});
-$("#biggerThan,#smallerThan,#equalTo").click(function(){
-app.payload.filter_value = this.value;
-});
-$("#labels,#run,#default,#defaultbtn").click(function(){
-app.label = "no filter";
-});
-$("#labels_filter,#filters,#filtersbtn").click(function(){
-app.label = "filter";
-});
-$('#target').on('change', setDistrict);
-});*/
-
-var performance_measures = [
-  "A-2-3) Car Free HHs", "A-2-4) Tpt disadvantaged HHs", "B-1-4) Jobs Housing Ratio"
-];
-var pm_attributes = [
-  "b_carfrhh", "B_TpDisadv", "b_jobphh"
-];
-var select_mpo = document.getElementById("select_mpo");
-for(var i = 0; i < performance_measures.length; i++) {
-  var elem = document.createElement("option");
-  elem.id = pm_attributes[i];
-  elem.textContent = performance_measures[i];
-  elem.value = performance_measures[i];
-  select_mpo.appendChild(elem);
-}
-$("#select_mpo").change(function(){
-  pm_mpo.name_pm = this.value;
-  for (var i = 0; i < performance_measures.length; i++) {
-    if(performance_measures[i] == this.value){
-      pm_mpo.pm = pm_attributes[i];
+  var divs = [];
+  var select_mpo = document.getElementById("select_mpo");
+  var ch1 = document.getElementById("select_chart_1");
+  var ch2 = document.getElementById("select_chart_2");
+  var ch3 = document.getElementById("select_chart_3");
+  //var ch4 = document.getElementById("select_chart_4");
+  var filt = document.getElementById("select_prop_filters");
+  divs.push(select_mpo, ch1, ch2, ch3, filt);
+  var prop = [];
+  for (var j = 0; j < divs.length; j++) {
+    for(var i = 0; i < performance_measures.length; i++) {
+      var elem = document.createElement("option");
+      elem.id = pm_attributes[i];
+      elem.textContent = performance_measures[i];
+      elem.value = performance_measures[i];
+      divs[j].appendChild(elem);
     }
   }
+
+  $("#select_mpo").change(function(){
+    pm_mpo.name_pm = this.value;
+    for (var i = 0; i < performance_measures.length; i++) {
+      if(performance_measures[i] == this.value){
+        pm_mpo.pm = pm_attributes[i];
+      }
+    }
+  });
+
+  $("#chartAppear1").hide();
+  $("#chartAppear2").hide();
+  $("#chartAppear3").hide();
+  $("#select_chart_1").change(function(){
+    document.getElementById('chartAppear1').style.visibility = "visible";
+    for (var i = 0; i < performance_measures.length; i++) {
+      if(performance_measures[i] == this.value){
+        pm_mpo.chart1 =  pm_attributes[i];
+      }
+    }
+    pm_mpo.chart1n = this.value;
+    $("#chartAppear1").show();
+  });
+  $("#select_chart_2").change(function(){
+    document.getElementById('chartAppear2').style.visibility = "visible";
+    for (var i = 0; i < performance_measures.length; i++) {
+      if(performance_measures[i] == this.value){
+        pm_mpo.chart2 =  pm_attributes[i];
+      }
+    }
+    pm_mpo.chart2n = this.value;
+    $("#chartAppear2").show();
+  });
+  $("#select_chart_3").change(function(){
+    for (var i = 0; i < performance_measures.length; i++) {
+      if(performance_measures[i] == this.value){
+        pm_mpo.chart3 =  pm_attributes[i];
+      }
+    }
+    pm_mpo.chart3n = this.value;
+  });
+
+  $("#select_prop_filters").change(function(){
+    for (var i = 0; i < performance_measures.length; i++) {
+      if(performance_measures[i] == this.value){
+        pm_mpo.filter_prop = pm_attributes[i];
+      }
+    }
+    pm_mpo.filter_prop_n = this.value;
+  });
+  $("#biggerThan,#smallerThan,#equalTo").click(function(){
+    pm_mpo.filter_value = this.value;
+  });
+  $("#labels,#run,#default,#defaultbtn").click(function(){
+    pm_mpo.label = "no filter";
+  });
+  $("#labels_filter,#filters,#filtersbtn").click(function(){
+    pm_mpo.label = "filter";
+  });
+
+$("#methods").change(function(){ //0: max / 1: min / 2: median / 3: weight/
+  pm_mpo.depth_method = this.value;
 });
 
-//app.payload.district = $('#target').children("option:selected").data('district');
-$("#methods").change(function(){ //0: max / 1: min / 2: median / 3: weight/
-  app.payload.depth_method = this.value;
-});
 $("#legend").hide();
 });
+
 function runAOI(){
-  app.payload.runAOI = true;
-  app.payload.runFilters = false;
-  getPolygons();
+  pm_mpo.runAOI = true;
+  pm_mpo.runFilters = false;
+  mpo();
 }
 
 function runFilters(){
   var units = document.getElementById("filter_units").value;
-  app.payload.runFilters = true;
-  app.payload.runAOI = false;
-  app.payload.property = app.payload.filter_prop;
-  app.payload.table = "chorizon_r";
-  app.payload.value = app.payload.filter_prop_n;
-  if(app.payload.filter_value ==  null || app.payload.filter_prop == null){
+  pm_mpo.runFilters = true;
+  pm_mpo.runAOI = false;
+  pm_mpo.filter_prop = pm_mpo.filter_prop;
+  pm_mpo.filter_prop_n= pm_mpo.filter_prop_n;
+  if(pm_mpo.filter_value ==  null || pm_mpo.filter_prop == null){
     alert("Select criteria for filtering the result and ground property");
   }
   else if(isNaN(units) == true || units < 0){
     alert("Unit for filter has to be a non negative number");
   }
   else{
-    app.payload.filter_units = units;
-    getPolygons();
+    pm_mpo.filter_units = units;
+    mpo();
   }
 }
-
 
 function mpo(){
   $('#legend').hide();
   removePolygons();
+  pm_mpo.getMode = "polygons";
   var getparams = app.payload;
-  //app.polygons = [];
   var bounds = app.map.getBounds();
   getparams.NE = bounds.getNorthEast().toJSON(); //north east corner
   getparams.SW = bounds.getSouthWest().toJSON(); //south-west corner
-  var to_send = {pm:pm_mpo.pm, NE:getparams.NE, SW: getparams.SW};
-  $.get('mpo_handler.php', to_send, function(data){
+  pm_mpo.NE = getparams.NE;
+  pm_mpo.SW = getparams.SW;
+  //var to_send = {pm:pm_mpo.pm, NE:getparams.NE, SW: getparams.SW};
+  $.get('mpo_handler.php', pm_mpo, function(data){
     shapecolor = ["#84857B", "#13FF00", "#009BFF", "#EBF20D", "#fe9253", "#FF0000", "#8C0909", "#0051FF", "#AB77FF", "#EBF20D", "#8C0909", "#07FDCA", "#008C35", "FFDBA5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
     shapeoutline = ["#000000", "#0b9b00", "#007fd1", "#aaaf0a", "#d18f0a", "#c10000", "#8c0909", "#0037ad", "#873dff", "#aaaf0a", "8c0909", "36c9bd", "#008c35", "#ffdba5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
     colorSelector = 0;
@@ -452,8 +418,6 @@ function mpo(){
         maximum = data.coords[i]['value'];
       }
     }
-    //console.log(data.coords.length);
-  //  console.log(maximum);
     if(maximum == -1){
       maximum = 1;
     }
@@ -1025,7 +989,6 @@ function nullChecker(){
 }
 
 function drawChart() {
-
   var nulls = nullChecker();
   if(nulls.length == 4){
     alert("No property selected to run statistics.");
@@ -1285,27 +1248,27 @@ function spawn(value){
     value = 1;
   }
   //else{
-    var range = (value/labels);
-    //console.log(range);
-    var count = 0;
-    var cnt = 0;
-    var spawner = document.getElementById('legendSpawner');
-    var separations = [];
-    while(count<=value){
-      separations[cnt] =  parseFloat(count).toFixed(2);
-      count+=range;
-      cnt++;
-    }
-    for(var i = 0; i < separations.length-1; i++){
-      var div = document.createElement('div');
-      div.innerHTML = squareboxes[i] + " " +
-      + separations[i] + ' to ' + separations[i+1];
-      var newLegend = document.createElement('div');
-      newLegend = document.getElementById('legend');
-      document.getElementById('legend').style.visibility = "visible";
-      newLegend.appendChild(div);
-    }
-    return separations;
+  var range = (value/labels);
+  //console.log(range);
+  var count = 0;
+  var cnt = 0;
+  var spawner = document.getElementById('legendSpawner');
+  var separations = [];
+  while(count<=value){
+    separations[cnt] =  parseFloat(count).toFixed(2);
+    count+=range;
+    cnt++;
+  }
+  for(var i = 0; i < separations.length-1; i++){
+    var div = document.createElement('div');
+    div.innerHTML = squareboxes[i] + " " +
+    + separations[i] + ' to ' + separations[i+1];
+    var newLegend = document.createElement('div');
+    newLegend = document.getElementById('legend');
+    document.getElementById('legend').style.visibility = "visible";
+    newLegend.appendChild(div);
+  }
+  return separations;
   //}
 }
 // ***********
