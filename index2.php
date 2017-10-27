@@ -273,7 +273,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 //Components.utils.import("resource://gre/modules/osfile.jsm");
 
 var app = {map:null, polygons:null, label:"no filter", payload:{getMode:"polygons", runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, property:null, district:null, depth:0, from_depth:0, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0}};
-var pm_mpo = {name_pm:null, pm:null, NE:null, SW:null, label:"no filter", getMode:"polygons", runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0};
+var pm_mpo = {name_pm:null, pm:null, NE:null, SW:null, label:"no filter", getMode:"polygons", to_draw:null, draw_charts: false, runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0};
 var hecho = false;
 
 $(document).ready(function(){
@@ -399,6 +399,7 @@ function mpo(){
   $('#legend').hide();
   removePolygons();
   pm_mpo.getMode = "polygons";
+  //console.log(pm_mpo);
   if(pm_mpo.runAOI == true && typeof rec != 'undefined' && rec.type == 'rectangle'){
     var getparams = app.payload;
     var bounds = rec.getBounds();
@@ -1017,6 +1018,7 @@ function drawChart() {
       if(nulls.includes(i) == false){not_nulls.push(i);}
     }
   }
+
   var maxaoi, minaoi, medaoi, weightedaoi, previous1, previous2, previous3, previous4;
   if(rec.type =='rectangle'){
     app.payload.getMode = "AOI";
@@ -1055,7 +1057,9 @@ function drawChart() {
       var elem_histo = histogram_divs[i];
       var bar_init = charts[i];
       var histo_init = chart_histos[i];
-      nullSelector(i);
+      //nullSelector(i);
+      pm_mpo.draw_charts = true;
+      $.get('mpo_handler.php', pm_mpo, function(data){});
       $.get('polygonHandler.php', app.payload, function(data){
 
         maxaoi = parseFloat(eval(datos_max));
@@ -1132,6 +1136,7 @@ app.payload.chart3 = previous3;
 app.payload.chart4 = previous4;
 })(i);
 }
+pm_mpo.draw_charts = false;
 }
 
 function lineParser(){
