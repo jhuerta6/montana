@@ -1079,7 +1079,7 @@ function drawChart() {
           ['Maximum ', maxaoi],
           ['Minimum ', minaoi],
           ['Median ', medaoi],
-          ['Weighted Avg ', weightedaoi]
+          ['Average ', weightedaoi]
         ]);
 
         var options = {
