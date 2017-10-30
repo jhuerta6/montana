@@ -1021,19 +1021,23 @@ function drawChart() {
 
   var maxaoi, minaoi, medaoi, weightedaoi, previous1, previous2, previous3, previous4;
   if(rec.type =='rectangle'){
-    app.payload.getMode = "AOI";
+    pm_mpo.getMode = "AOI";
     bounds = rec.getBounds();
   }
   else{
-    app.payload.getMode = "line";
+    pm_mpo.runAOI = true;
+    pm_mpo.getMode = "line";
     var bounds = app.map.getBounds();
   }
   getparams = app.payload;
   getparams.NE = bounds.getNorthEast().toJSON();
   getparams.SW = bounds.getSouthWest().toJSON();
+  pm_mpo.NE = getparams.NE;
+  pm_mpo.SW = getparams.SW;
   var chart_divs = ['chart_area_1', 'chart_area_2','chart_area_3', 'chart_area_4'];
   var histogram_divs = ['chart_histogram_1', 'chart_histogram_2', 'chart_histogram_3', 'chart_histogram_4'];
   var chart_ns = ['chart1n', 'chart2n', 'chart3n', 'chart4n'];
+  var to_draws = ['chart1', 'chart2', 'chart3', 'chart4'];
   var data_arr = ['maxAOIch','minAOIch','medAOIch','weightedAOIch'];
   var charts = [chart, chart_2, chart_3, chart_4];
   var chart_histos = [chart_histo, chart_histo_2, chart_histo_3, chart_histo_4];
@@ -1047,8 +1051,11 @@ function drawChart() {
   previous4 = app.payload.chart4;
   for (var i = 0; i < not_nulls.length; i++) {
     (function (i){
-      var name = 'app.payload.'+chart_ns[i];
+      var name = 'pm_mpo.'+chart_ns[i];
       name = eval(name);
+      var to_d = 'pm_mpo.'+to_draws[i];
+      to_d = eval(to_d);
+      pm_mpo.to_draw = to_d;
       var datos_max = 'data.'+data_arr[0]+(i+1);
       var datos_min = 'data.'+data_arr[1]+(i+1);
       var datos_med = 'data.'+data_arr[2]+(i+1);
@@ -1059,9 +1066,37 @@ function drawChart() {
       var histo_init = chart_histos[i];
       //nullSelector(i);
       pm_mpo.draw_charts = true;
-      $.get('mpo_handler.php', pm_mpo, function(data){});
-      $.get('polygonHandler.php', app.payload, function(data){
+      $.get('mpo_handler.php', pm_mpo, function(data){
+        maxaoi = parseFloat(data.max);
+        minaoi = parseFloat(data.min);
+        medaoi = parseFloat(data.med);
+        weightedaoi = parseFloat(data.avg);
+        weightedaoi = parseFloat(weightedaoi).toFixed(2);
+        weightedaoi = parseFloat(weightedaoi);
 
+        var data = google.visualization.arrayToDataTable([
+          ['Method', 'Value',],
+          ['Maximum ', maxaoi],
+          ['Minimum ', minaoi],
+          ['Median ', medaoi],
+          ['Weighted Avg ', weightedaoi]
+        ]);
+
+        var options = {
+          title: name,
+          legend: { position: 'none'},
+          animation:{ duration: 1000, easing: 'inAndOut', startup: true },
+          chartArea: { width: '70%' },
+          hAxis: { minValue: 0 },
+          vAxis: {}
+        };
+        bar_init = new google.visualization.BarChart(document.getElementById(elem_chart));
+        bar_init.draw(data, options);
+      }).done(function(data){
+        $(document.body).css({'cursor': 'auto'});
+      });
+
+      /*$.get('polygonHandler.php', app.payload, function(data){
         maxaoi = parseFloat(eval(datos_max));
         minaoi = parseFloat(eval(datos_min));
         medaoi = parseFloat(eval(datos_med));
@@ -1089,7 +1124,7 @@ function drawChart() {
         bar_init.draw(data, options);
       }).done(function(data){
         $(document.body).css({'cursor': 'auto'});
-      });
+      });*/
       /** This was the histogram **/
       /*var histo_array;
       app.payload.getMode = "histogram";
@@ -1137,6 +1172,7 @@ app.payload.chart4 = previous4;
 })(i);
 }
 pm_mpo.draw_charts = false;
+pm_mpo.runAOI = false;
 }
 
 function lineParser(){

@@ -915,7 +915,7 @@ function getAOI($x){
 function getStatistics(){
 	global $conn, $toReturn;
 	$data = new dataToQueryPolygons();
-	if($data->runAOI == "true" && $data->runLine == "true"){ $query = "SET @geom1 = 'LineString($data->lineString)'"; }
+	if($data->runAOI == "true" && $data->runLine == "true"){ "line"; $query = "SET @geom1 = 'LineString($data->lineString)'"; }
 	elseif($data->runAOI == "true" && $data->runPoly == "true"){ $query = "SET @geom1 = 'POLYGON(($data->lineString))'"; }
 	else{
 	$query = "SET @geom1 = 'POLYGON(($data->lng1 $data->lat1,$data->lng1	$data->lat2,$data->lng2	$data->lat2,$data->lng2	$data->lat1,$data->lng1	$data->lat1))'";
@@ -924,7 +924,7 @@ function getStatistics(){
 	$result = mysqli_query($conn, $query);
 	$toReturn['set'] = $result;
 
-	$query= "SELECT $data->pm as value FROM polygon AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
+	$query= "SELECT $data->to_draw as value FROM polygon AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 	$toReturn['query2'] = $query;
 	$result = mysqli_query($conn, $query);
 	$result = fetchAll($result);
@@ -963,6 +963,8 @@ function getStatistics(){
 			$val_2 = $sorted[$med_2]['value'];
 			$mediano = ($val_1 + $val_2)/2;
 		}
+	}else{
+		$mediano = $sorted[0]['value'];
 	}
 	//MED END
 	//ANG BEGIN
@@ -970,6 +972,7 @@ function getStatistics(){
 	for ($i=0; $i < sizeof($ordered); $i++) {
 		$promedio += $ordered[$i]['value'];
 	}
+	$promedio /= sizeof($ordered);
 	//AVG END
 	/*Methods end here*/
 	$toReturn['max'] = $maximo;
