@@ -994,7 +994,22 @@ function getPolygons(){
 	$result = mysqli_query($conn, $query);
 	$toReturn['set'] = $result;
 
-	$query= "SELECT objectid, astext(SHAPE) AS POLYGON, $data->pm as value FROM polygon AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
+	if($data->runFilters == "true" && $data->filter_value == "bigger"){
+		$units = (int)$data->filter_units;
+		$query= "SELECT objectid, astext(SHAPE) AS POLYGON, $data->pm as value FROM polygon AS p WHERE $data->pm >= $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
+	}
+	else if($data->runFilters == "true" && $data->filter_value == "smaller"){
+		$units = (int)$data->filter_units;
+		$query= "SELECT objectid, astext(SHAPE) AS POLYGON, $data->pm as value FROM polygon AS p WHERE $data->pm <= $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
+	}
+	else if($data->runFilters == "true" && $data->filter_value == "equal"){
+		$units = (int)$data->filter_units;
+		$query= "SELECT objectid, astext(SHAPE) AS POLYGON, $data->pm as value FROM polygon AS p WHERE $data->pm = $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
+	}
+	else{
+		$query= "SELECT objectid, astext(SHAPE) AS POLYGON, $data->pm as value FROM polygon AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
+	}
+
 	$toReturn['query2'] = $query;
 	$result = mysqli_query($conn, $query);
 	$result = fetchAll($result);
