@@ -1007,7 +1007,11 @@ function getPolygons(){
 		$query= "SELECT objectid, astext(SHAPE) AS POLYGON, $data->pm as value FROM polygon AS p WHERE $data->pm = $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 	}
 	else{
-		$query= "SELECT objectid, astext(SHAPE) AS POLYGON, $data->pm as value FROM polygon AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
+		if($data->pm == "crosw150ft"){
+		$query = "SELECT gis_lat as lat, gis_lon as lng, astext(SHAPE) AS POLYGON, crosw150ft as value FROM a21 AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
+		}else{
+		$query = "SELECT objectid, astext(SHAPE) AS POLYGON, $data->pm as value FROM polygon AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
+		}
 	}
 
 	$toReturn['query2'] = $query;

@@ -224,10 +224,10 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           $('[data-toggle="tooltip"]').tooltip();
 
           var performance_measures = [
-            "A-2-3) Car Free HHs", "A-2-4) Tpt disadvantaged HHs", "B-1-4) Jobs Housing Ratio"
+            "A-2-3) Car Free HHs", "A-2-4) Tpt disadvantaged HHs", "B-1-4) Jobs Housing Ratio", "A-2-1) Bus Stops"
           ];
           var pm_attributes = [
-            "b_carfrhh", "B_TpDisadv", "b_jobphh"
+            "b_carfrhh", "B_TpDisadv", "b_jobphh", "crosw150ft"
           ];
 
           var divs = [];
@@ -341,6 +341,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         }
 
         function mpo(){
+
           $('#legend').hide();
           removePolygons();
           pm_mpo.getMode = "polygons";
@@ -363,6 +364,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           }
 
           $.get('mpo_handler.php', pm_mpo, function(data){
+            var points = [];
             shapecolor = ["#84857B", "#13FF00", "#009BFF", "#EBF20D", "#fe9253", "#FF0000", "#8C0909", "#0051FF", "#AB77FF", "#EBF20D", "#8C0909", "#07FDCA", "#008C35", "FFDBA5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
             shapeoutline = ["#000000", "#0b9b00", "#007fd1", "#aaaf0a", "#d18f0a", "#c10000", "#8c0909", "#0037ad", "#873dff", "#aaaf0a", "8c0909", "36c9bd", "#008c35", "#ffdba5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
             colorSelector = 0;
@@ -397,25 +399,56 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   colorSelector = i+1;
                 }
               }
-              temp = wktFormatter(data.coords[key]['POLYGON']);
-              for (var i = 0; i < temp.length; i++) {
-                polyCoordis.push(temp[i]);
+              if(pm_mpo.pm == "crosw150ft"){
+                /*var flightPlanCoordinates = [
+                  {lat: 37.772, lng: -122.214},
+                  {lat: 21.291, lng: -157.821},
+                  {lat: -18.142, lng: 178.431},
+                  {lat: -27.467, lng: 153.027}
+                ];*/
+                if(data.coords[key]['value'] == 1){
+                  var image = 'http://www.googlemapsmarkers.com/v1/009900/'; //green
+                }
+                else{
+                  var image = 'http://www.googlemapsmarkers.com/v1/990000/';
+                }
+                var point_obj = {lat: parseFloat(data.coords[key]['lat']), lng: parseFloat(data.coords[key]['lng'])};
+                points.push(point_obj);
+                console.log(point_obj);
+                console.log(points);
+                console.log(key);
+                var point  = new google.maps.Marker({
+                  position: points[key],
+                  icon: image,
+                  title: 'Bus Stop'
+                });
+                point.setOptions({ zIndex: 1 });
+                point.addListener('click', polyInfo);
+                app.polygons.push(point);
+                point.setMap(app.map);
               }
-              var polygon = new google.maps.Polygon({
-                description: pm_mpo.name_pm,
-                description_value: data.coords[key]['value'],
-                paths: polyCoordis,
-                strokeColor: shapeoutline[colorSelector],
-                strokeOpacity: 0.60,
-                strokeWeight: 0.70,
-                fillColor: shapecolor[colorSelector],
-                fillOpacity: 0.60,
-                zIndex: -1
-              });
-              polygon.setOptions({ zIndex: -1 });
-              polygon.addListener('click', polyInfo);
-              app.polygons.push(polygon);
-              polygon.setMap(app.map);
+              else{
+                temp = wktFormatter(data.coords[key]['POLYGON']);
+                console.log(temp);
+                for (var i = 0; i < temp.length; i++) {
+                  polyCoordis.push(temp[i]);
+                }
+                var polygon = new google.maps.Polygon({
+                  description: pm_mpo.name_pm,
+                  description_value: data.coords[key]['value'],
+                  paths: polyCoordis,
+                  strokeColor: shapeoutline[colorSelector],
+                  strokeOpacity: 0.60,
+                  strokeWeight: 0.70,
+                  fillColor: shapecolor[colorSelector],
+                  fillOpacity: 0.60,
+                  zIndex: -1
+                });
+                polygon.setOptions({ zIndex: -1 });
+                polygon.addListener('click', polyInfo);
+                app.polygons.push(polygon);
+                polygon.setMap(app.map);
+              }
             }
           }).done(function(data){
             if($('#legend').css('display')=='none'){
