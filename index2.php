@@ -414,22 +414,23 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 }
                 var point_obj = {lat: parseFloat(data.coords[key]['lat']), lng: parseFloat(data.coords[key]['lng'])};
                 points.push(point_obj);
-                console.log(point_obj);
-                console.log(points);
-                console.log(key);
+                //console.log(point_obj);
+                //console.log(points);
+                //console.log(key);
                 var point  = new google.maps.Marker({
                   position: points[key],
                   icon: image,
-                  title: 'Bus Stop'
+                  title: 'Bus Stop',
+                  value: data.coords[key]['value']
                 });
                 point.setOptions({ zIndex: 1 });
-                point.addListener('click', polyInfo);
+                point.addListener('click', pointInfo);
                 app.polygons.push(point);
                 point.setMap(app.map);
               }
               else{
                 temp = wktFormatter(data.coords[key]['POLYGON']);
-                console.log(temp);
+                //console.log(temp);
                 for (var i = 0; i < temp.length; i++) {
                   polyCoordis.push(temp[i]);
                 }
@@ -884,6 +885,18 @@ function printMaps() {
 
 function polyInfo(event){
   text = this.description + ": " + this.description_value;
+  app.infoWindow.setContent(text);
+  app.infoWindow.setPosition(event.latLng);
+  app.infoWindow.open(app.map);
+}
+
+function pointInfo(event){
+  if(this.value == 0){
+    text = "Bus stop is located BEYOND 150 ft. from a marked crosswalk";
+  }
+  else{
+    text = "Bus stop is located WITHIN 150 ft. from a marked crosswalk";
+  }
   app.infoWindow.setContent(text);
   app.infoWindow.setPosition(event.latLng);
   app.infoWindow.open(app.map);
