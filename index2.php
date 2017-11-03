@@ -212,6 +212,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         <script src="js/jquery.autocomplete.min.js"></script>
         <script src="js/properties.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.8.1/bootstrap-slider.js"></script>
+        <script src="https://cdn.rawgit.com/bjornharrtell/jsts/gh-pages/1.4.0/jsts.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.8.1/css/bootstrap-slider.css" />
         <script>
         //Components.utils.import("resource://gre/modules/osfile.jsm");
@@ -224,10 +225,10 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           $('[data-toggle="tooltip"]').tooltip();
 
           var performance_measures = [
-            "A-2-3) Car Free HHs", "A-2-4) Tpt disadvantaged HHs", "B-1-4) Jobs Housing Ratio", "A-2-1) Bus Stops"
+            "A-2-3) Car Free HHs", "A-2-4) Tpt disadvantaged HHs", "B-1-4) Jobs Housing Ratio", "A-2-1) Bus Stops", "D-1-1) Pavement in Poor Condition"
           ];
           var pm_attributes = [
-            "b_carfrhh", "B_TpDisadv", "b_jobphh", "crosw150ft"
+            "b_carfrhh", "B_TpDisadv", "b_jobphh", "crosw150ft", "iri"
           ];
 
           var divs = [];
@@ -403,24 +404,16 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               if(pm_mpo.pm == "crosw150ft"){
                 if(data.coords[key]['value'] == 1){
                   var image = {
-                    url: "./icons/mini_green_bus.png", //green
-                    //size: new google.maps.Size(20, 20),
-                    //origin: new google.maps.Point(0,0)
+                    url: "./icons/mini_green_bus.png"
                   };
                 }
                 else{
                   var image = {
-                    url: "./icons/mini_red_bus.png", //green
-                    //size: new google.maps.Size(50,50),
-                    //origin: new google.maps.Point(0,0),
-                    //anchor: new google.maps.Point(0,50)
+                    url: "./icons/mini_red_bus.png"
                   };
                 }
                 var point_obj = {lat: parseFloat(data.coords[key]['lat']), lng: parseFloat(data.coords[key]['lng'])};
                 points.push(point_obj);
-                //console.log(point_obj);
-                //console.log(points);
-                //console.log(key);
                 var point  = new google.maps.Marker({
                   position: points[key],
                   icon: image,
@@ -431,6 +424,61 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 point.addListener('click', pointInfo);
                 app.polygons.push(point);
                 point.setMap(app.map);
+              }
+              else if (pm_mpo.pm == "iri") {
+                var temp = []; //gets created after each line/data
+                var to_color = [];
+                x = data.coords[key]['POLYGON'];
+                //console.log(x);
+                temp.push(x); //individual
+                //console.log(temp);
+                var reader = new jsts.io.WKTReader();
+                var a = reader.read(x);
+                var b = reader.read('POINT (20 0)');
+
+                if(a.getGeometryType() == "LineString"){
+                  var coord;
+                  //console.log("in line");
+                  var ln = a.getCoordinates();
+                  //console.log(ln);
+                  for (var i = 0; i < ln.length; i++) {
+                    coord = {lat: ln[i]['y'], lng: ln[i]['x']};
+                    to_color.push(coord);
+                  }
+                }else{
+                  var coord;
+                  //console.log("in multi");
+                  var multi = a.getCoordinates();
+                  //console.log(multi);
+                  for (var i = 0; i < multi.length; i++) {
+                    coord = {lat: multi[i]['y'], lng: multi[i]['x']};
+                    to_color.push(coord);
+                  }
+                }
+                if(data.coords[key]['value'] >= 1 && data.coords[key]['value'] <= 170){
+                  var proceed = true;
+                  var color = '#00FF00';
+                }else if(data.coords[key]['value'] >= 171 && data.coords[key]['value'] <= 499){
+                  var proceed = true;
+                  var color = '#FF0000';
+                }else{
+                  var proceed = false;
+                  var color = '#000000';
+                }
+                if(proceed){
+                var line = new google.maps.Polyline({
+                  path: to_color,
+                  //path: flightPlanCoordinates,
+                  strokeColor: color,
+                  strokeOpacity: 1.0,
+                  strokeWeight: 4,
+                  zIndex: 2
+                });
+                }
+                line.setMap(app.map);
+                line.setOptions({ zIndex: 1 });
+                //line.addListener('click', pointInfo);
+                app.polygons.push(line);
               }
               else{
                 temp = wktFormatter(data.coords[key]['POLYGON']);
