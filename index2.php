@@ -400,17 +400,20 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 }
               }
               if(pm_mpo.pm == "crosw150ft"){
-                /*var flightPlanCoordinates = [
-                  {lat: 37.772, lng: -122.214},
-                  {lat: 21.291, lng: -157.821},
-                  {lat: -18.142, lng: 178.431},
-                  {lat: -27.467, lng: 153.027}
-                ];*/
                 if(data.coords[key]['value'] == 1){
-                  var image = 'http://www.googlemapsmarkers.com/v1/009900/'; //green
+                  var image = {
+                    url: "./icons/mini_green_bus.png", //green
+                    //size: new google.maps.Size(20, 20),
+                    //origin: new google.maps.Point(0,0)
+                  };
                 }
                 else{
-                  var image = 'http://www.googlemapsmarkers.com/v1/990000/';
+                  var image = {
+                    url: "./icons/mini_red_bus.png", //green
+                    //size: new google.maps.Size(50,50),
+                    //origin: new google.maps.Point(0,0),
+                    //anchor: new google.maps.Point(0,50)
+                  };
                 }
                 var point_obj = {lat: parseFloat(data.coords[key]['lat']), lng: parseFloat(data.coords[key]['lng'])};
                 points.push(point_obj);
