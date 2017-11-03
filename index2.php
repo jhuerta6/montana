@@ -384,7 +384,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             var l = document.createElement('div');
             l = document.getElementById('legend');
             l.appendChild(div);
-            maximum++;
+            maximum = parseFloat(maximum);
+            maximum = maximum + 0.1;
             var num_labels = spawn(maximum);
 
             for(key in data.coords){
