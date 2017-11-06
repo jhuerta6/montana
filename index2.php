@@ -492,7 +492,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   var color = '#00FF00';
                 }else if(data.coords[key]['value'] >= 60 && data.coords[key]['value'] <= 119){ //good
                   var proceed = true;
-                  var color = '#0000FF';
+                  var color = '#009BFF';
                 }else if(data.coords[key]['value'] >= 120 && data.coords[key]['value'] <= 170){ //fair
                   var proceed = true;
                   var color = '#FFFF00';
