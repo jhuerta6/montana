@@ -447,11 +447,11 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   var spawner = document.getElementById('legendSpawner');
                     var div = document.createElement('div');
                     div.innerHTML =
-                    "<img src='img/brightgreensquare.png' height='10px'/> Pavement has <strong>very good</strong> condition" +
-                    "<br> <img src='img/skybluesquare.png' height='10px'/> Pavement has <strong>good</strong> condition"+
-                    "<br> <img src='img/yellowsquare.png' height='10px'/> Pavement has <strong>fair</strong> condition"+
-                    "<br> <img src='img/orangesquare.png' height='10px'/> Pavement has <strong>poor</strong> condition"+
-                    "<br> <img src='img/redsquare.png' height='10px'/> Pavement has <strong>very poor</strong> condition";
+                    "<img src='img/brightgreensquare.png' height='10px'/> Very good" +
+                    "<br> <img src='img/skybluesquare.png' height='10px'/> Good"+
+                    "<br> <img src='img/yellowsquare.png' height='10px'/> Fair"+
+                    "<br> <img src='img/orangesquare.png' height='10px'/> Poor"+
+                    "<br> <img src='img/redsquare.png' height='10px'/> Very poor";
                     var newLegend = document.createElement('div');
                     newLegend = document.getElementById('legend');
                     document.getElementById('legend').style.visibility = "visible";
