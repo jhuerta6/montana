@@ -225,7 +225,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           $('[data-toggle="tooltip"]').tooltip();
 
           var performance_measures = [
-            "A-2-3) Car Free HHs", "A-2-4) Tpt disadvantaged HHs", "B-1-4) Jobs Housing Ratio", "A-2-1) Bus Stops", "D-1-1) Pavement in Poor Condition"
+            "A-2-3) Car-free Households", "A-2-4) Transportation Disadvantaged Households", "B-1-4) Jobs Housing Ratio", "A-2-1) Bus Stops", "D-1-1) Pavement in Poor Condition"
           ];
           var pm_attributes = [
             "b_carfrhh", "B_TpDisadv", "b_jobphh", "crosw150ft", "iri"
@@ -998,15 +998,15 @@ function pointInfo(event){
 
 function lineInfo_pavement(event){
   if(this.value >= 1 && this.value <= 59){ //very good
-    text = "Pavement has very good condition";
+    text = "Pavement has very good condition (IRI = " + this.value + " )";
   }else if(this.value >= 60 && this.value <= 119){ //good
-    text = "Pavement has good condition";
+    text = "Pavement has good condition (IRI = " + this.value + " )";
   }else if(this.value >= 120 && this.value <= 170){ //fair
-    text = "Pavement has fair condition";
+    text = "Pavement has fair condition (IRI = " + this.value + " )";
   }else if(this.value >= 171 && this.value <= 220){ //poor
-    text = "Pavement has poor condition";
+    text = "Pavement has poor condition (IRI = " + this.value + " )";
   }else if(this.value >= 221 && this.value <= 950){ //very poor
-    text = "Pavement has very poor condition";
+    text = "Pavement has very poor condition (IRI = " + this.value + " )";
   }else{
     text = "No data";
   }
