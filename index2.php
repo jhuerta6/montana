@@ -401,7 +401,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   colorSelector = i+1;
                 }
               }
-              if(pm_mpo.pm == "crosw150ft"){
+              if(pm_mpo.pm == "crosw150ft"){ //points
                 if(data.coords[key]['value'] == 1){
                   var image = {
                     url: "./icons/mini_green_bus.png"
@@ -420,7 +420,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   title: 'Bus Stop',
                   value: data.coords[key]['value']
                 });
-                point.setOptions({ zIndex: 1 });
+                point.setOptions({ zIndex: 2 });
                 point.addListener('click', pointInfo);
                 app.polygons.push(point);
                 point.setMap(app.map);
@@ -434,7 +434,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 //console.log(temp);
                 var reader = new jsts.io.WKTReader();
                 var a = reader.read(x);
-                var b = reader.read('POINT (20 0)');
 
                 if(a.getGeometryType() == "LineString"){
                   var coord;
@@ -455,10 +454,19 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                     to_color.push(coord);
                   }
                 }
-                if(data.coords[key]['value'] >= 1 && data.coords[key]['value'] <= 170){
+                if(data.coords[key]['value'] >= 1 && data.coords[key]['value'] <= 59){ //very good
                   var proceed = true;
                   var color = '#00FF00';
-                }else if(data.coords[key]['value'] >= 171 && data.coords[key]['value'] <= 499){
+                }else if(data.coords[key]['value'] >= 60 && data.coords[key]['value'] <= 119){ //good
+                  var proceed = true;
+                  var color = '#0000FF';
+                }else if(data.coords[key]['value'] >= 120 && data.coords[key]['value'] <= 170){ //fair
+                  var proceed = true;
+                  var color = '#FFFF00';
+                }else if(data.coords[key]['value'] >= 171 && data.coords[key]['value'] <= 220){ //poor
+                  var proceed = true;
+                  var color = '#FFAA00';
+                }else if(data.coords[key]['value'] >= 221 && data.coords[key]['value'] <= 950){ //very poor
                   var proceed = true;
                   var color = '#FF0000';
                 }else{
@@ -466,19 +474,20 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   var color = '#000000';
                 }
                 if(proceed){
-                var line = new google.maps.Polyline({
-                  path: to_color,
-                  //path: flightPlanCoordinates,
-                  strokeColor: color,
-                  strokeOpacity: 1.0,
-                  strokeWeight: 4,
-                  zIndex: 2
-                });
+                  var line = new google.maps.Polyline({
+                    path: to_color,
+                    //path: flightPlanCoordinates,
+                    value: data.coords[key]['value'],
+                    strokeColor: color,
+                    strokeOpacity: 1.0,
+                    strokeWeight: 4,
+                    zIndex: 1
+                  });
+                  line.setMap(app.map);
+                  line.setOptions({ zIndex: 1 });
+                  line.addListener('click', lineInfo_pavement);
+                  app.polygons.push(line);
                 }
-                line.setMap(app.map);
-                line.setOptions({ zIndex: 1 });
-                //line.addListener('click', pointInfo);
-                app.polygons.push(line);
               }
               else{
                 temp = wktFormatter(data.coords[key]['POLYGON']);
@@ -948,6 +957,25 @@ function pointInfo(event){
   }
   else{
     text = "Bus stop is located WITHIN 150 ft. from a marked crosswalk";
+  }
+  app.infoWindow.setContent(text);
+  app.infoWindow.setPosition(event.latLng);
+  app.infoWindow.open(app.map);
+}
+
+function lineInfo_pavement(event){
+  if(this.value >= 1 && this.value <= 59){ //very good
+    text = "Pavement has very good condition";
+  }else if(this.value >= 60 && this.value <= 119){ //good
+    text = "Pavement has good condition";
+  }else if(this.value >= 120 && this.value <= 170){ //fair
+    text = "Pavement has fair condition";
+  }else if(this.value >= 171 && this.value <= 220){ //poor
+    text = "Pavement has poor condition";
+  }else if(this.value >= 221 && this.value <= 950){ //very poor
+    text = "Pavement has very poor condition";
+  }else{
+    text = "No data";
   }
   app.infoWindow.setContent(text);
   app.infoWindow.setPosition(event.latLng);
