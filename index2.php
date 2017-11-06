@@ -385,10 +385,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             var l = document.createElement('div');
             l = document.getElementById('legend');
             l.appendChild(div);
-            maximum = parseFloat(maximum);
-            maximum = maximum + 0.1;
-            var num_labels = spawn(maximum);
-
+            var num_labels = 0;
+            if(pm_mpo.pm == "b_carfrhh" || pm_mpo.pm == "B_TpDisadv" || pm_mpo.pm == "b_jobphh"){
+              maximum = parseFloat(maximum);
+              maximum = maximum + 0.1;
+              num_labels = spawn(maximum);
+            }
+            var up_to_one = 0;
             for(key in data.coords){
               var polyCoordis = [];
               var valor_actual = parseFloat(data.coords[key]['value']);
@@ -402,6 +405,19 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 }
               }
               if(pm_mpo.pm == "crosw150ft"){ //points
+                if(up_to_one == 0){
+                  $('#legendSpawner').find('*').not('h3').remove();
+                  var spawner = document.getElementById('legendSpawner');
+                    var div = document.createElement('div');
+                    div.innerHTML = "<img src='img/redsquare.png' height='10px'/> Bus stop <strong>beyond</strong> 150 ft. from a crosswalk" +
+                    "<br> <img src='img/brightgreensquare.png' height='10px'/> Bus stop <strong>within</strong> 150 ft. from a crosswalk";
+                    var newLegend = document.createElement('div');
+                    newLegend = document.getElementById('legend');
+                    document.getElementById('legend').style.visibility = "visible";
+                    newLegend.appendChild(div);
+                }
+                up_to_one++;
+
                 if(data.coords[key]['value'] == 1){
                   var image = {
                     url: "./icons/mini_green_bus.png"
@@ -426,6 +442,23 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 point.setMap(app.map);
               }
               else if (pm_mpo.pm == "iri") {
+                if(up_to_one == 0){
+                  $('#legendSpawner').find('*').not('h3').remove();
+                  var spawner = document.getElementById('legendSpawner');
+                    var div = document.createElement('div');
+                    div.innerHTML =
+                    "<img src='img/brightgreensquare.png' height='10px'/> Pavement has very good condition" +
+                    "<br> <img src='img/skybluesquare.png' height='10px'/> Pavement has good condition"+
+                    "<br> <img src='img/yellowsquare.png' height='10px'/> Pavement has fair condition"+
+                    "<br> <img src='img/orangesquare.png' height='10px'/> Pavement has poor condition"+
+                    "<br> <img src='img/redsquare.png' height='10px'/> Pavement has very poor condition";
+                    var newLegend = document.createElement('div');
+                    newLegend = document.getElementById('legend');
+                    document.getElementById('legend').style.visibility = "visible";
+                    newLegend.appendChild(div);
+                }
+                up_to_one++;
+
                 var temp = []; //gets created after each line/data
                 var to_color = [];
                 x = data.coords[key]['POLYGON'];
