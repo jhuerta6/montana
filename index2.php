@@ -455,7 +455,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 }
                 up_to_one++;
 
-                if(data.coords[key]['value'] == 1){ //fatality
+                if(data.coords[key]['value'] == 1){ //fatality  
                   var image = {
                     url: "./icons/crash_red.png"
                   };
