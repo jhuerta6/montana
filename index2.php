@@ -225,10 +225,10 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           $('[data-toggle="tooltip"]').tooltip();
 
           var performance_measures = [
-            "A-2-3) Car-free Households", "A-2-4) Transportation Disadvantaged Households", "B-1-4) Jobs Housing Ratio", "A-2-1) Bus Stops", "D-1-1) Pavement in Poor Condition"
+            "A-2-3) Car-free Households", "A-2-4) Transportation Disadvantaged Households", "B-1-4) Jobs Housing Ratio", "A-2-1) Bus Stops", "D-1-1) Pavement in Poor Condition", "C-2-3) Fatal or Incapacitating Crashes"
           ];
           var pm_attributes = [
-            "b_carfrhh", "B_TpDisadv", "b_jobphh", "crosw150ft", "iri"
+            "b_carfrhh", "B_TpDisadv", "b_jobphh", "crosw150ft", "iri", "crashes"
           ];
 
           var divs = [];
@@ -438,6 +438,43 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 });
                 point.setOptions({ zIndex: 2 });
                 point.addListener('click', pointInfo);
+                app.polygons.push(point);
+                point.setMap(app.map);
+              }
+              else if(pm_mpo.pm == "crashes"){
+                if(up_to_one == 0){
+                  $('#legendSpawner').find('*').not('h3').remove();
+                  var spawner = document.getElementById('legendSpawner');
+                    var div = document.createElement('div');
+                    div.innerHTML = "<img src='img/redsquare.png' height='10px'/> <strong>Fatal</strong> crashes" +
+                    "<br> <img src='img/brightgreensquare.png' height='10px'/> <strong>Incapacitated</strong> crashes";
+                    var newLegend = document.createElement('div');
+                    newLegend = document.getElementById('legend');
+                    document.getElementById('legend').style.visibility = "visible";
+                    newLegend.appendChild(div);
+                }
+                up_to_one++;
+
+                if(data.coords[key]['value'] == 1){ //fatality
+                  var image = {
+                    url: "./icons/crash_red.png"
+                  };
+                }
+                else{
+                  var image = {
+                    url: "./icons/crash_green.png"
+                  };
+                }
+                var point_obj = {lat: parseFloat(data.coords[key]['lat']), lng: parseFloat(data.coords[key]['lng'])};
+                points.push(point_obj);
+                var point  = new google.maps.Marker({
+                  position: points[key],
+                  icon: image,
+                  title: 'Crash',
+                  value: data.coords[key]['value']
+                });
+                point.setOptions({ zIndex: 2 });
+                point.addListener('click', pointCrashInfo);
                 app.polygons.push(point);
                 point.setMap(app.map);
               }
@@ -990,6 +1027,18 @@ function pointInfo(event){
   }
   else{
     text = "Bus stop is located WITHIN 150 ft. from a marked crosswalk";
+  }
+  app.infoWindow.setContent(text);
+  app.infoWindow.setPosition(event.latLng);
+  app.infoWindow.open(app.map);
+}
+
+function pointCrashInfo(event){
+  if(this.value == 1){
+    text = "Crash resulting in fatality";
+  }
+  else{
+    text = "Crash resulting in a incapacitating injury";
   }
   app.infoWindow.setContent(text);
   app.infoWindow.setPosition(event.latLng);
