@@ -226,11 +226,12 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
           var performance_measures = [
             "A-2-3) Car-free Households", "A-2-4) Transportation Disadvantaged Households", "B-1-4) Jobs Housing Ratio",
-            "A-2-1) Bus Stops", "D-1-1) Pavement in Poor Condition", "C-2-3) Fatal or Incapacitating Crashes",
-            "B-2-2) Crashes Involving Non-Motorized Users"
+            "A-2-1) Bus Stops", "D-1-1) Pavement in Poor Condition", "C-3-2) Fatal or Incapacitating Crashes",
+            "B-2-2) Crashes Involving Non-Motorized Users", "B-3-1) Estimated Emissions CO",
+            "B-3-1) Estimated Emissions PM",
           ];
           var pm_attributes = [
-            "b_carfrhh", "B_TpDisadv", "b_jobphh", "crosw150ft", "iri", "crashes", "non-moto"
+            "b_carfrhh", "B_TpDisadv", "b_jobphh", "crosw150ft", "iri", "crashes", "non-moto", "coemisions", "emar"
           ];
 
           var divs = [];
@@ -388,7 +389,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             l = document.getElementById('legend');
             l.appendChild(div);
             var num_labels = 0;
-            if(pm_mpo.pm == "b_carfrhh" || pm_mpo.pm == "B_TpDisadv" || pm_mpo.pm == "b_jobphh"){
+            if(pm_mpo.pm == "b_carfrhh" || pm_mpo.pm == "B_TpDisadv" || pm_mpo.pm == "b_jobphh" || pm_mpo.pm == "coemisions" || pm_mpo.pm == "emar"){
               maximum = parseFloat(maximum);
               maximum = maximum + 0.1;
               num_labels = spawn(maximum);
@@ -598,7 +599,30 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   app.polygons.push(line);
                 }
               }
+              else if(pm_mpo.pm == "coemisions" || pm_mpo.pm == "emar" ){
+                temp = wktFormatter(data.coords[key]['POLYGON']);
+                //console.log(temp);
+                for (var i = 0; i < temp.length; i++) {
+                  polyCoordis.push(temp[i]);
+                }
+                var polygon = new google.maps.Polygon({
+                  description: pm_mpo.name_pm,
+                  description_value: data.coords[key]['value'],
+                  paths: polyCoordis,
+                  strokeColor: shapeoutline[colorSelector],
+                  strokeOpacity: 0.60,
+                  strokeWeight: 0.70,
+                  fillColor: shapecolor[colorSelector],
+                  fillOpacity: 0.60,
+                  zIndex: -1
+                });
+                polygon.setOptions({ zIndex: -1 });
+                polygon.addListener('click', polyInfo);
+                app.polygons.push(polygon);
+                polygon.setMap(app.map);
+              }
               else{
+                console.log("poly");
                 temp = wktFormatter(data.coords[key]['POLYGON']);
                 //console.log(temp);
                 for (var i = 0; i < temp.length; i++) {
