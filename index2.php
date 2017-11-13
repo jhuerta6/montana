@@ -228,7 +228,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             "A-2-3) Car-free Households", "A-2-4) Transportation Disadvantaged Households", "B-1-4) Jobs Housing Ratio",
             "A-2-1) Bus Stops", "D-1-1) Pavement in Poor Condition", "C-3-2) Fatal or Incapacitating Crashes",
             "B-2-2) Crashes Involving Non-Motorized Users", "B-3-1) Estimated Emissions CO",
-            "B-3-1) Estimated Emissions PM","C-2-3) Number of Park and Ride Parking Spaces"
+            "B-3-1) Estimated Emissions PM","C-2-3 & C-2-4 (Park and Ride & Daily Ridership)"
           ];
           var pm_attributes = [
             "b_carfrhh", "B_TpDisadv", "b_jobphh", "crosw150ft", "iri", "crashes", "non-moto", "coemisions", "emar","2016_daily"
