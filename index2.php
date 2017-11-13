@@ -228,10 +228,10 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             "A-2-3) Car-free Households", "A-2-4) Transportation Disadvantaged Households", "B-1-4) Jobs Housing Ratio",
             "A-2-1) Bus Stops", "D-1-1) Pavement in Poor Condition", "C-3-2) Fatal or Incapacitating Crashes",
             "B-2-2) Crashes Involving Non-Motorized Users", "B-3-1) Estimated Emissions CO",
-            "B-3-1) Estimated Emissions PM", "C-2-2) Bus Stops Within 600ft. of Bikeways"
+            "B-3-1) Estimated Emissions PM","C-2-3) Number of Park and Ride Parking Spaces"
           ];
           var pm_attributes = [
-            "b_carfrhh", "B_TpDisadv", "b_jobphh", "crosw150ft", "iri", "crashes", "non-moto", "coemisions", "emar","stop_bike"
+            "b_carfrhh", "B_TpDisadv", "b_jobphh", "crosw150ft", "iri", "crashes", "non-moto", "coemisions", "emar","2016_daily"
           ];
 
           var divs = [];
@@ -599,6 +599,84 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   line.setMap(app.map);
                   line.setOptions({ zIndex: 1 });
                   line.addListener('click', lineInfo_pavement);
+                  app.polygons.push(line);
+                }
+              }
+              else if (pm_mpo.pm == "2016_daily") {
+                if(up_to_one == 0){
+                  $('#legendSpawner').find('*').not('h3').remove();
+                  var spawner = document.getElementById('legendSpawner');
+                    var div = document.createElement('div');
+                    div.innerHTML =
+                    "<img src='img/brightgreensquare.png' height='10px'/> 20 - 500 daily passengers" +
+                    "<br> <img src='img/skybluesquare.png' height='10px'/> 500 - 1000 daily passengers"+
+                    "<br> <img src='img/yellowsquare.png' height='10px'/> 1000 - 2000 daily passengers"+
+                    "<br> <img src='img/orangesquare.png' height='10px'/> 2000 to 3150 daily passengers";
+                    var newLegend = document.createElement('div');
+                    newLegend = document.getElementById('legend');
+                    document.getElementById('legend').style.visibility = "visible";
+                    newLegend.appendChild(div);
+                }
+                up_to_one++;
+
+                var temp = []; //gets created after each line/data
+                var to_color = [];
+                x = data.coords[key]['POLYGON'];
+                //console.log(x);
+                temp.push(x); //individual
+                //console.log(temp);
+                var reader = new jsts.io.WKTReader();
+                var a = reader.read(x);
+
+                if(a.getGeometryType() == "LineString"){
+                  var coord;
+                  //console.log("in line");
+                  var ln = a.getCoordinates();
+                  //console.log(ln);
+                  for (var i = 0; i < ln.length; i++) {
+                    coord = {lat: ln[i]['y'], lng: ln[i]['x']};
+                    to_color.push(coord);
+                  }
+                }else{
+                  var coord;
+                  //console.log("in multi");
+                  var multi = a.getCoordinates();
+                  //console.log(multi);
+                  for (var i = 0; i < multi.length; i++) {
+                    coord = {lat: multi[i]['y'], lng: multi[i]['x']};
+                    to_color.push(coord);
+                  }
+                }
+                if(data.coords[key]['value'] >= 20 && data.coords[key]['value'] <= 500){ //very good
+                  var proceed = true;
+                  var color = '#00FF00';
+                }else if(data.coords[key]['value'] >= 500 && data.coords[key]['value'] <= 1000){ //good
+                  var proceed = true;
+                  var color = '#009BFF';
+                }else if(data.coords[key]['value'] >= 1000 && data.coords[key]['value'] <= 2000){ //fair
+                  var proceed = true;
+                  var color = '#FFFF00';
+                }else if(data.coords[key]['value'] >= 2000 && data.coords[key]['value'] <= 3150){ //poor
+                  var proceed = true;
+                  var color = '#FFAA00';
+                }
+                else{
+                  var proceed = false;
+                  var color = '#000000';
+                }
+                if(proceed){
+                  var line = new google.maps.Polyline({
+                    path: to_color,
+                    //path: flightPlanCoordinates,
+                    value: data.coords[key]['value'],
+                    strokeColor: color,
+                    strokeOpacity: 1.0,
+                    strokeWeight: 4,
+                    zIndex: 1
+                  });
+                  line.setMap(app.map);
+                  line.setOptions({ zIndex: 1 });
+                  line.addListener('click', lineInfo_parkride);
                   app.polygons.push(line);
                 }
               }
@@ -1134,6 +1212,23 @@ function lineInfo_pavement(event){
     text = "Pavement has poor condition (IRI = " + this.value + " )";
   }else if(this.value >= 221 && this.value <= 950){ //very poor
     text = "Pavement has very poor condition (IRI = " + this.value + " )";
+  }else{
+    text = "No data";
+  }
+  app.infoWindow.setContent(text);
+  app.infoWindow.setPosition(event.latLng);
+  app.infoWindow.open(app.map);
+}
+
+function lineInfo_parkride(event){
+  if(this.value >= 20 && this.value <= 500){ //very good
+    text = "This route transports from 20 to 500 daily passengers";
+  }else if(this.value >= 500 && this.value <= 1000){ //good
+    text = "This route transports from 500 to 1000 daily passengers";
+  }else if(this.value >= 1000 && this.value <= 2000){ //fair
+    text = "This route transports from 1000 to 2000 daily passengers";
+  }else if(this.value >= 2000 && this.value <= 3150){ //poor
+    text = "This route transports from 2000 to 3150 daily passengers";
   }else{
     text = "No data";
   }
