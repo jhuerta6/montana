@@ -228,10 +228,10 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             "A-2-3) Car-free Households", "A-2-4) Transportation Disadvantaged Households", "B-1-4) Jobs Housing Ratio",
             "A-2-1) Bus Stops", "D-1-1) Pavement in Poor Condition", "C-3-2) Fatal or Incapacitating Crashes",
             "B-2-2) Crashes Involving Non-Motorized Users", "B-3-1) Estimated Emissions CO",
-            "B-3-1) Estimated Emissions PM",
+            "B-3-1) Estimated Emissions PM", "C-2-2) Bus Stops Within 600ft. of Bikeways"
           ];
           var pm_attributes = [
-            "b_carfrhh", "B_TpDisadv", "b_jobphh", "crosw150ft", "iri", "crashes", "non-moto", "coemisions", "emar"
+            "b_carfrhh", "B_TpDisadv", "b_jobphh", "crosw150ft", "iri", "crashes", "non-moto", "coemisions", "emar","stop_bike"
           ];
 
           var divs = [];
@@ -517,6 +517,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 point.addListener('click', pointCrashNonInfo);
                 app.polygons.push(point);
                 point.setMap(app.map);
+              }
+              else if(pm_mpo.pm == "stop_bike"){
+
               }
               else if (pm_mpo.pm == "iri") {
                 if(up_to_one == 0){
