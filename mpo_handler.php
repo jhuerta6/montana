@@ -174,6 +174,9 @@ function getPolygons(){
 		elseif($data->pm == "2016_daily"){
 			$query = "SELECT astext(SHAPE) AS POLYGON, 2016_daily as value from c23 WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), c23.SHAPE)";
 		}
+		elseif($data->pm == "a11"){
+			$query = "SELECT astext(SHAPE) AS POLYGON FROM polygon_a11 AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
+		}
 		else{
 			$query = "SELECT objectid, astext(SHAPE) AS POLYGON, $data->pm as value FROM polygon AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 		}

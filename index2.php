@@ -228,10 +228,11 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             "A-2-3) Car-free Households", "A-2-4) Transportation Disadvantaged Households", "B-1-4) Jobs Housing Ratio",
             "A-2-1) Bus Stops", "D-1-1) Pavement in Poor Condition", "C-3-2) Fatal or Incapacitating Crashes",
             "B-2-2) Crashes Involving Non-Motorized Users", "B-3-1) Estimated Emissions CO",
-            "B-3-1) Estimated Emissions PM","C-2-3 & C-2-4 (Park and Ride & Daily Ridership)"
+            "B-3-1) Estimated Emissions PM","C-2-3 & C-2-4 (Park and Ride & Daily Ridership)",
+            "A-1-1) Population Within 1/2 Mile of Frequent Transit Service "
           ];
           var pm_attributes = [
-            "b_carfrhh", "B_TpDisadv", "b_jobphh", "crosw150ft", "iri", "crashes", "non-moto", "coemisions", "emar","2016_daily"
+            "b_carfrhh", "B_TpDisadv", "b_jobphh", "crosw150ft", "iri", "crashes", "non-moto", "coemisions", "emar","2016_daily","a11"
           ];
 
           var divs = [];
@@ -702,8 +703,29 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 app.polygons.push(polygon);
                 polygon.setMap(app.map);
               }
+              else if (pm_mpo.pm == "a11"){
+                temp = wktFormatter(data.coords[key]['POLYGON']);
+                //console.log(temp);
+                for (var i = 0; i < temp.length; i++) {
+                  polyCoordis.push(temp[i]);
+                }
+                var polygon = new google.maps.Polygon({
+                  description: pm_mpo.name_pm,
+                  description_value: data.coords[key]['value'],
+                  paths: polyCoordis,
+                  strokeColor: shapeoutline[colorSelector],
+                  strokeOpacity: 0.60,
+                  strokeWeight: 0.70,
+                  fillColor: shapecolor[colorSelector],
+                  fillOpacity: 0.60,
+                  zIndex: -1
+                });
+                polygon.setOptions({ zIndex: -1 });
+                polygon.addListener('click', polyInfo);
+                app.polygons.push(polygon);
+                polygon.setMap(app.map);
+              }
               else{
-                console.log("poly");
                 temp = wktFormatter(data.coords[key]['POLYGON']);
                 //console.log(temp);
                 for (var i = 0; i < temp.length; i++) {
