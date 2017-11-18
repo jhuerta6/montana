@@ -274,12 +274,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             var elem_blck = document.createElement("option");
             elem_blck.innerHTML = eval("blocks."+blck+".name");
             elem_blck.id = eval("blocks."+blck+".id");
+            elem_blck.value = eval("blocks."+blck+".id");
             var select_blocks = document.getElementById("select_blocks");
             select_blocks.appendChild(elem_blck);
           }
 
           $("#select_blocks").change(function(){
-
+            //console.log(this.value);
           });
 
           $('[data-toggle="tooltip"]').tooltip();
