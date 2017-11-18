@@ -51,7 +51,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
   <div class="container panel panel-default">
     <div class="row">
-      <div id="block_selectors" class="col-sm-9">
+      <div class="col-sm-9">
         <div class="input-group">
            <span class="input-group-addon" id="add_on">Block Level</span>
           <select type="text" class="form-control" placeholder="Block Level" aria-describedby="add_on" id="select_blocks">
@@ -60,7 +60,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         </div>
       </div>
       <div class="col-sm-3">
-        <p class="text-center"> pm </p>
+        <div class="input-group">
+           <span class="input-group-addon" id="add_on">PM</span>
+          <select type="text" class="form-control" placeholder="Performance Measure" aria-describedby="add_on" id="select_pm">
+            <option value="" disabled selected>Select a Performance Measure</option>
+          </select>
+        </div>
+
       </div>
     </div>
     <div class="row">
@@ -262,9 +268,18 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             id: "d",
             name: "D) Region to Region",
             pms: ["d11","d12","d13"],
-            d11:"Pavements in Poor Condition",
-            d23:"Vehicle Miles Travelled",
-            d31:"Truck Travel Time"
+            d11:{
+              name: "Pavements in Poor Condition",
+              mode: ["D"]
+            },
+            d21:{
+              name: "Vehicle Miles Travelled",
+              mode: ["D","T","B","F"]
+            },
+            d31:{
+              name: "Truck Travel Time",
+              mode: ["F"]
+            },
           }
         };
 
@@ -281,6 +296,16 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
           $("#select_blocks").change(function(){
             //console.log(this.value);
+            for (var i = 0; i < array.length; i++) {
+              array[i];
+            }
+          });
+
+          $("#select_pm").change(function(){
+            //console.log(this.value);
+            for (var i = 0; i < array.length; i++) {
+              array[i];
+            }
           });
 
           $('[data-toggle="tooltip"]').tooltip();
