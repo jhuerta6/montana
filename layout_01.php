@@ -47,165 +47,193 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     <h3 class="text-center" style="color:#FF8000;"> Performance Measures for Montana Corridor</h3>
     <h6 class="hidden-xs text-center"><i style="color: white;">"</i><strong><i style="color:#FF8000;" class="text-center">CTIS </i></strong><i class="text-center" style="color:white;">is designated as a Member of National, Regional, and Tier 1 University Transportation Center."</i></h6>
     <p class="hidden-xs text-right" style="color: white"> Version 1.2 (11/6/2017)</p>
-    <!--<p class="hidden-md hidden-lg text-center" style="color: white"> Version 4 (9/27/2017)</p> -->
   </nav>
-  <div>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="row">
-          <div id="map"></div>
-          <div id="description"></div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="row">
-              <div class="chart" id="chart_area_1"> </div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="row">
-              <div class="chart" id="chart_area_2"> </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="row">
-              <div class="chart" id="chart_area_3"> </div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="row">
-              <div class="chart" id="chart_area_4"> </div>
-            </div>
-          </div>
-        </div>
-      </div> <!-- End main column 1 -->
-      <div class="col-md-3">
-        <div class="col-md-13">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <center><h3 class="panel-title">Toolbar</h3></center>
-            </div>
-            <div class="panel-body">
-              <div class="row panel panel-default">
-                <!--  <center><label>Performance Measures</label></center> -->
-                <div class="row">
-                  <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#default,#defaultbtn" data-target="#default, #defaultbtn">Tools</a></li>
-                    <li><a data-toggle="tab" href="#filters,#filtersbtn" data-target="#filters, #filtersbtn">Filter</a></li>
-                    <li data-toggle="tooltip" data-placement="top" title="Click your drawn Area Of Interest to display statistics">
-                      <a data-toggle="tab" href="#statistics,#statisticsbtn" data-target="#statistics, #statisticsbtn">Statistics</a>
-                    </li>
-                  </ul>
-                  <div class="col-md-5 col-sm-11 col-lg-7">
-                    <div class="tab-content">
-                      <div id="default" class="tab-pane fade in active"><br>
-                        <center><label> Performance Measures:</label></center><br>
-                        <div class="input-group">
-                          <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
-                          <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_mpo">
-                            <option value="" disabled selected>Select a performance measure</option>
-                          </select>
-                        </div> <br>
-                        <div class="input-group">
-                          <span data-toggle="tooltip" data-placement="top" title="Number of representations for the data" class="input-group-addon" id="basic-addon3"># labels</span>
-                          <input type="number" class="form-control" value="1" min="1"placeholder="...labels" id="labels" aria-describedby="basic-addon3">
-                        </div><br>
-                      </div>
-                      <div id="filters" class="tab-pane fade"><br>
-                        <div class="form-check">
-                          <p class="form-check-label">
-                            <input class="form-check-input" type="radio" name="radios" id="biggerThan" value="bigger">
-                            Color polygons that are bigger than the unit value
-                          </p>
-                        </div>
-                        <div class="form-check">
-                          <p class="form-check-label">
-                            <input class="form-check-input" type="radio" name="radios" id="smallerThan" value="smaller">
-                            Color polygons that are smaller than the unit value
-                          </p>
-                        </div>
-                        <div class="form-check">
-                          <p class="form-check-label">
-                            <input class="form-check-input" type="radio" name="radios" id="equalTo" value="equal">
-                            Color polygons that are equal to the unit value
-                          </p>
-                        </div>
-                        <div class="input-group">
-                          <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
-                          <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_prop_filters">
-                            <option value="" disabled selected>Select a ground property</option>
-                          </select>
-                        </div> <br>
-                        <div class="input-group">
-                          <span data-toggle="tooltip" data-placement="top" title="The unit value used to compare the data values" class="input-group-addon" id="basic-addon3">unit</span>
-                          <input type="number" class="form-control" value="1" min="0"placeholder="...units" id="filter_units" aria-describedby="basic-addon3">
-                        </div><br>
-                        <div class="input-group">
-                          <span class="input-group-addon" id="basic-addon3"># labels</span>
-                          <input type="number" class="form-control" value="1" min="1"placeholder="...labels" id="labels_filter" aria-describedby="basic-addon3">
-                        </div><br>
-                      </div>
-                      <div id="statistics" class="tab-pane fade"><br>
 
-                        <label>Select parameters:</label>
-                        <div class="input-group">
-                          <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
-                          <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_chart_1">
-                            <option value="" disabled selected>Select a ground property</option>
-                          </select>
-                        </div> <br>
-                        <div class="input-group" style='visibility: hidden' id="chartAppear1">
-                          <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
-                          <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_chart_2">
-                            <option value="" disabled selected>Select a ground property</option>
-                          </select>
-                        </div> <br>
-                        <div class="input-group" style='visibility: hidden' id="chartAppear2">
-                          <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
-                          <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_chart_3">
-                            <option value="" disabled selected>Select a ground property</option>
-                          </select>
-                        </div> <br>
-                      </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-9">
+        <p class="text-center"> block scale </p>
+      </div>
+      <div class="col-sm-3">
+        <p class="text-center"> pm </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-9">
+        <p class="text-center"> map </p>
+          <div id="map"></div>
+      </div>
+      <div class="col-sm-3">
+        <p class="text-center"> tools </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-9">
+        <p class="text-center"> graphs </p>
+      </div>
+      <div class="col-sm-3">
+        <p class="text-center"> data report </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="row">
+    <div class="col-md-6">
+      <div class="row">
+        <div id="map"></div>
+        <div id="description"></div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="chart" id="chart_area_1"> </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="chart" id="chart_area_2"> </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="chart" id="chart_area_3"> </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="chart" id="chart_area_4"> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="col-md-13">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <center><h3 class="panel-title">Toolbar</h3></center>
+          </div>
+          <div class="panel-body">
+            <div class="row panel panel-default">
+
+              <div class="row">
+                <ul class="nav nav-tabs">
+                  <li class="active"><a data-toggle="tab" href="#default,#defaultbtn" data-target="#default, #defaultbtn">Tools</a></li>
+                  <li><a data-toggle="tab" href="#filters,#filtersbtn" data-target="#filters, #filtersbtn">Filter</a></li>
+                  <li data-toggle="tooltip" data-placement="top" title="Click your drawn Area Of Interest to display statistics">
+                    <a data-toggle="tab" href="#statistics,#statisticsbtn" data-target="#statistics, #statisticsbtn">Statistics</a>
+                  </li>
+                </ul>
+                <div class="col-md-5 col-sm-11 col-lg-7">
+                  <div class="tab-content">
+                    <div id="default" class="tab-pane fade in active"><br>
+                      <center><label> Performance Measures:</label></center><br>
+                      <div class="input-group">
+                        <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
+                        <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_mpo">
+                          <option value="" disabled selected>Select a performance measure</option>
+                        </select>
+                      </div> <br>
+                      <div class="input-group">
+                        <span data-toggle="tooltip" data-placement="top" title="Number of representations for the data" class="input-group-addon" id="basic-addon3"># labels</span>
+                        <input type="number" class="form-control" value="1" min="1"placeholder="...labels" id="labels" aria-describedby="basic-addon3">
+                      </div><br>
                     </div>
-                  </div> <!--end column for selectors-->
-                  <div class="col-md-5"><br>
-                    <div class="tab-content">
-                      <div id="defaultbtn" class="tab-pane fade in active">
-                        <!--<button data-toggle="tooltip" data-placement="top" title="Bring up the data for the whole section currently displayed on the map" class="btn btn-success form-control" type="button" id="run" onClick="getPolygonsHelper()">Run</button><br><br>
-                        <button data-toggle="tooltip" data-placement="top" title="Only bring up the data touched by the Area Of Interest" class="btn btn-success form-control" type="button" id="runAOI" onClick="runAOI()">Run AOI</button><br><br> -->
-                        <br><br><button type="button" class="btn btn-success form-control" id="mpo_draw" onclick="mpo();">Draw</button><br><br>
-                        <button data-toggle="tooltip" data-placement="top" title="Only bring up the data touched by the Area Of Interest" class="btn btn-success form-control" type="button" id="runAOI" onClick="runAOI()">Run AOI</button> <br><br>
-                        <button class="btn btn-warning form-control" type="button" id="clear" onClick="removePolygons()">Clear</button><br><br>
-                        <!--<button type="button" class="map-print" id="print" onClick="printMaps()">Print</button><br><br>-->
-                        <!--<a href="./ctis_isc_polygon.kml" download><button type="button" class="btn btn-outline-secondary form-control" id="download_kml" onClick="clearKML()">KML</button></a>-->
+                    <div id="filters" class="tab-pane fade"><br>
+                      <div class="form-check">
+                        <p class="form-check-label">
+                          <input class="form-check-input" type="radio" name="radios" id="biggerThan" value="bigger">
+                          Color polygons that are bigger than the unit value
+                        </p>
                       </div>
-                      <div id="filtersbtn" class="tab-pane fade"><br><br><br><br>
-                        <button class="btn btn-success form-control" type="button" id="runFilters" onClick="runFilters()">Run Filter</button>
+                      <div class="form-check">
+                        <p class="form-check-label">
+                          <input class="form-check-input" type="radio" name="radios" id="smallerThan" value="smaller">
+                          Color polygons that are smaller than the unit value
+                        </p>
                       </div>
-                      <br>
-                      <div id="statisticsbtn" class="tab-pane fade">
-                        <button type="button" class="btn btn-default form-control" id="draw" onclick="drawAnotherRectangle();">Clear AOI</button><br><br>
-                        <button type="button" class="btn btn-default form-control" id="clearCharts" onclick="clearCharts();">Clear Charts</button><br><br>
+                      <div class="form-check">
+                        <p class="form-check-label">
+                          <input class="form-check-input" type="radio" name="radios" id="equalTo" value="equal">
+                          Color polygons that are equal to the unit value
+                        </p>
                       </div>
-                      <div id="mpobtn" class="tab-pane fade">
-                        <button type="button" class="btn btn-default form-control" id="mpo_draw" onclick="mpo();">Draw</button>
-                      </div>
-                    </div> <!-- end column for buttons-->
+                      <div class="input-group">
+                        <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
+                        <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_prop_filters">
+                          <option value="" disabled selected>Select a ground property</option>
+                        </select>
+                      </div> <br>
+                      <div class="input-group">
+                        <span data-toggle="tooltip" data-placement="top" title="The unit value used to compare the data values" class="input-group-addon" id="basic-addon3">unit</span>
+                        <input type="number" class="form-control" value="1" min="0"placeholder="...units" id="filter_units" aria-describedby="basic-addon3">
+                      </div><br>
+                      <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon3"># labels</span>
+                        <input type="number" class="form-control" value="1" min="1"placeholder="...labels" id="labels_filter" aria-describedby="basic-addon3">
+                      </div><br>
+                    </div>
+                    <div id="statistics" class="tab-pane fade"><br>
+
+                      <label>Select parameters:</label>
+                      <div class="input-group">
+                        <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
+                        <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_chart_1">
+                          <option value="" disabled selected>Select a ground property</option>
+                        </select>
+                      </div> <br>
+                      <div class="input-group" style='visibility: hidden' id="chartAppear1">
+                        <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
+                        <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_chart_2">
+                          <option value="" disabled selected>Select a ground property</option>
+                        </select>
+                      </div> <br>
+                      <div class="input-group" style='visibility: hidden' id="chartAppear2">
+                        <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
+                        <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_chart_3">
+                          <option value="" disabled selected>Select a ground property</option>
+                        </select>
+                      </div> <br>
+                    </div>
                   </div>
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <div id="legend" style='visibility: visible'>
-                      </div>
+                </div>
+                <div class="col-md-5"><br>
+                  <div class="tab-content">
+                    <div id="defaultbtn" class="tab-pane fade in active">
+
+                      <br><br><button type="button" class="btn btn-success form-control" id="mpo_draw" onclick="mpo();">Draw</button><br><br>
+                      <button data-toggle="tooltip" data-placement="top" title="Only bring up the data touched by the Area Of Interest" class="btn btn-success form-control" type="button" id="runAOI" onClick="runAOI()">Run AOI</button> <br><br>
+                      <button class="btn btn-warning form-control" type="button" id="clear" onClick="removePolygons()">Clear</button><br><br>
+                      <!--<button type="button" class="map-print" id="print" onClick="printMaps()">Print</button><br><br>
+                      <!--<a href="./ctis_isc_polygon.kml" download><button type="button" class="btn btn-outline-secondary form-control" id="download_kml" onClick="clearKML()">KML</button></a>
+                    </div>
+                    <div id="filtersbtn" class="tab-pane fade"><br><br><br><br>
+                      <button class="btn btn-success form-control" type="button" id="runFilters" onClick="runFilters()">Run Filter</button>
+                    </div>
+                    <br>
+                    <div id="statisticsbtn" class="tab-pane fade">
+                      <button type="button" class="btn btn-default form-control" id="draw" onclick="drawAnotherRectangle();">Clear AOI</button><br><br>
+                      <button type="button" class="btn btn-default form-control" id="clearCharts" onclick="clearCharts();">Clear Charts</button><br><br>
+                    </div>
+                    <div id="mpobtn" class="tab-pane fade">
+                      <button type="button" class="btn btn-default form-control" id="mpo_draw" onclick="mpo();">Draw</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div id="legend" style='visibility: visible'>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div> <!-- End main column 2 -->
+          </div>
         </div>
+      </div>
+    </div>
+  </div> -->
         <script src="js/jquery.js"></script>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script src="js/bootstrap.js"></script>
