@@ -46,13 +46,18 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <h3 class="text-center" style="color:#FF8000;"> Performance Measures for Montana Corridor</h3>
     <h6 class="hidden-xs text-center"><i style="color: white;">"</i><strong><i style="color:#FF8000;" class="text-center">CTIS </i></strong><i class="text-center" style="color:white;">is designated as a Member of National, Regional, and Tier 1 University Transportation Center."</i></h6>
-    <p class="hidden-xs text-right" style="color: white"> Version 1.2 (11/6/2017)</p>
+    <p class="hidden-xs text-right" style="color: white"> Version 1.2 ~ (11/6/2017)</p>
   </nav>
 
-  <div class="container">
+  <div class="container panel panel-default">
     <div class="row">
-      <div class="col-sm-9">
-        <p class="text-center"> block scale </p>
+      <div id="block_selectors" class="col-sm-9">
+        <div class="input-group">
+           <span class="input-group-addon" id="add_on">Block Level</span>
+          <select type="text" class="form-control" placeholder="Block Level" aria-describedby="add_on" id="select_blocks">
+            <option value="" disabled selected>Select a Block Level</option>
+          </select>
+        </div>
       </div>
       <div class="col-sm-3">
         <p class="text-center"> pm </p>
@@ -60,7 +65,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     </div>
     <div class="row">
       <div class="col-sm-9">
-        <p class="text-center"> map </p>
           <div id="map"></div>
       </div>
       <div class="col-sm-3">
@@ -249,7 +253,35 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         var pm_mpo = {name_pm:null, pm:null, NE:null, SW:null, label:"no filter", getMode:"polygons", to_draw:null, draw_charts: false, runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0};
         var hecho = false;
 
+        var blocks = {
+          elements:["d"],
+          a:{
+            pms:["example", "example2"]
+          },
+          d:{
+            id: "d",
+            name: "D) Region to Region",
+            pms: ["d11","d12","d13"],
+            d11:"Pavements in Poor Condition",
+            d23:"Vehicle Miles Travelled",
+            d31:"Truck Travel Time"
+          }
+        };
+
         $(document).ready(function(){
+          for (var i = 0; i < blocks.elements.length; i++) {
+            var blck = blocks.elements[i];
+            var elem_blck = document.createElement("option");
+            elem_blck.innerHTML = eval("blocks."+blck+".name");
+            elem_blck.id = eval("blocks."+blck+".id");
+            var select_blocks = document.getElementById("select_blocks");
+            select_blocks.appendChild(elem_blck);
+          }
+
+          $("#select_blocks").change(function(){
+
+          });
+
           $('[data-toggle="tooltip"]').tooltip();
 
           var performance_measures = [
