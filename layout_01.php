@@ -267,17 +267,17 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           d:{
             id: "d",
             name: "D) Region to Region",
-            pms: ["d11","d12","d13"],
+            pms: ["d11","d21","d31"],
             d11:{
-              name: "Pavements in Poor Condition",
+              name: "D-1-1) Pavements in Poor Condition",
               mode: ["D"]
             },
             d21:{
-              name: "Vehicle Miles Travelled",
+              name: "D-2-1) Vehicle Miles Travelled",
               mode: ["D","T","B","F"]
             },
             d31:{
-              name: "Truck Travel Time",
+              name: "D-3-1) Truck Travel Time",
               mode: ["F"]
             },
           }
@@ -296,16 +296,20 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
           $("#select_blocks").change(function(){
             //console.log(this.value);
-            for (var i = 0; i < array.length; i++) {
-              array[i];
+            for (var i = 0; i < eval("blocks."+this.value+".pms.length"); i++) {
+              var temp = eval("blocks."+this.value+".pms["+i+"]")
+              //console.log( eval("blocks."+this.value+"."+temp+".name"));
+              var elem_blck = document.createElement("option");
+              elem_blck.innerHTML = eval("blocks."+this.value+"."+temp+".name")
+              //elem_blck.id = eval("blocks."+blck+".id");
+             //elem_blck.value = eval("blocks."+blck+".id");
+              var select_pm = document.getElementById("select_pm");
+              select_pm.appendChild(elem_blck);
             }
           });
 
           $("#select_pm").change(function(){
-            //console.log(this.value);
-            for (var i = 0; i < array.length; i++) {
-              array[i];
-            }
+
           });
 
           $('[data-toggle="tooltip"]').tooltip();
