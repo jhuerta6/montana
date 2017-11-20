@@ -67,7 +67,8 @@ function getStatistics(){
 	$toReturn['set'] = $result;
 
 	if($data->to_draw == "iri"){
-		$query= "SELECT $data->to_draw as value FROM d11 AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
+		//$query= "SELECT $data->to_draw as value FROM d11 AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
+		$query = "SELECT iri as value FROM d11 WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), d11.SHAPE) AND iri_year > 0";
 	}else{
 		$query= "SELECT $data->to_draw as value FROM polygon AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 	}
