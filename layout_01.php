@@ -101,10 +101,10 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               <option value="" disabled selected>Select a performance measure</option>
             </select>
           </div> <br>-->
-          <center><div class="input-group">
+          <!--<center><div class="input-group">
             <span data-toggle="tooltip" data-placement="top" title="Number of representations for the data" class="input-group-addon" id="basic-addon3"># labels</span>
             <input type="number" class="form-control" value="1" min="1"placeholder="...labels" id="labels" aria-describedby="basic-addon3">
-          </div> </center><br>
+          </div> </center><br> -->
         </div>
         <div id="filters" class="tab-pane fade"><br>
           <div class="form-check">
