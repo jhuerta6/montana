@@ -53,7 +53,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     <div class="row">
       <div class="col-sm-9">
         <div class="input-group">
-           <span class="input-group-addon" id="add_on">Block Level</span>
+          <span class="input-group-addon" id="add_on">Block Level</span>
           <select type="text" class="form-control" placeholder="Block Level" aria-describedby="add_on" id="select_blocks">
             <option value="" disabled selected>Select a Block Level</option>
           </select>
@@ -61,7 +61,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       </div>
       <div class="col-sm-3">
         <div class="input-group">
-           <span class="input-group-addon" id="add_on">PM</span>
+          <span class="input-group-addon" id="add_on">PM</span>
           <select type="text" class="form-control" placeholder="Performance Measure" aria-describedby="add_on" id="select_pm">
             <option value="" disabled selected>Select a Performance Measure</option>
           </select>
@@ -71,21 +71,141 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     </div>
     <div class="row">
       <div class="col-sm-9">
-          <div id="map"></div>
+        <div id="map"></div>
       </div>
-      <div class="col-sm-3">
-        <p class="text-center"> tools </p>
+      <div class="col-sm-3"><br>
+        <!--<p class="text-center"> tools </p>-->
+        <!--<div class="panel panel-default">
+        <div class="panel-heading">
+        <center><h3 class="panel-title">Toolbar</h3></center>
+      </div>
+      <div class="panel-body">
+      <div class="row panel panel-default">-->
+
+      <div class="row">
+        <ul class="nav nav-tabs">
+          <li class="active"><a data-toggle="tab" href="#default,#defaultbtn" data-target="#default, #defaultbtn">Tools</a></li>
+          <li><a data-toggle="tab" href="#filters,#filtersbtn" data-target="#filters, #filtersbtn">Filter</a></li>
+          <li data-toggle="tooltip" data-placement="top" title="Click your drawn Area Of Interest to display statistics">
+            <a data-toggle="tab" href="#statistics,#statisticsbtn" data-target="#statistics, #statisticsbtn">Statistics</a>
+          </li>
+        </ul>
+        <!--<div class="col-md-5 col-sm-11 col-lg-7"> -->
+        <div class="col-sm-12">
+          <div class="tab-content">
+            <div id="default" class="tab-pane fade in active"><br>
+              <!--<center><label> Performance Measures:</label></center><br>
+              <div class="input-group">
+              <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
+              <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_mpo">
+              <option value="" disabled selected>Select a performance measure</option>
+            </select>
+          </div> <br>-->
+          <center><div class="input-group">
+            <span data-toggle="tooltip" data-placement="top" title="Number of representations for the data" class="input-group-addon" id="basic-addon3"># labels</span>
+            <input type="number" class="form-control" value="1" min="1"placeholder="...labels" id="labels" aria-describedby="basic-addon3">
+          </div> </center><br>
+        </div>
+        <div id="filters" class="tab-pane fade"><br>
+          <div class="form-check">
+            <p class="form-check-label">
+              <input class="form-check-input" type="radio" name="radios" id="biggerThan" value="bigger">
+              Color polygons that are bigger than the unit value
+            </p>
+          </div>
+          <div class="form-check">
+            <p class="form-check-label">
+              <input class="form-check-input" type="radio" name="radios" id="smallerThan" value="smaller">
+              Color polygons that are smaller than the unit value
+            </p>
+          </div>
+          <div class="form-check">
+            <p class="form-check-label">
+              <input class="form-check-input" type="radio" name="radios" id="equalTo" value="equal">
+              Color polygons that are equal to the unit value
+            </p>
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
+            <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_prop_filters">
+              <option value="" disabled selected>Select a ground property</option>
+            </select>
+          </div> <br>
+          <div class="input-group">
+            <span data-toggle="tooltip" data-placement="top" title="The unit value used to compare the data values" class="input-group-addon" id="basic-addon3">unit</span>
+            <input type="number" class="form-control" value="1" min="0"placeholder="...units" id="filter_units" aria-describedby="basic-addon3">
+          </div><br>
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon3"># labels</span>
+            <input type="number" class="form-control" value="1" min="1"placeholder="...labels" id="labels_filter" aria-describedby="basic-addon3">
+          </div><br>
+        </div>
+        <div id="statistics" class="tab-pane fade"><br>
+          <!--
+          <label>Select parameters:</label>
+          <div class="input-group">
+            <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
+            <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_chart_1">
+              <option value="" disabled selected>Select a ground property</option>
+            </select>
+          </div> <br>
+          <div class="input-group" style='visibility: hidden' id="chartAppear1">
+            <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
+            <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_chart_2">
+              <option value="" disabled selected>Select a ground property</option>
+            </select>
+          </div> <br>
+          <div class="input-group" style='visibility: hidden' id="chartAppear2">
+            <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
+            <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_chart_3">
+              <option value="" disabled selected>Select a ground property</option>
+            </select>
+          </div> <br> -->
+        </div>
+
+      </div>
+    </div>
+    <div class="col-md-12"><br>
+      <div class="tab-content">
+        <div id="defaultbtn" class="tab-pane fade in active">
+          <button type="button" class="btn btn-success form-control" id="mpo_draw" onclick="mpo();">Draw</button><br><br>
+          <button data-toggle="tooltip" data-placement="top" title="Only bring up the data touched by the Area Of Interest" class="btn btn-success form-control" type="button" id="runAOI" onClick="runAOI()">Run AOI</button> <br><br>
+          <button class="btn btn-warning form-control" type="button" id="clear" onClick="removePolygons()">Clear</button><br><br>
+          <!--<button type="button" class="map-print" id="print" onClick="printMaps()">Print</button><br><br> -->
+          <!--<a href="./ctis_isc_polygon.kml" download><button type="button" class="btn btn-outline-secondary form-control" id="download_kml" onClick="clearKML()">KML</button></a> -->
+        </div>
+        <div id="filtersbtn" class="tab-pane fade">
+          <button class="btn btn-success form-control" type="button" id="runFilters" onClick="runFilters()">Run Filter</button>
+        </div>
+        <br>
+        <div id="statisticsbtn" class="tab-pane fade">
+          <button type="button" class="btn btn-default form-control" id="draw" onclick="drawAnotherRectangle();">Clear AOI</button><br><br>
+          <button type="button" class="btn btn-default form-control" id="clearCharts" onclick="clearCharts();">Clear Charts</button><br><br>
+        </div>
+        <div id="mpobtn" class="tab-pane fade">
+          <button type="button" class="btn btn-default form-control" id="mpo_draw" onclick="mpo();">Draw</button>
+        </div>
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-9">
-        <p class="text-center"> graphs </p>
-      </div>
-      <div class="col-sm-3">
-        <p class="text-center"> data report </p>
+      <div class="col-sm-12">
+        <div id="legend" style='visibility: hidden'>
+        </div>
       </div>
     </div>
   </div>
+</div>
+<div class="row">
+  <div class="col-sm-9">
+    <div class="chart" id="chart_selected"> </div><hr>
+    <div class="chart" id="chart_overall"> </div>
+  </div>
+  <div class="col-sm-3">
+    <p class="text-center"> data report </p>
+  </div>
+</div>
+</div>
+</div>
 
   <!-- <div class="row">
     <div class="col-md-6">
@@ -270,15 +390,18 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             pms: ["d11","d21","d31"],
             d11:{
               name: "D-1-1) Pavements in Poor Condition",
-              mode: ["D"]
+              mode: ["D"],
+              key: "iri"
             },
             d21:{
               name: "D-2-1) Vehicle Miles Travelled",
-              mode: ["D","T","B","F"]
+              mode: ["D","T","B","F"],
+              key: "vehicle_miles_travelled"
             },
             d31:{
               name: "D-3-1) Truck Travel Time",
-              mode: ["F"]
+              mode: ["F"],
+              key: "tti"
             },
           }
         };
@@ -301,15 +424,25 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               //console.log( eval("blocks."+this.value+"."+temp+".name"));
               var elem_blck = document.createElement("option");
               elem_blck.innerHTML = eval("blocks."+this.value+"."+temp+".name")
-              //elem_blck.id = eval("blocks."+blck+".id");
+              elem_blck.id = this.value;
              //elem_blck.value = eval("blocks."+blck+".id");
               var select_pm = document.getElementById("select_pm");
               select_pm.appendChild(elem_blck);
             }
           });
 
-          $("#select_pm").change(function(){
-
+          $("#select_pm").change(function(){ //change name to something more specific but iterable = "select_pm_block_d"
+            pm_mpo.name_pm = this.value;
+            var block = $(this).children(":selected").attr("id");
+            for(var i = 0; i < eval("blocks."+block+".pms.length"); i++){
+              var block_pm = eval("blocks."+block+".pms["+i+"]");
+              if(eval("blocks."+block+"."+block_pm+".name") == this.value){
+                pm_mpo.pm = eval("blocks."+block+"."+block_pm+".key");
+                pm_mpo.filter_prop = eval("blocks."+block+"."+block_pm+".key");
+                pm_mpo.filter_prop_n = this.value;
+                pm_mpo.chart1 =  eval("blocks."+block+"."+block_pm+".key");
+              }
+            }
           });
 
           $('[data-toggle="tooltip"]').tooltip();
@@ -340,7 +473,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               elem.id = pm_attributes[i];
               elem.textContent = performance_measures[i];
               elem.value = performance_measures[i];
-              divs[j].appendChild(elem);
+              //divs[j].appendChild(elem);
             }
           }
 
@@ -1081,7 +1214,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           getparams.SW = bounds.getSouthWest().toJSON();
           pm_mpo.NE = getparams.NE;
           pm_mpo.SW = getparams.SW;
-          var chart_divs = ['chart_area_1', 'chart_area_2','chart_area_3', 'chart_area_4'];
+          var chart_divs = ['chart_selected', 'chart_area_2','chart_area_3', 'chart_area_4'];
           var histogram_divs = ['chart_histogram_1', 'chart_histogram_2', 'chart_histogram_3', 'chart_histogram_4'];
           var chart_ns = ['chart1n', 'chart2n', 'chart3n', 'chart4n'];
           var to_draws = ['chart1', 'chart2', 'chart3', 'chart4'];
@@ -1130,7 +1263,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 ]);
 
                 var options = {
-                  title: name,
+                  title: "Selected Region",
                   legend: { position: 'none'},
                   animation:{ duration: 1000, easing: 'inAndOut', startup: true },
                   chartArea: { width: '70%' },
@@ -1138,6 +1271,17 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   vAxis: {}
                 };
                 bar_init = new google.visualization.BarChart(document.getElementById(elem_chart));
+                bar_init.draw(data, options);
+
+                var options = {
+                  title: "Overall Montana",
+                  legend: { position: 'none'},
+                  animation:{ duration: 1000, easing: 'inAndOut', startup: true },
+                  chartArea: { width: '70%' },
+                  hAxis: { minValue: 0 },
+                  vAxis: {}
+                };
+                bar_init = new google.visualization.BarChart(document.getElementById("chart_overall"));
                 bar_init.draw(data, options);
               }).done(function(data){
                 $(document.body).css({'cursor': 'auto'});
