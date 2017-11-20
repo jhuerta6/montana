@@ -50,7 +50,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   </nav>
 
   <div class="container panel panel-default">
-    <div class="row">
+    <div class="row"><br>
       <div class="col-sm-9">
         <div class="input-group">
           <span class="input-group-addon" id="add_on">Block Level</span>
@@ -69,7 +69,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-9">
+      <div class="col-sm-9"><br>
         <div id="map"></div>
       </div>
       <div class="col-sm-3"><br>
