@@ -69,6 +69,7 @@ function getStatistics(){
 	if($data->to_draw == "iri"){
 		//$query= "SELECT $data->to_draw as value FROM d11 AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
 		$query = "SELECT iri as value FROM d11 WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), d11.SHAPE) AND iri_year > 0";
+		$query_all = "SELECT iri as value from  d11 WHERE iri_year > 0";
 	}else{
 		$query= "SELECT $data->to_draw as value FROM polygon AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 	}
@@ -76,9 +77,16 @@ function getStatistics(){
 	$result = mysqli_query($conn, $query);
 	$result = fetchAll($result);
 
+	$result_all = mysqli_query($conn, $query_all);
+	$result_all = fetchAll($result_all);
+
 	$ordered =  array();
 	$ids = array();
 	$ids = array_unique($result, SORT_REGULAR);
+
+	$ordered_all =  array();
+	$ids_all = array();
+	$ids_all = array_unique($result_all, SORT_REGULAR);
 
 	for($i = 0; $i < sizeof($result); $i++){
 		if(isset($ids[$i])){
@@ -86,17 +94,33 @@ function getStatistics(){
 		}
 	}
 
+	for($i = 0; $i < sizeof($result_all); $i++){
+		if(isset($ids_all[$i])){
+			array_push($ordered_all, $ids_all[$i]);
+		}
+	}
+
 	$sorted = array();
 	$sorted = $ordered;
 	array_multisort($sorted, SORT_ASC);
+
+	$sorted_all = array();
+	$sorted_all = $ordered_all;
+	array_multisort($sorted_all, SORT_ASC);
 	/* Methods start here */
 	//MAX BEGIN
 	$maximo = max($ordered);
 	$maximo = $maximo['value'];
+
+	$maximo_all = max($ordered_all);
+	$maximo_all = $maximo_all['value'];
 	//MAX END
 	//MIN BEGIN
 	$minimo = min($ordered);
 	$minimo = $minimo['value'];
+
+	$minimo_all = min($ordered_all);
+	$minimo_all = $minimo_all['value'];
 	//MIN END
 	//MED BEGIN
 	if(sizeof($sorted) > 1){
@@ -113,6 +137,21 @@ function getStatistics(){
 	}else{
 		$mediano = $sorted[0]['value'];
 	}
+
+	if(sizeof($sorted_all) > 1){
+		if(sizeof($sorted_all)%2 == 1){ //odd
+			$med_i_all = ceil((sizeof($sorted_all)/2)) - 1;
+			$mediano_all = $sorted_all[$med_i_all]['value'];
+		}else{
+			$med_1_all = ceil((sizeof($sorted_all)/2));
+			$med_2_all = ceil((sizeof($sorted_all)/2)) - 1;
+			$val_1_all = $sorted_all[$med_1_all]['value'];
+			$val_2_all = $sorted_all[$med_2_all]['value'];
+			$mediano_all = ($val_1_all + $val_2_all)/2;
+		}
+	}else{
+		$mediano_all = $sorted_all[0]['value'];
+	}
 	//MED END
 	//ANG BEGIN
 	$promedio = 0;
@@ -120,6 +159,12 @@ function getStatistics(){
 		$promedio += $ordered[$i]['value'];
 	}
 	$promedio /= sizeof($ordered);
+
+	$promedio_all = 0;
+	for ($i=0; $i < sizeof($ordered_all); $i++) {
+		$promedio_all += $ordered_all[$i]['value'];
+	}
+	$promedio_all /= sizeof($ordered_all);
 	//AVG END
 	/*Methods end here*/
 	$toReturn['max'] = $maximo;
@@ -127,6 +172,12 @@ function getStatistics(){
 	$toReturn['med']= $mediano;
 	$toReturn['avg']= $promedio;
 	$toReturn['coords'] = $ordered;
+
+	$toReturn['max_all'] = $maximo_all;
+	$toReturn['min_all']= $minimo_all;
+	$toReturn['med_all']= $mediano_all;
+	$toReturn['avg_all']= $promedio_all;
+	$toReturn['coords_all'] = $ordered_all;
 }
 
 function getPolygons(){

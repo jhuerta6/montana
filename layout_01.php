@@ -202,7 +202,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   </div>
   <div class="col-sm-3">
     <p class="text-center"> data report / description </p>
-    
+
   </div>
 </div>
 </div>
@@ -1256,6 +1256,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 weightedaoi = parseFloat(weightedaoi).toFixed(2);
                 weightedaoi = parseFloat(weightedaoi);
 
+                maxaoi_all = parseFloat(data.max_all);
+                minaoi_all = parseFloat(data.min_all);
+                medaoi_all = parseFloat(data.med_all);
+                weightedaoi_all = parseFloat(data.avg_all);
+                weightedaoi_all = parseFloat(weightedaoi_all).toFixed(2);
+                weightedaoi_all = parseFloat(weightedaoi_all);
+
                 var data = google.visualization.arrayToDataTable([
                   ['Method', 'Value',],
                   ['Maximum ', maxaoi],
@@ -1263,6 +1270,14 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   ['Median ', medaoi],
                   ['Average ', weightedaoi]
                 ]);
+
+                var data_all = google.visualization.arrayToDataTable([
+                ['Method', 'Value',],
+                ['Maximum ', maxaoi_all],
+                ['Minimum ', minaoi_all],
+                ['Median ', medaoi_all],
+                ['Average ', weightedaoi_all]
+              ]);
 
                 var options = {
                   title: "Selected Region",
@@ -1284,7 +1299,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   vAxis: {}
                 };
                 bar_init = new google.visualization.BarChart(document.getElementById("chart_overall"));
-                bar_init.draw(data, options);
+                bar_init.draw(data_all, options);
               }).done(function(data){
                 $(document.body).css({'cursor': 'auto'});
               });
