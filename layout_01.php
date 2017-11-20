@@ -66,7 +66,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             <option value="" disabled selected>Select a Performance Measure</option>
           </select>
         </div>
-
       </div>
     </div>
     <div class="row">
@@ -74,139 +73,105 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         <div id="map"></div>
       </div>
       <div class="col-sm-3"><br>
-        <!--<p class="text-center"> tools </p>-->
-        <!--<div class="panel panel-default">
-        <div class="panel-heading">
-        <center><h3 class="panel-title">Toolbar</h3></center>
+        <div class="row">
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#default,#defaultbtn" data-target="#default, #defaultbtn">Tools</a></li>
+            <li><a data-toggle="tab" href="#filters,#filtersbtn" data-target="#filters, #filtersbtn">Filter</a></li>
+            <li data-toggle="tooltip" data-placement="top" title="Click your drawn Area Of Interest to display statistics">
+              <a data-toggle="tab" href="#statistics,#statisticsbtn" data-target="#statistics, #statisticsbtn">Statistics</a>
+            </li>
+          </ul>
+          <div class="col-sm-12">
+            <div class="tab-content">
+              <div id="default" class="tab-pane fade in active"><br>
+              </div>
+              <div id="filters" class="tab-pane fade"><br>
+                <div class="form-check">
+                  <p class="form-check-label">
+                    <input class="form-check-input" type="radio" name="radios" id="biggerThan" value="bigger">
+                    Color polygons that are bigger than the unit value
+                  </p>
+                </div>
+                <div class="form-check">
+                  <p class="form-check-label">
+                    <input class="form-check-input" type="radio" name="radios" id="smallerThan" value="smaller">
+                    Color polygons that are smaller than the unit value
+                  </p>
+                </div>
+                <div class="form-check">
+                  <p class="form-check-label">
+                    <input class="form-check-input" type="radio" name="radios" id="equalTo" value="equal">
+                    Color polygons that are equal to the unit value
+                  </p>
+                </div>
+                <div class="input-group">
+                  <span data-toggle="tooltip" data-placement="top" title="The unit value used to compare the data values" class="input-group-addon" id="basic-addon3">unit</span>
+                  <input type="number" class="form-control" value="1" min="0"placeholder="...units" id="filter_units" aria-describedby="basic-addon3">
+                </div><br>
+                <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon3"># labels</span>
+                  <input type="number" class="form-control" value="1" min="1"placeholder="...labels" id="labels_filter" aria-describedby="basic-addon3">
+                </div><br>
+              </div>
+              <div id="statistics" class="tab-pane fade"><br>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12"><br>
+            <div class="tab-content">
+              <div id="defaultbtn" class="tab-pane fade in active">
+                <button type="button" class="btn btn-success form-control" id="mpo_draw" onclick="mpo();">Draw</button><br><br>
+                <button data-toggle="tooltip" data-placement="top" title="Only bring up the data touched by the Area Of Interest" class="btn btn-success form-control" type="button" id="runAOI" onClick="runAOI()">Run AOI</button> <br><br>
+                <button class="btn btn-warning form-control" type="button" id="clear" onClick="removePolygons()">Clear</button><br><br>
+                <!--<button type="button" class="map-print" id="print" onClick="printMaps()">Print</button><br><br> -->
+                <!--<a href="./ctis_isc_polygon.kml" download><button type="button" class="btn btn-outline-secondary form-control" id="download_kml" onClick="clearKML()">KML</button></a> -->
+              </div>
+              <div id="filtersbtn" class="tab-pane fade">
+                <button class="btn btn-success form-control" type="button" id="runFilters" onClick="runFilters()">Run Filter</button>
+              </div>
+              <br>
+              <div id="statisticsbtn" class="tab-pane fade">
+                <button type="button" class="btn btn-default form-control" id="draw" onclick="drawAnotherRectangle();">Clear AOI</button><br><br>
+                <button type="button" class="btn btn-default form-control" id="clearCharts" onclick="clearCharts();">Clear Charts</button><br><br>
+              </div>
+              <div id="mpobtn" class="tab-pane fade">
+                <button type="button" class="btn btn-default form-control" id="mpo_draw" onclick="mpo();">Draw</button>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div id="legend" style='visibility: hidden'>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="panel-body">
-      <div class="row panel panel-default">-->
-
       <div class="row">
-        <ul class="nav nav-tabs">
-          <li class="active"><a data-toggle="tab" href="#default,#defaultbtn" data-target="#default, #defaultbtn">Tools</a></li>
-          <li><a data-toggle="tab" href="#filters,#filtersbtn" data-target="#filters, #filtersbtn">Filter</a></li>
-          <li data-toggle="tooltip" data-placement="top" title="Click your drawn Area Of Interest to display statistics">
-            <a data-toggle="tab" href="#statistics,#statisticsbtn" data-target="#statistics, #statisticsbtn">Statistics</a>
-          </li>
-        </ul>
-        <!--<div class="col-md-5 col-sm-11 col-lg-7"> -->
-        <div class="col-sm-12">
-          <div class="tab-content">
-            <div id="default" class="tab-pane fade in active"><br>
-              <!--<center><label> Performance Measures:</label></center><br>
-              <div class="input-group">
-              <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
-              <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_mpo">
-              <option value="" disabled selected>Select a performance measure</option>
-            </select>
-          </div> <br>-->
-          <!--<center><div class="input-group">
-            <span data-toggle="tooltip" data-placement="top" title="Number of representations for the data" class="input-group-addon" id="basic-addon3"># labels</span>
-            <input type="number" class="form-control" value="1" min="1"placeholder="...labels" id="labels" aria-describedby="basic-addon3">
-          </div> </center><br> -->
+        <div class="col-sm-9">
+          <div class="chart" id="chart_selected"> </div><hr>
+          <div class="chart" id="chart_overall"> </div>
         </div>
-        <div id="filters" class="tab-pane fade"><br>
-          <div class="form-check">
-            <p class="form-check-label">
-              <input class="form-check-input" type="radio" name="radios" id="biggerThan" value="bigger">
-              Color polygons that are bigger than the unit value
-            </p>
-          </div>
-          <div class="form-check">
-            <p class="form-check-label">
-              <input class="form-check-input" type="radio" name="radios" id="smallerThan" value="smaller">
-              Color polygons that are smaller than the unit value
-            </p>
-          </div>
-          <div class="form-check">
-            <p class="form-check-label">
-              <input class="form-check-input" type="radio" name="radios" id="equalTo" value="equal">
-              Color polygons that are equal to the unit value
-            </p>
-          </div>
-          <div class="input-group">
-            <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
-            <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_prop_filters">
-              <option value="" disabled selected>Select a ground property</option>
-            </select>
-          </div> <br>
-          <div class="input-group">
-            <span data-toggle="tooltip" data-placement="top" title="The unit value used to compare the data values" class="input-group-addon" id="basic-addon3">unit</span>
-            <input type="number" class="form-control" value="1" min="0"placeholder="...units" id="filter_units" aria-describedby="basic-addon3">
-          </div><br>
-          <div class="input-group">
-            <span class="input-group-addon" id="basic-addon3"># labels</span>
-            <input type="number" class="form-control" value="1" min="1"placeholder="...labels" id="labels_filter" aria-describedby="basic-addon3">
-          </div><br>
-        </div>
-        <div id="statistics" class="tab-pane fade"><br>
-          <!--
-          <label>Select parameters:</label>
-          <div class="input-group">
-            <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
-            <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_chart_1">
-              <option value="" disabled selected>Select a ground property</option>
-            </select>
-          </div> <br>
-          <div class="input-group" style='visibility: hidden' id="chartAppear1">
-            <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
-            <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_chart_2">
-              <option value="" disabled selected>Select a ground property</option>
-            </select>
-          </div> <br>
-          <div class="input-group" style='visibility: hidden' id="chartAppear2">
-            <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
-            <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_chart_3">
-              <option value="" disabled selected>Select a ground property</option>
-            </select>
-          </div> <br> -->
-        </div>
+        <div class="col-sm-3">
+          <div class="panel panel-default hide">
+            <div class="panel-body">
 
-      </div>
-    </div>
-    <div class="col-md-12"><br>
-      <div class="tab-content">
-        <div id="defaultbtn" class="tab-pane fade in active">
-          <button type="button" class="btn btn-success form-control" id="mpo_draw" onclick="mpo();">Draw</button><br><br>
-          <button data-toggle="tooltip" data-placement="top" title="Only bring up the data touched by the Area Of Interest" class="btn btn-success form-control" type="button" id="runAOI" onClick="runAOI()">Run AOI</button> <br><br>
-          <button class="btn btn-warning form-control" type="button" id="clear" onClick="removePolygons()">Clear</button><br><br>
-          <!--<button type="button" class="map-print" id="print" onClick="printMaps()">Print</button><br><br> -->
-          <!--<a href="./ctis_isc_polygon.kml" download><button type="button" class="btn btn-outline-secondary form-control" id="download_kml" onClick="clearKML()">KML</button></a> -->
-        </div>
-        <div id="filtersbtn" class="tab-pane fade">
-          <button class="btn btn-success form-control" type="button" id="runFilters" onClick="runFilters()">Run Filter</button>
-        </div>
-        <br>
-        <div id="statisticsbtn" class="tab-pane fade">
-          <button type="button" class="btn btn-default form-control" id="draw" onclick="drawAnotherRectangle();">Clear AOI</button><br><br>
-          <button type="button" class="btn btn-default form-control" id="clearCharts" onclick="clearCharts();">Clear Charts</button><br><br>
-        </div>
-        <div id="mpobtn" class="tab-pane fade">
-          <button type="button" class="btn btn-default form-control" id="mpo_draw" onclick="mpo();">Draw</button>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-12">
-        <div id="legend" style='visibility: hidden'>
+              <div class="row">
+                <div class="col">
+                  <div id="pm_description" class="hide">
+                    <p> This PM is about this and this and this and this and this
+                      and this and this and this and this and this and this
+                      and this and this and this and this and this and this.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-sm-9">
-    <div class="chart" id="chart_selected"> </div><hr>
-    <div class="chart" id="chart_overall"> </div>
-  </div>
-  <div class="col-sm-3">
-    <p class="text-center"> data report / description </p>
-
-  </div>
-</div>
-</div>
-</div>
 
   <!-- <div class="row">
     <div class="col-md-6">
@@ -752,11 +717,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   var spawner = document.getElementById('legendSpawner');
                     var div = document.createElement('div');
                     div.innerHTML =
-                    "<img src='img/brightgreensquare.png' height='10px'/> Very good" +
-                    "<br> <img src='img/skybluesquare.png' height='10px'/> Good"+
-                    "<br> <img src='img/yellowsquare.png' height='10px'/> Fair"+
-                    "<br> <img src='img/orangesquare.png' height='10px'/> Poor"+
-                    "<br> <img src='img/redsquare.png' height='10px'/> Very poor";
+                    "<img src='img/brightgreensquare.png' height='10px'/> Good and Fair" +
+                    "<br> <img src='img/redsquare.png' height='10px'/> Poor";
                     var newLegend = document.createElement('div');
                     newLegend = document.getElementById('legend');
                     document.getElementById('legend').style.visibility = "visible";
@@ -792,7 +754,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                     to_color.push(coord);
                   }
                 }
-                if(data.coords[key]['value'] >= 1 && data.coords[key]['value'] <= 59){ //very good
+                /*if(data.coords[key]['value'] >= 1 && data.coords[key]['value'] <= 59){ //very good
                   var proceed = true;
                   var color = '#00FF00';
                 }else if(data.coords[key]['value'] >= 60 && data.coords[key]['value'] <= 119){ //good
@@ -808,6 +770,17 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   var proceed = true;
                   var color = '#FF0000';
                 }else{
+                  var proceed = false;
+                  var color = '#000000';
+                }*/
+                if(data.coords[key]['value'] > 0 && data.coords[key]['value'] < 170){ //very good
+                  var proceed = true;
+                  var color = '#00FF00';
+                }else if(data.coords[key]['value'] >= 170){ //bad
+                  var proceed = true;
+                  var color = '#FF0000';
+                }
+                else{
                   var proceed = false;
                   var color = '#000000';
                 }
@@ -889,6 +862,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   var proceed = false;
                   var color = '#000000';
                 }
+
                 if(proceed){
                   var line = new google.maps.Polyline({
                     path: to_color,
@@ -1475,7 +1449,7 @@ function pointCrashNonInfo(event){
 }
 
 function lineInfo_pavement(event){
-  if(this.value >= 1 && this.value <= 59){ //very good
+  /*if(this.value >= 1 && this.value <= 59){ //very good
     text = "Pavement has very good condition (IRI = " + this.value + " )";
   }else if(this.value >= 60 && this.value <= 119){ //good
     text = "Pavement has good condition (IRI = " + this.value + " )";
@@ -1485,6 +1459,13 @@ function lineInfo_pavement(event){
     text = "Pavement has poor condition (IRI = " + this.value + " )";
   }else if(this.value >= 221 && this.value <= 950){ //very poor
     text = "Pavement has very poor condition (IRI = " + this.value + " )";
+  }else{
+    text = "No data";
+  }*/
+  if(this.value >= 0 && this.value < 170){ //very good
+    text = "Pavement has good condition (IRI = " + this.value + " )";
+  }else if(this.value > 170){ //good
+    text = "Pavement has poor condition (IRI = " + this.value + " )";
   }else{
     text = "No data";
   }
