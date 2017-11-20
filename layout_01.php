@@ -201,7 +201,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     <div class="chart" id="chart_overall"> </div>
   </div>
   <div class="col-sm-3">
-    <p class="text-center"> data report </p>
+    <p class="text-center"> data report / description </p>
+    
   </div>
 </div>
 </div>
