@@ -108,10 +108,10 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   <span data-toggle="tooltip" data-placement="top" title="The unit value used to compare the data values" class="input-group-addon" id="basic-addon3">unit</span>
                   <input type="number" class="form-control" value="1" min="0"placeholder="...units" id="filter_units" aria-describedby="basic-addon3">
                 </div><br>
-                <div class="input-group">
+                <!--<div class="input-group">
                   <span class="input-group-addon" id="basic-addon3"># labels</span>
                   <input type="number" class="form-control" value="1" min="1"placeholder="...labels" id="labels_filter" aria-describedby="basic-addon3">
-                </div><br>
+                </div><br>-->
               </div>
               <div id="statistics" class="tab-pane fade"><br>
               </div>
@@ -717,8 +717,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   var spawner = document.getElementById('legendSpawner');
                     var div = document.createElement('div');
                     div.innerHTML =
-                    "<img src='img/brightgreensquare.png' height='10px'/> Good and Fair" +
-                    "<br> <img src='img/redsquare.png' height='10px'/> Poor";
+                    "<img src='img/redsquare.png' height='10px'/> Poor" +
+                    "<br> <img src='img/brightgreensquare.png' height='10px'/> Good and Fair";
                     var newLegend = document.createElement('div');
                     newLegend = document.getElementById('legend');
                     document.getElementById('legend').style.visibility = "visible";
