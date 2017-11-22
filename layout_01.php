@@ -158,6 +158,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
               <div class="row">
                 <div class="col">
+                  <div id="modes"></div>
                   <div id="pm_description" class="hide">
                     <p> This PM is about this and this and this and this and this
                       and this and this and this and this and this and this
@@ -173,163 +174,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     </div>
   </div>
 
-  <!-- <div class="row">
-    <div class="col-md-6">
-      <div class="row">
-        <div id="map"></div>
-        <div id="description"></div>
-      </div>
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="row">
-            <div class="chart" id="chart_area_1"> </div>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="row">
-            <div class="chart" id="chart_area_2"> </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="row">
-            <div class="chart" id="chart_area_3"> </div>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="row">
-            <div class="chart" id="chart_area_4"> </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="col-md-13">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <center><h3 class="panel-title">Toolbar</h3></center>
-          </div>
-          <div class="panel-body">
-            <div class="row panel panel-default">
-
-              <div class="row">
-                <ul class="nav nav-tabs">
-                  <li class="active"><a data-toggle="tab" href="#default,#defaultbtn" data-target="#default, #defaultbtn">Tools</a></li>
-                  <li><a data-toggle="tab" href="#filters,#filtersbtn" data-target="#filters, #filtersbtn">Filter</a></li>
-                  <li data-toggle="tooltip" data-placement="top" title="Click your drawn Area Of Interest to display statistics">
-                    <a data-toggle="tab" href="#statistics,#statisticsbtn" data-target="#statistics, #statisticsbtn">Statistics</a>
-                  </li>
-                </ul>
-                <div class="col-md-5 col-sm-11 col-lg-7">
-                  <div class="tab-content">
-                    <div id="default" class="tab-pane fade in active"><br>
-                      <center><label> Performance Measures:</label></center><br>
-                      <div class="input-group">
-                        <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
-                        <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_mpo">
-                          <option value="" disabled selected>Select a performance measure</option>
-                        </select>
-                      </div> <br>
-                      <div class="input-group">
-                        <span data-toggle="tooltip" data-placement="top" title="Number of representations for the data" class="input-group-addon" id="basic-addon3"># labels</span>
-                        <input type="number" class="form-control" value="1" min="1"placeholder="...labels" id="labels" aria-describedby="basic-addon3">
-                      </div><br>
-                    </div>
-                    <div id="filters" class="tab-pane fade"><br>
-                      <div class="form-check">
-                        <p class="form-check-label">
-                          <input class="form-check-input" type="radio" name="radios" id="biggerThan" value="bigger">
-                          Color polygons that are bigger than the unit value
-                        </p>
-                      </div>
-                      <div class="form-check">
-                        <p class="form-check-label">
-                          <input class="form-check-input" type="radio" name="radios" id="smallerThan" value="smaller">
-                          Color polygons that are smaller than the unit value
-                        </p>
-                      </div>
-                      <div class="form-check">
-                        <p class="form-check-label">
-                          <input class="form-check-input" type="radio" name="radios" id="equalTo" value="equal">
-                          Color polygons that are equal to the unit value
-                        </p>
-                      </div>
-                      <div class="input-group">
-                        <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
-                        <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_prop_filters">
-                          <option value="" disabled selected>Select a ground property</option>
-                        </select>
-                      </div> <br>
-                      <div class="input-group">
-                        <span data-toggle="tooltip" data-placement="top" title="The unit value used to compare the data values" class="input-group-addon" id="basic-addon3">unit</span>
-                        <input type="number" class="form-control" value="1" min="0"placeholder="...units" id="filter_units" aria-describedby="basic-addon3">
-                      </div><br>
-                      <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon3"># labels</span>
-                        <input type="number" class="form-control" value="1" min="1"placeholder="...labels" id="labels_filter" aria-describedby="basic-addon3">
-                      </div><br>
-                    </div>
-                    <div id="statistics" class="tab-pane fade"><br>
-
-                      <label>Select parameters:</label>
-                      <div class="input-group">
-                        <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
-                        <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_chart_1">
-                          <option value="" disabled selected>Select a ground property</option>
-                        </select>
-                      </div> <br>
-                      <div class="input-group" style='visibility: hidden' id="chartAppear1">
-                        <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
-                        <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_chart_2">
-                          <option value="" disabled selected>Select a ground property</option>
-                        </select>
-                      </div> <br>
-                      <div class="input-group" style='visibility: hidden' id="chartAppear2">
-                        <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon"></span>
-                        <select type="text" class="form-control" placeholder="Ground Property" aria-describedby="basic-addon" id="select_chart_3">
-                          <option value="" disabled selected>Select a ground property</option>
-                        </select>
-                      </div> <br>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-5"><br>
-                  <div class="tab-content">
-                    <div id="defaultbtn" class="tab-pane fade in active">
-
-                      <br><br><button type="button" class="btn btn-success form-control" id="mpo_draw" onclick="mpo();">Draw</button><br><br>
-                      <button data-toggle="tooltip" data-placement="top" title="Only bring up the data touched by the Area Of Interest" class="btn btn-success form-control" type="button" id="runAOI" onClick="runAOI()">Run AOI</button> <br><br>
-                      <button class="btn btn-warning form-control" type="button" id="clear" onClick="removePolygons()">Clear</button><br><br>
-                      <!--<button type="button" class="map-print" id="print" onClick="printMaps()">Print</button><br><br>
-                      <!--<a href="./ctis_isc_polygon.kml" download><button type="button" class="btn btn-outline-secondary form-control" id="download_kml" onClick="clearKML()">KML</button></a>
-                    </div>
-                    <div id="filtersbtn" class="tab-pane fade"><br><br><br><br>
-                      <button class="btn btn-success form-control" type="button" id="runFilters" onClick="runFilters()">Run Filter</button>
-                    </div>
-                    <br>
-                    <div id="statisticsbtn" class="tab-pane fade">
-                      <button type="button" class="btn btn-default form-control" id="draw" onclick="drawAnotherRectangle();">Clear AOI</button><br><br>
-                      <button type="button" class="btn btn-default form-control" id="clearCharts" onclick="clearCharts();">Clear Charts</button><br><br>
-                    </div>
-                    <div id="mpobtn" class="tab-pane fade">
-                      <button type="button" class="btn btn-default form-control" id="mpo_draw" onclick="mpo();">Draw</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-12">
-                    <div id="legend" style='visibility: visible'>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
         <script src="js/jquery.js"></script>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script src="js/bootstrap.js"></script>
@@ -344,7 +188,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         var app = {map:null, polygons:null, label:"no filter", payload:{getMode:"polygons", runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, property:null, district:null, depth:0, from_depth:0, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0}};
         var pm_mpo = {name_pm:null, pm:null, NE:null, SW:null, label:"no filter", getMode:"polygons", to_draw:null, draw_charts: false, runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0};
         var hecho = false;
-
+        var modes = {"D":"Driving", "T":"Transit", "W":"Walking", "B":"Biking", "F":"Freight",}
         var blocks = {
           elements:["d"],
           a:{
@@ -384,14 +228,11 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           }
 
           $("#select_blocks").change(function(){
-            //console.log(this.value);
-            for (var i = 0; i < eval("blocks."+this.value+".pms.length"); i++) {
-              var temp = eval("blocks."+this.value+".pms["+i+"]")
-              //console.log( eval("blocks."+this.value+"."+temp+".name"));
+            for (var i = 0; i < blocks[this.value].pms.length; i++) {
+              var temp = blocks[this.value].pms[i];
               var elem_blck = document.createElement("option");
-              elem_blck.innerHTML = eval("blocks."+this.value+"."+temp+".name")
+              elem_blck.innerHTML = blocks[this.value][temp].name;
               elem_blck.id = this.value;
-             //elem_blck.value = eval("blocks."+blck+".id");
               var select_pm = document.getElementById("select_pm");
               select_pm.appendChild(elem_blck);
             }
@@ -400,13 +241,16 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           $("#select_pm").change(function(){ //change name to something more specific but iterable = "select_pm_block_d"
             pm_mpo.name_pm = this.value;
             var block = $(this).children(":selected").attr("id");
-            for(var i = 0; i < eval("blocks."+block+".pms.length"); i++){
-              var block_pm = eval("blocks."+block+".pms["+i+"]");
-              if(eval("blocks."+block+"."+block_pm+".name") == this.value){
-                pm_mpo.pm = eval("blocks."+block+"."+block_pm+".key");
-                pm_mpo.filter_prop = eval("blocks."+block+"."+block_pm+".key");
+            for(var i = 0; i < blocks[block].pms.length; i++){
+              var block_pm = blocks[block].pms[i];
+              if(blocks[block][block_pm].name == this.value){
+                pm_mpo.pm = blocks[block][block_pm].key;
+                pm_mpo.filter_prop = blocks[block][block_pm].key;
                 pm_mpo.filter_prop_n = this.value;
-                pm_mpo.chart1 =  eval("blocks."+block+"."+block_pm+".key");
+                pm_mpo.chart1 =  blocks[block][block_pm].key;
+                for(var j = 0; j < blocks[block][block_pm].mode.length; j++){
+                  //console.log(blocks[block][block_pm].mode[j]);
+                }
               }
             }
           });
