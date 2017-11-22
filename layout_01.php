@@ -566,7 +566,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                     var div = document.createElement('div');
                     div.innerHTML =
                     "<img src='img/redsquare.png' height='10px'/> Poor (IRI > 170)" +
-                    "<br> <img src='img/brightgreensquare.png' height='10px'/> Good and Fair (IRI < 170)";
+                    "<br> <img src='img/brightgreensquare.png' height='10px'/> Good & Fair (IRI < 170)";
                     var newLegend = document.createElement('div');
                     newLegend = document.getElementById('legend');
                     document.getElementById('legend').style.visibility = "visible";
