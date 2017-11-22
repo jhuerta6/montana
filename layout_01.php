@@ -617,10 +617,10 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   var proceed = false;
                   var color = '#000000';
                 }*/
-                if(data.coords[key]['value'] > 0 && data.coords[key]['value'] < 170){ //very good
+                if(data.coords[key]['value'] > 0 && data.coords[key]['value'] <= 170){ //very good
                   var proceed = true;
                   var color = '#00FF00';
-                }else if(data.coords[key]['value'] >= 170){ //bad
+                }else if(data.coords[key]['value'] > 170){ //bad
                   var proceed = true;
                   var color = '#FF0000';
                 }
@@ -1306,11 +1306,12 @@ function lineInfo_pavement(event){
   }else{
     text = "No data";
   }*/
-  if(this.value >= 0 && this.value < 170){ //very good
+  if(this.value >= 0 && this.value <= 170){ //very good
     text = "Pavement has good condition (IRI = " + this.value + " )";
   }else if(this.value > 170){ //good
     text = "Pavement has poor condition (IRI = " + this.value + " )";
   }else{
+    console.log(this.value);
     text = "No data";
   }
   app.infoWindow.setContent(text);
