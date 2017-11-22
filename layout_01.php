@@ -421,8 +421,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               maximum = 1;
             }
             var div = document.createElement('div');
-            //div.innerHTML = "<strong> Legend </strong>";
-            //div.className = "center-text";
+            div.innerHTML = "<strong> Legend </strong>";
+            div.className = "center-text";
             var l = document.createElement('div');
             l = document.getElementById('legend');
             l.appendChild(div);
@@ -565,8 +565,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   var spawner = document.getElementById('legendSpawner');
                     var div = document.createElement('div');
                     div.innerHTML =
-                    "<img src='img/redsquare.png' height='10px'/> Poor" +
-                    "<br> <img src='img/brightgreensquare.png' height='10px'/> Good and Fair";
+                    "<img src='img/redsquare.png' height='10px'/> Poor (IRI > 170)" +
+                    "<br> <img src='img/brightgreensquare.png' height='10px'/> Good and Fair (IRI < 170)";
                     var newLegend = document.createElement('div');
                     newLegend = document.getElementById('legend');
                     document.getElementById('legend').style.visibility = "visible";
