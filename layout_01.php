@@ -74,6 +74,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       </div>
       <div class="col-sm-3"><br>
         <div class="row">
+
+            <div id="modes"></div>
+
           <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#default,#defaultbtn" data-target="#default, #defaultbtn">Tools</a></li>
             <li><a data-toggle="tab" href="#filters,#filtersbtn" data-target="#filters, #filtersbtn">Filter</a></li>
@@ -153,22 +156,12 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           <div class="chart" id="chart_overall"> </div>
         </div>
         <div class="col-sm-3">
-          <div class="panel panel-default hide">
-            <div class="panel-body">
-
               <div class="row">
                 <div class="col">
-                  <div id="modes"></div>
-                  <div id="pm_description" class="hide">
-                    <p> This PM is about this and this and this and this and this
-                      and this and this and this and this and this and this
-                      and this and this and this and this and this and this.
-                    </p>
-                  </div>
+
+                  <div id="pm_description" class="hide"></div>
                 </div>
               </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -217,12 +210,12 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         };
 
         $(document).ready(function(){
-          for (var i = 0; i < blocks.elements.length; i++) {
+          for (var i = 0; i < blocks.elements.length; i++) { //have to remove eval
             var blck = blocks.elements[i];
             var elem_blck = document.createElement("option");
-            elem_blck.innerHTML = eval("blocks."+blck+".name");
-            elem_blck.id = eval("blocks."+blck+".id");
-            elem_blck.value = eval("blocks."+blck+".id");
+            elem_blck.innerHTML = blocks[blck].name;
+            elem_blck.id = blocks[blck].id;
+            elem_blck.value = blocks[blck].id;
             var select_blocks = document.getElementById("select_blocks");
             select_blocks.appendChild(elem_blck);
           }
@@ -238,7 +231,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             }
           });
 
-          $("#select_pm").change(function(){ //change name to something more specific but iterable = "select_pm_block_d"
+          $("#select_pm").change(function(){
+            $("#modes").empty();
+            var panel_body = document.getElementById("modes");
+            panel_body.className = "panel panel-default text-center";
+            var p_mode = document.createElement("p");
+            p_mode.innerHTML ="<h4 class=\"text-center\"> Modes: </h4>";
+            panel_body.appendChild(p_mode);
             pm_mpo.name_pm = this.value;
             var block = $(this).children(":selected").attr("id");
             for(var i = 0; i < blocks[block].pms.length; i++){
@@ -249,7 +248,11 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 pm_mpo.filter_prop_n = this.value;
                 pm_mpo.chart1 =  blocks[block][block_pm].key;
                 for(var j = 0; j < blocks[block][block_pm].mode.length; j++){
-                  //console.log(blocks[block][block_pm].mode[j]);
+                  var p_mode = document.createElement("span");
+                  var mode = blocks[block][block_pm].mode[j];
+                  p_mode.innerHTML = modes[mode] + " ";
+                  //p_mode.className = "text-center";
+                  panel_body.appendChild(p_mode);
                 }
               }
             }
@@ -418,7 +421,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               maximum = 1;
             }
             var div = document.createElement('div');
-            div.innerHTML = "<strong>" + "Legend for " + pm_mpo.name_pm + "</strong>";
+            //div.innerHTML = "<strong> Legend </strong>";
+            //div.className = "center-text";
             var l = document.createElement('div');
             l = document.getElementById('legend');
             l.appendChild(div);
@@ -1098,7 +1102,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               ]);
 
                 var options = {
-                  title: "Selected Region",
+                  title: "Selected Area of Interest",
                   legend: { position: 'none'},
                   animation:{ duration: 1000, easing: 'inAndOut', startup: true },
                   chartArea: { width: '70%' },
