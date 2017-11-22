@@ -602,25 +602,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                     to_color.push(coord);
                   }
                 }
-                /*if(data.coords[key]['value'] >= 1 && data.coords[key]['value'] <= 59){ //very good
-                  var proceed = true;
-                  var color = '#00FF00';
-                }else if(data.coords[key]['value'] >= 60 && data.coords[key]['value'] <= 119){ //good
-                  var proceed = true;
-                  var color = '#009BFF';
-                }else if(data.coords[key]['value'] >= 120 && data.coords[key]['value'] <= 170){ //fair
-                  var proceed = true;
-                  var color = '#FFFF00';
-                }else if(data.coords[key]['value'] >= 171 && data.coords[key]['value'] <= 220){ //poor
-                  var proceed = true;
-                  var color = '#FFAA00';
-                }else if(data.coords[key]['value'] >= 221 && data.coords[key]['value'] <= 950){ //very poor
-                  var proceed = true;
-                  var color = '#FF0000';
-                }else{
-                  var proceed = false;
-                  var color = '#000000';
-                }*/
                 if(data.coords[key]['value'] > 0 && data.coords[key]['value'] <= 170){ //very good
                   var proceed = true;
                   var color = '#00FF00';
