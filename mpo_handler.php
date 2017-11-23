@@ -178,6 +178,42 @@ function getStatistics(){
 	$toReturn['med_all']= $mediano_all;
 	$toReturn['avg_all']= $promedio_all;
 	$toReturn['coords_all'] = $ordered_all;
+
+	if($data->to_draw == "iri"){
+		$query = "SELECT SUM(newmleng) as value FROM mpo_new.d11 where iri > 170 and ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), d11.SHAPE) AND iri_year > 0";
+		$toReturn['query suma_poor_aoi'] = $query;
+		$result = mysqli_query($conn, $query);
+		$suma_poor_aoi = fetchAll($result);
+		$suma_poor_aoi = (float) $suma_poor_aoi[0]['value'];
+
+		//$toReturn["suma_poor_aoi"] = fetchAll($result);
+
+		$query = "SELECT SUM(newmleng) as value FROM mpo_new.d11 where iri_year > 0 and iri > 170";
+		$toReturn['query suma_poor_todo'] = $query;
+		$result = mysqli_query($conn, $query);
+		$suma_poor_todo = fetchAll($result);
+		$suma_poor_todo = (float) $suma_poor_todo[0]['value'];
+		//echo $suma_todo[0]['value'];
+		//$toReturn["suma_todo"] = fetchAll($result);
+
+		$percent = (($suma_poor_aoi*100)/$suma_poor_todo);
+
+		$toReturn['suma_poor_aoi'] = $suma_poor_aoi;
+		$toReturn['suma_poor_todo'] = $suma_poor_todo;
+		$toReturn['percent'] = (float) $percent;
+	}
+
+	$toReturn['max'] = $maximo;
+	$toReturn['min']= $minimo;
+	$toReturn['med']= $mediano;
+	$toReturn['avg']= $promedio;
+	$toReturn['coords'] = $ordered;
+
+	$toReturn['max_all'] = $maximo_all;
+	$toReturn['min_all']= $minimo_all;
+	$toReturn['med_all']= $mediano_all;
+	$toReturn['avg_all']= $promedio_all;
+	$toReturn['coords_all'] = $ordered_all;
 }
 
 function getPolygons(){

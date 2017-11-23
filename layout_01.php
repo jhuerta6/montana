@@ -153,8 +153,11 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         <div class="col-sm-3">
           <div class="row">
             <div class="col">
-
-              <div id="pm_description" class="hide"></div>
+              <div id="data-holder" class="panel panel-default">
+                <h3 class="text-center">Report</h3><br>
+                <div id="pm_description" class="container panel panel-default"></div>
+                <div id="pm_data" class="container panel panel-default"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -203,6 +206,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   };
 
   $(document).ready(function(){
+    $("#data-holder").hide();
     for (var i = 0; i < blocks.elements.length; i++) { //have to remove eval
       var blck = blocks.elements[i];
       var elem_blck = document.createElement("option");
@@ -249,6 +253,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           }
         }
       }
+      /*var br = document.createElement('br');
+      panel_body.appendChild(br);*/
     });
 
     $('[data-toggle="tooltip"]').tooltip();
@@ -1046,7 +1052,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           weightedaoi_all = parseFloat(weightedaoi_all).toFixed(2);
           weightedaoi_all = parseFloat(weightedaoi_all);
 
-          var data = google.visualization.arrayToDataTable([
+          var data_aoi = google.visualization.arrayToDataTable([
             ['Method', 'Value',], ['Maximum ', maxaoi], ['Minimum ', minaoi], ['Median ', medaoi], ['Average ', weightedaoi]
           ]);
 
@@ -1063,7 +1069,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             vAxis: {}
           };
           bar_init = new google.visualization.BarChart(document.getElementById(elem_chart));
-          bar_init.draw(data, options);
+          bar_init.draw(data_aoi, options);
 
           var options = {
             title: "Overall Montana",
@@ -1075,6 +1081,20 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           };
           bar_init = new google.visualization.BarChart(document.getElementById("chart_overall"));
           bar_init.draw(data_all, options);
+
+          $("#pm_description,#pm_data").empty();
+          var pm_description = document.getElementById("pm_description");
+          var pm_data = document.getElementById("pm_data");
+          $("#data-holder").show();
+          if(pm_mpo.to_draw == "iri" && data.suma_poor_aoi > 0){
+            var p_description = document.createElement('p');
+            p_description.innerHTML = "19 miles within the Montana Ave. corridor are in poor condition.";
+            pm_description.appendChild(p_description);
+            var p_data = document.createElement('p');
+            p_data.innerHTML = "Your Area of Interest has "+data.suma_poor_aoi+" miles of roadways in poor condition, which represent "+parseFloat(data.percent).toFixed(2)+"% of the total miles in poor condition.";
+            pm_data.appendChild(p_data);
+          }
+
         }).done(function(data){
           $(document.body).css({'cursor': 'auto'});
         });
