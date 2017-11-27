@@ -66,7 +66,7 @@
             }
             $email_parts = explode("@", $email);
 			if($email_parts[1] === "txdot.gov" OR $email_parts[1] === "miners.utep.edu" OR $email_parts[1] === "utep.edu"){
-				$sql = "INSERT INTO users (name, lname, username, password, salt, email, phone, approved) VALUES('$fname', '$lname', '$username', '$password', '$salt', '$email', '$phone')"; //removed a one
+				$sql = "INSERT INTO users (name, lname, username, password, salt, email, phone) VALUES('$fname', '$lname', '$username', '$password', '$salt', '$email', '$phone')"; //removed a one
 			}
 			else{
 				echo "Please contact UTEP for help logging in.";
@@ -74,11 +74,12 @@
 			}
 			$result = $conn->query($sql);
 			if($result){
-				echo "created successfully";
-				header('Location: index2.php');
+				//echo "created successfully";
+				//header('Location: index2.php');
 			}
-			else
-				echo $sql;
+			else{
+				//echo $sql;
+			}
 		}
 	}
 	$conn->close();

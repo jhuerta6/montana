@@ -41,7 +41,7 @@
 		    <div class='fa fa-times-circle' data-dismiss="alert"></div>
 	      Register here.
 	    </div>
-	    <form name="login" action="loginhandler.php" method="post">
+	    <form name="login" action="loginhandler_layout1.php" method="post">
 	      <input placeholder='Username' type='text' name="uid" id="uid"/>
 	      <input placeholder='Password' type='password' name="pwd" id="pwd"/>
 	      <input placeholder='Email Address' type='email' name="eml" id="eml"/>
@@ -57,7 +57,6 @@
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="js/bootstrap.min.js"></script>
 
-
     <script>
     	$('.switch').click(function(){
 		   $(this).children('i').toggleClass('fa-pencil');
@@ -65,10 +64,6 @@
 		   $('.register').animate({height: "toggle", opacity: "toggle"}, "slow");
 		});
     </script>
-
-
-
-
 
   </body>
 </html>
