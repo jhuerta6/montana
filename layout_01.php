@@ -75,7 +75,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       </div>
       <div class="col-sm-3"><br>
         <div class="row">
-          <div id="modes"></div>
+          <div class="card">
+            <div id="modes"></div>
+          </div>
           <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#default,#defaultbtn" data-target="#default, #defaultbtn">Tools</a></li>
             <li><a data-toggle="tab" href="#filters,#filtersbtn" data-target="#filters, #filtersbtn">Filter</a></li>
@@ -84,26 +86,30 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             </li>
           </ul>
           <div class="col-sm-12">
-            <div class="tab-content">
-              <div id="default" class="tab-pane fade in active"><br>
+            <div class="tab-content"><br>
+              <div id="default" class="tab-pane fade in active">
+                <div id="label_container" class="input-group">
+                  <span data-toggle="tooltip" data-placement="top" title="Number of representations for the data" class="input-group-addon" id="basic-addon3"># labels</span>
+                  <input type="number" class="form-control" value="1" min="1"placeholder="...labels" id="labels" aria-describedby="basic-addon3">
+                </div>
               </div>
               <div id="filters" class="tab-pane fade"><br>
                 <div class="form-check">
                   <p class="form-check-label">
                     <input class="form-check-input" type="radio" name="radios" id="biggerThan" value="bigger">
-                    Color polygons that are bigger than the unit value
+                    Show data bigger than the unit value
                   </p>
                 </div>
                 <div class="form-check">
                   <p class="form-check-label">
                     <input class="form-check-input" type="radio" name="radios" id="smallerThan" value="smaller">
-                    Color polygons that are smaller than the unit value
+                    Show data smaller than the unit value
                   </p>
                 </div>
                 <div class="form-check">
                   <p class="form-check-label">
                     <input class="form-check-input" type="radio" name="radios" id="equalTo" value="equal">
-                    Color polygons that are equal to the unit value
+                    Show data equal to the unit value
                   </p>
                 </div>
                 <div class="input-group">
@@ -207,6 +213,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
   $(document).ready(function(){
     $("#data-holder").hide();
+    $("#label_container").hide();
     for (var i = 0; i < blocks.elements.length; i++) { //have to remove eval
       var blck = blocks.elements[i];
       var elem_blck = document.createElement("option");
@@ -230,8 +237,12 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
     $("#select_pm").change(function(){
       $("#modes").empty();
+      $("#label_container").hide();
+      if(this.value == "D-3-1) Truck Travel Time"){
+        $("#label_container").show();
+      }
       var panel_body = document.getElementById("modes");
-      panel_body.className = "panel panel-default text-center";
+      panel_body.className = "panel panel-body text-center";
       var p_mode = document.createElement("p");
       p_mode.innerHTML ="<h4 class=\"text-center\"> Modes: </h4>";
       panel_body.appendChild(p_mode);
@@ -248,13 +259,10 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             var p_mode = document.createElement("span");
             var mode = blocks[block][block_pm].mode[j];
             p_mode.innerHTML = modes[mode] + " ";
-            //p_mode.className = "text-center";
             panel_body.appendChild(p_mode);
           }
         }
       }
-      /*var br = document.createElement('br');
-      panel_body.appendChild(br);*/
     });
 
     $('[data-toggle="tooltip"]').tooltip();
@@ -264,10 +272,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       "A-2-1) Bus Stops", "D-1-1) Pavement in Poor Condition", "C-3-2) Fatal or Incapacitating Crashes",
       "B-2-2) Crashes Involving Non-Motorized Users", "B-3-1) Estimated Emissions CO",
       "B-3-1) Estimated Emissions PM","C-2-4) Transit Daily Ridership"
-      //"A-1-1) Population Within 1/2 Mile of Frequent Transit Service "
     ];
     var pm_attributes = [
-      "b_carfrhh", "B_TpDisadv", "b_jobphh", "crosw150ft", "iri", "crashes", "non-moto", "coemisions", "emar","2016_daily"//,"a11"
+      "b_carfrhh", "B_TpDisadv", "b_jobphh", "crosw150ft", "iri", "crashes", "non-moto", "coemisions", "emar","2016_daily"
     ];
 
     var divs = [];
@@ -275,7 +282,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     var ch1 = document.getElementById("select_chart_1");
     var ch2 = document.getElementById("select_chart_2");
     var ch3 = document.getElementById("select_chart_3");
-    //var ch4 = document.getElementById("select_chart_4");
     var filt = document.getElementById("select_prop_filters");
     divs.push(select_mpo, ch1, ch2, ch3, filt);
     var prop = [];
@@ -285,7 +291,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         elem.id = pm_attributes[i];
         elem.textContent = performance_measures[i];
         elem.value = performance_measures[i];
-        //divs[j].appendChild(elem);
       }
     }
 
@@ -381,7 +386,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   }
 
   function mpo(){
-
     $('#legend').hide();
     removePolygons();
     pm_mpo.getMode = "polygons";
@@ -426,7 +430,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       l = document.getElementById('legend');
       l.appendChild(div);
       var num_labels = 0;
-      if(pm_mpo.pm == "b_carfrhh" || pm_mpo.pm == "B_TpDisadv" || pm_mpo.pm == "b_jobphh" || pm_mpo.pm == "coemisions" || pm_mpo.pm == "emar"){
+      if(pm_mpo.pm == "tti" || pm_mpo.pm == "b_carfrhh" || pm_mpo.pm == "B_TpDisadv" || pm_mpo.pm == "b_jobphh" || pm_mpo.pm == "coemisions" || pm_mpo.pm == "emar"){
         maximum = parseFloat(maximum);
         maximum = maximum + 0.1;
         num_labels = spawn(maximum);
@@ -696,7 +700,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         }
         else if(pm_mpo.pm == "coemisions" || pm_mpo.pm == "emar" ){
           temp = wktFormatter(data.coords[key]['POLYGON']);
-          //console.log(temp);
           for (var i = 0; i < temp.length; i++) {
             polyCoordis.push(temp[i]);
           }
@@ -713,6 +716,27 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           });
           polygon.setOptions({ zIndex: -1 });
           polygon.addListener('click', polyInfo);
+          app.polygons.push(polygon);
+          polygon.setMap(app.map);
+        }
+        else if(pm_mpo.pm == "tti"){
+          temp = wktFormatter(data.coords[key]['POLYGON']);
+          for (var i = 0; i < temp.length; i++) {
+            polyCoordis.push(temp[i]);
+          }
+          var polygon = new google.maps.Polygon({
+            description: pm_mpo.name_pm,
+            description_value: data.coords[key]['value'],
+            paths: polyCoordis,
+            strokeColor: shapeoutline[colorSelector],
+            strokeOpacity: 0.60,
+            strokeWeight: 0.70,
+            fillColor: shapecolor[colorSelector],
+            fillOpacity: 0.60,
+            zIndex: -1
+          });
+          polygon.setOptions({ zIndex: -1 });
+          polygon.addListener('click', polyInfo_tti);
           app.polygons.push(polygon);
           polygon.setMap(app.map);
         }
@@ -740,7 +764,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         }
         else{
           temp = wktFormatter(data.coords[key]['POLYGON']);
-          //console.log(temp);
           for (var i = 0; i < temp.length; i++) {
             polyCoordis.push(temp[i]);
           }
@@ -782,7 +805,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   function initMap() {
     app.map = new google.maps.Map(document.getElementById('map'), {
       zoom: 11,
-      center: new google.maps.LatLng(31.7910342,-106.409785),
+      center: new google.maps.LatLng(31.837465,-106.2851078),
       mapTypeId: 'terrain'
     });
     app.infoWindow = new google.maps.InfoWindow;
@@ -1193,6 +1216,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
   function polyInfo(event){
     text = this.description + ": " + this.description_value;
+    app.infoWindow.setContent(text);
+    app.infoWindow.setPosition(event.latLng);
+    app.infoWindow.open(app.map);
+  }
+
+  function polyInfo_tti(event){
+    text = "Section number: " + this.description_value;
     app.infoWindow.setContent(text);
     app.infoWindow.setPosition(event.latLng);
     app.infoWindow.open(app.map);
