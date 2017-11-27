@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(!isset($_SESSION['in']) OR !$_SESSION['in']){
-  header('Location: login.php');
+  header('Location: login_layout1.php');
   exit();
 }
 ?>
@@ -183,7 +183,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   var app = {map:null, polygons:null, label:"no filter", payload:{getMode:"polygons", runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, property:null, district:null, depth:0, from_depth:0, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0}};
   var pm_mpo = {name_pm:null, pm:null, NE:null, SW:null, label:"no filter", getMode:"polygons", to_draw:null, draw_charts: false, runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0};
   var hecho = false;
-  var modes = {"D":"Driving", "T":"Transit", "W":"Walking", "B":"Biking", "F":"Freight",}
+  var modes = {"D":"[Driving]", "T":"[Transit]", "W":"[Walking]", "B":"[Biking]", "F":"[Freight]",}
   var blocks = {
     elements:["a", "d"],
     a:{

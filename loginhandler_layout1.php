@@ -25,7 +25,7 @@
                 		$_SESSION['in'] = true;
                     $_SESSION['username'] = $username;
                     $_SESSION['id'] = $row['id'];
-										header('Location: index2.php');
+										header('Location: layout_01.php');
                 }
                 else{
                     echo "Username or password incorrect";
@@ -75,10 +75,11 @@
 			$result = $conn->query($sql);
 			if($result){
 				echo "created successfully";
-				header('Location: index2.php');
+				header('Location: login_layout1.php');
 			}
 			else
 				echo $sql;
+				header('Location: login_layout1.php');
 		}
 	}
 	$conn->close();
