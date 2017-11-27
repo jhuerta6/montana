@@ -185,9 +185,17 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   var hecho = false;
   var modes = {"D":"Driving", "T":"Transit", "W":"Walking", "B":"Biking", "F":"Freight",}
   var blocks = {
-    elements:["d"],
+    elements:["a", "d"],
     a:{
-      pms:["example", "example2"]
+      id: "a",
+      name: "A) Within Community",
+      //pms:["a11", "a12", "a13", "a21", "a23", "a24"],
+      pms: ["a21"],
+      a21:{
+        name: "A-2-1) Bus Stops Along Busy Roadways With No Marked Crosswalk Within 150 ft.",
+        mode: ["T", "W"],
+        key: "crosw150ft"
+      },
     },
     d:{
       id: "d",
@@ -208,13 +216,17 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         mode: ["F"],
         key: "tti"
       },
+    },
+    z:{
+      id: "z",
+      name: "Multiple"
     }
   };
 
   $(document).ready(function(){
     $("#data-holder").hide();
     $("#label_container").hide();
-    for (var i = 0; i < blocks.elements.length; i++) { //have to remove eval
+    for (var i = 0; i < blocks.elements.length; i++) {
       var blck = blocks.elements[i];
       var elem_blck = document.createElement("option");
       elem_blck.innerHTML = blocks[blck].name;
@@ -225,6 +237,12 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     }
 
     $("#select_blocks").change(function(){
+      $("#select_pm").empty();
+      var disabled = document.createElement("option");
+      disabled.innerHTML = "Select a Performance Measure";
+      disabled.id = "disabled"
+      var select_pm = document.getElementById("select_pm");
+      select_pm.appendChild(disabled);
       for (var i = 0; i < blocks[this.value].pms.length; i++) {
         var temp = blocks[this.value].pms[i];
         var elem_blck = document.createElement("option");
@@ -237,7 +255,10 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
     $("#select_pm").change(function(){
       $("#modes").empty();
+      $("#data-holder").hide();
+      $("#pm_description,#pm_data").empty();
       $("#label_container").hide();
+      $("#disabled").prop("disabled", "true");
       if(this.value == "D-3-1) Truck Travel Time"){
         drawChartTTI();
         $("#label_container").show();
@@ -1035,13 +1056,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       p_description.innerHTML = "On average, trucks traveling along the corridor experienced up to a double travel time. The Travel Time Index ranged between 1.3 (Section 7) and 2.3 (Section 2).";
       pm_description.appendChild(p_description);
       var p_data = document.createElement('p');
-      p_data.innerHTML = "Analysis period: February 2017 - July 2017";
+      p_data.innerHTML = "<strong>Analysis period:</strong> February 2017 - July 2017";
       pm_data.appendChild(p_data);
       var p_note = document.createElement('p');
-      p_note.innerHTML = "Note: Data was not available for Section 1 (between Piedras St. and Paisano Dr.)";
+      p_note.innerHTML = "<strong>Note:</strong> Data was not available for Section 1 (between Piedras St. and Paisano Dr.)";
       pm_data.appendChild(p_note);
       var p_data = document.createElement('p');
-      p_data.innerHTML = "Data source: National Performance Management Research Data Set (NPMRDS)";
+      p_data.innerHTML = "<strong>Data source:</strong> National Performance Management Research Data Set (NPMRDS)";
       pm_data.appendChild(p_data);
 
   }
