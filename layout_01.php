@@ -239,6 +239,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       $("#modes").empty();
       $("#label_container").hide();
       if(this.value == "D-3-1) Truck Travel Time"){
+        drawChartTTI();
         $("#label_container").show();
       }
       var panel_body = document.getElementById("modes");
@@ -997,6 +998,52 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       }
     }
     return nulls;
+  }
+
+  function drawChartTTI(){
+    clearCharts();
+
+    var data = google.visualization.arrayToDataTable([
+      ['Method', 'Value',],
+      ['Avg Montana Corridor ', 1.8],
+      ['S1: Piedras St', 0],
+      ['S2: Paisano Dr.', 2.3],
+      ['S3: Hawkins Blvd.', 1.9],
+      ['S4: Yarbrough Dr.', 1.8],
+      ['S5: Joe Battle Blvd.', 1.8],
+      ['S6: Zaragoza Rd.', 1.4],
+      ['S7: Araceli Ave.', 1.3]
+    ]);
+
+    var options = {
+      title: "Truck Travel Time Index",
+      legend: { position: 'none'},
+      animation:{ duration: 1000, easing: 'inAndOut', startup: true },
+      chartArea: { width: '70%' },
+      hAxis: { minValue: 0 },
+      vAxis: {}
+    };
+    bar_init = new google.visualization.BarChart(document.getElementById("chart_selected"));
+    bar_init.draw(data, options);
+
+    $("#pm_description,#pm_data").empty();
+    var pm_description = document.getElementById("pm_description");
+    var pm_data = document.getElementById("pm_data");
+    $("#data-holder").show();
+
+      var p_description = document.createElement('p');
+      p_description.innerHTML = "On average, trucks traveling along the corridor experienced up to a double travel time. The Travel Time Index ranged between 1.3 (Section 7) and 2.3 (Section 2).";
+      pm_description.appendChild(p_description);
+      var p_data = document.createElement('p');
+      p_data.innerHTML = "Analysis period: February 2017 - July 2017";
+      pm_data.appendChild(p_data);
+      var p_note = document.createElement('p');
+      p_note.innerHTML = "Note: Data was not available for Section 1 (between Piedras St. and Paisano Dr.)";
+      pm_data.appendChild(p_note);
+      var p_data = document.createElement('p');
+      p_data.innerHTML = "Data source: National Performance Management Research Data Set (NPMRDS)";
+      pm_data.appendChild(p_data);
+
   }
 
   function drawChart() {
