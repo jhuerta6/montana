@@ -126,6 +126,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             <div class="tab-content">
               <div id="defaultbtn" class="tab-pane fade in active">
                 <button type="button" class="btn btn-success form-control" id="mpo_draw" onclick="mpo();">Draw</button><br><br>
+                <button type="button" class="btn btn-success form-control" id="mpo_draw_multiple" onclick="mpo();">Load</button><br><br>
                 <button data-toggle="tooltip" data-placement="top" title="Only bring up the data touched by the Area Of Interest" class="btn btn-success form-control" type="button" id="runAOI" onClick="runAOI()">Run AOI</button> <br><br>
                 <button class="btn btn-warning form-control" type="button" id="clear" onClick="removePolygons()">Clear</button><br><br>
                 <!--<button type="button" class="map-print" id="print" onClick="printMaps()">Print</button><br><br> -->
@@ -181,13 +182,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   <script src="https://cdn.rawgit.com/bjornharrtell/jsts/gh-pages/1.4.0/jsts.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.8.1/css/bootstrap-slider.css" />
   <script>
-  var app = {map:null, polygons:null, label:"no filter", payload:{getMode:"polygons", runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, property:null, district:null, depth:0, from_depth:0, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0}};
+  var app = {map:null, polygons:[], label:"no filter", payload:{getMode:"polygons", runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, property:null, district:null, depth:0, from_depth:0, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0}};
   var pm_mpo = {name_pm:null, pm:null, NE:null, SW:null, label:"no filter", getMode:"polygons", to_draw:null, draw_charts: false, runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0};
   var hecho = false;
   var modes = {"D":"<div class=\"bg-primary text-white\">Driving</div>", "T":"<div class=\"bg-warning text-white\">Transit</div>", "W":"<div class=\"bg-danger text-white\">Walking</div>", "B":"<div class=\"bg-success text-white\">Biking</div>", "F":"<div class=\"bg-orange text-white\">Freight</div>",}
   var blocks = {
-    elements:["a", "d"],
-    //elements:["a", "d", "z"],
+    //elements:["a", "d"],
+    elements:["a", "d", "z"],
     a:{
       id: "a",
       name: "A) Within Community",
@@ -212,7 +213,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       d21:{
         name: "D-2-1) Vehicle Miles Travelled",
         mode: ["D","T","B","F"],
-        key: "vehicle_miles_travelled"
+        key: "x"
       },
       d31:{
         name: "D-3-1) Truck Travel Time",
@@ -222,11 +223,17 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     },
     z:{
       id: "z",
-      name: "Multiple"
+      name: "Multiple",
+      pms:[]
     }
   };
 
+  var onMultiple = false;
+
   $(document).ready(function(){
+    //removePolygons();
+    //app.polygons = "";
+    //app.polygons.push = "";
     $("#data-holder").hide();
     $("#label_container").hide();
     for (var i = 0; i < blocks.elements.length; i++) {
@@ -246,21 +253,56 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       disabled.id = "disabled"
       var select_pm = document.getElementById("select_pm");
       select_pm.appendChild(disabled);
-      for (var i = 0; i < blocks[this.value].pms.length; i++) {
-        var temp = blocks[this.value].pms[i];
-        var elem_blck = document.createElement("option");
-        elem_blck.innerHTML = blocks[this.value][temp].name;
-        elem_blck.id = this.value;
-        var select_pm = document.getElementById("select_pm");
-        select_pm.appendChild(elem_blck);
+      if(this.value == "z"){ //aqui vamos colorear uno por uno, uno sobre otro , quitar modes y quitar legend en un nuevo mpo_multiple();
+        //console.log("you selected multiple");
+        onMultiple =  true;
+        $("#mpo_draw").hide();
+        $("#mpo_draw_multiple").show();
+        clearCharts();
+        removePolygons();
+        $("#modes").empty();
+        $("#data-holder").hide();
+        $("#legend").empty();
+        for(var j = 0; j <  blocks.elements.length; j++){
+          //console.log(blocks[blocks.elements[j]].pms.length);
+          for (var i = 0; i < blocks[blocks.elements[j]].pms.length; i++) {
+            var temp = blocks[blocks.elements[j]].pms[i];
+            var elem_blck = document.createElement("option");
+            elem_blck.innerHTML = blocks[blocks.elements[j]][temp].name;
+            elem_blck.id = blocks.elements[j];
+            var select_pm = document.getElementById("select_pm");
+            select_pm.appendChild(elem_blck);
+          }
+        }
       }
+      else{
+        onMultiple = false;
+        $("#mpo_draw").show();
+        $("#mpo_draw_multiple").hide();
+
+        for (var i = 0; i < blocks[this.value].pms.length; i++) {
+          var temp = blocks[this.value].pms[i];
+          var elem_blck = document.createElement("option");
+          elem_blck.innerHTML = blocks[this.value][temp].name;
+          elem_blck.id = this.value;
+          var select_pm = document.getElementById("select_pm");
+          select_pm.appendChild(elem_blck);
+        }
+    }
     });
 
     $("#select_pm").change(function(){
       $("#modes").empty();
       $("#data-holder").hide();
-      clearCharts();
-      removePolygons();
+      //console.log(onMultiple);
+      if(onMultiple == false){
+        clearCharts();
+        removePolygons();
+      }
+      else{
+        $("#legend").empty();
+      }
+      //console.log(app);
       $("#pm_description,#pm_data").empty();
       $("#label_container").hide();
       $("#disabled").prop("disabled", "true");
@@ -268,7 +310,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         drawChartTTI();
         $("#label_container").show();
         $("#labels").val(7);
-        mpo();
+
+        //mpo();
       }
       var panel_body = document.getElementById("modes");
       panel_body.className = "panel panel-body text-center";
@@ -292,6 +335,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           }
         }
       }
+
     });
 
     $('[data-toggle="tooltip"]').tooltip();
@@ -416,7 +460,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
   function mpo(){
     $('#legend').hide();
-    removePolygons();
+    if(onMultiple == false){
+      removePolygons();
+    }
     pm_mpo.getMode = "polygons";
     //console.log(pm_mpo);
     if(pm_mpo.runAOI == true && typeof rec != 'undefined' && rec.type == 'rectangle'){
