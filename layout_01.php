@@ -259,12 +259,16 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     $("#select_pm").change(function(){
       $("#modes").empty();
       $("#data-holder").hide();
+      clearCharts();
+      removePolygons();
       $("#pm_description,#pm_data").empty();
       $("#label_container").hide();
       $("#disabled").prop("disabled", "true");
       if(this.value == "D-3-1) Truck Travel Time"){
         drawChartTTI();
         $("#label_container").show();
+        $("#labels").val(7);
+        mpo();
       }
       var panel_body = document.getElementById("modes");
       panel_body.className = "panel panel-body text-center";
