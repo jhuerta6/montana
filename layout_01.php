@@ -54,9 +54,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     <div class="row"><br>
       <div class="col-sm-9">
         <div class="input-group">
-          <span class="input-group-addon" id="add_on">Block Level</span>
+          <span class="input-group-addon" id="add_on">Planning Block</span>
           <select type="text" class="form-control" placeholder="Block Level" aria-describedby="add_on" id="select_blocks">
-            <option value="" disabled selected>Select a Block Level</option>
+            <option value="" disabled selected>Select a Planning Block</option>
           </select>
         </div>
       </div>
@@ -88,6 +88,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           <div class="col-sm-12">
             <div class="tab-content"><br>
               <div id="default" class="tab-pane fade in active">
+                <p class="text-muted"> Try drawing an Area of Interest with the drawing tools at the top of the map. <br> Click your drawn Area Of Interest to display statistics. </p>
                 <div id="label_container" class="input-group">
                   <span data-toggle="tooltip" data-placement="top" title="Number of representations for the data" class="input-group-addon" id="basic-addon3"># labels</span>
                   <input type="number" class="form-control" value="1" min="1"placeholder="...labels" id="labels" aria-describedby="basic-addon3">
@@ -183,9 +184,10 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   var app = {map:null, polygons:null, label:"no filter", payload:{getMode:"polygons", runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, property:null, district:null, depth:0, from_depth:0, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0}};
   var pm_mpo = {name_pm:null, pm:null, NE:null, SW:null, label:"no filter", getMode:"polygons", to_draw:null, draw_charts: false, runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0};
   var hecho = false;
-  var modes = {"D":"[Driving]", "T":"[Transit]", "W":"[Walking]", "B":"[Biking]", "F":"[Freight]",}
+  var modes = {"D":"<div class=\"bg-primary text-white\">Driving</div>", "T":"<div class=\"bg-warning text-white\">Transit</div>", "W":"<div class=\"bg-danger text-white\">Walking</div>", "B":"<div class=\"bg-success text-white\">Biking</div>", "F":"<div class=\"bg-orange text-white\">Freight</div>",}
   var blocks = {
     elements:["a", "d"],
+    //elements:["a", "d", "z"],
     a:{
       id: "a",
       name: "A) Within Community",
@@ -200,7 +202,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     d:{
       id: "d",
       name: "D) Region to Region",
-      pms: ["d11","d21","d31"],
+      //pms: ["d11","d21","d31"],
+      pms: ["d11","d31"],
       d11:{
         name: "D-1-1) Pavements in Poor Condition",
         mode: ["D"],

@@ -231,7 +231,7 @@ function getPolygons(){
 	if($data->runFilters == "true" && $data->filter_value == "bigger"){
 		$units = (int)$data->filter_units;
 		if($data->pm == "iri"){
-			$query = "SELECT astext(SHAPE) AS POLYGON, iri as value FROM d11 AS p WHERE $data->pm >= $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE) AND iri_year > 0";
+			$query = "SELECT astext(SHAPE) AS POLYGON, iri as value FROM d11 AS p WHERE $data->pm > $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE) AND iri_year > 0";
 		}
 		else{
 			$query= "SELECT objectid, astext(SHAPE) AS POLYGON, $data->pm as value FROM polygon AS p WHERE $data->pm >= $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
@@ -240,7 +240,7 @@ function getPolygons(){
 	else if($data->runFilters == "true" && $data->filter_value == "smaller"){
 		$units = (int)$data->filter_units;
 		if($data->pm == "iri"){
-			$query = "SELECT astext(SHAPE) AS POLYGON, iri as value FROM d11 AS p WHERE $data->pm <= $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE) AND iri_year > 0";
+			$query = "SELECT astext(SHAPE) AS POLYGON, iri as value FROM d11 AS p WHERE $data->pm < $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE) AND iri_year > 0";
 		}
 		else{
 		$query= "SELECT objectid, astext(SHAPE) AS POLYGON, $data->pm as value FROM polygon AS p WHERE $data->pm <= $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
