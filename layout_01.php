@@ -188,16 +188,66 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   var modes = {"D":"<div class=\"bg-primary text-white\">Driving</div>", "T":"<div class=\"bg-warning text-white\">Transit</div>", "W":"<div class=\"bg-danger text-white\">Walking</div>", "B":"<div class=\"bg-success text-white\">Biking</div>", "F":"<div class=\"bg-orange text-white\">Freight</div>",}
   var blocks = {
     //elements:["a", "d"],
-    elements:["a", "d", "z"],
+    elements:["a", "b","c", "d", "z"],
     a:{
       id: "a",
       name: "A) Within Community",
       //pms:["a11", "a12", "a13", "a21", "a23", "a24"],
-      pms: ["a21"],
+      pms: ["a21","a23","a24"],
       a21:{
         name: "A-2-1) Bus Stops Along Busy Roadways With No Marked Crosswalk Within 150 ft.",
         mode: ["T", "W"],
         key: "crosw150ft"
+      },
+      a23:{
+        name: "A-2-3) Car-Free Households",
+        mode: ["D","T","W","B"],
+        key: "b_carfrhh"
+      },
+      a24:{
+        name: "A-2-4) Transportation Disadvantaged Households",
+        mode: ["D","T","W","B"],
+        key: "B_TpDisadv"
+      },
+    },
+    b:{
+      id: "b",
+      name: "B) Community to Community",
+      pms: ["b14","b22","b31a","b31b"],
+      b14:{
+        name: "B-1-4) Jobs-Housing Ratio",
+        mode: ["D","T","W","B"],
+        key: "b_jobphh"
+      },
+      b22:{
+        name: "B-2-2) Crashes Involving Non-Motorized Users",
+        mode: ["W","B"],
+        key: "non-moto"
+      },
+      b31a:{
+        name: "B-3-1-A) Estimated Emissions CO",
+        mode: ["D"],
+        key: "coemisions"
+      },
+      b31b:{
+        name: "B-3-1-B) Estimated Emissions PM",
+        mode: ["D"],
+        key: "emar"
+      },
+    },
+    c:{
+      id: "c",
+      name: "C) Community to Region",
+      pms: ["c24","c32"],
+      c24:{
+        name: "C-2-4) Transit Daily Ridership",
+        mode: ["T"],
+        key: "2016_daily"
+      },
+      c32:{
+        name: "C-3-2) Crashes",
+        mode: ["D", "F"],
+        key: "crashes"
       },
     },
     d:{
@@ -294,7 +344,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     $("#select_pm").change(function(){
       $("#modes").empty();
       $("#data-holder").hide();
-      //console.log(onMultiple);
       if(onMultiple == false){
         clearCharts();
         removePolygons();
@@ -302,7 +351,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       else{
         $("#legend").empty();
       }
-      //console.log(app);
       $("#pm_description,#pm_data").empty();
       $("#label_container").hide();
       $("#disabled").prop("disabled", "true");
@@ -310,8 +358,12 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         drawChartTTI();
         $("#label_container").show();
         $("#labels").val(7);
-
-        //mpo();
+      }
+      else if(
+              this.value == "A-2-3) Car-Free Households" || this.value == "A-2-4) Transportation Disadvantaged Households" ||
+              this.value == "B-1-4) Jobs-Housing Ratio" || this.value == "B-3-1-A) Estimated Emissions CO" ||
+              this.value == "B-3-1-B) Estimated Emissions PM"){
+        $("#label_container").show();
       }
       var panel_body = document.getElementById("modes");
       panel_body.className = "panel panel-body text-center";
