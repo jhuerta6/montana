@@ -238,11 +238,21 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     c:{
       id: "c",
       name: "C) Community to Region",
-      pms: ["c24","c32"],
+      pms: ["c23","c24","c31","c32"],
+      c23:{
+        name: "C-2-3) Number of Park and Ride parking spaces",
+        mode: ["D","T"],
+        key: "2016_daily"
+      },
       c24:{
         name: "C-2-4) Transit Daily Ridership",
         mode: ["T"],
         key: "2016_daily"
+      },
+      c31:{
+        name: "C-3-1) Travel Time Index",
+        mode: ["D",],
+        key: "tti"
       },
       c32:{
         name: "C-3-2) Crashes",
@@ -356,6 +366,16 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       $("#disabled").prop("disabled", "true");
       if(this.value == "D-3-1) Truck Travel Time"){
         drawChartTTI();
+        $("#label_container").show();
+        $("#labels").val(7);
+      }
+      else if(this.value == "C-2-3) Number of Park and Ride parking spaces"){
+        drawChartc23();
+        //$("#label_container").show();
+        //$("#labels").val(7);
+      }
+      else if(this.value == "C-3-1) Travel Time Index"){
+        drawChartTti_normal();
         $("#label_container").show();
         $("#labels").val(7);
       }
@@ -1170,6 +1190,96 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       p_data.innerHTML = "<strong>Data source:</strong> National Performance Management Research Data Set (NPMRDS)";
       pm_data.appendChild(p_data);
 
+  }
+
+  function drawChartTti_normal(){
+    clearCharts();
+
+    var data = google.visualization.arrayToDataTable([
+      ['Method', 'Value',],
+      ['Avg Montana Corridor ', 1.6],
+      ['S1: Piedras St', 0],
+      ['S2: Paisano Dr.', 1.9],
+      ['S3: Hawkins Blvd.', 1.7],
+      ['S4: Yarbrough Dr.', 1.6],
+      ['S5: Joe Battle Blvd.', 1.6],
+      ['S6: Zaragoza Rd.', 1.4],
+      ['S7: Araceli Ave.', 1.3]
+    ]);
+
+    var options = {
+      title: "Travel Time Index",
+      legend: { position: 'none'},
+      animation:{ duration: 1000, easing: 'inAndOut', startup: true },
+      chartArea: { width: '70%' },
+      hAxis: { minValue: 0 },
+      vAxis: {}
+    };
+    bar_init = new google.visualization.BarChart(document.getElementById("chart_selected"));
+    bar_init.draw(data, options);
+
+    $("#pm_description,#pm_data").empty();
+    var pm_description = document.getElementById("pm_description");
+    var pm_data = document.getElementById("pm_data");
+    $("#data-holder").show();
+
+      var p_description = document.createElement('p');
+      p_description.innerHTML = "On average, passenger vehicles traveling along the corridor experienced up to 1.9 times longer compared to free-flow conditions. The Travel Time Index ranged between 1.3 (Section 7) and 1.9 (Section 2).";
+      pm_description.appendChild(p_description);
+      var p_data = document.createElement('p');
+      p_data.innerHTML = "<strong>Analysis period:</strong> February 2017 - July 2017";
+      pm_data.appendChild(p_data);
+      var p_note = document.createElement('p');
+      p_note.innerHTML = "<strong>Note:</strong> Data was not available for Section 1 (between Piedras St. and Paisano Dr.) because it is not a state highway.";
+      pm_data.appendChild(p_note);
+      var p_data = document.createElement('p');
+      p_data.innerHTML = "<strong>Data source:</strong> National Performance Management Research Data Set (NPMRDS)";
+      pm_data.appendChild(p_data);
+
+  }
+
+  function drawChartc23(){
+    clearCharts();
+
+    var data = google.visualization.arrayToDataTable([
+      ['Method', 'Value',],
+      ['Total Montana Corridor ', 153],
+      ['S1: Piedras St', 0],
+      ['S2: Paisano Dr.', 103],
+      ['S3: Hawkins Blvd.', 0],
+      ['S4: Yarbrough Dr.', 0],
+      ['S5: Joe Battle Blvd.', 50],
+      ['S6: Zaragoza Rd.', 0],
+      ['S7: Araceli Ave.', 0]
+    ]);
+
+    var options = {
+      title: "Park and Ride Parking Spaces",
+      legend: { position: 'none'},
+      animation:{ duration: 1000, easing: 'inAndOut', startup: true },
+      chartArea: { width: '70%' },
+      hAxis: { minValue: 0 },
+      vAxis: {}
+    };
+    bar_init = new google.visualization.BarChart(document.getElementById("chart_selected"));
+    bar_init.draw(data, options);
+
+    $("#pm_description,#pm_data").empty();
+    var pm_description = document.getElementById("pm_description");
+    var pm_data = document.getElementById("pm_data");
+    $("#data-holder").show();
+
+    var p_description = document.createElement('p');
+    p_description.innerHTML = "Two park and ride facilities with a total capacit of 153 parking spaces are currently located within the Montada Corridor"
+    +"serving routes that have daily ridership below 1,000 passengers. <br> Section 2 has 103-space park and ride lot at the Eastside Transfer Center. <br>"
+    +"Section 5 has a 50-space park and ride lot at Edgemere / RC Poe.";
+    pm_description.appendChild(p_description);
+    var p_data = document.createElement('p');
+    p_data.innerHTML = "<strong>Analysis period:</strong> as of August 2017";
+    pm_data.appendChild(p_data);
+    var p_note = document.createElement('p');
+    p_note.innerHTML = "<strong>Note:</strong> SunMetro Website";
+    pm_data.appendChild(p_note);
   }
 
   function drawChart() {
