@@ -259,6 +259,9 @@ function getPolygons(){
 		if($data->pm == "crosw150ft"){
 			$query = "SELECT gis_lat as lat, gis_lon as lng, astext(SHAPE) AS POLYGON, crosw150ft as value FROM a21 AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
 		}
+		elseif($data->pm == "a22_new"){
+			$query = "SELECT lat, lng, astext(SHAPE) AS POLYGON FROM a22_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
+		}
 		elseif($data->pm == "crashes"){
 			$query = "SELECT lat as lat, `long` as lng, astext(SHAPE) AS POLYGON, fatal as value, incinj FROM c32 AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
 		}

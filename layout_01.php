@@ -193,11 +193,16 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       id: "a",
       name: "A) Within Community",
       //pms:["a11", "a12", "a13", "a21", "a23", "a24"],
-      pms: ["a21","a23","a24"],
+      pms: ["a21","a22","a23","a24"],
       a21:{
         name: "A-2-1) Bus Stops Along Busy Roadways With No Marked Crosswalk Within 150 ft.",
         mode: ["T", "W"],
         key: "crosw150ft"
+      },
+      a22:{
+        name: "A-2-2) Bus Stops with Bicycle Parking",
+        mode: ["T", "B"],
+        key: "a22_new"
       },
       a23:{
         name: "A-2-3) Car-Free Households",
@@ -596,6 +601,43 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           }
         }
         if(pm_mpo.pm == "crosw150ft"){ //points
+          if(up_to_one == 0){
+            $('#legendSpawner').find('*').not('h3').remove();
+            var spawner = document.getElementById('legendSpawner');
+            var div = document.createElement('div');
+            div.innerHTML = "<img src='img/redsquare.png' height='10px'/> Bus stop <strong>beyond</strong> 150 ft. from a crosswalk" +
+            "<br> <img src='img/brightgreensquare.png' height='10px'/> Bus stop <strong>within</strong> 150 ft. from a crosswalk";
+            var newLegend = document.createElement('div');
+            newLegend = document.getElementById('legend');
+            document.getElementById('legend').style.visibility = "visible";
+            newLegend.appendChild(div);
+          }
+          up_to_one++;
+
+          if(data.coords[key]['value'] == 1){
+            var image = {
+              url: "./icons/mini_green_bus.png"
+            };
+          }
+          else{
+            var image = {
+              url: "./icons/mini_red_bus.png"
+            };
+          }
+          var point_obj = {lat: parseFloat(data.coords[key]['lat']), lng: parseFloat(data.coords[key]['lng'])};
+          points.push(point_obj);
+          var point  = new google.maps.Marker({
+            position: points[key],
+            icon: image,
+            title: 'Bus Stop',
+            value: data.coords[key]['value']
+          });
+          point.setOptions({ zIndex: 2 });
+          point.addListener('click', pointInfo);
+          app.polygons.push(point);
+          point.setMap(app.map);
+        }
+        else if(pm_mpo.pm == "a22_new"){ //points
           if(up_to_one == 0){
             $('#legendSpawner').find('*').not('h3').remove();
             var spawner = document.getElementById('legendSpawner');
