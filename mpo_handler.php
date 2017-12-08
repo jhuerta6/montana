@@ -271,8 +271,14 @@ function getPolygons(){
 		elseif($data->pm == "iri"){
 			$query = "SELECT astext(SHAPE) AS POLYGON, iri as value FROM d11 AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
 		}
+		elseif($data->pm == "sectionnum"){
+			$query = "SELECT objectid, astext(SHAPE) AS POLYGON, sectionnum as value FROM a12_proposed_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
+		}
 		elseif($data->pm == "coemisions" || $data->pm == "emar"){
 			$query = "SELECT astext(SHAPE) AS POLYGON, $data->pm as value FROM b31 AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 3), p.SHAPE)";
+		}
+		elseif($data->pm == "freqtran"){
+			$query = "SELECT astext(SHAPE) AS POLYGON, OGR_FID as value FROM a11_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 		}
 		elseif($data->pm == "stop_bike"){
 			$query = "SELECT astext(c22_bus.SHAPE) AS POINT, astext(c22_bike.SHAPE) AS LINE from c22_bus, C22_bike WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 3), c22_bus.SHAPE)";
