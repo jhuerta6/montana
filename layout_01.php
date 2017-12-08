@@ -892,11 +892,17 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           up_to_one++;
 
           var temp = []; //gets created after each line/data
+          var temp_poly = [];
           var to_color = [];
+          var to_color_poly = [];
           x = data.coords[key]['LINE'];
+          y = data.notcoords[key]['POLYGON'];
+          console.log(y);
           temp.push(x);
+          temp_poly.push(y);
           var reader = new jsts.io.WKTReader();
           var a = reader.read(x);
+          var b = reader.read(y);
           if(a.getGeometryType() == "LineString"){
             var coord;
             var ln = a.getCoordinates();
@@ -905,13 +911,29 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               to_color.push(coord);
             }
           }
-          //else if(a.getGeometryType() == "MultiPolygon"){
           else{
             var coord;
             var multi = a.getCoordinates();
             for (var i = 0; i < multi.length; i++) {
               coord = {lat: multi[i]['y'], lng: multi[i]['x']};
               to_color.push(coord);
+            }
+          }
+
+          if(b.getGeometryType() == "Polygon"){
+            var coord;
+            var ln = b.getCoordinates();
+            for (var i = 0; i < ln.length; i++) {
+              coord = {lat: ln[i]['y'], lng: ln[i]['x']};
+              to_color_poly.push(coord);
+            }
+          }
+          else{
+            var coord;
+            var multi = b.getCoordinates();
+            for (var i = 0; i < multi.length; i++) {
+              coord = {lat: multi[i]['y'], lng: multi[i]['x']};
+              to_color_poly.push(coord);
             }
           }
 
@@ -928,8 +950,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               zIndex: 1
             });
 
+            line.setMap(app.map);
+            line.setOptions({ zIndex: 1 });
+            //line.addListener('click', lineInfo_pavement);
+            app.polygons.push(line);
+
             var poly = new google.maps.Polygon({
-              path: to_color,
+              path: to_color_poly,
               value: data.coords[key]['value'],
               strokeColor: color,
               fillColor: color,
@@ -938,15 +965,11 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               strokeWeight: 0.70,
               zIndex: -1
             });
+
             poly.setMap(app.map);
             poly.setOptions({ zIndex: 1 });
             //poly.addListener('click', polyInfo_pavement);
             app.polygons.push(poly);
-
-            line.setMap(app.map);
-            line.setOptions({ zIndex: 1 });
-            //line.addListener('click', lineInfo_pavement);
-            app.polygons.push(line);
           }
         }
 
