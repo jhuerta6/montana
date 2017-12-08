@@ -271,6 +271,47 @@ function getPolygons(){
 		elseif($data->pm == "iri"){
 			$query = "SELECT astext(SHAPE) AS POLYGON, iri as value FROM d11 AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
 		}
+		elseif($data->pm == "b_workers"){
+			$query = "SELECT astext(SHAPE) AS LINE, objectid as value FROM a13_existing_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
+
+			$toReturn['query2'] = $query;
+			$result = mysqli_query($conn, $query);
+			$result = fetchAll($result);
+
+			$ordered =  array();
+			$ids = array();
+			$ids = array_unique($result, SORT_REGULAR);
+
+			for($i = 0; $i < sizeof($result); $i++){
+				if(isset($ids[$i])){
+					array_push($ordered, $ids[$i]);
+				}
+			}
+
+			$toReturn['coords'] = $ordered;
+			return;
+			echo json_encode($toReturn);
+
+			//$query = "SELECT astext(SHAPE) AS POLYGON, objectid as value FROM a13_poly_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
+
+			/*toReturn['query2'] = $query;
+			$result = mysqli_query($conn, $query);
+			$result = fetchAll($result);
+
+			$ordered =  array();
+			$ids = array();
+			$ids = array_unique($result, SORT_REGULAR);
+
+			for($i = 0; $i < sizeof($result); $i++){
+				if(isset($ids[$i])){
+					array_push($ordered, $ids[$i]);
+				}
+			}
+
+			$toReturn['coords'] = $ordered;
+			echo json_encode($toReturn);*/
+
+		}
 		elseif($data->pm == "sectionnum"){
 			$query = "SELECT objectid, astext(SHAPE) AS POLYGON, sectionnum as value FROM a12_proposed_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 		}
@@ -292,6 +333,9 @@ function getPolygons(){
 		elseif($data->pm == "tti"){
 			$query = "SELECT astext(SHAPE) AS POLYGON, sectionnum as value FROM polygon AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 		}
+		/*elseif($data->pm == "b_workers"){
+			$query = "SELECT objectid, astext(SHAPE) AS POLYGON, $data->pm as value FROM polygon AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
+		}*/
 		else{
 			$query = "SELECT objectid, astext(SHAPE) AS POLYGON, $data->pm as value FROM polygon AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 		}

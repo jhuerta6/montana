@@ -193,7 +193,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       id: "a",
       name: "A) Within Community",
       //pms:["a11", "a12", "a13", "a21", "a23", "a24"],
-      pms: ["a11","a12","a21","a22","a23","a24"],
+      pms: ["a11","a12","a13","a21","a22","a23","a24"],
       a11:{
         name: "A-1-1) Population Within 1/2 Mile of Frequent Transit Service",
         mode: ["T"],
@@ -203,6 +203,11 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         name: "A-1-2) Bikeways build-out",
         mode: ["B"],
         key: "sectionnum"
+      },
+      a13:{
+        name: "A-1-3) Population within 1/2 Mile of Existing Bikeways",
+        mode: ["B"],
+        key: "b_workers"
       },
       a21:{
         name: "A-2-1) Bus Stops Along Busy Roadways With No Marked Crosswalk Within 150 ft.",
@@ -816,19 +821,17 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             app.polygons.push(line);
           }
         }
-
         else if (pm_mpo.pm == "freqtran") {
           if(up_to_one == 0){
             //$('#legendSpawner').find('*').not('h3').remove();
-            var spawner = document.getElementById('legendSpawner');
+          /*  var spawner = document.getElementById('legendSpawner');
             var div = document.createElement('div');
             div.innerHTML =
-            "<img src='img/redsquare.png' height='10px'/> Poor (IRI > 170)" +
-            "<br> <img src='img/brightgreensquare.png' height='10px'/> Good & Fair (IRI < 170)";
+            "<br> <img src='img/brightgreensquare.png' height='10px'/> Comparing / Testing";
             var newLegend = document.createElement('div');
             newLegend = document.getElementById('legend');
             document.getElementById('legend').style.visibility = "visible";
-            newLegend.appendChild(div);
+            newLegend.appendChild(div);*/
           }
           up_to_one++;
 
@@ -853,32 +856,12 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               to_color.push(coord);
             }
           }
-          if(data.coords[key]['value'] > 0 && data.coords[key]['value'] <= 170){ //very good
-            var proceed = true;
-            var color = '#00FF00';
-          }else if(data.coords[key]['value'] > 170){ //bad
-            var proceed = true;
-            var color = '#FF0000';
-          }
-          else{
-            var proceed = false;
-            var color = '#000000';
-          }
+          var proceed = true;
+          var color = '#00FF00';
+
           if(proceed){
             var line = new google.maps.Polygon({
               path: to_color,
-              //path: flightPlanCoordinates,
-              /*
-              description: pm_mpo.name_pm,
-              description_value: data.coords[key]['value'],
-              paths: polyCoordis,
-              strokeColor: shapeoutline[colorSelector],
-              strokeOpacity: 0.60,
-              strokeWeight: 0.70,
-              fillColor: shapecolor[colorSelector],
-              fillOpacity: 0.60,
-              zIndex: -1*/
-
               value: data.coords[key]['value'],
               strokeColor: color,
               fillColor: color,
@@ -889,9 +872,121 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             });
             line.setMap(app.map);
             line.setOptions({ zIndex: 1 });
-            line.addListener('click', lineInfo_pavement);
+            //line.addListener('click', lineInfo_pavement);
             app.polygons.push(line);
           }
+        }
+
+        else if (pm_mpo.pm == "b_workers") {
+          if(up_to_one == 0){
+            $('#legendSpawner').find('*').not('h3').remove();
+            var spawner = document.getElementById('legendSpawner');
+            var div = document.createElement('div');
+            div.innerHTML =
+            "<img src='img/brightgreensquare.png' height='10px'/> Testing";
+            var newLegend = document.createElement('div');
+            newLegend = document.getElementById('legend');
+            document.getElementById('legend').style.visibility = "visible";
+            newLegend.appendChild(div);
+          }
+          up_to_one++;
+
+          var temp = []; //gets created after each line/data
+          var to_color = [];
+          x = data.coords[key]['LINE'];
+          temp.push(x);
+          var reader = new jsts.io.WKTReader();
+          var a = reader.read(x);
+          if(a.getGeometryType() == "LineString"){
+            var coord;
+            var ln = a.getCoordinates();
+            for (var i = 0; i < ln.length; i++) {
+              coord = {lat: ln[i]['y'], lng: ln[i]['x']};
+              to_color.push(coord);
+            }
+          }
+          //else if(a.getGeometryType() == "MultiPolygon"){
+            else{
+            var coord;
+            var multi = a.getCoordinates();
+            for (var i = 0; i < multi.length; i++) {
+              coord = {lat: multi[i]['y'], lng: multi[i]['x']};
+              to_color.push(coord);
+            }
+          }
+
+            var proceed = true;
+            var color = '#00FF00';
+
+          if(proceed){
+            var line = new google.maps.Polyline({
+              path: to_color,
+              //path: flightPlanCoordinates,
+              value: data.coords[key]['value'],
+              strokeColor: color,
+              strokeOpacity: 1.0,
+              strokeWeight: 4,
+              zIndex: 1
+            });
+            line.setMap(app.map);
+            line.setOptions({ zIndex: 1 });
+            //line.addListener('click', lineInfo_pavement);
+            app.polygons.push(line);
+          }
+          /*
+          if(up_to_one == 0){
+            //$('#legendSpawner').find('*').not('h3').remove();
+          /*  var spawner = document.getElementById('legendSpawner');
+            var div = document.createElement('div');
+            div.innerHTML =
+            "<br> <img src='img/brightgreensquare.png' height='10px'/> Comparing / Testing";
+            var newLegend = document.createElement('div');
+            newLegend = document.getElementById('legend');
+            document.getElementById('legend').style.visibility = "visible";
+            newLegend.appendChild(div);*/
+        /*  }
+          up_to_one++;
+
+          var temp = []; //gets created after each line/data
+          var to_color = [];
+          x = data.coords[key]['POLYGON'];
+          temp.push(x);
+          var reader = new jsts.io.WKTReader();
+          var a = reader.read(x);
+          if(a.getGeometryType() == "Polygon"){
+            var coord;
+            var ln = a.getCoordinates();
+            for (var i = 0; i < ln.length; i++) {
+              coord = {lat: ln[i]['y'], lng: ln[i]['x']};
+              to_color.push(coord);
+            }
+          }else{
+            var coord;
+            var multi = a.getCoordinates();
+            for (var i = 0; i < multi.length; i++) {
+              coord = {lat: multi[i]['y'], lng: multi[i]['x']};
+              to_color.push(coord);
+            }
+          }
+          var proceed = true;
+          var color = '#00FF00';
+
+          if(proceed){
+            var line = new google.maps.Polygon({
+              path: to_color,
+              value: data.coords[key]['value'],
+              strokeColor: color,
+              fillColor: color,
+              fillOpacity: 0.60,
+              strokeOpacity: 0.60,
+              strokeWeight: 0.70,
+              zIndex: -1
+            });
+            line.setMap(app.map);
+            line.setOptions({ zIndex: 1 });
+            //line.addListener('click', lineInfo_pavement);
+            app.polygons.push(line);
+            */
         }
 
         else if (pm_mpo.pm == "sectionnum") {
