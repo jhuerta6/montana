@@ -906,7 +906,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             }
           }
           //else if(a.getGeometryType() == "MultiPolygon"){
-            else{
+          else{
             var coord;
             var multi = a.getCoordinates();
             for (var i = 0; i < multi.length; i++) {
@@ -915,25 +915,39 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             }
           }
 
-            var proceed = true;
-            var color = '#00FF00';
+          var proceed = true;
+          var color = '#00FF00';
 
           if(proceed){
             var line = new google.maps.Polyline({
               path: to_color,
-              //path: flightPlanCoordinates,
               value: data.coords[key]['value'],
               strokeColor: color,
               strokeOpacity: 1.0,
               strokeWeight: 4,
               zIndex: 1
             });
+
+            var poly = new google.maps.Polygon({
+              path: to_color,
+              value: data.coords[key]['value'],
+              strokeColor: color,
+              fillColor: color,
+              fillOpacity: 0.60,
+              strokeOpacity: 0.60,
+              strokeWeight: 0.70,
+              zIndex: -1
+            });
+            poly.setMap(app.map);
+            poly.setOptions({ zIndex: 1 });
+            //poly.addListener('click', polyInfo_pavement);
+            app.polygons.push(poly);
+
             line.setMap(app.map);
             line.setOptions({ zIndex: 1 });
             //line.addListener('click', lineInfo_pavement);
             app.polygons.push(line);
-        }
-
+          }
         }
 
         else if (pm_mpo.pm == "sectionnum") {
