@@ -932,61 +932,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             line.setOptions({ zIndex: 1 });
             //line.addListener('click', lineInfo_pavement);
             app.polygons.push(line);
-          }
-          /*
-          if(up_to_one == 0){
-            //$('#legendSpawner').find('*').not('h3').remove();
-          /*  var spawner = document.getElementById('legendSpawner');
-            var div = document.createElement('div');
-            div.innerHTML =
-            "<br> <img src='img/brightgreensquare.png' height='10px'/> Comparing / Testing";
-            var newLegend = document.createElement('div');
-            newLegend = document.getElementById('legend');
-            document.getElementById('legend').style.visibility = "visible";
-            newLegend.appendChild(div);*/
-        /*  }
-          up_to_one++;
+        }
 
-          var temp = []; //gets created after each line/data
-          var to_color = [];
-          x = data.coords[key]['POLYGON'];
-          temp.push(x);
-          var reader = new jsts.io.WKTReader();
-          var a = reader.read(x);
-          if(a.getGeometryType() == "Polygon"){
-            var coord;
-            var ln = a.getCoordinates();
-            for (var i = 0; i < ln.length; i++) {
-              coord = {lat: ln[i]['y'], lng: ln[i]['x']};
-              to_color.push(coord);
-            }
-          }else{
-            var coord;
-            var multi = a.getCoordinates();
-            for (var i = 0; i < multi.length; i++) {
-              coord = {lat: multi[i]['y'], lng: multi[i]['x']};
-              to_color.push(coord);
-            }
-          }
-          var proceed = true;
-          var color = '#00FF00';
-
-          if(proceed){
-            var line = new google.maps.Polygon({
-              path: to_color,
-              value: data.coords[key]['value'],
-              strokeColor: color,
-              fillColor: color,
-              fillOpacity: 0.60,
-              strokeOpacity: 0.60,
-              strokeWeight: 0.70,
-              zIndex: -1
-            });
-            line.setMap(app.map);
-            line.setOptions({ zIndex: 1 });
-            //line.addListener('click', lineInfo_pavement);
-            app.polygons.push(line);
-            */
         }
 
         else if (pm_mpo.pm == "sectionnum") {
