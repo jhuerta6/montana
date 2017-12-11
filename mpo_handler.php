@@ -273,7 +273,7 @@ function getPolygons(){
 		}
 		elseif($data->pm == "b_workers"){
 			//$toReturn['coords'] = array();
-			$query = "SELECT astext(SHAPE) AS POLYGON, objectid as value FROM a13_poly_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
+			$query = "SELECT astext(SHAPE) AS LINE, objectid as value FROM a13_existing_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 
 			$toReturn['query2'] = $query;
 			$result = mysqli_query($conn, $query);
@@ -293,7 +293,7 @@ function getPolygons(){
 			//echo json_encode($toReturn);
 			//return;
 
-			$query = "SELECT astext(SHAPE) AS LINE, objectid as value FROM a13_existing_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
+			$query = "SELECT astext(SHAPE) AS POLYGON, OGR_FID as value FROM a13_poly_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 
 			/*toReturn['query2'] = $query;
 			$result = mysqli_query($conn, $query);

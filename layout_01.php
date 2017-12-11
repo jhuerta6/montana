@@ -597,7 +597,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       l = document.getElementById('legend');
       l.appendChild(div);
       var num_labels = 0;
-      if(pm_mpo.pm == "freqtran" || pm_mpo.pm == "tti" || pm_mpo.pm == "b_carfrhh" || pm_mpo.pm == "B_TpDisadv" || pm_mpo.pm == "b_jobphh" || pm_mpo.pm == "coemisions" || pm_mpo.pm == "emar"){
+      if(pm_mpo.pm == "b_workers" || pm_mpo.pm == "freqtran" || pm_mpo.pm == "tti" || pm_mpo.pm == "b_carfrhh" || pm_mpo.pm == "B_TpDisadv" || pm_mpo.pm == "b_jobphh" || pm_mpo.pm == "coemisions" || pm_mpo.pm == "emar"){
         maximum = parseFloat(maximum);
         maximum = maximum + 0.1;
         num_labels = spawn(maximum);
@@ -895,15 +895,17 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           var temp_poly = [];
           var to_color = [];
           var to_color_poly = [];
-          x = data.coords[key]['LINE'];
-          y = data.notcoords[key]['POLYGON'];
-          console.log(y);
-          temp.push(x);
-          temp_poly.push(y);
+          //console.log(data.coords[key]['POLYGON']);
+          x = data.coords[key]['POLYGON'];
+          //console.log(data.coords[key]['LINE']);
+          //y = data.notcoords[key]['LINE'];
+          //console.log(y);
+          //temp.push(y);
+          temp_poly.push(x);
           var reader = new jsts.io.WKTReader();
-          var a = reader.read(x);
-          var b = reader.read(y);
-          if(a.getGeometryType() == "LineString"){
+          //var a = reader.read(y);
+          var b = reader.read(x);
+          /*if(a.getGeometryType() == "LineString"){
             var coord;
             var ln = a.getCoordinates();
             for (var i = 0; i < ln.length; i++) {
@@ -918,29 +920,74 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               coord = {lat: multi[i]['y'], lng: multi[i]['x']};
               to_color.push(coord);
             }
-          }
+          }*/
 
           if(b.getGeometryType() == "Polygon"){
-            var coord;
+            console.log("entramos a b geom type polygon");
+            //console.log("here");
+            temp = wktFormatter(data.coords[key]['POLYGON']);
+            //console.log(temp);
+            for (var i = 0; i < temp.length; i++) {
+              polyCoordis.push(temp[i]);
+            }
+            var polygon = new google.maps.Polygon({
+              description: pm_mpo.name_pm,
+              description_value: data.coords[key]['value'],
+              paths: polyCoordis,
+              strokeColor: shapeoutline[colorSelector],
+              strokeOpacity: 0.60,
+              strokeWeight: 0.70,
+              fillColor: shapecolor[colorSelector],
+              fillOpacity: 0.60,
+              zIndex: -1
+            });
+            polygon.setOptions({ zIndex: -1 });
+            polygon.addListener('click', polyInfo);
+            app.polygons.push(polygon);
+            polygon.setMap(app.map);
+          }
+
+            /*var coord;
             var ln = b.getCoordinates();
             for (var i = 0; i < ln.length; i++) {
               coord = {lat: ln[i]['y'], lng: ln[i]['x']};
               to_color_poly.push(coord);
-            }
-          }
+            }*/
           else{
-            var coord;
+            console.log("entramos a b geom type multipolygon");
+            temp = wktFormatterMulti(data.coords[key]['POLYGON']);
+            //console.log(temp);
+            for (var i = 0; i < temp.length; i++) {
+              polyCoordis.push(temp[i]);
+            }
+            var polygon = new google.maps.Polygon({
+              description: pm_mpo.name_pm,
+              description_value: data.coords[key]['value'],
+              paths: polyCoordis,
+              strokeColor: shapeoutline[colorSelector],
+              strokeOpacity: 0.60,
+              strokeWeight: 0.70,
+              fillColor: shapecolor[colorSelector],
+              fillOpacity: 0.60,
+              zIndex: -1
+            });
+            polygon.setOptions({ zIndex: -1 });
+            polygon.addListener('click', polyInfo);
+            app.polygons.push(polygon);
+            polygon.setMap(app.map);
+          }
+
+            /*var coord;
             var multi = b.getCoordinates();
             for (var i = 0; i < multi.length; i++) {
               coord = {lat: multi[i]['y'], lng: multi[i]['x']};
               to_color_poly.push(coord);
-            }
-          }
+            }*/
 
           var proceed = true;
           var color = '#00FF00';
 
-          if(proceed){
+          if(proceed){/*
             var line = new google.maps.Polyline({
               path: to_color,
               value: data.coords[key]['value'],
@@ -953,9 +1000,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             line.setMap(app.map);
             line.setOptions({ zIndex: 1 });
             //line.addListener('click', lineInfo_pavement);
-            app.polygons.push(line);
+            app.polygons.push(line);*/
 
-            var poly = new google.maps.Polygon({
+            /*var poly = new google.maps.Polygon({
               path: to_color_poly,
               value: data.coords[key]['value'],
               strokeColor: color,
@@ -969,9 +1016,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             poly.setMap(app.map);
             poly.setOptions({ zIndex: 1 });
             //poly.addListener('click', polyInfo_pavement);
-            app.polygons.push(poly);
+            app.polygons.push(poly);*/
           }
-        }
+      }
 
         else if (pm_mpo.pm == "sectionnum") {
           if(up_to_one == 0){
@@ -1164,7 +1211,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           polygon.setMap(app.map);
         }
         else{
+          //console.log("here");
           temp = wktFormatter(data.coords[key]['POLYGON']);
+          //console.log(temp);
           for (var i = 0; i < temp.length; i++) {
             polyCoordis.push(temp[i]);
           }
@@ -1834,7 +1883,31 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
   function wktFormatter(poly){
     new_poly = poly.slice(9,-2);
+    //console.log("new poly: " + new_poly);
     new_poly = new_poly.split("),(");
+    len = new_poly.length;
+    shape_s = [];
+    for (var j = 0; j < len; j++) {
+      polyCoordi = [];
+      polyTemp = new_poly[j].split(",");
+      for(i = 0; i<polyTemp.length; i++){
+        temp = polyTemp[i].split(" ");
+        polyCoordi.push({lat: parseFloat(temp[1]), lng: parseFloat(temp[0])});
+      }
+      shape_s[j] = polyCoordi;
+    }
+    return shape_s;
+  }
+
+  function wktFormatterMulti(poly){
+    new_poly = poly.slice(15,-3);
+    //console.log("new MULTI poly: " + new_poly);
+    new_poly = new_poly.split("),(");
+    //console.log(new_poly);
+    new_poly = new_poly.toString();
+    //console.log(new_poly);
+    new_poly = new_poly.split("),(");
+    //console.log(new_poly);
     len = new_poly.length;
     shape_s = [];
     for (var j = 0; j < len; j++) {
