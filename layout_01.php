@@ -99,19 +99,19 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                     <select type="text" class="form-control" placeholder="Performance Measure" aria-describedby="add_on" id="select_pm_multiple_1">
                       <option value="" disabled selected>Select a Performance Measure</option>
                     </select>
-                  </div>
+                  </div><br>
                   <div class="input-group">
                     <span class="input-group-addon" id="add_on_multiple_2">PM</span>
                     <select type="text" class="form-control" placeholder="Performance Measure" aria-describedby="add_on" id="select_pm_multiple_2">
                       <option value="" disabled selected>Select a Performance Measure</option>
                     </select>
-                  </div>
+                  </div><br>
                   <div class="input-group">
                     <span class="input-group-addon" id="add_on_multiple_3">PM</span>
                     <select type="text" class="form-control" placeholder="Performance Measure" aria-describedby="add_on" id="select_pm_multiple_3">
                       <option value="" disabled selected>Select a Performance Measure</option>
                     </select>
-                  </div>
+                  </div><br>
                 </div>
               </div>
               <div id="filters" class="tab-pane fade"><br>

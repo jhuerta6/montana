@@ -67,6 +67,21 @@ function getPolygons(){
 	echo $data->pm1;
 	echo $data->pm2;
 	echo $data->pm3;*/
+
+	$count = 0;
+
+	if($data->pm1){
+		$count++;
+	}
+	if($data->pm2){
+		$count++;
+	}
+	if($data->pm3){
+		$count++;
+	}
+
+	//echo $count;
+
 	if($data->runAOI == "true" && $data->runLine == "true"){ $query = "SET @geom1 = 'LineString($data->lineString)'"; }
 	elseif($data->runAOI == "true" && $data->runPoly == "true"){ $query = "SET @geom1 = 'POLYGON(($data->lineString))'"; }
 	else{
