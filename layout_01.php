@@ -61,7 +61,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         </div>
       </div>
       <div class="col-sm-3">
-        <div class="input-group">
+        <div class="input-group" id="main_pm">
           <span class="input-group-addon" id="add_on">PM</span>
           <select type="text" class="form-control" placeholder="Performance Measure" aria-describedby="add_on" id="select_pm">
             <option value="" disabled selected>Select a Performance Measure</option>
@@ -88,29 +88,49 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           <div class="col-sm-12">
             <div class="tab-content"><br>
               <div id="default" class="tab-pane fade in active">
-                <p class="text-muted"> Try drawing an Area of Interest with the drawing tools at the top of the map. <br> Click your drawn Area Of Interest to display statistics. </p>
+                <p class="text-muted"> Try drawing an Area of Interest with the tools at the top of the map. <br> Click your drawn Area Of Interest to display statistics. </p>
                 <div id="label_container" class="input-group">
                   <span data-toggle="tooltip" data-placement="top" title="Number of representations for the data" class="input-group-addon" id="basic-addon3"># labels</span>
                   <input type="number" class="form-control" value="1" min="1"placeholder="...labels" id="labels" aria-describedby="basic-addon3">
+                </div>
+                <div id="default_multiple">
+                  <div class="input-group">
+                    <span class="input-group-addon" id="add_on_multiple_1">PM</span>
+                    <select type="text" class="form-control" placeholder="Performance Measure" aria-describedby="add_on" id="select_pm_multiple_1">
+                      <option value="" disabled selected>Select a Performance Measure</option>
+                    </select>
+                  </div>
+                  <div class="input-group">
+                    <span class="input-group-addon" id="add_on_multiple_2">PM</span>
+                    <select type="text" class="form-control" placeholder="Performance Measure" aria-describedby="add_on" id="select_pm_multiple_2">
+                      <option value="" disabled selected>Select a Performance Measure</option>
+                    </select>
+                  </div>
+                  <div class="input-group">
+                    <span class="input-group-addon" id="add_on_multiple_3">PM</span>
+                    <select type="text" class="form-control" placeholder="Performance Measure" aria-describedby="add_on" id="select_pm_multiple_3">
+                      <option value="" disabled selected>Select a Performance Measure</option>
+                    </select>
+                  </div>
                 </div>
               </div>
               <div id="filters" class="tab-pane fade"><br>
                 <div class="form-check">
                   <p class="form-check-label">
                     <input class="form-check-input" type="radio" name="radios" id="biggerThan" value="bigger">
-                    Show data bigger than the unit value
+                    Data bigger than the unit value
                   </p>
                 </div>
                 <div class="form-check">
                   <p class="form-check-label">
                     <input class="form-check-input" type="radio" name="radios" id="smallerThan" value="smaller">
-                    Show data smaller than the unit value
+                    Data smaller than the unit value
                   </p>
                 </div>
                 <div class="form-check">
                   <p class="form-check-label">
                     <input class="form-check-input" type="radio" name="radios" id="equalTo" value="equal">
-                    Show data equal to the unit value
+                    Data equal to the unit value
                   </p>
                 </div>
                 <div class="input-group">
@@ -126,8 +146,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             <div class="tab-content">
               <div id="defaultbtn" class="tab-pane fade in active">
                 <button type="button" class="btn btn-success form-control" id="mpo_draw" onclick="mpo();">Draw</button><br><br>
-                <!--<button type="button" class="btn btn-success form-control" id="mpo_draw_multiple" onclick="mpo();">Load</button><br><br>-->
-                <button data-toggle="tooltip" data-placement="top" title="Only bring up the data touched by the Area Of Interest" class="btn btn-success form-control" type="button" id="runAOI" onClick="runAOI()">Run AOI</button> <br><br>
+                <button type="button" class="btn btn-success form-control" id="mpo_draw_multiple" onclick="mpo_multi();">Draw Multi</button><br><br>
+                <button data-toggle="tooltip" data-placement="top" title="Only bring up the data touched by the Area Of Interest" class="btn btn-primary form-control" type="button" id="runAOI" onClick="runAOI()">Run AOI</button> <br><br>
                 <button class="btn btn-warning form-control" type="button" id="clear" onClick="removePolygons()">Clear</button><br><br>
                 <!--<button type="button" class="map-print" id="print" onClick="printMaps()">Print</button><br><br> -->
                 <!--<a href="./ctis_isc_polygon.kml" download><button type="button" class="btn btn-outline-secondary form-control" id="download_kml" onClick="clearKML()">KML</button></a> -->
@@ -184,6 +204,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   <script>
   var app = {map:null, polygons:[], label:"no filter", payload:{getMode:"polygons", runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, property:null, district:null, depth:0, from_depth:0, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0}};
   var pm_mpo = {name_pm:null, pm:null, NE:null, SW:null, label:"no filter", getMode:"polygons", to_draw:null, draw_charts: false, runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0};
+  var multi = {pm1:null, pm2:null, pm3:null};
   var hecho = false;
   var modes = {"D":"<div class=\"bg-primary text-white\">Driving</div>", "T":"<div class=\"bg-warning text-white\">Transit</div>", "W":"<div class=\"bg-danger text-white\">Walking</div>", "B":"<div class=\"bg-success text-white\">Biking</div>", "F":"<div class=\"bg-orange text-white\">Freight</div>",}
   var blocks = {
@@ -341,29 +362,38 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       if(this.value == "z"){ //aqui vamos colorear uno por uno, uno sobre otro , quitar modes y quitar legend en un nuevo mpo_multiple();
         //console.log("you selected multiple");
         onMultiple =  true;
-      //  $("#mpo_draw").hide();
-        //$("#mpo_draw_multiple").show();
+        $("#mpo_draw").hide();
+        $("#mpo_draw_multiple").show();
         clearCharts();
         removePolygons();
         $("#modes").empty();
         $("#data-holder").hide();
         $("#legend").empty();
-        for(var j = 0; j <  blocks.elements.length; j++){
-          //console.log(blocks[blocks.elements[j]].pms.length);
-          for (var i = 0; i < blocks[blocks.elements[j]].pms.length; i++) {
-            var temp = blocks[blocks.elements[j]].pms[i];
-            var elem_blck = document.createElement("option");
-            elem_blck.innerHTML = blocks[blocks.elements[j]][temp].name;
-            elem_blck.id = blocks.elements[j];
-            var select_pm = document.getElementById("select_pm");
-            select_pm.appendChild(elem_blck);
+
+        $("#main_pm").hide();
+        $("#default_multiple").show();
+
+        var selects = ["select_pm_multiple_1","select_pm_multiple_2","select_pm_multiple_3"];
+        for (var z = 0; z < selects.length; z++) {
+          for(var j = 0; j <  blocks.elements.length; j++){
+            for (var i = 0; i < blocks[blocks.elements[j]].pms.length; i++) {
+              var temp = blocks[blocks.elements[j]].pms[i];
+              var elem_blck = document.createElement("option");
+              elem_blck.innerHTML = blocks[blocks.elements[j]][temp].name;
+              elem_blck.id = blocks.elements[j];
+              var select_pm = document.getElementById(selects[z]);
+              select_pm.appendChild(elem_blck);
+            }
           }
         }
+
       }
       else{
         onMultiple = false;
-        //$("#mpo_draw").show();
-        //$("#mpo_draw_multiple").hide();
+        $("#mpo_draw").show();
+        $("#mpo_draw_multiple").hide();
+        $("#main_pm").show();
+        $("#default_multiple").hide();
 
         for (var i = 0; i < blocks[this.value].pms.length; i++) {
           var temp = blocks[this.value].pms[i];
@@ -373,7 +403,19 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           var select_pm = document.getElementById("select_pm");
           select_pm.appendChild(elem_blck);
         }
-    }
+      }
+    });
+
+    $("#select_pm_multiple_1,#select_pm_multiple_2,#select_pm_multiple_3").change(function(){
+        var block = $(this).children(":selected").attr("id");
+        var to_use = {"select_pm_multiple_1":"pm1","select_pm_multiple_2":"pm2", "select_pm_multiple_3":"pm3"};
+        for(var i = 0; i < blocks[block].pms.length; i++){
+          var block_pm = blocks[block].pms[i];
+          if(blocks[block][block_pm].name == this.value){
+            multi[to_use[this.id]] = blocks[block][block_pm].key;
+          }
+        }
+
     });
 
     $("#select_pm").change(function(){
@@ -396,20 +438,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       }
       else if(this.value == "C-2-3) Number of Park and Ride parking spaces"){
         drawChartc23();
-        //$("#label_container").show();
-        //$("#labels").val(7);
       }
       else if(this.value == "C-3-1) Travel Time Index"){
         drawChartTti_normal();
         $("#label_container").show();
         $("#labels").val(7);
       }
-      /*else if(this.value == "A-1-3) Population within 1/2 Mile of Existing Bikeways"){
-        onMultiple == true;
-        pm_mpo.pm == "sectionnum";
-        mpo();
-        pm_mpo.pm == "b_workers";
-      }*/
+
       else if(
               this.value == "A-2-3) Car-Free Households" || this.value == "A-2-4) Transportation Disadvantaged Households" ||
               this.value == "B-1-4) Jobs-Housing Ratio" || this.value == "B-3-1-A) Estimated Emissions CO" ||
@@ -438,7 +473,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           }
         }
       }
-
     });
 
     $('[data-toggle="tooltip"]').tooltip();
@@ -559,6 +593,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       pm_mpo.filter_units = units;
       mpo();
     }
+  }
+
+  function mpo_multi(){
+    console.log(multi.pm1);
+    console.log(multi.pm2);
+    console.log(multi.pm3);
+    console.log("hello. you just ran mpo_multi. thanks");
   }
 
   function mpo(){
