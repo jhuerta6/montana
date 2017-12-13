@@ -625,7 +625,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
     for (var z = 0; z < available.count; z++) {
       (function (z){
-        console.log(z);
+        //console.log(z);
         $.get('mpo_multi_handler.php', pm_mpo, function(data){
           var c = data["coords"+(z+1)].length;
           var points = [];
@@ -656,8 +656,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             num_labels = spawn(maximum);
           }
           var up_to_one = 0;
-          console.log(z);
-          console.log(data["coords"+(z+1)]);
+          //console.log(z);
+          //console.log(data["coords"+(z+1)]);
           for(key in data["coords"+(z+1)]){
             var polyCoordis = [];
             var valor_actual = parseFloat(data["coords"+(z+1)][key]['value']);
@@ -1395,13 +1395,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       })(z);
     }
   }
-
-    /*console.log(pm_mpo.pm1);
-    console.log(pm_mpo.pm2);
-    console.log(pm_mpo.pm3);*/
-
-
-
 
   function mpo(){
     $('#legend').hide();
