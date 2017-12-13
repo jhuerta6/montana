@@ -61,12 +61,6 @@ function getPolygons(){
 	global $conn, $toReturn;
 
 	$data = new dataToQueryPolygons();
-	/*echo $_GET['pm1'];
-	echo $_GET['pm2'];
-	echo $_GET['pm3'];
-	echo $data->pm1;
-	echo $data->pm2;
-	echo $data->pm3;*/
 
 	$count = 0;
 
@@ -82,10 +76,13 @@ function getPolygons(){
 
 	//echo $count;
 
+for($z = 0; $z < $count; $z++){
+	//echo $z;
+	$val = "pm".($z+1);
 	if($data->runAOI == "true" && $data->runLine == "true"){ $query = "SET @geom1 = 'LineString($data->lineString)'"; }
 	elseif($data->runAOI == "true" && $data->runPoly == "true"){ $query = "SET @geom1 = 'POLYGON(($data->lineString))'"; }
 	else{
-	$query = "SET @geom1 = 'POLYGON(($data->lng1 $data->lat1,$data->lng1	$data->lat2,$data->lng2	$data->lat2,$data->lng2	$data->lat1,$data->lng1	$data->lat1))'";
+		$query = "SET @geom1 = 'POLYGON(($data->lng1 $data->lat1,$data->lng1	$data->lat2,$data->lng2	$data->lat2,$data->lng2	$data->lat1,$data->lng1	$data->lat1))'";
 	}
 	$toReturn['query'] = $query;
 	$result = mysqli_query($conn, $query);
@@ -106,35 +103,36 @@ function getPolygons(){
 			$query = "SELECT astext(SHAPE) AS POLYGON, iri as value FROM d11 AS p WHERE $data->pm < $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE) AND iri_year > 0";
 		}
 		else{
-		$query= "SELECT objectid, astext(SHAPE) AS POLYGON, $data->pm as value FROM polygon AS p WHERE $data->pm <= $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
+			$query= "SELECT objectid, astext(SHAPE) AS POLYGON, $data->pm as value FROM polygon AS p WHERE $data->pm <= $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 		}
 	}
 	else if($data->runFilters == "true" && $data->filter_value == "equal"){
 		$units = (int)$data->filter_units;
-		if($data->pm == "iri"){
+		if($data->pm1 == "iri"){
 			$query = "SELECT astext(SHAPE) AS POLYGON, iri as value FROM d11 AS p WHERE $data->pm = $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE) AND iri_year > 0";
 		}
 		else{
-		$query= "SELECT objectid, astext(SHAPE) AS POLYGON, $data->pm as value FROM polygon AS p WHERE $data->pm = $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
+			$query= "SELECT objectid, astext(SHAPE) AS POLYGON, $data->pm as value FROM polygon AS p WHERE $data->pm = $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 		}
 	}
 	else{
-		if($data->pm == "crosw150ft"){
+
+		if($data->$val == "crosw150ft"){
 			$query = "SELECT gis_lat as lat, gis_lon as lng, astext(SHAPE) AS POLYGON, crosw150ft as value FROM a21 AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
 		}
-		elseif($data->pm == "a22_new"){
+		elseif($data->$val == "a22_new"){
 			$query = "SELECT lat, lng, astext(SHAPE) AS POLYGON FROM a22_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
 		}
-		elseif($data->pm == "crashes"){
+		elseif($data->$val == "crashes"){
 			$query = "SELECT lat as lat, `long` as lng, astext(SHAPE) AS POLYGON, fatal as value, incinj FROM c32 AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
 		}
-		elseif($data->pm == "non-moto"){
+		elseif($data->$val == "non-moto"){
 			$query = "SELECT lat as lat, lng as lng, fatal, incap, pedestrian as value FROM b22";
 		}
-		elseif($data->pm == "iri"){
+		elseif($data->$val == "iri"){
 			$query = "SELECT astext(SHAPE) AS POLYGON, iri as value FROM d11 AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
 		}
-		elseif($data->pm == "b_workers"){
+		elseif($data->$val == "b_workers"){
 			//$toReturn['coords'] = array();
 			$query = "SELECT astext(SHAPE) AS LINE, objectid as value FROM a13_existing_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 
@@ -176,10 +174,10 @@ function getPolygons(){
 
 			$query = "SELECT astext(SHAPE) AS POLYGON, OGR_FID as value FROM a13_poly_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 		}
-		elseif($data->pm == "sectionnum"){
+		elseif($data->$val == "sectionnum"){
 			$query = "SELECT objectid, astext(SHAPE) AS POLYGON, sectionnum as value FROM a12_proposed_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 		}
-		elseif($data->pm == "c22"){
+		elseif($data->$val == "c22"){
 			$query = "SELECT objectid, astext(SHAPE) AS LINE, objectid as value FROM c22_bike_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 4), p.SHAPE)";
 
 			$toReturn['query2'] = $query;
@@ -200,46 +198,56 @@ function getPolygons(){
 
 			$query = "SELECT gis_lat as lat, gis_lon as lng, OGR_FID as value FROM c22_bus_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 		}
-		elseif($data->pm == "coemisions" || $data->pm == "emar"){
-			$query = "SELECT astext(SHAPE) AS POLYGON, $data->pm as value FROM b31 AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 3), p.SHAPE)";
+		elseif($data->$val == "coemisions" || $data->$val == "emar"){
+			$val = $data->$val;
+			$query = "SELECT astext(SHAPE) AS POLYGON, $val as value FROM b31 AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 3), p.SHAPE)";
 		}
-		elseif($data->pm == "freqtran"){
+		elseif($data->$val == "freqtran"){
 			$query = "SELECT astext(SHAPE) AS POLYGON, OGR_FID as value FROM a11_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 		}
-		elseif($data->pm == "stop_bike"){
+		elseif($data->$val == "stop_bike"){
 			$query = "SELECT astext(c22_bus.SHAPE) AS POINT, astext(c22_bike.SHAPE) AS LINE from c22_bus, C22_bike WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 3), c22_bus.SHAPE)";
 		}
-		elseif($data->pm == "2016_daily"){
+		elseif($data->$val == "2016_daily"){
 			$query = "SELECT astext(SHAPE) AS POLYGON, 2016_daily as value from c23 WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), c23.SHAPE)";
 		}
-		elseif($data->pm == "a11"){
+		elseif($data->$val == "a11"){
 			$query = "SELECT astext(SHAPE) AS POLYGON FROM polygon_a11 AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 		}
-		elseif($data->pm == "tti"){
+		elseif($data->$val == "tti"){
 			$query = "SELECT astext(SHAPE) AS POLYGON, sectionnum as value FROM polygon AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 		}
 		/*elseif($data->pm == "b_workers"){
-			$query = "SELECT objectid, astext(SHAPE) AS POLYGON, $data->pm as value FROM polygon AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
-		}*/
-		else{
-			$query = "SELECT objectid, astext(SHAPE) AS POLYGON, $data->pm as value FROM polygon AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
+		$query = "SELECT objectid, astext(SHAPE) AS POLYGON, $data->pm as value FROM polygon AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
+	}*/
+	else{
+		$val = "pm".($z+1);
+
+		if($data->$val){
+			$val = $data->$val;
+			$query = "SELECT objectid, astext(SHAPE) AS POLYGON, $val as value FROM polygon AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 		}
 	}
+}
 
-	$toReturn['query2'] = $query;
-	$result = mysqli_query($conn, $query);
-	$result = fetchAll($result);
+$toReturn['query2'] = $query;
+$result = mysqli_query($conn, $query);
+$result = fetchAll($result);
 
-	$ordered =  array();
-	$ids = array();
-	$ids = array_unique($result, SORT_REGULAR);
+$ordered =  array();
+$ids = array();
+$ids = array_unique($result, SORT_REGULAR);
 
-	for($i = 0; $i < sizeof($result); $i++){
-		if(isset($ids[$i])){
-			array_push($ordered, $ids[$i]);
-		}
+for($i = 0; $i < sizeof($result); $i++){
+	if(isset($ids[$i])){
+		array_push($ordered, $ids[$i]);
 	}
+}
 
-	$toReturn['coords'] = $ordered;
+$toReturn['coords'.($z+1)] = $ordered;
+//echo $i;
+//$toReturn['coords'.$z] = $ordered;
+}
+
 }
 ?>

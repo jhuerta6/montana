@@ -596,11 +596,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   }
 
   function mpo_multi(){
-    /*console.log(multi.pm1);
-    console.log(multi.pm2);
-    console.log(multi.pm3);
-    console.log("hello. you just ran mpo_multi. thanks");*/
-
     var available = {ispm1:0, ispm2:0, ispm3:0, count:0};
     for (var i = 1; i <= 3; i++) {
       if(pm_mpo["pm"+i] != null){
@@ -609,16 +604,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       }
     }
 
-    for (var i = 0; i < available.count; i++) {
-
-    }
-
-    console.log(pm_mpo.pm1);
-    console.log(pm_mpo.pm2);
-    console.log(pm_mpo.pm3);
-
     pm_mpo.getMode = "polygons";
-    //console.log(pm_mpo);
+
     if(pm_mpo.runAOI == true && typeof rec != 'undefined' && rec.type == 'rectangle'){
       var getparams = app.payload;
       var bounds = rec.getBounds();
@@ -636,11 +623,785 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       pm_mpo.SW = getparams.SW;
     }
 
-    $.get('mpo_multi_handler.php', pm_mpo, function(data){
+    for (var z = 0; z < available.count; z++) {
+      (function (z){
+        console.log(z);
+        $.get('mpo_multi_handler.php', pm_mpo, function(data){
+          var c = data["coords"+(z+1)].length;
+          var points = [];
+          shapecolor = ["#84857B", "#13FF00", "#009BFF", "#EBF20D", "#fe9253", "#FF0000", "#8C0909", "#0051FF", "#AB77FF", "#EBF20D", "#8C0909", "#07FDCA", "#008C35", "FFDBA5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
+          shapeoutline = ["#000000", "#0b9b00", "#007fd1", "#aaaf0a", "#d18f0a", "#c10000", "#8c0909", "#0037ad", "#873dff", "#aaaf0a", "8c0909", "36c9bd", "#008c35", "#ffdba5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
+          colorSelector = 0;
+          newzIndex = 0;
+          legendText = "";
+          maximum = -1;
+          for(var i = 0; i < c; i++){
+            if(maximum < parseFloat(data["coords"+(z+1)][i]['value'])){
+              maximum = data["coords"+(z+1)][i]['value'];
+            }
+          }
+          if(maximum == -1){
+            maximum = 1;
+          }
+          var div = document.createElement('div');
+          div.innerHTML = "<strong> Legend </strong>";
+          div.className = "center-text";
+          var l = document.createElement('div');
+          l = document.getElementById('legend');
+          l.appendChild(div);
+          var num_labels = 0;
+          if(pm_mpo.pm == "b_workers" || pm_mpo.pm == "freqtran" || pm_mpo.pm == "tti" || pm_mpo.pm == "b_carfrhh" || pm_mpo.pm == "B_TpDisadv" || pm_mpo.pm == "b_jobphh" || pm_mpo.pm == "coemisions" || pm_mpo.pm == "emar"){
+            maximum = parseFloat(maximum);
+            maximum = maximum + 0.1;
+            num_labels = spawn(maximum);
+          }
+          var up_to_one = 0;
+          console.log(z);
+          console.log(data["coords"+(z+1)]);
+          for(key in data["coords"+(z+1)]){
+            var polyCoordis = [];
+            var valor_actual = parseFloat(data["coords"+(z+1)][key]['value']);
+            colorSelector = 0;
+            if(valor_actual == 0){
+              colorSelector = 1;
+            }
+            for(var i = 0; i < num_labels.length; i++){
+              if(valor_actual > num_labels[i]){
+                colorSelector = i+1;
+              }
+            }
+            if(pm_mpo["pm"+(z+1)] == "crosw150ft"){ //points
+              if(up_to_one == 0){
+                $('#legendSpawner').find('*').not('h3').remove();
+                var spawner = document.getElementById('legendSpawner');
+                var div = document.createElement('div');
+                div.innerHTML = "<img src='img/redsquare.png' height='10px'/> Bus stop <strong>beyond</strong> 150 ft. from a crosswalk" +
+                "<br> <img src='img/brightgreensquare.png' height='10px'/> Bus stop <strong>within</strong> 150 ft. from a crosswalk";
+                var newLegend = document.createElement('div');
+                newLegend = document.getElementById('legend');
+                document.getElementById('legend').style.visibility = "visible";
+                newLegend.appendChild(div);
+              }
+              up_to_one++;
 
-    });
+              if(data["coords"+(z+1)][key]['value'] == 1){
+                var image = {
+                  url: "./icons/mini_green_bus.png"
+                };
+              }
+              else{
+                var image = {
+                  url: "./icons/mini_red_bus.png"
+                };
+              }
+              var point_obj = {lat: parseFloat(data["coords"+(z+1)][key]['lat']), lng: parseFloat(data["coords"+(z+1)][key]['lng'])};
+              points.push(point_obj);
+              var point  = new google.maps.Marker({
+                position: points[key],
+                icon: image,
+                title: 'Bus Stop',
+                value: data["coords"+(z+1)][key]['value']
+              });
+              point.setOptions({ zIndex: 2 });
+              point.addListener('click', pointInfo);
+              app.polygons.push(point);
+              point.setMap(app.map);
+            }
+            else if(pm_mpo["pm"+(z+1)] == "a22_new"){ //points
+              if(up_to_one == 0){
+                $('#legendSpawner').find('*').not('h3').remove();
+                var spawner = document.getElementById('legendSpawner');
+                var div = document.createElement('div');
+                div.innerHTML = "<img src='img/redsquare.png' height='10px'/> Bus stop <strong>beyond</strong> 150 ft. from a crosswalk" +
+                "<br> <img src='img/brightgreensquare.png' height='10px'/> Bus stop <strong>within</strong> 150 ft. from a crosswalk";
+                var newLegend = document.createElement('div');
+                newLegend = document.getElementById('legend');
+                document.getElementById('legend').style.visibility = "visible";
+                newLegend.appendChild(div);
+              }
+              up_to_one++;
 
+              url: "./icons/mini_green_bus.png"
+
+              var point_obj = {lat: parseFloat(data["coords"+(z+1)][key]['lat']), lng: parseFloat(data["coords"+(z+1)][key]['lng'])};
+              points.push(point_obj);
+              var point  = new google.maps.Marker({
+                position: points[key],
+                icon: image,
+                title: 'Bus Stop',
+                value: data["coords"+(z+1)][key]['value']
+              });
+              point.setOptions({ zIndex: 2 });
+              point.addListener('click', pointInfo); //have to add PointInfo
+              app.polygons.push(point);
+              point.setMap(app.map);
+            }
+            else if(pm_mpo["pm"+(z+1)] == "crashes"){
+              if(up_to_one == 0){
+                $('#legendSpawner').find('*').not('h3').remove();
+                var spawner = document.getElementById('legendSpawner');
+                var div = document.createElement('div');
+                div.innerHTML = "<img src='img/redsquare.png' height='10px'/> <strong>Fatal</strong> crashes" +
+                "<br> <img src='img/brightgreensquare.png' height='10px'/> <strong>Incapacitated</strong> crashes";
+                var newLegend = document.createElement('div');
+                newLegend = document.getElementById('legend');
+                document.getElementById('legend').style.visibility = "visible";
+                newLegend.appendChild(div);
+              }
+              up_to_one++;
+
+              if(data["coords"+(z+1)][key]['value'] == 1){ //fatality
+                var image = {
+                  url: "./icons/crash_red.png"
+                };
+              }
+              else{
+                var image = {
+                  url: "./icons/crash_green.png"
+                };
+              }
+              var point_obj = {lat: parseFloat(data["coords"+(z+1)][key]['lat']), lng: parseFloat(data["coords"+(z+1)][key]['lng'])};
+              points.push(point_obj);
+              var point  = new google.maps.Marker({
+                position: points[key],
+                icon: image,
+                title: 'Crash',
+                value: data["coords"+(z+1)][key]['value']
+              });
+              point.setOptions({ zIndex: 2 });
+              point.addListener('click', pointCrashInfo);
+              app.polygons.push(point);
+              point.setMap(app.map);
+            }
+            else if(pm_mpo["pm"+(z+1)] == "non-moto"){
+              if(up_to_one == 0){
+                $('#legendSpawner').find('*').not('h3').remove();
+                var spawner = document.getElementById('legendSpawner');
+                var div = document.createElement('div');
+                div.innerHTML = "<img src='img/redsquare.png' height='10px'/> Pedestrian crashes" +
+                "<br> <img src='img/orangesquare.png' height='10px'/> Pedalcyclist crashes";
+                var newLegend = document.createElement('div');
+                newLegend = document.getElementById('legend');
+                document.getElementById('legend').style.visibility = "visible";
+                newLegend.appendChild(div);
+              }
+              up_to_one++;
+
+              if(data["coords"+(z+1)][key]['value'] == 1){ //fatality
+                var image = {
+                  url: "./icons/b22_p.png"
+                };
+              }
+              else{
+                var image = {
+                  url: "./icons/b22_b.png"
+                };
+              }
+              var point_obj = {lat: parseFloat(data["coords"+(z+1)][key]['lat']), lng: parseFloat(data["coords"+(z+1)][key]['lng'])};
+              points.push(point_obj);
+              var point  = new google.maps.Marker({
+                position: points[key],
+                icon: image,
+                title: 'Crash to Non-Motorized User',
+                value: data["coords"+(z+1)][key]['value']
+              });
+              point.setOptions({ zIndex: 2 });
+              point.addListener('click', pointCrashNonInfo);
+              app.polygons.push(point);
+              point.setMap(app.map);
+            }
+            else if(pm_mpo["pm"+(z+1)] == "stop_bike"){
+
+            }
+            else if (pm_mpo["pm"+(z+1)] == "iri") {
+              if(up_to_one == 0){
+                $('#legendSpawner').find('*').not('h3').remove();
+                var spawner = document.getElementById('legendSpawner');
+                var div = document.createElement('div');
+                div.innerHTML =
+                "<img src='img/redsquare.png' height='10px'/> Poor (IRI > 170)" +
+                "<br> <img src='img/brightgreensquare.png' height='10px'/> Good & Fair (IRI < 170)";
+                var newLegend = document.createElement('div');
+                newLegend = document.getElementById('legend');
+                document.getElementById('legend').style.visibility = "visible";
+                newLegend.appendChild(div);
+              }
+              up_to_one++;
+
+              var temp = []; //gets created after each line/data
+              var to_color = [];
+              x = data["coords"+(z+1)][key]['POLYGON'];
+              temp.push(x);
+              var reader = new jsts.io.WKTReader();
+              var a = reader.read(x);
+              if(a.getGeometryType() == "LineString"){
+                var coord;
+                var ln = a.getCoordinates();
+                for (var i = 0; i < ln.length; i++) {
+                  coord = {lat: ln[i]['y'], lng: ln[i]['x']};
+                  to_color.push(coord);
+                }
+              }else{
+                var coord;
+                var multi = a.getCoordinates();
+                for (var i = 0; i < multi.length; i++) {
+                  coord = {lat: multi[i]['y'], lng: multi[i]['x']};
+                  to_color.push(coord);
+                }
+              }
+              if(data["coords"+(z+1)][key]['value'] > 0 && data["coords"+(z+1)][key]['value'] <= 170){ //very good
+                var proceed = true;
+                var color = '#00FF00';
+              }else if(data["coords"+(z+1)][key]['value'] > 170){ //bad
+                var proceed = true;
+                var color = '#FF0000';
+              }
+              else{
+                var proceed = false;
+                var color = '#000000';
+              }
+              if(proceed){
+                var line = new google.maps.Polyline({
+                  path: to_color,
+                  //path: flightPlanCoordinates,
+                  value: data["coords"+(z+1)][key]['value'],
+                  strokeColor: color,
+                  strokeOpacity: 1.0,
+                  strokeWeight: 4,
+                  zIndex: 1
+                });
+                line.setMap(app.map);
+                line.setOptions({ zIndex: 1 });
+                line.addListener('click', lineInfo_pavement);
+                app.polygons.push(line);
+              }
+            }
+            else if (pm_mpo["pm"+(z+1)] == "freqtran") {
+              if(up_to_one == 0){
+                //$('#legendSpawner').find('*').not('h3').remove();
+                /*  var spawner = document.getElementById('legendSpawner');
+                var div = document.createElement('div');
+                div.innerHTML =
+                "<br> <img src='img/brightgreensquare.png' height='10px'/> Comparing / Testing";
+                var newLegend = document.createElement('div');
+                newLegend = document.getElementById('legend');
+                document.getElementById('legend').style.visibility = "visible";
+                newLegend.appendChild(div);*/
+              }
+              up_to_one++;
+
+              var temp = []; //gets created after each line/data
+              var to_color = [];
+              x = data["coords"+(z+1)][key]['POLYGON'];
+              temp.push(x);
+              var reader = new jsts.io.WKTReader();
+              var a = reader.read(x);
+              if(a.getGeometryType() == "Polygon"){
+                var coord;
+                var ln = a.getCoordinates();
+                for (var i = 0; i < ln.length; i++) {
+                  coord = {lat: ln[i]['y'], lng: ln[i]['x']};
+                  to_color.push(coord);
+                }
+              }else{
+                var coord;
+                var multi = a.getCoordinates();
+                for (var i = 0; i < multi.length; i++) {
+                  coord = {lat: multi[i]['y'], lng: multi[i]['x']};
+                  to_color.push(coord);
+                }
+              }
+              var proceed = true;
+              var color = '#00FF00';
+
+              if(proceed){
+                var line = new google.maps.Polygon({
+                  path: to_color,
+                  value: data["coords"+(z+1)][key]['value'],
+                  strokeColor: color,
+                  fillColor: color,
+                  fillOpacity: 0.60,
+                  strokeOpacity: 0.60,
+                  strokeWeight: 0.70,
+                  zIndex: -1
+                });
+                line.setMap(app.map);
+                line.setOptions({ zIndex: 1 });
+                //line.addListener('click', lineInfo_pavement);
+                app.polygons.push(line);
+              }
+            }
+
+            else if (pm_mpo["pm"+(z+1)] == "b_workers") {
+              if(up_to_one == 0){
+                $('#legendSpawner').find('*').not('h3').remove();
+                var spawner = document.getElementById('legendSpawner');
+                var div = document.createElement('div');
+                div.innerHTML =
+                "<img src='img/brightgreensquare.png' height='10px'/> Testing";
+                var newLegend = document.createElement('div');
+                newLegend = document.getElementById('legend');
+                document.getElementById('legend').style.visibility = "visible";
+                newLegend.appendChild(div);
+              }
+              up_to_one++;
+
+              var temp = []; //gets created after each line/data
+              var temp_poly = [];
+              var to_color = [];
+              var to_color_poly = [];
+              var to_color_proposed = [];
+              var reader = new jsts.io.WKTReader();
+
+              if(key < data.notcoords.length){
+                y = data.notcoords[key]['LINE'];
+                temp.push(y);
+                var a = reader.read(y);
+
+                if(a.getGeometryType() == "LineString"){
+                  var coord;
+                  var ln = a.getCoordinates();
+                  for (var i = 0; i < ln.length; i++) {
+                    coord = {lat: ln[i]['y'], lng: ln[i]['x']};
+                    to_color.push(coord);
+                  }
+                }
+                else{
+                  var coord;
+                  var multi = a.getCoordinates();
+                  for (var i = 0; i < multi.length; i++) {
+                    coord = {lat: multi[i]['y'], lng: multi[i]['x']};
+                    to_color.push(coord);
+                  }
+                }
+              }//end if
+
+              //count = 0;
+              //while(count < data.proposed.length){
+
+              //if(key < data.proposed.length){
+              //console.log(count);
+              //count = 0;
+              z = data.proposed[key]['PROP'];
+              //console.log(z);
+              //temp.push(y);
+              var c = reader.read(z);
+
+              if(c.getGeometryType() == "LineString"){
+                //count++;
+                var coord;
+                var ln = c.getCoordinates();
+                for (var i = 0; i < ln.length; i++) {
+                  coord = {lat: ln[i]['y'], lng: ln[i]['x']};
+                  to_color_proposed.push(coord);
+                }
+              }
+              else{
+                //count++;
+                var coord;
+                var multi = c.getCoordinates();
+                for (var i = 0; i < multi.length; i++) {
+                  coord = {lat: multi[i]['y'], lng: multi[i]['x']};
+                  to_color_proposed.push(coord);
+                }
+              }
+              //console.log(count);
+              //count++;
+              //}
+              //}//
+
+              x = data["coords"+(z+1)][key]['POLYGON'];
+              var b = reader.read(x);
+              temp_poly.push(x);
+
+              if(b.getGeometryType() == "Polygon"){
+                temp = wktFormatter(data["coords"+(z+1)][key]['POLYGON']);
+                for (var i = 0; i < temp.length; i++) {
+                  polyCoordis.push(temp[i]);
+                }
+                var polygon = new google.maps.Polygon({
+                  description: pm_mpo.name_pm,
+                  description_value: data["coords"+(z+1)][key]['value'],
+                  paths: polyCoordis,
+                  strokeColor: shapeoutline[colorSelector],
+                  strokeOpacity: 0.60,
+                  strokeWeight: 0.70,
+                  fillColor: shapecolor[colorSelector],
+                  fillOpacity: 0.60,
+                  zIndex: -1
+                });
+                polygon.setOptions({ zIndex: -1 });
+                polygon.addListener('click', polyInfo);
+                app.polygons.push(polygon);
+                polygon.setMap(app.map);
+              }
+              else{
+                temp = wktFormatterMulti(data["coords"+(z+1)][key]['POLYGON']);
+
+                for (var i = 0; i < temp.length; i++) {
+                  polyCoordis.push(temp[i]);
+                }
+                var polygon = new google.maps.Polygon({
+                  description: pm_mpo.name_pm,
+                  description_value: data["coords"+(z+1)][key]['value'],
+                  paths: polyCoordis,
+                  strokeColor: shapeoutline[colorSelector],
+                  strokeOpacity: 0.60,
+                  strokeWeight: 0.70,
+                  fillColor: shapecolor[colorSelector],
+                  fillOpacity: 0.60,
+                  zIndex: -1
+                });
+                polygon.setOptions({ zIndex: -1 });
+                polygon.addListener('click', polyInfo);
+                app.polygons.push(polygon);
+                polygon.setMap(app.map);
+              }
+
+              var proceed = true;
+              var color = '#00FF00';
+
+              if(proceed){
+                var line = new google.maps.Polyline({
+                  path: to_color,
+                  value: data["coords"+(z+1)][key]['value'],
+                  strokeColor: 'red',
+                  strokeOpacity: 1.0,
+                  strokeWeight: 4,
+                  zIndex: 1
+                });
+
+                line.setMap(app.map);
+                line.setOptions({ zIndex: 1 });
+                //line.addListener('click', lineInfo_pavement);
+                app.polygons.push(line);
+
+                var propline = new google.maps.Polyline({
+                  //path: to_color_proposed,
+                  value: data.proposed[key]['value'],
+                  strokeColor: '#A020F0',
+                  strokeOpacity: 1.0,
+                  strokeWeight: 3,
+                  zIndex: 1
+                });
+                //if(key == 0){
+                propline.setMap(app.map);
+                //}
+                propline.setOptions({ zIndex: 1 });
+                //propline.addListener('click', lineInfo_pavement);
+                app.polygons.push(propline);
+              }
+            }
+
+            else if (pm_mpo["pm"+(z+1)] == "sectionnum") {
+              if(up_to_one == 0){
+                $('#legendSpawner').find('*').not('h3').remove();
+                var spawner = document.getElementById('legendSpawner');
+                var div = document.createElement('div');
+                div.innerHTML =
+                "<img src='img/neonpurplesquare.png' height='10px'/> Proposed Bikeways";
+                var newLegend = document.createElement('div');
+                newLegend = document.getElementById('legend');
+                document.getElementById('legend').style.visibility = "visible";
+                newLegend.appendChild(div);
+              }
+              up_to_one++;
+
+              var temp = []; //gets created after each line/data
+              var to_color = [];
+              x = data["coords"+(z+1)][key]['POLYGON'];
+              temp.push(x);
+              var reader = new jsts.io.WKTReader();
+              var a = reader.read(x);
+              if(a.getGeometryType() == "LineString"){
+                var coord;
+                var ln = a.getCoordinates();
+                for (var i = 0; i < ln.length; i++) {
+                  coord = {lat: ln[i]['y'], lng: ln[i]['x']};
+                  to_color.push(coord);
+                }
+              }else{
+                var coord;
+                var multi = a.getCoordinates();
+                for (var i = 0; i < multi.length; i++) {
+                  coord = {lat: multi[i]['y'], lng: multi[i]['x']};
+                  to_color.push(coord);
+                }
+              }
+              var proceed = true;
+              var color = '#A020F0';
+              if(proceed){
+                var line = new google.maps.Polyline({
+                  path: to_color,
+                  //path: flightPlanCoordinates,
+                  value: data["coords"+(z+1)][key]['value'],
+                  strokeColor: color,
+                  strokeOpacity: 1.0,
+                  strokeWeight: 3,
+                  zIndex: 1
+                });
+                line.setMap(app.map);
+                line.setOptions({ zIndex: 1 });
+                //line.addListener('click', lineInfo_pavement);
+                app.polygons.push(line);
+              }
+            }
+
+            else if (pm_mpo["pm"+(z+1)] == "c22") {
+              if(up_to_one == 0){
+                $('#legendSpawner').find('*').not('h3').remove();
+                var spawner = document.getElementById('legendSpawner');
+                var div = document.createElement('div');
+                div.innerHTML =
+                "<img src='img/brightgreensquare.png' height='10px'/> Testing";
+                var newLegend = document.createElement('div');
+                newLegend = document.getElementById('legend');
+                document.getElementById('legend').style.visibility = "visible";
+                newLegend.appendChild(div);
+              }
+              up_to_one++;
+
+              var temp = []; //gets created after each line/data
+              var temp_poly = [];
+              var to_color = [];
+              var to_color_points = [];
+
+              var image = {
+                url: "./icons/mini_red_bus.png"
+              };
+
+              var point_obj = {lat: parseFloat(data["coords"+(z+1)][key]['lat']), lng: parseFloat(data["coords"+(z+1)][key]['lng'])};
+              points.push(point_obj);
+              var point  = new google.maps.Marker({
+                position: points[key],
+                icon: image,
+                title: 'Bus Stop',
+                value: data["coords"+(z+1)][key]['value']
+              });
+              point.setOptions({ zIndex: 2 });
+              //point.addListener('click', pointInfo);
+              app.polygons.push(point);
+              point.setMap(app.map);
+
+              var reader = new jsts.io.WKTReader();
+
+              if(key < data.proposed.length){
+                y = data.proposed[key]['LINE'];
+                var proceed = true;
+                temp.push(y);
+                var a = reader.read(y);
+
+                var coord;
+                var ln = a.getCoordinates();
+                for (var i = 0; i < ln.length; i++) {
+                  coord = {lat: ln[i]['y'], lng: ln[i]['x']};
+                  to_color.push(coord);
+                }
+              }
+              else{
+                var proceed = false;
+              }
+
+              var color = '#00FF00';
+
+              if(proceed){
+                var line = new google.maps.Polyline({
+                  path: to_color,
+                  value: data["coords"+(z+1)][key]['value'],
+                  strokeColor: 'red',
+                  strokeOpacity: 1.0,
+                  strokeWeight: 4,
+                  zIndex: 1
+                });
+
+                line.setMap(app.map);
+                line.setOptions({ zIndex: 1 });
+                //line.addListener('click', lineInfo_pavement);
+                app.polygons.push(line);
+              }
+            }
+
+            else if (pm_mpo["pm"+(z+1)] == "2016_daily") {
+              if(up_to_one == 0){
+                $('#legendSpawner').find('*').not('h3').remove();
+                var spawner = document.getElementById('legendSpawner');
+                var div = document.createElement('div');
+                div.innerHTML =
+                "<img src='img/brightgreensquare.png' height='10px'/> 20 - 500 daily passengers" +
+                "<br> <img src='img/skybluesquare.png' height='10px'/> 500 - 1000 daily passengers"+
+                "<br> <img src='img/yellowsquare.png' height='10px'/> 1000 - 2000 daily passengers"+
+                "<br> <img src='img/orangesquare.png' height='10px'/> 2000 to 3150 daily passengers";
+                var newLegend = document.createElement('div');
+                newLegend = document.getElementById('legend');
+                document.getElementById('legend').style.visibility = "visible";
+                newLegend.appendChild(div);
+              }
+              up_to_one++;
+
+              var temp = []; //gets created after each line/data
+              var to_color = [];
+              x = data["coords"+(z+1)][key]['POLYGON'];
+              temp.push(x); //individual
+              var reader = new jsts.io.WKTReader();
+              var a = reader.read(x);
+
+              if(a.getGeometryType() == "LineString"){
+                var coord;
+                var ln = a.getCoordinates();
+                for (var i = 0; i < ln.length; i++) {
+                  coord = {lat: ln[i]['y'], lng: ln[i]['x']};
+                  to_color.push(coord);
+                }
+              }else{
+                var coord;
+                var multi = a.getCoordinates();
+                for (var i = 0; i < multi.length; i++) {
+                  coord = {lat: multi[i]['y'], lng: multi[i]['x']};
+                  to_color.push(coord);
+                }
+              }
+              if(data["coords"+(z+1)][key]['value'] >= 20 && data["coords"+(z+1)][key]['value'] <= 500){ //very good
+                var proceed = true;
+                var color = '#00FF00';
+              }else if(data["coords"+(z+1)][key]['value'] >= 500 && data["coords"+(z+1)][key]['value'] <= 1000){ //good
+                var proceed = true;
+                var color = '#009BFF';
+              }else if(data["coords"+(z+1)][key]['value'] >= 1000 && data["coords"+(z+1)][key]['value'] <= 2000){ //fair
+                var proceed = true;
+                var color = '#FFFF00';
+              }else if(data["coords"+(z+1)][key]['value'] >= 2000 && data["coords"+(z+1)][key]['value'] <= 3150){ //poor
+                var proceed = true;
+                var color = '#FFAA00';
+              }
+              else{
+                var proceed = false;
+                var color = '#000000';
+              }
+
+              if(proceed){
+                var line = new google.maps.Polyline({
+                  path: to_color,
+                  //path: flightPlanCoordinates,
+                  value: data["coords"+(z+1)][key]['value'],
+                  strokeColor: color,
+                  strokeOpacity: 1.0,
+                  strokeWeight: 4,
+                  zIndex: 1
+                });
+                line.setMap(app.map);
+                line.setOptions({ zIndex: 1 });
+                line.addListener('click', lineInfo_parkride);
+                app.polygons.push(line);
+              }
+            }
+            else if(pm_mpo["pm"+(z+1)] == "coemisions" || pm_mpo["pm"+(z+1)] == "emar" ){
+              temp = wktFormatter(data["coords"+(z+1)][key]['POLYGON']);
+              for (var i = 0; i < temp.length; i++) {
+                polyCoordis.push(temp[i]);
+              }
+              var polygon = new google.maps.Polygon({
+                description: pm_mpo.name_pm,
+                description_value: data["coords"+(z+1)][key]['value'],
+                paths: polyCoordis,
+                strokeColor: shapeoutline[colorSelector],
+                strokeOpacity: 0.60,
+                strokeWeight: 0.70,
+                fillColor: shapecolor[colorSelector],
+                fillOpacity: 0.60,
+                zIndex: -1
+              });
+              polygon.setOptions({ zIndex: -1 });
+              polygon.addListener('click', polyInfo);
+              app.polygons.push(polygon);
+              polygon.setMap(app.map);
+            }
+            else if(pm_mpo["pm"+(z+1)] == "tti"){
+              temp = wktFormatter(data["coords"+(z+1)][key]['POLYGON']);
+              for (var i = 0; i < temp.length; i++) {
+                polyCoordis.push(temp[i]);
+              }
+              var polygon = new google.maps.Polygon({
+                description: pm_mpo.name_pm,
+                description_value: data["coords"+(z+1)][key]['value'],
+                paths: polyCoordis,
+                strokeColor: shapeoutline[colorSelector],
+                strokeOpacity: 0.60,
+                strokeWeight: 0.70,
+                fillColor: shapecolor[colorSelector],
+                fillOpacity: 0.60,
+                zIndex: -1
+              });
+              polygon.setOptions({ zIndex: -1 });
+              polygon.addListener('click', polyInfo_tti);
+              app.polygons.push(polygon);
+              polygon.setMap(app.map);
+            }
+            else if (pm_mpo["pm"+(z+1)] == "a11"){
+              temp = wktFormatter(data["coords"+(z+1)][key]['POLYGON']);
+              //console.log(temp);
+              for (var i = 0; i < temp.length; i++) {
+                polyCoordis.push(temp[i]);
+              }
+              var polygon = new google.maps.Polygon({
+                description: pm_mpo.name_pm,
+                description_value: data["coords"+(z+1)][key]['value'],
+                paths: polyCoordis,
+                strokeColor: shapeoutline[colorSelector],
+                strokeOpacity: 0.60,
+                strokeWeight: 0.70,
+                fillColor: shapecolor[colorSelector],
+                fillOpacity: 0.60,
+                zIndex: -1
+              });
+              polygon.setOptions({ zIndex: -1 });
+              polygon.addListener('click', polyInfo);
+              app.polygons.push(polygon);
+              polygon.setMap(app.map);
+            }
+            else{
+              //console.log("here");
+              temp = wktFormatter(data["coords"+(z+1)][key]['POLYGON']);
+              //console.log(temp);
+              for (var i = 0; i < temp.length; i++) {
+                polyCoordis.push(temp[i]);
+              }
+              var polygon = new google.maps.Polygon({
+                description: pm_mpo.name_pm,
+                description_value: data["coords"+(z+1)][key]['value'],
+                paths: polyCoordis,
+                strokeColor: shapeoutline[colorSelector],
+                strokeOpacity: 0.60,
+                strokeWeight: 0.70,
+                fillColor: shapecolor[colorSelector],
+                fillOpacity: 0.60,
+                zIndex: -1
+              });
+              polygon.setOptions({ zIndex: -1 });
+              polygon.addListener('click', polyInfo);
+              app.polygons.push(polygon);
+              polygon.setMap(app.map);
+            }
+          }
+        }).done(function(data){
+          if($('#legend').css('display')=='none'){
+            $('#legend').slideToggle("slow");
+          }
+          else{
+            $('#legend').slideToggle("fast");
+          }
+          pm_mpo.runAOI = false;
+          pm_mpo.runFilters = false;
+        });
+      })(z);
+    }
   }
+
+    /*console.log(pm_mpo.pm1);
+    console.log(pm_mpo.pm2);
+    console.log(pm_mpo.pm3);*/
+
+
+
 
   function mpo(){
     $('#legend').hide();
