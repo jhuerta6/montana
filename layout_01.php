@@ -126,7 +126,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             <div class="tab-content">
               <div id="defaultbtn" class="tab-pane fade in active">
                 <button type="button" class="btn btn-success form-control" id="mpo_draw" onclick="mpo();">Draw</button><br><br>
-                <button type="button" class="btn btn-success form-control" id="mpo_draw_multiple" onclick="mpo();">Load</button><br><br>
+                <!--<button type="button" class="btn btn-success form-control" id="mpo_draw_multiple" onclick="mpo();">Load</button><br><br>-->
                 <button data-toggle="tooltip" data-placement="top" title="Only bring up the data touched by the Area Of Interest" class="btn btn-success form-control" type="button" id="runAOI" onClick="runAOI()">Run AOI</button> <br><br>
                 <button class="btn btn-warning form-control" type="button" id="clear" onClick="removePolygons()">Clear</button><br><br>
                 <!--<button type="button" class="map-print" id="print" onClick="printMaps()">Print</button><br><br> -->
@@ -258,7 +258,12 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     c:{
       id: "c",
       name: "C) Community to Region",
-      pms: ["c23","c24","c31","c32"],
+      pms: ["c22","c23","c24","c31","c32"],
+      c22:{
+        name: "C-2-2) Bus Stops Within 600ft. of Bikeways",
+        mode: ["T","B"],
+        key: "c22"
+      },
       c23:{
         name: "C-2-3) Number of Park and Ride parking spaces",
         mode: ["D","T"],
@@ -336,8 +341,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       if(this.value == "z"){ //aqui vamos colorear uno por uno, uno sobre otro , quitar modes y quitar legend en un nuevo mpo_multiple();
         //console.log("you selected multiple");
         onMultiple =  true;
-        $("#mpo_draw").hide();
-        $("#mpo_draw_multiple").show();
+      //  $("#mpo_draw").hide();
+        //$("#mpo_draw_multiple").show();
         clearCharts();
         removePolygons();
         $("#modes").empty();
@@ -357,8 +362,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       }
       else{
         onMultiple = false;
-        $("#mpo_draw").show();
-        $("#mpo_draw_multiple").hide();
+        //$("#mpo_draw").show();
+        //$("#mpo_draw_multiple").hide();
 
         for (var i = 0; i < blocks[this.value].pms.length; i++) {
           var temp = blocks[this.value].pms[i];
@@ -399,6 +404,12 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         $("#label_container").show();
         $("#labels").val(7);
       }
+      /*else if(this.value == "A-1-3) Population within 1/2 Mile of Existing Bikeways"){
+        onMultiple == true;
+        pm_mpo.pm == "sectionnum";
+        mpo();
+        pm_mpo.pm == "b_workers";
+      }*/
       else if(
               this.value == "A-2-3) Car-Free Households" || this.value == "A-2-4) Transportation Disadvantaged Households" ||
               this.value == "B-1-4) Jobs-Housing Ratio" || this.value == "B-3-1-A) Estimated Emissions CO" ||
@@ -895,38 +906,72 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           var temp_poly = [];
           var to_color = [];
           var to_color_poly = [];
-          //console.log(data.coords[key]['POLYGON']);
-          x = data.coords[key]['POLYGON'];
-          //console.log(data.coords[key]['LINE']);
-          //y = data.notcoords[key]['LINE'];
-          //console.log(y);
-          //temp.push(y);
-          temp_poly.push(x);
+          var to_color_proposed = [];
           var reader = new jsts.io.WKTReader();
-          //var a = reader.read(y);
-          var b = reader.read(x);
-          /*if(a.getGeometryType() == "LineString"){
+
+          if(key < data.notcoords.length){
+            y = data.notcoords[key]['LINE'];
+            temp.push(y);
+            var a = reader.read(y);
+
+            if(a.getGeometryType() == "LineString"){
+              var coord;
+              var ln = a.getCoordinates();
+              for (var i = 0; i < ln.length; i++) {
+                coord = {lat: ln[i]['y'], lng: ln[i]['x']};
+                to_color.push(coord);
+              }
+            }
+            else{
+              var coord;
+              var multi = a.getCoordinates();
+              for (var i = 0; i < multi.length; i++) {
+                coord = {lat: multi[i]['y'], lng: multi[i]['x']};
+                to_color.push(coord);
+              }
+            }
+          }//end if
+
+          //count = 0;
+          //while(count < data.proposed.length){
+
+          //if(key < data.proposed.length){
+          //console.log(count);
+          //count = 0;
+          z = data.proposed[key]['PROP'];
+          //console.log(z);
+          //temp.push(y);
+          var c = reader.read(z);
+
+          if(c.getGeometryType() == "LineString"){
+            //count++;
             var coord;
-            var ln = a.getCoordinates();
+            var ln = c.getCoordinates();
             for (var i = 0; i < ln.length; i++) {
               coord = {lat: ln[i]['y'], lng: ln[i]['x']};
-              to_color.push(coord);
+              to_color_proposed.push(coord);
             }
           }
           else{
+            //count++;
             var coord;
-            var multi = a.getCoordinates();
+            var multi = c.getCoordinates();
             for (var i = 0; i < multi.length; i++) {
               coord = {lat: multi[i]['y'], lng: multi[i]['x']};
-              to_color.push(coord);
+              to_color_proposed.push(coord);
             }
-          }*/
+          }
+          //console.log(count);
+          //count++;
+          //}
+          //}//
+
+          x = data.coords[key]['POLYGON'];
+          var b = reader.read(x);
+          temp_poly.push(x);
 
           if(b.getGeometryType() == "Polygon"){
-            console.log("entramos a b geom type polygon");
-            //console.log("here");
             temp = wktFormatter(data.coords[key]['POLYGON']);
-            //console.log(temp);
             for (var i = 0; i < temp.length; i++) {
               polyCoordis.push(temp[i]);
             }
@@ -946,17 +991,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             app.polygons.push(polygon);
             polygon.setMap(app.map);
           }
-
-            /*var coord;
-            var ln = b.getCoordinates();
-            for (var i = 0; i < ln.length; i++) {
-              coord = {lat: ln[i]['y'], lng: ln[i]['x']};
-              to_color_poly.push(coord);
-            }*/
           else{
-            console.log("entramos a b geom type multipolygon");
             temp = wktFormatterMulti(data.coords[key]['POLYGON']);
-            //console.log(temp);
+
             for (var i = 0; i < temp.length; i++) {
               polyCoordis.push(temp[i]);
             }
@@ -976,22 +1013,15 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             app.polygons.push(polygon);
             polygon.setMap(app.map);
           }
-
-            /*var coord;
-            var multi = b.getCoordinates();
-            for (var i = 0; i < multi.length; i++) {
-              coord = {lat: multi[i]['y'], lng: multi[i]['x']};
-              to_color_poly.push(coord);
-            }*/
 
           var proceed = true;
           var color = '#00FF00';
 
-          if(proceed){/*
+          if(proceed){
             var line = new google.maps.Polyline({
               path: to_color,
               value: data.coords[key]['value'],
-              strokeColor: color,
+              strokeColor: 'red',
               strokeOpacity: 1.0,
               strokeWeight: 4,
               zIndex: 1
@@ -1000,25 +1030,24 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             line.setMap(app.map);
             line.setOptions({ zIndex: 1 });
             //line.addListener('click', lineInfo_pavement);
-            app.polygons.push(line);*/
+            app.polygons.push(line);
 
-            /*var poly = new google.maps.Polygon({
-              path: to_color_poly,
-              value: data.coords[key]['value'],
-              strokeColor: color,
-              fillColor: color,
-              fillOpacity: 0.60,
-              strokeOpacity: 0.60,
-              strokeWeight: 0.70,
-              zIndex: -1
+            var propline = new google.maps.Polyline({
+              //path: to_color_proposed,
+              value: data.proposed[key]['value'],
+              strokeColor: '#A020F0',
+              strokeOpacity: 1.0,
+              strokeWeight: 3,
+              zIndex: 1
             });
-
-            poly.setMap(app.map);
-            poly.setOptions({ zIndex: 1 });
-            //poly.addListener('click', polyInfo_pavement);
-            app.polygons.push(poly);*/
+            //if(key == 0){
+            propline.setMap(app.map);
+            //}
+            propline.setOptions({ zIndex: 1 });
+            //propline.addListener('click', lineInfo_pavement);
+            app.polygons.push(propline);
           }
-      }
+        }
 
         else if (pm_mpo.pm == "sectionnum") {
           if(up_to_one == 0){
@@ -1055,8 +1084,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               to_color.push(coord);
             }
           }
-            var proceed = true;
-            var color = '#A020F0';
+          var proceed = true;
+          var color = '#A020F0';
           if(proceed){
             var line = new google.maps.Polyline({
               path: to_color,
@@ -1073,6 +1102,81 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             app.polygons.push(line);
           }
         }
+
+        else if (pm_mpo.pm == "c22") {
+          if(up_to_one == 0){
+            $('#legendSpawner').find('*').not('h3').remove();
+            var spawner = document.getElementById('legendSpawner');
+            var div = document.createElement('div');
+            div.innerHTML =
+            "<img src='img/brightgreensquare.png' height='10px'/> Testing";
+            var newLegend = document.createElement('div');
+            newLegend = document.getElementById('legend');
+            document.getElementById('legend').style.visibility = "visible";
+            newLegend.appendChild(div);
+          }
+          up_to_one++;
+
+          var temp = []; //gets created after each line/data
+          var temp_poly = [];
+          var to_color = [];
+          var to_color_points = [];
+
+          var image = {
+            url: "./icons/mini_red_bus.png"
+          };
+
+          var point_obj = {lat: parseFloat(data.coords[key]['lat']), lng: parseFloat(data.coords[key]['lng'])};
+          points.push(point_obj);
+          var point  = new google.maps.Marker({
+            position: points[key],
+            icon: image,
+            title: 'Bus Stop',
+            value: data.coords[key]['value']
+          });
+          point.setOptions({ zIndex: 2 });
+          //point.addListener('click', pointInfo);
+          app.polygons.push(point);
+          point.setMap(app.map);
+
+          var reader = new jsts.io.WKTReader();
+
+          if(key < data.proposed.length){
+            y = data.proposed[key]['LINE'];
+            var proceed = true;
+            temp.push(y);
+            var a = reader.read(y);
+
+            var coord;
+            var ln = a.getCoordinates();
+            for (var i = 0; i < ln.length; i++) {
+              coord = {lat: ln[i]['y'], lng: ln[i]['x']};
+              to_color.push(coord);
+            }
+          }
+          else{
+            var proceed = false;
+          }
+
+          var color = '#00FF00';
+
+          if(proceed){
+            var line = new google.maps.Polyline({
+              path: to_color,
+              value: data.coords[key]['value'],
+              strokeColor: 'red',
+              strokeOpacity: 1.0,
+              strokeWeight: 4,
+              zIndex: 1
+            });
+
+            line.setMap(app.map);
+            line.setOptions({ zIndex: 1 });
+            //line.addListener('click', lineInfo_pavement);
+            app.polygons.push(line);
+          }
+        }
+
         else if (pm_mpo.pm == "2016_daily") {
           if(up_to_one == 0){
             $('#legendSpawner').find('*').not('h3').remove();

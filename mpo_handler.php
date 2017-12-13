@@ -293,9 +293,9 @@ function getPolygons(){
 			//echo json_encode($toReturn);
 			//return;
 
-			$query = "SELECT astext(SHAPE) AS POLYGON, OGR_FID as value FROM a13_poly_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
+			$query = "SELECT objectid, astext(SHAPE) AS PROP, sectionnum as value FROM a12_proposed_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 
-			/*toReturn['query2'] = $query;
+			$toReturn['query2'] = $query;
 			$result = mysqli_query($conn, $query);
 			$result = fetchAll($result);
 
@@ -309,12 +309,33 @@ function getPolygons(){
 				}
 			}
 
-			$toReturn['coords'] = $ordered;
-			echo json_encode($toReturn);*/
+			$toReturn['proposed'] = $ordered;
 
+			$query = "SELECT astext(SHAPE) AS POLYGON, OGR_FID as value FROM a13_poly_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 		}
 		elseif($data->pm == "sectionnum"){
 			$query = "SELECT objectid, astext(SHAPE) AS POLYGON, sectionnum as value FROM a12_proposed_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
+		}
+		elseif($data->pm == "c22"){
+			$query = "SELECT objectid, astext(SHAPE) AS LINE, objectid as value FROM c22_bike_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 4), p.SHAPE)";
+
+			$toReturn['query2'] = $query;
+			$result = mysqli_query($conn, $query);
+			$result = fetchAll($result);
+
+			$ordered =  array();
+			$ids = array();
+			$ids = array_unique($result, SORT_REGULAR);
+
+			for($i = 0; $i < sizeof($result); $i++){
+				if(isset($ids[$i])){
+					array_push($ordered, $ids[$i]);
+				}
+			}
+
+			$toReturn['proposed'] = $ordered;
+
+			$query = "SELECT gis_lat as lat, gis_lon as lng, OGR_FID as value FROM c22_bus_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 		}
 		elseif($data->pm == "coemisions" || $data->pm == "emar"){
 			$query = "SELECT astext(SHAPE) AS POLYGON, $data->pm as value FROM b31 AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 3), p.SHAPE)";
