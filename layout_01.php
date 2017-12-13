@@ -203,7 +203,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.8.1/css/bootstrap-slider.css" />
   <script>
   var app = {map:null, polygons:[], label:"no filter", payload:{getMode:"polygons", runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, property:null, district:null, depth:0, from_depth:0, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0}};
-  var pm_mpo = {name_pm:null, pm:null, NE:null, SW:null, label:"no filter", getMode:"polygons", to_draw:null, draw_charts: false, runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0};
+  var pm_mpo = {pm1:null, pm2:null, pm3:null,name_pm:null, pm:null, NE:null, SW:null, label:"no filter", getMode:"polygons", to_draw:null, draw_charts: false, runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0};
   var multi = {pm1:null, pm2:null, pm3:null};
   var hecho = false;
   var modes = {"D":"<div class=\"bg-primary text-white\">Driving</div>", "T":"<div class=\"bg-warning text-white\">Transit</div>", "W":"<div class=\"bg-danger text-white\">Walking</div>", "B":"<div class=\"bg-success text-white\">Biking</div>", "F":"<div class=\"bg-orange text-white\">Freight</div>",}
@@ -412,7 +412,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         for(var i = 0; i < blocks[block].pms.length; i++){
           var block_pm = blocks[block].pms[i];
           if(blocks[block][block_pm].name == this.value){
-            multi[to_use[this.id]] = blocks[block][block_pm].key;
+            pm_mpo[to_use[this.id]] = blocks[block][block_pm].key;
           }
         }
 
@@ -596,10 +596,50 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   }
 
   function mpo_multi(){
-    console.log(multi.pm1);
+    /*console.log(multi.pm1);
     console.log(multi.pm2);
     console.log(multi.pm3);
-    console.log("hello. you just ran mpo_multi. thanks");
+    console.log("hello. you just ran mpo_multi. thanks");*/
+
+    var available = {ispm1:0, ispm2:0, ispm3:0, count:0};
+    for (var i = 1; i <= 3; i++) {
+      if(pm_mpo["pm"+i] != null){
+        available["ispm"+i] = 1;
+        available.count += 1;
+      }
+    }
+
+    for (var i = 0; i < available.count; i++) {
+
+    }
+
+    console.log(pm_mpo.pm1);
+    console.log(pm_mpo.pm2);
+    console.log(pm_mpo.pm3);
+
+    pm_mpo.getMode = "polygons";
+    //console.log(pm_mpo);
+    if(pm_mpo.runAOI == true && typeof rec != 'undefined' && rec.type == 'rectangle'){
+      var getparams = app.payload;
+      var bounds = rec.getBounds();
+      getparams.NE = bounds.getNorthEast().toJSON();
+      getparams.SW = bounds.getSouthWest().toJSON();
+      pm_mpo.NE = getparams.NE;
+      pm_mpo.SW = getparams.SW;
+    }
+    else{
+      var getparams = app.payload;
+      var bounds = app.map.getBounds();
+      getparams.NE = bounds.getNorthEast().toJSON(); //north east corner
+      getparams.SW = bounds.getSouthWest().toJSON(); //south-west corner
+      pm_mpo.NE = getparams.NE;
+      pm_mpo.SW = getparams.SW;
+    }
+
+    $.get('mpo_multi_handler.php', pm_mpo, function(data){
+
+    });
+
   }
 
   function mpo(){
