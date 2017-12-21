@@ -47,7 +47,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <h3 class="text-center" style="color:#FF8000;"> Performance Measures for Montana Corridor</h3>
     <h6 class="hidden-xs text-center"><i style="color: white;">"</i><strong><i style="color:#FF8000;" class="text-center">CTIS </i></strong><i class="text-center" style="color:white;">is designated as a Member of National, Regional, and Tier 1 University Transportation Center."</i></h6>
-    <p class="hidden-xs text-right" style="color: white"> Version 1.3 (11/22/2017)</p>
+    <p class="hidden-xs text-right" style="color: white"> Version 1.4 (12/14/2017)</p>
   </nav>
 
   <div class="container panel panel-default">
@@ -340,6 +340,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     //removePolygons();
     //app.polygons = "";
     //app.polygons.push = "";
+    $("#add_on_multiple_2,#select_pm_multiple_2").hide();
+    $("#add_on_multiple_3,#select_pm_multiple_3").hide();
     $("#data-holder").hide();
     $("#label_container").hide();
     for (var i = 0; i < blocks.elements.length; i++) {
@@ -415,7 +417,14 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             pm_mpo[to_use[this.id]] = blocks[block][block_pm].key;
           }
         }
+    });
 
+    $("#select_pm_multiple_1").change(function(){
+      $("#add_on_multiple_2,#select_pm_multiple_2").show();
+    });
+
+    $("#select_pm_multiple_2").change(function(){
+      $("#add_on_multiple_3,#select_pm_multiple_3").show();
     });
 
     $("#select_pm").change(function(){
@@ -982,10 +991,14 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               //if(key < data.proposed.length){
               //console.log(count);
               //count = 0;
-              z = data.proposed[key]['PROP'];
+            /*  w = data.proposed[key]['PROP'];
+
               //console.log(z);
               //temp.push(y);
-              var c = reader.read(z);
+              console.log("loop: " + z);
+              console.log("key: "+ key);
+              console.log(w);
+              var c = reader.read(w);
 
               if(c.getGeometryType() == "LineString"){
                 //count++;
@@ -1004,12 +1017,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   coord = {lat: multi[i]['y'], lng: multi[i]['x']};
                   to_color_proposed.push(coord);
                 }
-              }
+              }*/
               //console.log(count);
               //count++;
               //}
               //}//
-
+              //console.log("coords"+(z+1));
+              //console.log(key);
               x = data["coords"+(z+1)][key]['POLYGON'];
               var b = reader.read(x);
               temp_poly.push(x);
