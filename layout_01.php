@@ -218,36 +218,73 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       a11:{
         name: "A-1-1) Population Within 1/2 Mile of Frequent Transit Service",
         mode: ["T"],
+        description: "",
+        content: "9% and 12% of population in Section 1 and 2 respectively live within a 1/2 mile of transit service with a headway of 20 minutes or less. /n" +
+        "In all other sections, the percentage of population served by frequent transit is 0. /n" +
+        "Only 4% of population in the Montana Corridor lives within a 1/2 mile of high frequency transit. However, when looking at transit of all frequencies, then 79% of population lives within 1/2 mile.",
+        note: null,
+        sources: "Sunmetro, ACS 2011-2015",
+        periods: "Bikeways as of August 2016, bus stops as of November 2016.",
         key: "freqtran"
       },
       a12:{
         name: "A-1-2) Bikeways build-out",
         mode: ["B"],
+        description: "",
+        content: "",
+        note: "",
+        sources: "",
+        periods: "",
         key: "sectionnum"
       },
       a13:{
         name: "A-1-3) Population within 1/2 Mile of Existing Bikeways",
         mode: ["B"],
+        description: "",
+        content: "",
+        note: "",
+        sources: "",
+        periods: "",
         key: "b_workers"
       },
       a21:{
         name: "A-2-1) Bus Stops Along Busy Roadways With No Marked Crosswalk Within 150 ft.",
         mode: ["T", "W"],
+        description: "",
+        content: "",
+        note: "",
+        sources: "",
+        periods: "",
         key: "crosw150ft"
       },
       a22:{
         name: "A-2-2) Bus Stops with Bicycle Parking",
         mode: ["T", "B"],
+        description: "",
+        content: "",
+        note: "",
+        sources: "",
+        periods: "",
         key: "a22_new"
       },
       a23:{
         name: "A-2-3) Car-Free Households",
         mode: ["D","T","W","B"],
+        description: "",
+        content: "",
+        note: "",
+        sources: "",
+        periods: "",
         key: "b_carfrhh"
       },
       a24:{
         name: "A-2-4) Transportation Disadvantaged Households",
         mode: ["D","T","W","B"],
+        description: "",
+        content: "",
+        note: "",
+        sources: "",
+        periods: "",
         key: "B_TpDisadv"
       },
     },
