@@ -245,11 +245,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         name: "A-1-3) Population within 1/2 Mile of Existing Bikeways",
         mode: ["B"],
         description: "",
-        content: "",
+        content: "More than 60% of population has access to bikeways in Sections 2, 3, 4. \n" +
+        "In Section 1 only 1% and in Section 6 & 7 0% ogf population. \n" +
+        "Overall, 47% of Montana Corridor population lines within 1/2 mile of existing bikeways.",
         note: "",
-        sources: "",
+        sources: "City of El Paso, ACS 2011-2015",
         overall: false,
-        periods: "",
+        periods: "Bikeways as of August 2016",
         key: "b_workers"
       },
       a21:{
