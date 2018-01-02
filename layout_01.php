@@ -231,14 +231,14 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       a12:{
         name: "A-1-2) Bikeways build-out",
         mode: ["B"],
-        description: "This performance measure compares the mileage of existing bikeways with the mileage suggested in the 2016 COEP Bike Plan. \n"+
+        description: "",
+        content: "This performance measure compares the mileage of existing bikeways with the mileage suggested in the 2016 COEP Bike Plan. \n"+
         "Existing bikeways within 1 mile of Montana corridor are 16.36 miles. The goal in the 2016 COEP BIke Plan is 132.66 miles. \n" +
         "Section 1 and 6 do not have any bicicycle infrastructure, in other sections the build-out is between 11% and 18%.",
-        content: "",
         note: "",
-        sources: "",
+        sources: "City of El Paso",
         overall: true,
-        periods: "",
+        periods: "Bikeways as of August 2016",
         key: "sectionnum"
       },
       a13:{
