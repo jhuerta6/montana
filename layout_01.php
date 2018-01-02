@@ -219,9 +219,10 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         name: "A-1-1) Population Within 1/2 Mile of Frequent Transit Service",
         mode: ["T"],
         description: "",
-        content: "9% and 12% of population in Section 1 and 2 respectively live within a 1/2 mile of transit service with a headway of 20 minutes or less. /n" +
-        "In all other sections, the percentage of population served by frequent transit is 0. /n" +
+        content: "9% and 12% of population in Section 1 and 2 respectively live within a 1/2 mile of transit service with a headway of 20 minutes or less. \n" +
+        "In all other sections, the percentage of population served by frequent transit is 0. \n" +
         "Only 4% of population in the Montana Corridor lives within a 1/2 mile of high frequency transit. However, when looking at transit of all frequencies, then 79% of population lives within 1/2 mile.",
+        overall: false,
         note: null,
         sources: "Sunmetro, ACS 2011-2015",
         periods: "Bikeways as of August 2016, bus stops as of November 2016.",
@@ -230,10 +231,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       a12:{
         name: "A-1-2) Bikeways build-out",
         mode: ["B"],
-        description: "",
+        description: "This performance measure compares the mileage of existing bikeways with the mileage suggested in the 2016 COEP Bike Plan. \n"+
+        "Existing bikeways within 1 mile of Montana corridor are 16.36 miles. The goal in the 2016 COEP BIke Plan is 132.66 miles. \n" +
+        "Section 1 and 6 do not have any bicicycle infrastructure, in other sections the build-out is between 11% and 18%.",
         content: "",
         note: "",
         sources: "",
+        overall: true,
         periods: "",
         key: "sectionnum"
       },
@@ -244,6 +248,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         content: "",
         note: "",
         sources: "",
+        overall: false,
         periods: "",
         key: "b_workers"
       },
@@ -254,6 +259,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         content: "",
         note: "",
         sources: "",
+        overall: false,
         periods: "",
         key: "crosw150ft"
       },
@@ -264,6 +270,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         content: "",
         note: "",
         sources: "",
+        overall: false,
         periods: "",
         key: "a22_new"
       },
@@ -274,6 +281,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         content: "",
         note: "",
         sources: "",
+        overall: false,
         periods: "",
         key: "b_carfrhh"
       },
@@ -284,6 +292,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         content: "",
         note: "",
         sources: "",
+        overall: false,
         periods: "",
         key: "B_TpDisadv"
       },
