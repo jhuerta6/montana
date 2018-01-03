@@ -258,44 +258,49 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         name: "A-2-1) Bus Stops Along Busy Roadways With No Marked Crosswalk Within 150 ft.",
         mode: ["T", "W"],
         description: "",
-        content: "",
+        content: "Majority of Sunmetro bus stops on highly trafficked roadways are not located in proximity of crosswalks, therefore safe access to transit may be compromised. \n" +
+        "Along the corridor only 72 out of 309 bus stops on high-traffic roads (ADT > 9,000) were located within 150 ft. from a makrked crosswalk.",
         note: "",
-        sources: "",
+        sources: "Sunmetro, City of El Paso",
         overall: false,
-        periods: "",
+        periods: "Bus stops as of November 2016, crosswalks undated",
         key: "crosw150ft"
       },
       a22:{
         name: "A-2-2) Bus Stops with Bicycle Parking",
         mode: ["T", "B"],
         description: "",
-        content: "",
+        content: "Currently only the Five Points Transfer Center and Eastside Transfer Center offer bicycle parking. \n" +
+        "In the future, Brio Montana stations will also have bicicycle racks.",
         note: "",
-        sources: "",
+        sources: "Observation",
         overall: false,
-        periods: "",
+        periods: "As of August 2017",
         key: "a22_new"
       },
       a23:{
         name: "A-2-3) Car-Free Households",
         mode: ["D","T","W","B"],
         description: "",
-        content: "",
+        content: "12% of households within the Montana Corridor do not own a car. \n" +
+        "Sections 1 & 7 have the highest number of households without a car. \n" +
+        "Only 1% of households in Section 5 does not own any vehicle.",
         note: "",
-        sources: "",
+        sources: "ACS 2011-2015",
         overall: false,
-        periods: "",
+        periods: "5 year average 2011-2015",
         key: "b_carfrhh"
       },
       a24:{
         name: "A-2-4) Transportation Disadvantaged Households",
         mode: ["D","T","W","B"],
         description: "",
-        content: "",
+        content: "In the map, a block group is considered disadvantaged when more than 1/3 of population is disadvantaged. \n" +
+        "Section 1 has the highest number of potentially transportation-disadvantaged people.",
         note: "",
-        sources: "",
+        sources: "ACS 2011-2015",
         overall: false,
-        periods: "",
+        periods: "5 year average 2011-2015",
         key: "B_TpDisadv"
       },
     },
@@ -304,21 +309,45 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       name: "B) Community to Community",
       pms: ["b14","b22","b31a","b31b"],
       b14:{
+        description: null,
+        content: null,
+        note: null,
+        sources: null,
+        overall: false,
+        periods: null,
         name: "B-1-4) Jobs-Housing Ratio",
         mode: ["D","T","W","B"],
         key: "b_jobphh"
       },
       b22:{
+        description: null,
+        content: null,
+        note: null,
+        sources: null,
+        overall: false,
+        periods: null,
         name: "B-2-2) Crashes Involving Non-Motorized Users",
         mode: ["W","B"],
         key: "non-moto"
       },
       b31a:{
+        description: null,
+        content: null,
+        note: null,
+        sources: null,
+        overall: false,
+        periods: null,
         name: "B-3-1-A) Estimated Emissions CO",
         mode: ["D"],
         key: "coemisions"
       },
       b31b:{
+        description: null,
+        content: null,
+        note: null,
+        sources: null,
+        overall: false,
+        periods: null,
         name: "B-3-1-B) Estimated Emissions PM",
         mode: ["D"],
         key: "emar"
