@@ -501,7 +501,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       disabled.id = "disabled"
       var select_pm = document.getElementById("select_pm");
       select_pm.appendChild(disabled);
-      if(this.value == "z"){ //aqui vamos colorear uno por uno, uno sobre otro , quitar modes y quitar legend en un nuevo mpo_multiple();
+      if(this.value == "z"){ //aqui vamos colorear uno por uno, uno sobre otro, quitar modes y quitar legend en un nuevo mpo_multiple();
         //console.log("you selected multiple");
         onMultiple =  true;
         $("#mpo_draw").hide();
