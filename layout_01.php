@@ -625,11 +625,20 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         }
       }
       /** Aqui es donde llenaremos los reportes individuales **/
-      
+
       $("#pm_description,#pm_data").empty();
       var pm_description = document.getElementById("pm_description");
       var pm_data = document.getElementById("pm_data");
       $("#data-holder").show();
+
+      var block = $(this).children(":selected").attr("id");
+      for(var i = 0; i < blocks[block].pms.length; i++){
+        var block_pm = blocks[block].pms[i];
+        if(blocks[block][block_pm].name == this.value){
+          console.log(blocks[block][block_pm].name);
+          console.log(blocks[block][block_pm].sources);
+        }
+      }
 
       var p_description = document.createElement('p');
       p_description.innerHTML = "On average, passenger vehicles traveling along the corridor experienced up to 1.9 times longer compared to free-flow conditions. The Travel Time Index ranged between 1.3 (Section 7) and 1.9 (Section 2).";
