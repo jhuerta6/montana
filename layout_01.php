@@ -305,49 +305,52 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       },
     },
     b:{
-      id: "b",
+      id: "b", //falta el b12
       name: "B) Community to Community",
       pms: ["b14","b22","b31a","b31b"],
       b14:{
         description: null,
-        content: null,
+        content: "Housing Rich (ratio < 1) are majority of block groups in Sections 3, 4, 5, 6, 7. \n" +
+        "Balanced (1 to 1.29) is one block group in Section 1. \n" +
+        "Job Rich ( > 1.29) are majority of block groups in Section 2, as well as many block groups in Section 1.",
         note: null,
-        sources: null,
+        sources: "ACS 2011-2015, U.S. Census",
         overall: false,
-        periods: null,
+        periods: "5-year average 2011-2015",
         name: "B-1-4) Jobs-Housing Ratio",
         mode: ["D","T","W","B"],
         key: "b_jobphh"
       },
       b22:{
         description: null,
-        content: null,
-        note: null,
-        sources: null,
+        content: "There was a total of 7 crashes that resulted in an incapacitating injury of a vulnerable road user along Montana Ave. between 2012 and 2016. \n" +
+        "3 of the 7 crashes occurred in Section 3 , at Montana Ave. and Mattox St. which is a signalized intersection with a pedestrian signal with a marked crosswalk.",
+        note: "Missing data for Section 1, because that section is not owned byTxDOT and data is not collected there.",
+        sources: "Texas Department of Transportation CRIS database",
         overall: false,
-        periods: null,
+        periods: "2012-2016",
         name: "B-2-2) Crashes Involving Non-Motorized Users",
         mode: ["W","B"],
         key: "non-moto"
       },
       b31a:{
         description: null,
-        content: null,
+        content: "Congestion in Section 1 and 2 produces 86% of all PM emissions in the Montana Ave. corridor.",
         note: null,
-        sources: null,
+        sources: "EPMPO Travel Demand Model (TDM), Air Quality Sketch Planning Tool",
         overall: false,
-        periods: null,
+        periods: "Network year 2012",
         name: "B-3-1-A) Estimated Emissions CO",
         mode: ["D"],
         key: "coemisions"
       },
       b31b:{
         description: null,
-        content: null,
+        content: "Congestion in Section 1 and 2 produces 86% of all PM emissions in the Montana Ave. corridor.",
         note: null,
-        sources: null,
+        sources: "EPMPO Travel Demand Model (TDM), Air Quality Sketch Planning Tool",
         overall: false,
-        periods: null,
+        periods: "Network year 2012",
         name: "B-3-1-B) Estimated Emissions PM",
         mode: ["D"],
         key: "emar"
