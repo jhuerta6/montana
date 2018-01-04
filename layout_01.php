@@ -549,14 +549,14 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     });
 
     $("#select_pm_multiple_1,#select_pm_multiple_2,#select_pm_multiple_3").change(function(){
-        var block = $(this).children(":selected").attr("id");
-        var to_use = {"select_pm_multiple_1":"pm1","select_pm_multiple_2":"pm2", "select_pm_multiple_3":"pm3"};
-        for(var i = 0; i < blocks[block].pms.length; i++){
-          var block_pm = blocks[block].pms[i];
-          if(blocks[block][block_pm].name == this.value){
-            pm_mpo[to_use[this.id]] = blocks[block][block_pm].key;
-          }
+      var block = $(this).children(":selected").attr("id");
+      var to_use = {"select_pm_multiple_1":"pm1","select_pm_multiple_2":"pm2", "select_pm_multiple_3":"pm3"};
+      for(var i = 0; i < blocks[block].pms.length; i++){
+        var block_pm = blocks[block].pms[i];
+        if(blocks[block][block_pm].name == this.value){
+          pm_mpo[to_use[this.id]] = blocks[block][block_pm].key;
         }
+      }
     });
 
     $("#select_pm_multiple_1").change(function(){
@@ -595,11 +595,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       }
 
       else if(
-              this.value == "A-2-3) Car-Free Households" || this.value == "A-2-4) Transportation Disadvantaged Households" ||
-              this.value == "B-1-4) Jobs-Housing Ratio" || this.value == "B-3-1-A) Estimated Emissions CO" ||
-              this.value == "B-3-1-B) Estimated Emissions PM"){
+        this.value == "A-2-3) Car-Free Households" || this.value == "A-2-4) Transportation Disadvantaged Households" ||
+        this.value == "B-1-4) Jobs-Housing Ratio" || this.value == "B-3-1-A) Estimated Emissions CO" ||
+        this.value == "B-3-1-B) Estimated Emissions PM"
+      ){
         $("#label_container").show();
       }
+
       var panel_body = document.getElementById("modes");
       panel_body.className = "panel panel-body text-center";
       var p_mode = document.createElement("p");
@@ -622,6 +624,28 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           }
         }
       }
+      /** Aqui es donde llenaremos los reportes individuales **/
+      
+      $("#pm_description,#pm_data").empty();
+      var pm_description = document.getElementById("pm_description");
+      var pm_data = document.getElementById("pm_data");
+      $("#data-holder").show();
+
+      var p_description = document.createElement('p');
+      p_description.innerHTML = "On average, passenger vehicles traveling along the corridor experienced up to 1.9 times longer compared to free-flow conditions. The Travel Time Index ranged between 1.3 (Section 7) and 1.9 (Section 2).";
+      pm_description.appendChild(p_description);
+      var p_data = document.createElement('p');
+      p_data.innerHTML = "<strong>Analysis period:</strong> February 2017 - July 2017";
+      pm_data.appendChild(p_data);
+      var p_note = document.createElement('p');
+      p_note.innerHTML = "<strong>Note:</strong> Data was not available for Section 1 (between Piedras St. and Paisano Dr.) because it is not a state highway.";
+      pm_data.appendChild(p_note);
+      var p_data = document.createElement('p');
+      p_data.innerHTML = "<strong>Data source:</strong> National Performance Management Research Data Set (NPMRDS)";
+      pm_data.appendChild(p_data);
+
+      /** Fin - Reportes individuales **/
+
     });
 
     $('[data-toggle="tooltip"]').tooltip();
