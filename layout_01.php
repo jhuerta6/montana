@@ -356,31 +356,71 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         key: "emar"
       },
     },
-    c:{
+    c:{ //falta c.2.6 = non-sov travel
       id: "c",
       name: "C) Community to Region",
       pms: ["c22","c23","c24","c31","c32"],
       c22:{
+        description: null,
+        content: "Overall 23% of transit stops are located within 1 block of existing bikeways. \n" +
+        "Sections 3, 4, and 5 have more than 50% of bus stops located within 1 block of existing bikeways.",
+        note: null,
+        sources: "Sunmetro, City of El Paso",
+        overall: false,
+        periods: null,
         name: "C-2-2) Bus Stops Within 600ft. of Bikeways",
         mode: ["T","B"],
         key: "c22"
       },
       c23:{
+        description: null,
+        content: "Two park and ride facilities with a total capacity of 153 parking spaces are currently located within the Montana Corridor serving routes that have daily ridership below 1,000 passengers. \n" +
+        "Section 2 has a 103-space park and ride lot at the Eastside Transfer Center. \n" +
+        "Section 5 has a 50-space park and ride lot at Edgemere/RC Poe.",
+        note: null,
+        sources: "Sunmetro website",
+        overall: false,
+        periods: "As of August 2017",
         name: "C-2-3) Number of Park and Ride parking spaces",
         mode: ["D","T"],
         key: "2016_daily"
       },
       c24:{
+        description: null,
+        content: "20,928 passengers daily travelled in Sunmetro routes along the Montana Ave. corridor in 2016 \n"+
+        "Highest daily ridership was recorded in the following routes providing service in Sections 1 and 2: route 59 (15-minute interval, 3,100 passengers), route 35 (40-minute interval, 2,600 passengers), "+
+        "route 50 (40-minute interval, 2,000 passengers), route 61 (50-minute interval, 1,200 passengers), route 7 (55-minute interval, 1,100 passengers), and route 66 (55-minute interval, 1,000 passengers). \n"+
+        "Lowest daily ridership was recorded in routes providing service in Sections 1, 2, 3, 4, and 5: route 30 (70-minute interval, 60 passengers), route 31 (90-minute interval, 50 passengers), and route 75 "+
+        "(service 5 times a day, 20 passengers).",
+        note: "Analysis at the section level was not possible due to ridership collected at a route-level rather than a stop-level",
+        sources: "Sunmetro",
+        overall: false,
+        periods: "2016",
         name: "C-2-4) Transit Daily Ridership",
         mode: ["T"],
         key: "2016_daily"
       },
       c31:{
+        description: null,
+        content: "On average, passenger vehicles travelling along the corridor experienced up to 1.9-times longer travel time compared to free-flow conditions. \n"+
+        "The Travel Time Index ranged between 1.3 (Section 7) and 1.9 (Section 2).",
+        note: "Data was not available for Section 1 (between Piedras St. and Paisano Dr.) because it is not a state highway.",
+        sources: "National Performance Management Research Data Set (NPMRDS)",
+        overall: false,
+        periods: "February 2017 - July 2017",
         name: "C-3-1) Travel Time Index",
         mode: ["D",],
         key: "tti"
       },
       c32:{
+        description: null,
+        content: "There was a total of 7 fatal crashes and 57 serious injury crashes along Montana Ave. between 2012 and 2016. \n"+
+        "Majority of serious injuries occurred between Paisano Dr. and Joe Battle Blvd. (Sections 2, 3, 4).\n"+
+        "3 of the 7 fatal crashes occurred in Section 5, between Tierra Este Rd. and Tierra Dorada.",
+        note: "Missing data for Section 1, because that section is not owned by TxDOT and data is not collected there.",
+        sources: "Texas Department of Transportation CRIS database",
+        overall: false,
+        periods: "2012-2016",
         name: "C-3-2) Crashes",
         mode: ["D", "F"],
         key: "crashes"
@@ -392,16 +432,36 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       //pms: ["d11","d21","d31"],
       pms: ["d11","d31"],
       d11:{
+        content: "19 miles within the Montana Ave. corridor are in poor condition, most of them are located in Section 1 and 2. \n"+
+        "Section 6 and 7 have no roadways in poor condition.",
+        sources: "FHWA Highway Performance Management System (HPMS)",
+        periods: "2015",
+        note: "Mileage reflects only roadways that were collected in HPMS that year.",
+        description: null,
+        overall: false,
         name: "D-1-1) Pavements in Poor Condition",
         mode: ["D"],
         key: "iri"
       },
       d21:{
+        content: "Data was not available at the time of the analysis.",
+        sources: null,
+        periods: null,
+        note: null,
+        description: null,
+        overall: false,
         name: "D-2-1) Vehicle Miles Travelled",
         mode: ["D","T","B","F"],
         key: "x"
       },
       d31:{
+        content: "On average, trucks travelling along the corridor experienced up to a double travel time.\n"+
+        "The Travel Time Index Ranged between 1.3 (Section 7) and 2.3 (Section 2)",
+        sources: "National Performance Management Research Data Set (NPMRDS)",
+        periods: "February 2017 - July 2017",
+        note: "Data was not available for Section 1 (between Piedras St. and Paisano Dr.)",
+        description: null,
+        overall: false,
         name: "D-3-1) Truck Travel Time",
         mode: ["F"],
         key: "tti"
