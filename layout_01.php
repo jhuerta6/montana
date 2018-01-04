@@ -47,7 +47,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <h3 class="text-center" style="color:#FF8000;"> Performance Measures for Montana Corridor</h3>
     <h6 class="hidden-xs text-center"><i style="color: white;">"</i><strong><i style="color:#FF8000;" class="text-center">CTIS </i></strong><i class="text-center" style="color:white;">is designated as a Member of National, Regional, and Tier 1 University Transportation Center."</i></h6>
-    <p class="hidden-xs text-right" style="color: white"> Version 1.4 (12/14/2017)</p>
+    <p class="hidden-xs text-right" style="color: white"> Version 1.45 (01/04/2017)</p>
   </nav>
 
   <div class="container panel panel-default">
@@ -638,18 +638,27 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           var p_content = document.createElement('p');
           p_content.innerHTML = blocks[block][block_pm].content;
           pm_content.appendChild(p_content);
+          if(blocks[block][block_pm].periods == null){}
+          else{
+            var p_periods = document.createElement('p');
+            p_periods.innerHTML = "<strong> Analysis periods: </strong>" + blocks[block][block_pm].periods;
+            pm_data.appendChild(p_periods);
+          }
 
-          var p_periods = document.createElement('p');
-          p_periods.innerHTML = "<strong> Analysis periods: </strong>" + blocks[block][block_pm].periods;
-          pm_data.appendChild(p_periods);
+          if(blocks[block][block_pm].note == null){}
+          else{
+            var p_note = document.createElement('p');
+            p_note.innerHTML = "<strong> Note: </strong>"+blocks[block][block_pm].note;
+            pm_data.appendChild(p_note);
+          }
 
-          var p_note = document.createElement('p');
-          p_note.innerHTML = "<strong> Note: </strong>"+blocks[block][block_pm].note;
-          pm_data.appendChild(p_note);
+          if(blocks[block][block_pm].sources == null){}
+          else{
+            var p_sources = document.createElement('p');
+            p_sources.innerHTML = "<strong> Sources: </strong>" + blocks[block][block_pm].sources;
+            pm_data.appendChild(p_sources);
+          }
 
-          var p_sources = document.createElement('p');
-          p_sources.innerHTML = "<strong> Sources: </strong>" + blocks[block][block_pm].sources;
-          pm_data.appendChild(p_sources);
         }
       }
       /** Fin - Reportes individuales **/
