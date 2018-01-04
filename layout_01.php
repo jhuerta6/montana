@@ -627,7 +627,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
       /** Aqui es donde llenaremos los reportes individuales **/
       $("#pm_description,#pm_data").empty();
-      var pm_description = document.getElementById("pm_description");
+      var pm_content = document.getElementById("pm_description");
       var pm_data = document.getElementById("pm_data");
       $("#data-holder").show();
 
@@ -635,9 +635,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       for(var i = 0; i < blocks[block].pms.length; i++){
         var block_pm = blocks[block].pms[i];
         if(blocks[block][block_pm].name == this.value){
-          var p_description = document.createElement('p');
-          p_description.innerHTML = blocks[block][block_pm].content;
-          pm_description.appendChild(p_description);
+          var p_content = document.createElement('p');
+          p_content.innerHTML = blocks[block][block_pm].content;
+          pm_content.appendChild(p_content);
 
           var p_periods = document.createElement('p');
           p_periods.innerHTML = "<strong> Analysis periods: </strong>" + blocks[block][block_pm].periods;
