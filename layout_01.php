@@ -235,7 +235,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         content: "This performance measure compares the mileage of existing bikeways with the mileage suggested in the 2016 COEP Bike Plan. \n"+
         "Existing bikeways within 1 mile of Montana corridor are 16.36 miles. The goal in the 2016 COEP BIke Plan is 132.66 miles. \n" +
         "Section 1 and 6 do not have any bicicycle infrastructure, in other sections the build-out is between 11% and 18%.",
-        note: "",
+        note: null,
         sources: "City of El Paso",
         overall: true,
         periods: "Bikeways as of August 2016",
@@ -248,7 +248,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         content: "More than 60% of population has access to bikeways in Sections 2, 3, 4. \n" +
         "In Section 1 only 1% and in Section 6 & 7 0% ogf population. \n" +
         "Overall, 47% of Montana Corridor population lines within 1/2 mile of existing bikeways.",
-        note: "",
+        note: null,
         sources: "City of El Paso, ACS 2011-2015",
         overall: false,
         periods: "Bikeways as of August 2016",
@@ -260,7 +260,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         description: "",
         content: "Majority of Sunmetro bus stops on highly trafficked roadways are not located in proximity of crosswalks, therefore safe access to transit may be compromised. \n" +
         "Along the corridor only 72 out of 309 bus stops on high-traffic roads (ADT > 9,000) were located within 150 ft. from a makrked crosswalk.",
-        note: "",
+        note: null,
         sources: "Sunmetro, City of El Paso",
         overall: false,
         periods: "Bus stops as of November 2016, crosswalks undated",
@@ -272,7 +272,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         description: "",
         content: "Currently only the Five Points Transfer Center and Eastside Transfer Center offer bicycle parking. \n" +
         "In the future, Brio Montana stations will also have bicicycle racks.",
-        note: "",
+        note: null,
         sources: "Observation",
         overall: false,
         periods: "As of August 2017",
@@ -285,7 +285,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         content: "12% of households within the Montana Corridor do not own a car. \n" +
         "Sections 1 & 7 have the highest number of households without a car. \n" +
         "Only 1% of households in Section 5 does not own any vehicle.",
-        note: "",
+        note: null,
         sources: "ACS 2011-2015",
         overall: false,
         periods: "5 year average 2011-2015",
@@ -297,7 +297,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         description: "",
         content: "In the map, a block group is considered disadvantaged when more than 1/3 of population is disadvantaged. \n" +
         "Section 1 has the highest number of potentially transportation-disadvantaged people.",
-        note: "",
+        note: null,
         sources: "ACS 2011-2015",
         overall: false,
         periods: "5 year average 2011-2015",
@@ -624,8 +624,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           }
         }
       }
-      /** Aqui es donde llenaremos los reportes individuales **/
 
+      /** Aqui es donde llenaremos los reportes individuales **/
       $("#pm_description,#pm_data").empty();
       var pm_description = document.getElementById("pm_description");
       var pm_data = document.getElementById("pm_data");
@@ -635,24 +635,23 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       for(var i = 0; i < blocks[block].pms.length; i++){
         var block_pm = blocks[block].pms[i];
         if(blocks[block][block_pm].name == this.value){
-          console.log(blocks[block][block_pm].name);
-          console.log(blocks[block][block_pm].sources);
+          var p_description = document.createElement('p');
+          p_description.innerHTML = blocks[block][block_pm].content;
+          pm_description.appendChild(p_description);
+
+          var p_periods = document.createElement('p');
+          p_periods.innerHTML = "<strong> Analysis periods: </strong>" + blocks[block][block_pm].periods;
+          pm_data.appendChild(p_periods);
+
+          var p_note = document.createElement('p');
+          p_note.innerHTML = "<strong> Note: </strong>"+blocks[block][block_pm].note;
+          pm_data.appendChild(p_note);
+
+          var p_sources = document.createElement('p');
+          p_sources.innerHTML = "<strong> Sources: </strong>" + blocks[block][block_pm].sources;
+          pm_data.appendChild(p_sources);
         }
       }
-
-      var p_description = document.createElement('p');
-      p_description.innerHTML = "On average, passenger vehicles traveling along the corridor experienced up to 1.9 times longer compared to free-flow conditions. The Travel Time Index ranged between 1.3 (Section 7) and 1.9 (Section 2).";
-      pm_description.appendChild(p_description);
-      var p_data = document.createElement('p');
-      p_data.innerHTML = "<strong>Analysis period:</strong> February 2017 - July 2017";
-      pm_data.appendChild(p_data);
-      var p_note = document.createElement('p');
-      p_note.innerHTML = "<strong>Note:</strong> Data was not available for Section 1 (between Piedras St. and Paisano Dr.) because it is not a state highway.";
-      pm_data.appendChild(p_note);
-      var p_data = document.createElement('p');
-      p_data.innerHTML = "<strong>Data source:</strong> National Performance Management Research Data Set (NPMRDS)";
-      pm_data.appendChild(p_data);
-
       /** Fin - Reportes individuales **/
 
     });
