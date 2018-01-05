@@ -196,6 +196,39 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 <div id="pm_description" class="container panel panel-default"></div>
                 <div id="pm_data" class="container panel panel-default"></div>
               </div>
+
+              <div id="data-holder-multiple" class="panel panel-default">
+                <ul class="nav nav-tabs">
+                  <li class="active"><a data-toggle="tab" href="#report1" data-target="#report1">PM #1</a></li>
+                  <li><a data-toggle="tab" href="#report2" data-target="#report2">PM #2</a></li>
+                  <li><a data-toggle="tab" href="#report3" data-target="#report3">PM #3</a></li>
+                </ul>
+
+                <div class="tab-content">
+                  <div id="report1" class="tab-pane fade in active">
+                    <div class="container"><br>
+                      <h3 class="text-center">Report for PM 1</h3><br>
+                      <div id="pm_description_mul_1" class="container panel panel-default"></div>
+                      <div id="pm_data_mul_1" class="container panel panel-default"></div>
+                    </div>
+                  </div>
+                  <div id="report2" class="tab-pane fade">
+                    <div class="container"><br>
+                      <h3 class="text-center">Report for PM 2</h3><br>
+                      <div id="pm_description_mul_2" class="container panel panel-default"></div>
+                      <div id="pm_data_mul_2" class="container panel panel-default"></div>
+                    </div>
+                  </div>
+                  <br>
+                  <div id="report3" class="tab-pane fade">
+                    <div class="container"><br>
+                      <h3 class="text-center">Report for PM 3</h3><br>
+                      <div id="pm_description_mul_3" class="container panel panel-default"></div>
+                      <div id="pm_data_mul_3" class="container panel panel-default"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -545,7 +578,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               strokeOpacity: 0.60,
               strokeWeight: 0.70,
               fillColor: colorArr[data.coords[key]['value']-1],
-              fillOpacity: 1, //0.60
+              fillOpacity: 0.80, //0.60
               zIndex: 9
             });
             polygon.setOptions({ zIndex: -1 });
@@ -2613,18 +2646,18 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     var pm_data = document.getElementById("pm_data");
     $("#data-holder").show();
 
-      var p_description = document.createElement('p');
-      p_description.innerHTML = "On average, trucks traveling along the corridor experienced up to a double travel time. The Travel Time Index ranged between 1.3 (Section 7) and 2.3 (Section 2).";
-      pm_description.appendChild(p_description);
-      var p_data = document.createElement('p');
-      p_data.innerHTML = "<strong>Analysis period:</strong> February 2017 - July 2017";
-      pm_data.appendChild(p_data);
-      var p_note = document.createElement('p');
-      p_note.innerHTML = "<strong>Note:</strong> Data was not available for Section 1 (between Piedras St. and Paisano Dr.)";
-      pm_data.appendChild(p_note);
-      var p_data = document.createElement('p');
-      p_data.innerHTML = "<strong>Data source:</strong> National Performance Management Research Data Set (NPMRDS)";
-      pm_data.appendChild(p_data);
+    var p_description = document.createElement('p');
+    p_description.innerHTML = "On average, trucks traveling along the corridor experienced up to a double travel time. The Travel Time Index ranged between 1.3 (Section 7) and 2.3 (Section 2).";
+    pm_description.appendChild(p_description);
+    var p_data = document.createElement('p');
+    p_data.innerHTML = "<strong>Analysis period:</strong> February 2017 - July 2017";
+    pm_data.appendChild(p_data);
+    var p_note = document.createElement('p');
+    p_note.innerHTML = "<strong>Note:</strong> Data was not available for Section 1 (between Piedras St. and Paisano Dr.)";
+    pm_data.appendChild(p_note);
+    var p_data = document.createElement('p');
+    p_data.innerHTML = "<strong>Data source:</strong> National Performance Management Research Data Set (NPMRDS)";
+    pm_data.appendChild(p_data);
 
   }
 
@@ -2659,18 +2692,18 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     var pm_data = document.getElementById("pm_data");
     $("#data-holder").show();
 
-      var p_description = document.createElement('p');
-      p_description.innerHTML = "On average, passenger vehicles traveling along the corridor experienced up to 1.9 times longer compared to free-flow conditions. The Travel Time Index ranged between 1.3 (Section 7) and 1.9 (Section 2).";
-      pm_description.appendChild(p_description);
-      var p_data = document.createElement('p');
-      p_data.innerHTML = "<strong>Analysis period:</strong> February 2017 - July 2017";
-      pm_data.appendChild(p_data);
-      var p_note = document.createElement('p');
-      p_note.innerHTML = "<strong>Note:</strong> Data was not available for Section 1 (between Piedras St. and Paisano Dr.) because it is not a state highway.";
-      pm_data.appendChild(p_note);
-      var p_data = document.createElement('p');
-      p_data.innerHTML = "<strong>Data source:</strong> National Performance Management Research Data Set (NPMRDS)";
-      pm_data.appendChild(p_data);
+    var p_description = document.createElement('p');
+    p_description.innerHTML = "On average, passenger vehicles traveling along the corridor experienced up to 1.9 times longer compared to free-flow conditions. The Travel Time Index ranged between 1.3 (Section 7) and 1.9 (Section 2).";
+    pm_description.appendChild(p_description);
+    var p_data = document.createElement('p');
+    p_data.innerHTML = "<strong>Analysis period:</strong> February 2017 - July 2017";
+    pm_data.appendChild(p_data);
+    var p_note = document.createElement('p');
+    p_note.innerHTML = "<strong>Note:</strong> Data was not available for Section 1 (between Piedras St. and Paisano Dr.) because it is not a state highway.";
+    pm_data.appendChild(p_note);
+    var p_data = document.createElement('p');
+    p_data.innerHTML = "<strong>Data source:</strong> National Performance Management Research Data Set (NPMRDS)";
+    pm_data.appendChild(p_data);
 
   }
 
