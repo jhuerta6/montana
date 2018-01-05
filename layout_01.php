@@ -159,8 +159,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 <button type="button" class="btn btn-success form-control" id="mpo_draw_multiple" onclick="mpo_multi();">Draw Multi</button><br><br>
                 <button data-toggle="tooltip" data-placement="top" title="Only bring up the data touched by the Area Of Interest" class="btn btn-primary form-control" type="button" id="runAOI" onClick="runAOI()">Run AOI</button> <br><br>
                 <button class="btn btn-warning form-control" type="button" id="clear" onClick="removePolygons()">Clear</button><br><br>
-                <!--<button type="button" class="map-print" id="print" onClick="printMaps()">Print</button><br><br> -->
-                <!--<a href="./ctis_isc_polygon.kml" download><button type="button" class="btn btn-outline-secondary form-control" id="download_kml" onClick="clearKML()">KML</button></a> -->
               </div>
               <div id="filtersbtn" class="tab-pane fade">
                 <button class="btn btn-success form-control" type="button" id="runFilters" onClick="runFilters()">Run Filter</button>
@@ -219,7 +217,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                       <div id="pm_data_mul_2" class="container panel panel-default"></div>
                     </div>
                   </div>
-                  <br>
                   <div id="report3" class="tab-pane fade">
                     <div class="container"><br>
                       <h3 class="text-center">Report for PM 3</h3><br>
