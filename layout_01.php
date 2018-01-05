@@ -205,21 +205,21 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 <div class="tab-content">
                   <div id="report1" class="tab-pane fade in active">
                     <div class="container"><br>
-                      <h3 class="text-center">Report for PM 1</h3><br>
+                      <h3 id="report1_text" class="text-center">Report for PM 1</h3><br>
                       <div id="pm_description_mul_1" class="container panel panel-default"></div>
                       <div id="pm_data_mul_1" class="container panel panel-default"></div>
                     </div>
                   </div>
                   <div id="report2" class="tab-pane fade">
                     <div class="container"><br>
-                      <h3 class="text-center">Report for PM 2</h3><br>
+                      <h3 id="report2_text" class="text-center">Report for PM 2</h3><br>
                       <div id="pm_description_mul_2" class="container panel panel-default"></div>
                       <div id="pm_data_mul_2" class="container panel panel-default"></div>
                     </div>
                   </div>
                   <div id="report3" class="tab-pane fade">
                     <div class="container"><br>
-                      <h3 class="text-center">Report for PM 3</h3><br>
+                      <h3 id="report3_text" class="text-center">Report for PM 3</h3><br>
                       <div id="pm_description_mul_3" class="container panel panel-default"></div>
                       <div id="pm_data_mul_3" class="container panel panel-default"></div>
                     </div>
@@ -517,9 +517,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   var onMultiple = false;
 
   $(document).ready(function(){
-    //removePolygons();
-    //app.polygons = "";
-    //app.polygons.push = "";
     $("#add_on_multiple_2,#select_pm_multiple_2").hide();
     $("#add_on_multiple_3,#select_pm_multiple_3").hide();
     $("#data-holder").hide();
@@ -663,6 +660,53 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
     $("#select_pm_multiple_2").change(function(){
       $("#add_on_multiple_3,#select_pm_multiple_3").show();
+    });
+
+
+    $("#select_pm_multiple_1, #select_pm_multiple_2, #select_pm_multiple_3").change(function(){
+      if(this.id == "select_pm_multiple_1"){
+        $("#report1_text").text(this.value);
+        var pm_content = document.getElementById("pm_description_mul_1");
+        var pm_data = document.getElementById("pm_data_mul_1");
+      }else if(this.id == "select_pm_multiple_2"){
+        $("#report2_text").text(this.value);
+        var pm_content = document.getElementById("pm_description_mul_2");
+        var pm_data = document.getElementById("pm_data_mul_2");
+      }else{
+        $("#report3_text").text(this.value);
+        var pm_content = document.getElementById("pm_description_mul_3");
+        var pm_data = document.getElementById("pm_data_mul_3");
+      }
+
+      var block = $(this).children(":selected").attr("id");
+      for(var i = 0; i < blocks[block].pms.length; i++){
+        var block_pm = blocks[block].pms[i];
+        if(blocks[block][block_pm].name == this.value){
+          var p_content = document.createElement('p');
+          p_content.innerHTML = blocks[block][block_pm].content;
+          pm_content.appendChild(p_content);
+          if(blocks[block][block_pm].periods == null){}
+          else{
+            var p_periods = document.createElement('p');
+            p_periods.innerHTML = "<strong> Analysis periods: </strong>" + blocks[block][block_pm].periods;
+            pm_data.appendChild(p_periods);
+          }
+
+          if(blocks[block][block_pm].note == null){}
+          else{
+            var p_note = document.createElement('p');
+            p_note.innerHTML = "<strong> Note: </strong>"+blocks[block][block_pm].note;
+            pm_data.appendChild(p_note);
+          }
+
+          if(blocks[block][block_pm].sources == null){}
+          else{
+            var p_sources = document.createElement('p');
+            p_sources.innerHTML = "<strong> Sources: </strong>" + blocks[block][block_pm].sources;
+            pm_data.appendChild(p_sources);
+          }
+        }
+      }
     });
 
     $("#select_pm").change(function(){
@@ -1630,16 +1674,17 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           }
         }).done(function(data){
           if($('#legend').css('display')=='none'){
-            $('#legend').slideToggle("slow");
+            //$('#legend').slideToggle("slow");
           }
           else{
-            $('#legend').slideToggle("fast");
+            //$('#legend').slideToggle("fast");
           }
           pm_mpo.runAOI = false;
           pm_mpo.runFilters = false;
         });
       })(z);
     }
+    $("#legend").hide();
   }
 
   function mpo(){
