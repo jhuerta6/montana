@@ -550,7 +550,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           }
         });
       }else{ //no sections
-        //console.log("off or x");
         removeSections();
       }
     });
