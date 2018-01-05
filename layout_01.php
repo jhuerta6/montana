@@ -212,7 +212,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   <script src="https://cdn.rawgit.com/bjornharrtell/jsts/gh-pages/1.4.0/jsts.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.8.1/css/bootstrap-slider.css" />
   <script>
-  var app = {map:null, polygons:[], label:"no filter", payload:{getMode:"polygons", runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, property:null, district:null, depth:0, from_depth:0, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0}};
+  var app = {map:null, sections:[], polygons:[], label:"no filter", payload:{getMode:"polygons", runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, property:null, district:null, depth:0, from_depth:0, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0}};
   var pm_mpo = {pm1:null, pm2:null, pm3:null,name_pm:null, pm:null, NE:null, SW:null, label:"no filter", getMode:"polygons", to_draw:null, draw_charts: false, runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0};
   var multi = {pm1:null, pm2:null, pm3:null};
   var hecho = false;
@@ -545,12 +545,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             });
             polygon.setOptions({ zIndex: -1 });
             polygon.addListener('click', polyInfo_tti);
-            app.polygons.push(polygon);
+            app.sections.push(polygon);
             polygon.setMap(app.map);
           }
         });
       }else{ //no sections
-        removePolygons();
+        //console.log("off or x");
+        removeSections();
       }
     });
 
@@ -2900,6 +2901,19 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       }
     }
     app.polygons = [];
+    app.infoWindow.close();
+    app.payload.runAOI = false;
+    document.getElementById('legend').style.visibility = "hidden";
+    $('#legend').find('*').not('h3').remove();
+    $('#description').find('*').not('h3').remove();
+  }
+  function removeSections(){
+    if(app.sections){
+      for(var i = 0; i < app.sections.length; i++){
+        app.sections[i].setMap(null);
+      }
+    }
+    app.sections = [];
     app.infoWindow.close();
     app.payload.runAOI = false;
     document.getElementById('legend').style.visibility = "hidden";
