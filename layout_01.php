@@ -665,14 +665,17 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
     $("#select_pm_multiple_1, #select_pm_multiple_2, #select_pm_multiple_3").change(function(){
       if(this.id == "select_pm_multiple_1"){
+        $("#pm_description_mul_1, #pm_data_mul_1").empty();
         $("#report1_text").text(this.value);
         var pm_content = document.getElementById("pm_description_mul_1");
         var pm_data = document.getElementById("pm_data_mul_1");
       }else if(this.id == "select_pm_multiple_2"){
+        $("#pm_description_mul_2, #pm_data_mul_2").empty();
         $("#report2_text").text(this.value);
         var pm_content = document.getElementById("pm_description_mul_2");
         var pm_data = document.getElementById("pm_data_mul_2");
       }else{
+        $("#pm_description_mul_3, #pm_data_mul_3").empty();
         $("#report3_text").text(this.value);
         var pm_content = document.getElementById("pm_description_mul_3");
         var pm_data = document.getElementById("pm_data_mul_3");
