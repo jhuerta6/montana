@@ -549,7 +549,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             polygon.setMap(app.map);
           }
         });
-      }else{ //no sections
+      }else{ //no section
         removeSections();
       }
     });
