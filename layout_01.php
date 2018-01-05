@@ -93,6 +93,16 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   <span data-toggle="tooltip" data-placement="top" title="Number of representations for the data" class="input-group-addon" id="basic-addon3"># labels</span>
                   <input type="number" class="form-control" value="1" min="1"placeholder="...labels" id="labels" aria-describedby="basic-addon3">
                 </div>
+
+                <div class="input-group">
+                  <span class="input-group-addon">Sections</span>
+                  <select type="text" class="form-control" placeholder="Performance Measure" aria-describedby="add_on" id="sections">
+                    <option value="" disable selected>Display Sections</option>
+                    <option value="on">On</option>
+                    <option value="off">Off</option>
+                  </select>
+                </div><br>
+
                 <div id="default_multiple">
                   <div class="input-group">
                     <span class="input-group-addon" id="add_on_multiple_1">PM</span>
@@ -493,6 +503,56 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       var select_blocks = document.getElementById("select_blocks");
       select_blocks.appendChild(elem_blck);
     }
+
+    $("#sections").change(function(){
+      if(this.value == "on"){ //sections
+        pm_mpo.pm = "sections";
+        pm_mpo.getMode = "polygons";
+        //console.log(pm_mpo);
+        if(pm_mpo.runAOI == true && typeof rec != 'undefined' && rec.type == 'rectangle'){
+          var getparams = app.payload;
+          var bounds = rec.getBounds();
+          getparams.NE = bounds.getNorthEast().toJSON();
+          getparams.SW = bounds.getSouthWest().toJSON();
+          pm_mpo.NE = getparams.NE;
+          pm_mpo.SW = getparams.SW;
+        }
+        else{
+          var getparams = app.payload;
+          var bounds = app.map.getBounds();
+          getparams.NE = bounds.getNorthEast().toJSON(); //north east corner
+          getparams.SW = bounds.getSouthWest().toJSON(); //south-west corner
+          pm_mpo.NE = getparams.NE;
+          pm_mpo.SW = getparams.SW;
+        }
+        $.get('mpo_handler.php', pm_mpo, function(data){
+          for(key in data.coords){
+            var polyCoordis = [];
+            temp = wktFormatter(data.coords[key]['POLYGON']);
+            for (var i = 0; i < temp.length; i++) {
+              polyCoordis.push(temp[i]);
+            }
+            var polygon = new google.maps.Polygon({
+              description: pm_mpo.name_pm,
+              description_value: data.coords[key]['value'],
+              paths: polyCoordis,
+              strokeColor: "black",
+              strokeOpacity: 0.60,
+              strokeWeight: 0.70,
+              fillColor: "white",
+              fillOpacity: 0.60,
+              zIndex: -1
+            });
+            polygon.setOptions({ zIndex: -1 });
+            polygon.addListener('click', polyInfo_tti);
+            app.polygons.push(polygon);
+            polygon.setMap(app.map);
+          }
+        });
+      }else{ //no sections
+        removePolygons();
+      }
+    });
 
     $("#select_blocks").change(function(){
       $("#select_pm").empty();
@@ -1068,15 +1128,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             }
             else if (pm_mpo["pm"+(z+1)] == "freqtran") {
               if(up_to_one == 0){
-                //$('#legendSpawner').find('*').not('h3').remove();
-                /*  var spawner = document.getElementById('legendSpawner');
-                var div = document.createElement('div');
-                div.innerHTML =
-                "<br> <img src='img/brightgreensquare.png' height='10px'/> Comparing / Testing";
-                var newLegend = document.createElement('div');
-                newLegend = document.getElementById('legend');
-                document.getElementById('legend').style.visibility = "visible";
-                newLegend.appendChild(div);*/
+
               }
               up_to_one++;
 
@@ -1166,45 +1218,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 }
               }//end if
 
-              //count = 0;
-              //while(count < data.proposed.length){
-
-              //if(key < data.proposed.length){
-              //console.log(count);
-              //count = 0;
-            /*  w = data.proposed[key]['PROP'];
-
-              //console.log(z);
-              //temp.push(y);
-              console.log("loop: " + z);
-              console.log("key: "+ key);
-              console.log(w);
-              var c = reader.read(w);
-
-              if(c.getGeometryType() == "LineString"){
-                //count++;
-                var coord;
-                var ln = c.getCoordinates();
-                for (var i = 0; i < ln.length; i++) {
-                  coord = {lat: ln[i]['y'], lng: ln[i]['x']};
-                  to_color_proposed.push(coord);
-                }
-              }
-              else{
-                //count++;
-                var coord;
-                var multi = c.getCoordinates();
-                for (var i = 0; i < multi.length; i++) {
-                  coord = {lat: multi[i]['y'], lng: multi[i]['x']};
-                  to_color_proposed.push(coord);
-                }
-              }*/
-              //console.log(count);
-              //count++;
-              //}
-              //}//
-              //console.log("coords"+(z+1));
-              //console.log(key);
               x = data["coords"+(z+1)][key]['POLYGON'];
               var b = reader.read(x);
               temp_poly.push(x);
@@ -1864,15 +1877,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         }
         else if (pm_mpo.pm == "freqtran") {
           if(up_to_one == 0){
-            //$('#legendSpawner').find('*').not('h3').remove();
-          /*  var spawner = document.getElementById('legendSpawner');
-            var div = document.createElement('div');
-            div.innerHTML =
-            "<br> <img src='img/brightgreensquare.png' height='10px'/> Comparing / Testing";
-            var newLegend = document.createElement('div');
-            newLegend = document.getElementById('legend');
-            document.getElementById('legend').style.visibility = "visible";
-            newLegend.appendChild(div);*/
           }
           up_to_one++;
 
@@ -1962,19 +1966,11 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             }
           }//end if
 
-          //count = 0;
-          //while(count < data.proposed.length){
-
-          //if(key < data.proposed.length){
-          //console.log(count);
-          //count = 0;
           z = data.proposed[key]['PROP'];
-          //console.log(z);
-          //temp.push(y);
+
           var c = reader.read(z);
 
           if(c.getGeometryType() == "LineString"){
-            //count++;
             var coord;
             var ln = c.getCoordinates();
             for (var i = 0; i < ln.length; i++) {
@@ -1983,7 +1979,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             }
           }
           else{
-            //count++;
             var coord;
             var multi = c.getCoordinates();
             for (var i = 0; i < multi.length; i++) {
@@ -1991,10 +1986,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               to_color_proposed.push(coord);
             }
           }
-          //console.log(count);
-          //count++;
-          //}
-          //}//
 
           x = data.coords[key]['POLYGON'];
           var b = reader.read(x);
