@@ -27,7 +27,7 @@ class dataToQueryPolygons{
 		$this->lat1 = $_GET['SW']['lat'];
 		$this->lng2 = $_GET['NE']['lng'];
 		$this->lng1 = $_GET['SW']['lng'];
-		$this->pm = $_GET['pm'];
+		
 		$this->pm1 = $_GET['pm1'];
 		$this->pm2 = $_GET['pm2'];
 		$this->pm3 = $_GET['pm3'];
