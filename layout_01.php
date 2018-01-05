@@ -92,7 +92,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 <div id="label_container" class="input-group">
                   <span data-toggle="tooltip" data-placement="top" title="Number of representations for the data" class="input-group-addon" id="basic-addon3"># labels</span>
                   <input type="number" class="form-control" value="1" min="1"placeholder="...labels" id="labels" aria-describedby="basic-addon3">
-                </div>
+                </div><br>
 
                 <div class="input-group">
                   <span class="input-group-addon">Sections</span>
@@ -506,6 +506,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
     $("#sections").change(function(){
       if(this.value == "on"){ //sections
+        if(pm_mpo.pm != null){
+          var previous = pm_mpo.pm;
+        }
         pm_mpo.pm = "sections";
         pm_mpo.getMode = "polygons";
         //console.log(pm_mpo);
@@ -526,12 +529,14 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           pm_mpo.SW = getparams.SW;
         }
         $.get('mpo_handler.php', pm_mpo, function(data){
+          var colorArr = ['#bebebe','#959595','#828282','#737373','#6b6b6b','#4e4e4e','#3c3c3c'];
           for(key in data.coords){
             var polyCoordis = [];
             temp = wktFormatter(data.coords[key]['POLYGON']);
             for (var i = 0; i < temp.length; i++) {
               polyCoordis.push(temp[i]);
             }
+            var color;
             var polygon = new google.maps.Polygon({
               description: pm_mpo.name_pm,
               description_value: data.coords[key]['value'],
@@ -539,9 +544,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               strokeColor: "black",
               strokeOpacity: 0.60,
               strokeWeight: 0.70,
-              fillColor: "white",
-              fillOpacity: 0.60,
-              zIndex: -1
+              fillColor: colorArr[data.coords[key]['value']-1],
+              fillOpacity: 1, //0.60
+              zIndex: 9
             });
             polygon.setOptions({ zIndex: -1 });
             polygon.addListener('click', polyInfo_tti);
@@ -549,6 +554,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             polygon.setMap(app.map);
           }
         });
+        if(pm_mpo.pm != null){
+          pm_mpo.pm = previous;
+        }
       }else{ //no section
         removeSections();
       }
@@ -2335,7 +2343,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           app.polygons.push(polygon);
           polygon.setMap(app.map);
         }
-        else{
+        else{ //every other polygon, individual
           //console.log("here");
           temp = wktFormatter(data.coords[key]['POLYGON']);
           //console.log(temp);
