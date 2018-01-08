@@ -202,7 +202,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   <li><a data-toggle="tab" href="#report3" data-target="#report3">PM #3</a></li>
                 </ul>
 
-                <div class="tab-content">
+                <div class="tab-content" >
                   <div id="report1" class="tab-pane fade in active">
                       <h3 id="report1_text" class="text-center">Report for PM 1</h3><br>
                       <div id="pm_description_mul_1" class="container panel panel-default"></div>
@@ -514,6 +514,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     $("#add_on_multiple_2,#select_pm_multiple_2").hide();
     $("#add_on_multiple_3,#select_pm_multiple_3").hide();
     $("#data-holder").hide();
+    $("#data-holder-multiple").hide();
     $("#label_container").hide();
     for (var i = 0; i < blocks.elements.length; i++) {
       var blck = blocks.elements[i];
@@ -592,6 +593,11 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       select_pm.appendChild(disabled);
       if(this.value == "z"){ //aqui vamos colorear uno por uno, uno sobre otro, quitar modes y quitar legend en un nuevo mpo_multiple();
         //console.log("you selected multiple");
+
+        if(pm_mpo.pm1 != null || pm_mpo.pm2 != null || pm_mpo.pm3 != null ){
+          $("#data-holder-multiple").show();
+        }
+
         onMultiple =  true;
         $("#mpo_draw").hide();
         $("#mpo_draw_multiple").show();
@@ -600,7 +606,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         $("#modes").empty();
         $("#data-holder").hide();
         $("#legend").empty();
-
+        $("#label_container").hide();
         $("#main_pm").hide();
         $("#default_multiple").show();
 
@@ -625,6 +631,14 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         $("#mpo_draw_multiple").hide();
         $("#main_pm").show();
         $("#default_multiple").hide();
+        $("#data-holder-multiple").hide();
+
+        clearCharts();
+        removePolygons();
+
+        if(pm_mpo.pm != null){
+          pm_mpo.pm = null;
+        }
 
         for (var i = 0; i < blocks[this.value].pms.length; i++) {
           var temp = blocks[this.value].pms[i];
@@ -658,6 +672,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
 
     $("#select_pm_multiple_1, #select_pm_multiple_2, #select_pm_multiple_3").change(function(){
+      $("#data-holder-multiple").show();
       if(this.id == "select_pm_multiple_1"){
         $("#pm_description_mul_1, #pm_data_mul_1").empty();
         $("#report1_text").text(this.value);
