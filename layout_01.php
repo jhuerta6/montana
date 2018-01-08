@@ -89,10 +89,10 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             <div class="tab-content"><br>
               <div id="default" class="tab-pane fade in active">
                 <p class="text-muted"> Try drawing an Area of Interest with the tools at the top of the map. <br> Click your drawn Area Of Interest to display statistics. </p>
-                <div id="label_container" class="input-group">
+                <!--<div id="label_container" class="input-group">
                   <span data-toggle="tooltip" data-placement="top" title="Number of representations for the data" class="input-group-addon" id="basic-addon3"># labels</span>
                   <input type="number" class="form-control" value="1" min="1"placeholder="...labels" id="labels" aria-describedby="basic-addon3">
-                </div><br>
+                </div>--><br>
 
                 <div class="input-group">
                   <span class="input-group-addon">Sections</span>
@@ -143,10 +143,10 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                     Data equal to the unit value
                   </p>
                 </div>
-                <div class="input-group">
+                <!-- <div class="input-group">
                   <span data-toggle="tooltip" data-placement="top" title="The unit value used to compare the data values" class="input-group-addon" id="basic-addon3">unit</span>
                   <input type="number" class="form-control" value="1" min="0"placeholder="...units" id="filter_units" aria-describedby="basic-addon3">
-                </div><br>
+                </div><br> -->
               </div>
               <div id="statistics" class="tab-pane fade"><br>
               </div>
@@ -2696,6 +2696,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     bar_init = new google.visualization.BarChart(document.getElementById("chart_selected"));
     bar_init.draw(data, options);
 
+    /*
     $("#pm_description,#pm_data").empty();
     var pm_description = document.getElementById("pm_description");
     var pm_data = document.getElementById("pm_data");
@@ -2713,7 +2714,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     var p_data = document.createElement('p');
     p_data.innerHTML = "<strong>Data source:</strong> National Performance Management Research Data Set (NPMRDS)";
     pm_data.appendChild(p_data);
-
+    */
   }
 
   function drawChartTti_normal(){
@@ -2742,6 +2743,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     bar_init = new google.visualization.BarChart(document.getElementById("chart_selected"));
     bar_init.draw(data, options);
 
+    /*
     $("#pm_description,#pm_data").empty();
     var pm_description = document.getElementById("pm_description");
     var pm_data = document.getElementById("pm_data");
@@ -2759,7 +2761,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     var p_data = document.createElement('p');
     p_data.innerHTML = "<strong>Data source:</strong> National Performance Management Research Data Set (NPMRDS)";
     pm_data.appendChild(p_data);
-
+    */
   }
 
   function drawChartc23(){
@@ -2788,6 +2790,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     bar_init = new google.visualization.BarChart(document.getElementById("chart_selected"));
     bar_init.draw(data, options);
 
+    /*
     $("#pm_description,#pm_data").empty();
     var pm_description = document.getElementById("pm_description");
     var pm_data = document.getElementById("pm_data");
@@ -2804,6 +2807,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     var p_note = document.createElement('p');
     p_note.innerHTML = "<strong>Note:</strong> SunMetro Website";
     pm_data.appendChild(p_note);
+    */
   }
 
   function drawChart() {
