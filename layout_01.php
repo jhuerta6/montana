@@ -204,25 +204,19 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
                 <div class="tab-content">
                   <div id="report1" class="tab-pane fade in active">
-                    <div class="container"><br>
                       <h3 id="report1_text" class="text-center">Report for PM 1</h3><br>
                       <div id="pm_description_mul_1" class="container panel panel-default"></div>
                       <div id="pm_data_mul_1" class="container panel panel-default"></div>
-                    </div>
                   </div>
                   <div id="report2" class="tab-pane fade">
-                    <div class="container"><br>
                       <h3 id="report2_text" class="text-center">Report for PM 2</h3><br>
                       <div id="pm_description_mul_2" class="container panel panel-default"></div>
                       <div id="pm_data_mul_2" class="container panel panel-default"></div>
-                    </div>
                   </div>
                   <div id="report3" class="tab-pane fade">
-                    <div class="container"><br>
                       <h3 id="report3_text" class="text-center">Report for PM 3</h3><br>
                       <div id="pm_description_mul_3" class="container panel panel-default"></div>
                       <div id="pm_data_mul_3" class="container panel panel-default"></div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -680,7 +674,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         var pm_content = document.getElementById("pm_description_mul_3");
         var pm_data = document.getElementById("pm_data_mul_3");
       }
-
+      /** Reportes grupales **/
       var block = $(this).children(":selected").attr("id");
       for(var i = 0; i < blocks[block].pms.length; i++){
         var block_pm = blocks[block].pms[i];
@@ -710,6 +704,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           }
         }
       }
+    // End - Reportes grupales **/
     });
 
     $("#select_pm").change(function(){
