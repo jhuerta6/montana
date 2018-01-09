@@ -606,6 +606,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         $("#modes").empty();
         $("#data-holder").hide();
         //$("#legend").empty(); /** Desaparecer legend TESTING **/
+        $("#legend").hide();
         $("#label_container").hide();
         $("#main_pm").hide();
         $("#default_multiple").show();
@@ -1708,7 +1709,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         });
       })(z);
     }
-    $("#legend").hide();
+    //$("#legend").hide();
   }
 
   function getStandardDev(list){
