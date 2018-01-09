@@ -1700,6 +1700,49 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     $("#legend").hide();
   }
 
+  function getStandardDev(list){
+    //console.log(list);
+
+    var sum = 0;
+    var string_test = "";
+    for(var i = 0; i < list.length; i++){
+      string_test += list[i] + ",";
+      if(!isNaN(list[i])){
+        sum += parseFloat(list[i]);
+      }
+    }
+
+    //console.log(string_test);
+    //console.log(sum);
+    var mean = parseFloat(sum / list.length);
+
+    var subtract = 0;
+    for(var i = 0; i < list.length; i++){
+      subtract += Math.pow((list[i] - mean), 2);
+    }
+
+    var mean_sub = parseFloat(subtract / list.length);
+
+    var deviation = Math.sqrt(mean_sub);
+
+    console.log(mean);
+
+    var from = mean - 2*(deviation);
+    console.log(from);
+
+    var from = mean - (deviation);
+    console.log(from);
+
+    var from = deviation;
+    console.log(from);
+
+    var from = mean + (deviation);
+    console.log(from);
+
+    var from = mean + 2*(deviation);
+    console.log(from);
+  }
+
   function mpo(){
     $('#legend').hide();
     if(onMultiple == false){
@@ -1732,11 +1775,16 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       newzIndex = 0;
       legendText = "";
       maximum = -1;
+      all_values = [];
       for(var i = 0; i < data.coords.length; i++){
+        all_values.push(data.coords[i]['value']);
         if(maximum < parseFloat(data.coords[i]['value'])){
           maximum = data.coords[i]['value'];
         }
       }
+      console.log("maximum is: "+maximum);
+      getStandardDev(all_values);
+
       if(maximum == -1){
         maximum = 1;
       }
@@ -1750,7 +1798,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       if(pm_mpo.pm == "b_workers" || pm_mpo.pm == "freqtran" || pm_mpo.pm == "tti" || pm_mpo.pm == "b_carfrhh" || pm_mpo.pm == "B_TpDisadv" || pm_mpo.pm == "b_jobphh" || pm_mpo.pm == "coemisions" || pm_mpo.pm == "emar"){
         maximum = parseFloat(maximum);
         maximum = maximum + 0.1;
-        num_labels = spawn(maximum);
+        //num_labels = spawn(maximum);
       }
       var up_to_one = 0;
       for(key in data.coords){
