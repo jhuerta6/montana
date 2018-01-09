@@ -175,7 +175,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           </div>
           <div class="row">
             <div class="col-sm-12">
-              <div id="legend" style='visibility: hidden'>
+              <div id="legend" style='visibility: hidden'> <!-- TESTING -->
               </div>
             </div>
           </div>
@@ -605,7 +605,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         removePolygons();
         $("#modes").empty();
         $("#data-holder").hide();
-        $("#legend").empty();
+        //$("#legend").empty(); /** Desaparecer legend TESTING **/
         $("#label_container").hide();
         $("#main_pm").hide();
         $("#default_multiple").show();
@@ -730,7 +730,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         removePolygons();
       }
       else{
-        $("#legend").empty();
+        //$("#legend").empty();
       }
       $("#pm_description,#pm_data").empty();
       $("#label_container").hide();
@@ -912,7 +912,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       pm_mpo.depth_method = this.value;
     });
 
-    $("#legend").hide();
+    //$("#legend").hide();
   });
 
   function runAOI(){
@@ -1750,7 +1750,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   }
 
   function mpo(){
-    $('#legend').hide();
+    //$('#legend').hide();
     if(onMultiple == false){
       removePolygons();
     }
@@ -1805,7 +1805,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       if(pm_mpo.pm == "b_workers" || pm_mpo.pm == "freqtran" || pm_mpo.pm == "tti" || pm_mpo.pm == "b_carfrhh" || pm_mpo.pm == "B_TpDisadv" || pm_mpo.pm == "b_jobphh" || pm_mpo.pm == "coemisions" || pm_mpo.pm == "emar"){
         maximum = parseFloat(maximum);
         maximum = maximum + 0.1;
-        //num_labels = spawn(maximum);
+        num_labels = spawn(espacios);
+        //console.log(num_labels);
       }
       var up_to_one = 0;
       for(key in data.coords){
@@ -2511,15 +2512,19 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         }
       }
     }).done(function(data){
-      if($('#legend').css('display')=='none'){
+      /*if($('#legend').css('display')=='none'){
         $('#legend').slideToggle("slow");
       }
       else{
-        $('#legend').slideToggle("fast");
+        //$('#legend').slideToggle("fast");
       }
+      $('#legend').show();
       pm_mpo.runAOI = false;
-      pm_mpo.runFilters = false;
+      pm_mpo.runFilters = false;*/
     });
+
+    /*
+    $('#legend').show();*/
   }
 
   /******************************************************************************/
@@ -3057,7 +3062,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     app.polygons = [];
     app.infoWindow.close();
     app.payload.runAOI = false;
-    document.getElementById('legend').style.visibility = "hidden";
+    //document.getElementById('legend').style.visibility = "hidden";
     $('#legend').find('*').not('h3').remove();
     $('#description').find('*').not('h3').remove();
   }
@@ -3070,7 +3075,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     app.sections = [];
     app.infoWindow.close();
     app.payload.runAOI = false;
-    document.getElementById('legend').style.visibility = "hidden";
+    //document.getElementById('legend').style.visibility = "hidden";
     $('#legend').find('*').not('h3').remove();
     $('#description').find('*').not('h3').remove();
   }
@@ -3149,7 +3154,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     }else if(this.value > 170){ //good
       text = "Pavement has poor condition (IRI = " + this.value + " )";
     }else{
-      console.log(this.value);
+      //console.log(this.value);
       text = "No data";
     }
     app.infoWindow.setContent(text);
@@ -3194,13 +3199,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
   function wktFormatterMulti(poly){
     new_poly = poly.slice(15,-3);
-    //console.log("new MULTI poly: " + new_poly);
     new_poly = new_poly.split("),(");
-    //console.log(new_poly);
     new_poly = new_poly.toString();
-    //console.log(new_poly);
     new_poly = new_poly.split("),(");
-    //console.log(new_poly);
     len = new_poly.length;
     shape_s = [];
     for (var j = 0; j < len; j++) {
@@ -3215,7 +3216,40 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     return shape_s;
   }
 
+
   function spawn(value){
+    var squareboxes = ["<img src='img/brightgreensquare.png' height='10px'/>",
+    "<img src='img/skybluesquare.png' height='10px'/>",
+    "<img src='img/yellowsquare.png' height='10px'/>",
+    "<img src='img/orangesquare.png' height='10px'/>",
+    "<img src='img/redsquare.png' height='10px'/>",
+    "<img src='img/maroonsquare.png' height='10px'/>",
+    "<img src='img/lilacsquare.png' height='10px'/>",
+    "<img src='img/yellowsquare.png' height='10px'/>",
+    "<img src='img/maroonsquare.png' height='10px'/>",
+    "<img src='img/cyansquare.png' height='10px'/>",
+    "<img src='img/navygreensquare.png' height='10px'/>",
+    "<img src='img/peachsquare.png' height='10px'/>",
+    "<img src='img/fleshsquare.png' height='10px'/>",
+    "<img src='img/brownsquare.png' height='10px'/>",
+    "<img src='img/neongreensquare.png' height='10px'/>",
+    "<img src='img/neonpurplesquare.png' height='10px'/>",
+    "<img src='img/graysquare.png' height='10px'/>"];
+    $('#legendSpawner').find('*').not('h3').remove();
+
+    for(var i = 0; i < value.length-1; i++){
+      var div = document.createElement('div');
+      div.innerHTML = squareboxes[i] + " " +
+      + parseFloat(value[i]).toFixed(2) + ' to ' + parseFloat(value[i+1]).toFixed(2);
+      var newLegend = document.createElement('div');
+      newLegend = document.getElementById('legend');
+      document.getElementById('legend').style.visibility = "visible";
+      newLegend.appendChild(div);
+    }
+    return value;
+  }
+
+  /*function spawn(value){
     var squareboxes = ["<img src='img/brightgreensquare.png' height='10px'/>",
     "<img src='img/skybluesquare.png' height='10px'/>",
     "<img src='img/yellowsquare.png' height='10px'/>",
@@ -3263,7 +3297,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       newLegend.appendChild(div);
     }
     return separations;
-  }
+  }**/
   // ***********
   </script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCY0B3_Fr1vRpgJDdbvNmrVyXmoOOtiq64&libraries=drawing&callback=initMap"async defer></script>
