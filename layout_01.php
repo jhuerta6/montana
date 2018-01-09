@@ -143,10 +143,10 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                     Data equal to the unit value
                   </p>
                 </div>
-                <!-- <div class="input-group">
+                <div class="input-group">
                   <span data-toggle="tooltip" data-placement="top" title="The unit value used to compare the data values" class="input-group-addon" id="basic-addon3">unit</span>
                   <input type="number" class="form-control" value="1" min="0"placeholder="...units" id="filter_units" aria-describedby="basic-addon3">
-                </div><br> -->
+                </div><br>
               </div>
               <div id="statistics" class="tab-pane fade"><br>
               </div>
@@ -1701,8 +1701,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   }
 
   function getStandardDev(list){
-    //console.log(list);
-
     var sum = 0;
     var string_test = "";
     for(var i = 0; i < list.length; i++){
@@ -1711,36 +1709,33 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         sum += parseFloat(list[i]);
       }
     }
-
-    //console.log(string_test);
-    //console.log(sum);
     var mean = parseFloat(sum / list.length);
-
     var subtract = 0;
     for(var i = 0; i < list.length; i++){
       subtract += Math.pow((list[i] - mean), 2);
     }
-
     var mean_sub = parseFloat(subtract / list.length);
-
     var deviation = Math.sqrt(mean_sub);
-
-    console.log(mean);
-
+    var espacios = [];
     var from = mean - 2*(deviation);
-    console.log(from);
-
+    espacios.push(from);
     var from = mean - (deviation);
-    console.log(from);
-
+    espacios.push(from);
     var from = deviation;
-    console.log(from);
-
+    espacios.push(from);
     var from = mean + (deviation);
-    console.log(from);
-
+    espacios.push(from);
     var from = mean + 2*(deviation);
-    console.log(from);
+    espacios.push(from);
+    /*
+    -2 a -1
+    -1 a 0
+    0 a 1
+    1 a 2
+    >2
+    */
+    //console.log(espacios);
+    return espacios;
   }
 
   function mpo(){
@@ -1782,9 +1777,11 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           maximum = data.coords[i]['value'];
         }
       }
-      console.log("maximum is: "+maximum);
-      getStandardDev(all_values);
-
+      //console.log("maximum is: "+maximum);
+      espacios = [];
+      espacios = getStandardDev(all_values);
+      espacios.push(parseFloat(maximum));
+      console.log(espacios);
       if(maximum == -1){
         maximum = 1;
       }
