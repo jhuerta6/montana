@@ -155,8 +155,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           <div class="col-md-12"><br>
             <div class="tab-content">
               <div id="defaultbtn" class="tab-pane fade in active">
-                <button type="button" class="btn btn-success form-control" id="mpo_draw" onclick="mpo();">Draw</button><br><br>
-                <button type="button" class="btn btn-success form-control" id="mpo_draw_multiple" onclick="mpo_multi();">Draw Multi</button><br><br>
+                <button type="button" class="btn btn-success form-control" id="mpo_draw" onclick="runMPO();">Draw</button><br><br>
+                <button type="button" class="btn btn-success form-control" id="mpo_draw_multiple" onclick="runMPOMulti();">Draw Multi</button><br><br>
                 <button data-toggle="tooltip" data-placement="top" title="Only bring up the data touched by the Area Of Interest" class="btn btn-primary form-control" type="button" id="runAOI" onClick="runAOI()">Run AOI</button> <br><br>
                 <button class="btn btn-warning form-control" type="button" id="clear" onClick="removePolygons()">Clear</button><br><br>
               </div>
@@ -923,6 +923,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
   function runFilters(){
     var units = document.getElementById("filter_units").value;
+    units = parseFloat(units);
     pm_mpo.runFilters = true;
     pm_mpo.runAOI = false;
     pm_mpo.filter_prop = pm_mpo.filter_prop;
@@ -938,6 +939,16 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       pm_mpo.filter_units = units;
       mpo();
     }
+  }
+
+  function runMPO(){
+    pm_mpo.runFilters = false;
+    mpo();
+  }
+
+  function runMPOMulti(){
+    pm_mpo.runFilters = false;
+    mpo_multi();
   }
 
   function mpo_multi(){
@@ -1744,7 +1755,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       removePolygons();
     }
     pm_mpo.getMode = "polygons";
-    //console.log(pm_mpo);
     if(pm_mpo.runAOI == true && typeof rec != 'undefined' && rec.type == 'rectangle'){
       var getparams = app.payload;
       var bounds = rec.getBounds();
@@ -1781,7 +1791,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       espacios = [];
       espacios = getStandardDev(all_values);
       espacios.push(parseFloat(maximum));
-      console.log(espacios);
+      console.log(espacios); /** TESTING **/
       if(maximum == -1){
         maximum = 1;
       }
