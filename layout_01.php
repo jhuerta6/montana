@@ -3258,6 +3258,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       document.getElementById('legend').style.visibility = "visible";
       newLegend.appendChild(div);
     }
+    $("#legend_panel").css("visibility", "visible"); //why
     return value;
   }
   // ***********
