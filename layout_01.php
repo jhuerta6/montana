@@ -29,10 +29,10 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     font-family: Arial, sans-serif;
     background: #fff;
     padding: 6px;
-    margin: 30px;
+    /*margin: 30px;
     border: 3px solid #000;
     margin-top: 25px;
-    margin-bottom: 20px;
+    margin-bottom: 20px;*/
   }
   #legend h3 {
     margin-top: 0;
@@ -175,8 +175,53 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           </div>
           <div class="row">
             <div class="col-sm-12">
-              <div id="legend" style='visibility: hidden'> <!-- TESTING -->
+
+              <div id="legend_panel" class="panel panel-default" style='visibility: visible;'> <!-- TESTING -->
+                <h3 class="text-center">Legend</h3><br>
+                <ul class="nav nav-tabs">
+                  <li class="active"><a data-toggle="tab" href="#legend_one" data-target="#legend_one">PM</a></li>
+                  <li><a data-toggle="tab" href="#sections_one" data-target="#sections_one">Section</a></li>
+                </ul>
+                <div class="tab-content" >
+                  <div id="legend_one" class="tab-pane fade in active"><br>
+                    <!--<h3 id="legend_one_text" class="text-center">Legend para PM 1</h3><br>-->
+                    <div id="legend" class="container panel panel-default">Please select a PM</div>
+                  </div>
+                  <div id="sections_one" class="tab-pane fade"><br>
+                    <!--<h3 id="sections_one_text" class="text-center">Legend para Sections</h3><br>-->
+                    <div id="legend_section" class="container panel panel-default"></div>
+                  </div>
+                </div>
               </div>
+
+              <div id="legend_multi_panel" class="panel panel-default" style="visibility: visible;">
+                <h3 class="text-center">Legend</h3><br>
+                <ul class="nav nav-tabs">
+                  <li class="active"><a data-toggle="tab" href="#legend_multi_1" data-target="#legend_multi_1">#1</a></li>
+                  <li><a data-toggle="tab" href="#legend_multi_2" data-target="#legend_multi_2">#2</a></li>
+                  <li><a data-toggle="tab" href="#legend_multi_3" data-target="#legend_multi_3">#3</a></li>
+                  <li><a data-toggle="tab" href="#sections_multi" data-target="#sections_multi">Section</a></li>
+                </ul>
+                <div class="tab-content" >
+                  <div id="legend_multi_1" class="tab-pane fade in active"><br>
+                    <!--<h3 id="legend_multi_text_1" class="text-center">Legend para PM 1 multi</h3><br>-->
+                    <div id="legend" class="container panel panel-default"></div>
+                  </div>
+                  <div id="legend_multi_2" class="tab-pane fade"><br>
+                    <!--<h3 id="legend_multi_text_2" class="text-center">Legend para PM 2 multi</h3><br>-->
+                    <div id="legend" class="container panel panel-default"></div>
+                  </div>
+                  <div id="legend_multi_3" class="tab-pane fade"><br>
+                    <!--<h3 id="legend_multi_text_3" class="text-center">Legend para PM 3 multi</h3><br>-->
+                    <div id="legend" class="container panel panel-default"></div>
+                  </div>
+                  <div id="sections_multi" class="tab-pane fade"><br>
+                    <!--<h3 id="sections_multi_text" class="text-center">Legend para Sections multi</h3><br>-->
+                    <div id="legend_section_multi" class="container panel panel-default"></div>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -527,13 +572,36 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     }
 
     $("#sections").change(function(){
+      $('#legend_section').find('*').not('h3').remove();
+      $('#legend_section_multi').find('*').not('h3').remove();
+
+      var squareboxes = ["<img src='img/section1.png' height='10px'/>",
+      "<img src='img/section2.png' height='10px'/>",
+      "<img src='img/section3.png' height='10px'/>",
+      "<img src='img/section4.png' height='10px'/>",
+      "<img src='img/section5.png' height='10px'/>",
+      "<img src='img/section6.png' height='10px'/>",
+      "<img src='img/section7.png' height='10px'/>"];
+
+      for(var i = 0; i < squareboxes.length; i++){
+        var div = document.createElement('div');
+        div.innerHTML = squareboxes[i] +" Section " + (i+1);
+        var nl = document.createElement('div');
+        nl = document.getElementById('legend_section');
+        nl.appendChild(div);
+        var div = document.createElement('div');
+        div.innerHTML = squareboxes[i] +" Section " + (i+1);
+        var newLegend_multi = document.createElement('div');
+        newLegend_multi = document.getElementById('legend_section_multi');
+        newLegend_multi.appendChild(div);
+      }
+
       if(this.value == "on"){ //sections
         if(pm_mpo.pm != null){
           var previous = pm_mpo.pm;
         }
         pm_mpo.pm = "sections";
         pm_mpo.getMode = "polygons";
-        //console.log(pm_mpo);
         if(pm_mpo.runAOI == true && typeof rec != 'undefined' && rec.type == 'rectangle'){
           var getparams = app.payload;
           var bounds = rec.getBounds();
@@ -551,7 +619,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           pm_mpo.SW = getparams.SW;
         }
         $.get('mpo_handler.php', pm_mpo, function(data){
-          var colorArr = ['#bebebe','#959595','#828282','#737373','#6b6b6b','#4e4e4e','#3c3c3c'];
+          var colorArr = ['#bebebe','#959595','#6b6b6b','#555555','#303030','#131313','#000000'];
           for(key in data.coords){
             var polyCoordis = [];
             temp = wktFormatter(data.coords[key]['POLYGON']);
@@ -720,7 +788,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           }
         }
       }
-    // End - Reportes grupales **/
+    //** End - Reportes grupales **/
     });
 
     $("#select_pm").change(function(){
@@ -1791,13 +1859,17 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       //console.log("maximum is: "+maximum);
       espacios = [];
       espacios = getStandardDev(all_values);
-      espacios.push(parseFloat(maximum));
-      console.log(espacios); /** TESTING **/
+      if(espacios[espacios.length-1] < maximum){
+        espacios.push(parseFloat(maximum));
+      }
+      //console.log(espacios); /** TESTING **/
       if(maximum == -1){
         maximum = 1;
       }
+      $("#legend").text("");
+      $('#legend').find('*').not('h3').remove();
       var div = document.createElement('div');
-      div.innerHTML = "<strong> Legend </strong>";
+      div.innerHTML = "<strong>"+pm_mpo.name_pm+"</strong>";
       div.className = "center-text";
       var l = document.createElement('div');
       l = document.getElementById('legend');
@@ -2756,26 +2828,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     };
     bar_init = new google.visualization.BarChart(document.getElementById("chart_selected"));
     bar_init.draw(data, options);
-
-    /*
-    $("#pm_description,#pm_data").empty();
-    var pm_description = document.getElementById("pm_description");
-    var pm_data = document.getElementById("pm_data");
-    $("#data-holder").show();
-
-    var p_description = document.createElement('p');
-    p_description.innerHTML = "On average, trucks traveling along the corridor experienced up to a double travel time. The Travel Time Index ranged between 1.3 (Section 7) and 2.3 (Section 2).";
-    pm_description.appendChild(p_description);
-    var p_data = document.createElement('p');
-    p_data.innerHTML = "<strong>Analysis period:</strong> February 2017 - July 2017";
-    pm_data.appendChild(p_data);
-    var p_note = document.createElement('p');
-    p_note.innerHTML = "<strong>Note:</strong> Data was not available for Section 1 (between Piedras St. and Paisano Dr.)";
-    pm_data.appendChild(p_note);
-    var p_data = document.createElement('p');
-    p_data.innerHTML = "<strong>Data source:</strong> National Performance Management Research Data Set (NPMRDS)";
-    pm_data.appendChild(p_data);
-    */
   }
 
   function drawChartTti_normal(){
@@ -2803,26 +2855,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     };
     bar_init = new google.visualization.BarChart(document.getElementById("chart_selected"));
     bar_init.draw(data, options);
-
-    /*
-    $("#pm_description,#pm_data").empty();
-    var pm_description = document.getElementById("pm_description");
-    var pm_data = document.getElementById("pm_data");
-    $("#data-holder").show();
-
-    var p_description = document.createElement('p');
-    p_description.innerHTML = "On average, passenger vehicles traveling along the corridor experienced up to 1.9 times longer compared to free-flow conditions. The Travel Time Index ranged between 1.3 (Section 7) and 1.9 (Section 2).";
-    pm_description.appendChild(p_description);
-    var p_data = document.createElement('p');
-    p_data.innerHTML = "<strong>Analysis period:</strong> February 2017 - July 2017";
-    pm_data.appendChild(p_data);
-    var p_note = document.createElement('p');
-    p_note.innerHTML = "<strong>Note:</strong> Data was not available for Section 1 (between Piedras St. and Paisano Dr.) because it is not a state highway.";
-    pm_data.appendChild(p_note);
-    var p_data = document.createElement('p');
-    p_data.innerHTML = "<strong>Data source:</strong> National Performance Management Research Data Set (NPMRDS)";
-    pm_data.appendChild(p_data);
-    */
   }
 
   function drawChartc23(){
@@ -2850,25 +2882,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     };
     bar_init = new google.visualization.BarChart(document.getElementById("chart_selected"));
     bar_init.draw(data, options);
-
-    /*
-    $("#pm_description,#pm_data").empty();
-    var pm_description = document.getElementById("pm_description");
-    var pm_data = document.getElementById("pm_data");
-    $("#data-holder").show();
-
-    var p_description = document.createElement('p');
-    p_description.innerHTML = "Two park and ride facilities with a total capacit of 153 parking spaces are currently located within the Montada Corridor"
-    +"serving routes that have daily ridership below 1,000 passengers. <br> Section 2 has 103-space park and ride lot at the Eastside Transfer Center. <br>"
-    +"Section 5 has a 50-space park and ride lot at Edgemere / RC Poe.";
-    pm_description.appendChild(p_description);
-    var p_data = document.createElement('p');
-    p_data.innerHTML = "<strong>Analysis period:</strong> as of August 2017";
-    pm_data.appendChild(p_data);
-    var p_note = document.createElement('p');
-    p_note.innerHTML = "<strong>Note:</strong> SunMetro Website";
-    pm_data.appendChild(p_note);
-    */
   }
 
   function drawChart() {
@@ -3077,7 +3090,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     app.infoWindow.close();
     app.payload.runAOI = false;
     //document.getElementById('legend').style.visibility = "hidden";
-    $('#legend').find('*').not('h3').remove();
+    //$('#legend').find('*').not('h3').remove();
     $('#description').find('*').not('h3').remove();
   }
   function printMaps() {
@@ -3182,7 +3195,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
   function wktFormatter(poly){
     new_poly = poly.slice(9,-2);
-    //console.log("new poly: " + new_poly);
     new_poly = new_poly.split("),(");
     len = new_poly.length;
     shape_s = [];
@@ -3217,7 +3229,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     return shape_s;
   }
 
-
   function spawn(value){
     var squareboxes = ["<img src='img/brightgreensquare.png' height='10px'/>",
     "<img src='img/skybluesquare.png' height='10px'/>",
@@ -3249,56 +3260,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     }
     return value;
   }
-
-  /*function spawn(value){
-    var squareboxes = ["<img src='img/brightgreensquare.png' height='10px'/>",
-    "<img src='img/skybluesquare.png' height='10px'/>",
-    "<img src='img/yellowsquare.png' height='10px'/>",
-    "<img src='img/orangesquare.png' height='10px'/>",
-    "<img src='img/redsquare.png' height='10px'/>",
-    "<img src='img/maroonsquare.png' height='10px'/>",
-    "<img src='img/lilacsquare.png' height='10px'/>",
-    "<img src='img/yellowsquare.png' height='10px'/>",
-    "<img src='img/maroonsquare.png' height='10px'/>",
-    "<img src='img/cyansquare.png' height='10px'/>",
-    "<img src='img/navygreensquare.png' height='10px'/>",
-    "<img src='img/peachsquare.png' height='10px'/>",
-    "<img src='img/fleshsquare.png' height='10px'/>",
-    "<img src='img/brownsquare.png' height='10px'/>",
-    "<img src='img/neongreensquare.png' height='10px'/>",
-    "<img src='img/neonpurplesquare.png' height='10px'/>",
-    "<img src='img/graysquare.png' height='10px'/>"];
-    $('#legendSpawner').find('*').not('h3').remove();
-    if(pm_mpo.label == "no filter"){
-      var labels = document.getElementById('labels').value;
-    }
-    else{
-      var labels = document.getElementById('labels_filter').value;
-    }
-    if(labels <= 0 || value <= 0 ){
-      value = 1;
-    }
-    var range = (value/labels);
-    var count = 0;
-    var cnt = 0;
-    var spawner = document.getElementById('legendSpawner');
-    var separations = [];
-    while(count<=value){
-      separations[cnt] =  parseFloat(count).toFixed(2);
-      count+=range;
-      cnt++;
-    }
-    for(var i = 0; i < separations.length-1; i++){
-      var div = document.createElement('div');
-      div.innerHTML = squareboxes[i] + " " +
-      + separations[i] + ' to ' + separations[i+1];
-      var newLegend = document.createElement('div');
-      newLegend = document.getElementById('legend');
-      document.getElementById('legend').style.visibility = "visible";
-      newLegend.appendChild(div);
-    }
-    return separations;
-  }**/
   // ***********
   </script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCY0B3_Fr1vRpgJDdbvNmrVyXmoOOtiq64&libraries=drawing&callback=initMap"async defer></script>
