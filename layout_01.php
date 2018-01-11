@@ -189,12 +189,12 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   </div>
                   <div id="sections_one" class="tab-pane fade"><br>
                     <!--<h3 id="sections_one_text" class="text-center">Legend para Sections</h3><br>-->
-                    <div id="legend_section" class="container panel panel-default"></div>
+                    <div id="legend_section" class="container panel panel-default">Turn Sections to On</div>
                   </div>
                 </div>
               </div>
 
-              <div id="legend_multi_panel" class="panel panel-default" style="visibility: visible;">
+              <div id="legend_multi_panel" class="panel panel-default" style="visibility: hidden;">
                 <h3 class="text-center">Legend</h3><br>
                 <ul class="nav nav-tabs">
                   <li class="active"><a data-toggle="tab" href="#legend_multi_1" data-target="#legend_multi_1">#1</a></li>
@@ -217,7 +217,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   </div>
                   <div id="sections_multi" class="tab-pane fade"><br>
                     <!--<h3 id="sections_multi_text" class="text-center">Legend para Sections multi</h3><br>-->
-                    <div id="legend_section_multi" class="container panel panel-default"></div>
+                    <div id="legend_section_multi" class="container panel panel-default">Turn Sections to On</div>
                   </div>
                 </div>
               </div>
@@ -561,6 +561,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     $("#data-holder").hide();
     $("#data-holder-multiple").hide();
     $("#label_container").hide();
+    $("#legend_panel").hide();
     for (var i = 0; i < blocks.elements.length; i++) {
       var blck = blocks.elements[i];
       var elem_blck = document.createElement("option");
@@ -574,6 +575,15 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     $("#sections").change(function(){
       $('#legend_section').find('*').not('h3').remove();
       $('#legend_section_multi').find('*').not('h3').remove();
+      if(this.value == "on" && onMultiple == false){
+        $('#legend_panel').show();
+      }
+      else if(this.value == "on" && onMultiple == true){
+        console.log("multi paneal appears");
+      }
+      $("#legend_section").text("");
+      $("#legend_section_multi").text("");
+      //$("#sections_multi").text("");
 
       var squareboxes = ["<img src='img/section1.png' height='10px'/>",
       "<img src='img/section2.png' height='10px'/>",
@@ -668,13 +678,14 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
         onMultiple =  true;
         $("#mpo_draw").hide();
+        $("#legend_panel").hide();
         $("#mpo_draw_multiple").show();
         clearCharts();
         removePolygons();
         $("#modes").empty();
         $("#data-holder").hide();
         //$("#legend").empty(); /** Desaparecer legend TESTING **/
-        $("#legend").hide();
+        //$("#legend").hide();
         $("#label_container").hide();
         $("#main_pm").hide();
         $("#default_multiple").show();
@@ -1819,7 +1830,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   }
 
   function mpo(){
-    //$('#legend').hide();
+    $('#legend_panel').show('slow');
     if(onMultiple == false){
       removePolygons();
     }
