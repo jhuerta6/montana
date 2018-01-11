@@ -1830,10 +1830,10 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   }
 
   function mpo(){
-    $('#legend_panel').show('slow');
     if(onMultiple == false){
       removePolygons();
     }
+    $('#legend_panel').show('slow');
     pm_mpo.getMode = "polygons";
     if(pm_mpo.runAOI == true && typeof rec != 'undefined' && rec.type == 'rectangle'){
       var getparams = app.payload;
@@ -3089,6 +3089,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     app.payload.runAOI = false;
     //document.getElementById('legend').style.visibility = "hidden";
     $('#legend').find('*').not('h3').remove();
+    $("#legend_panel").hide();
     $('#description').find('*').not('h3').remove();
   }
   function removeSections(){
