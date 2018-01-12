@@ -136,7 +136,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   <label class="form-check-label" for="defaultCheck1">
                     Display sections
                   </label>
-                </div>
+                </div><br>
                 <!--<div class="input-group">
                   <span class="input-group-addon">Sections</span>
                   <select type="text" class="form-control" placeholder="Performance Measure" aria-describedby="add_on" id="sections">
@@ -1170,6 +1170,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         $.get('mpo_multi_handler.php', pm_mpo, function(data){
           var c = data["coords"+(z+1)].length;
           var points = [];
+          //gris, verde, azul, x, x, rojo -- comenzaremos testing
           shapecolor = ["#84857B", "#13FF00", "#009BFF", "#EBF20D", "#fe9253", "#FF0000", "#8C0909", "#0051FF", "#AB77FF", "#EBF20D", "#8C0909", "#07FDCA", "#008C35", "FFDBA5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
           shapeoutline = ["#000000", "#0b9b00", "#007fd1", "#aaaf0a", "#d18f0a", "#c10000", "#8c0909", "#0037ad", "#873dff", "#aaaf0a", "8c0909", "36c9bd", "#008c35", "#ffdba5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
           colorSelector = 0;
