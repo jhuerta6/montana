@@ -71,7 +71,45 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     </div>
     <div class="row">
       <div class="col-sm-9"><br>
-        <div id="map"></div>
+        <div class="row">
+        <div id="map"></div><br>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div id="data-holder" class="panel panel-default">
+            <h3 class="text-center">Report</h3><br>
+            <div id="pm_description" class="container panel panel-default"></div>
+            <div id="pm_data" class="container panel panel-default"></div>
+          </div>
+
+          <div id="data-holder-multiple" class="panel panel-default">
+            <h3 class="text-center">Reports</h3>
+            <ul class="nav nav-tabs">
+              <li class="active"><a data-toggle="tab" href="#report1" data-target="#report1">PM #1</a></li>
+              <li><a data-toggle="tab" href="#report2" data-target="#report2">PM #2</a></li>
+              <li><a data-toggle="tab" href="#report3" data-target="#report3">PM #3</a></li>
+            </ul>
+
+            <div class="tab-content" >
+              <div id="report1" class="tab-pane fade in active">
+                  <h3 id="report1_text" class="text-center">Report for PM 1</h3><br>
+                  <div id="pm_description_mul_1" class="container panel panel-default"></div>
+                  <div id="pm_data_mul_1" class="container panel panel-default"></div>
+              </div>
+              <div id="report2" class="tab-pane fade">
+                  <h3 id="report2_text" class="text-center">Report for PM 2</h3><br>
+                  <div id="pm_description_mul_2" class="container panel panel-default"></div>
+                  <div id="pm_data_mul_2" class="container panel panel-default"></div>
+              </div>
+              <div id="report3" class="tab-pane fade">
+                  <h3 id="report3_text" class="text-center">Report for PM 3</h3><br>
+                  <div id="pm_description_mul_3" class="container panel panel-default"></div>
+                  <div id="pm_data_mul_3" class="container panel panel-default"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       </div>
       <div class="col-sm-3"><br>
         <div class="row">
@@ -238,39 +276,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         </div>
         <div class="col-sm-3">
           <div class="row">
-            <div class="col">
-              <div id="data-holder" class="panel panel-default">
-                <h3 class="text-center">Report</h3><br>
-                <div id="pm_description" class="container panel panel-default"></div>
-                <div id="pm_data" class="container panel panel-default"></div>
-              </div>
 
-              <div id="data-holder-multiple" class="panel panel-default">
-                <ul class="nav nav-tabs">
-                  <li class="active"><a data-toggle="tab" href="#report1" data-target="#report1">PM #1</a></li>
-                  <li><a data-toggle="tab" href="#report2" data-target="#report2">PM #2</a></li>
-                  <li><a data-toggle="tab" href="#report3" data-target="#report3">PM #3</a></li>
-                </ul>
-
-                <div class="tab-content" >
-                  <div id="report1" class="tab-pane fade in active">
-                      <h3 id="report1_text" class="text-center">Report for PM 1</h3><br>
-                      <div id="pm_description_mul_1" class="container panel panel-default"></div>
-                      <div id="pm_data_mul_1" class="container panel panel-default"></div>
-                  </div>
-                  <div id="report2" class="tab-pane fade">
-                      <h3 id="report2_text" class="text-center">Report for PM 2</h3><br>
-                      <div id="pm_description_mul_2" class="container panel panel-default"></div>
-                      <div id="pm_data_mul_2" class="container panel panel-default"></div>
-                  </div>
-                  <div id="report3" class="tab-pane fade">
-                      <h3 id="report3_text" class="text-center">Report for PM 3</h3><br>
-                      <div id="pm_description_mul_3" class="container panel panel-default"></div>
-                      <div id="pm_data_mul_3" class="container panel panel-default"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
