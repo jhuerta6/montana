@@ -92,16 +92,21 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 <!--<div id="label_container" class="input-group">
                   <span data-toggle="tooltip" data-placement="top" title="Number of representations for the data" class="input-group-addon" id="basic-addon3"># labels</span>
                   <input type="number" class="form-control" value="1" min="1"placeholder="...labels" id="labels" aria-describedby="basic-addon3">
-                </div>--><br>
-
-                <div class="input-group">
+                </div>-->
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                  <label class="form-check-label" for="defaultCheck1">
+                    Display sections
+                  </label>
+                </div>
+                <!--<div class="input-group">
                   <span class="input-group-addon">Sections</span>
                   <select type="text" class="form-control" placeholder="Performance Measure" aria-describedby="add_on" id="sections">
                     <option value="" disable selected>Display Sections</option>
                     <option value="on">On</option>
                     <option value="off">Off</option>
                   </select>
-                </div><br>
+                </div><br>-->
 
                 <div id="default_multiple">
                   <div class="input-group">
@@ -194,7 +199,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 </div>
               </div>
 
-              <div id="legend_multi_panel" class="panel panel-default" style="visibility: hidden;">
+              <div id="legend_multi_panel" class="panel panel-default" style="visibility: visible;">
                 <h3 class="text-center">Legend</h3><br>
                 <ul class="nav nav-tabs">
                   <li class="active"><a data-toggle="tab" href="#legend_multi_1" data-target="#legend_multi_1">#1</a></li>
@@ -205,15 +210,15 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 <div class="tab-content" >
                   <div id="legend_multi_1" class="tab-pane fade in active"><br>
                     <!--<h3 id="legend_multi_text_1" class="text-center">Legend para PM 1 multi</h3><br>-->
-                    <div id="legend" class="container panel panel-default"></div>
+                    <div id="legend_content_multi_1" class="container panel panel-default">Please select a PM</div>
                   </div>
                   <div id="legend_multi_2" class="tab-pane fade"><br>
                     <!--<h3 id="legend_multi_text_2" class="text-center">Legend para PM 2 multi</h3><br>-->
-                    <div id="legend" class="container panel panel-default"></div>
+                    <div id="legend_content_multi_2" class="container panel panel-default">Please select a PM</div>
                   </div>
                   <div id="legend_multi_3" class="tab-pane fade"><br>
                     <!--<h3 id="legend_multi_text_3" class="text-center">Legend para PM 3 multi</h3><br>-->
-                    <div id="legend" class="container panel panel-default"></div>
+                    <div id="legend_content_multi_3" class="container panel panel-default">Please select a PM</div>
                   </div>
                   <div id="sections_multi" class="tab-pane fade"><br>
                     <!--<h3 id="sections_multi_text" class="text-center">Legend para Sections multi</h3><br>-->
@@ -562,6 +567,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     $("#data-holder-multiple").hide();
     $("#label_container").hide();
     $("#legend_panel").hide();
+    $("#legend_multi_panel").hide();
     for (var i = 0; i < blocks.elements.length; i++) {
       var blck = blocks.elements[i];
       var elem_blck = document.createElement("option");
@@ -572,6 +578,97 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       select_blocks.appendChild(elem_blck);
     }
 
+    $("#defaultCheck1").change(function(){
+      $('#legend_section').find('*').not('h3').remove();
+      $('#legend_section_multi').find('*').not('h3').remove();
+
+      if(this.checked == true && onMultiple == false){
+        $('#legend_panel').show();
+      }
+      else if(this.checked == true && onMultiple == true){
+        $("#legend_multi_panel").show();
+      }
+      $("#legend_section").text("");
+      $("#legend_section_multi").text("");
+
+      var squareboxes = ["<img src='img/section1.png' height='10px'/>",
+      "<img src='img/section2.png' height='10px'/>",
+      "<img src='img/section3.png' height='10px'/>",
+      "<img src='img/section4.png' height='10px'/>",
+      "<img src='img/section5.png' height='10px'/>",
+      "<img src='img/section6.png' height='10px'/>",
+      "<img src='img/section7.png' height='10px'/>"];
+
+      for(var i = 0; i < squareboxes.length; i++){
+        var div = document.createElement('div');
+        div.innerHTML = squareboxes[i] +" Section " + (i+1);
+        var nl = document.createElement('div');
+        nl = document.getElementById('legend_section');
+        nl.appendChild(div);
+        var div = document.createElement('div');
+        div.innerHTML = squareboxes[i] +" Section " + (i+1);
+        var newLegend_multi = document.createElement('div');
+        newLegend_multi = document.getElementById('legend_section_multi');
+        newLegend_multi.appendChild(div);
+      }
+
+      if(this.checked == true){ //sections
+        if(pm_mpo.pm != null){
+          var previous = pm_mpo.pm;
+        }
+        pm_mpo.pm = "sections";
+        pm_mpo.getMode = "polygons";
+        if(pm_mpo.runAOI == true && typeof rec != 'undefined' && rec.type == 'rectangle'){
+          var getparams = app.payload;
+          var bounds = rec.getBounds();
+          getparams.NE = bounds.getNorthEast().toJSON();
+          getparams.SW = bounds.getSouthWest().toJSON();
+          pm_mpo.NE = getparams.NE;
+          pm_mpo.SW = getparams.SW;
+        }
+        else{
+          var getparams = app.payload;
+          var bounds = app.map.getBounds();
+          getparams.NE = bounds.getNorthEast().toJSON(); //north east corner
+          getparams.SW = bounds.getSouthWest().toJSON(); //south-west corner
+          pm_mpo.NE = getparams.NE;
+          pm_mpo.SW = getparams.SW;
+        }
+        $.get('mpo_handler.php', pm_mpo, function(data){
+          var colorArr = ['#bebebe','#959595','#6b6b6b','#555555','#303030','#131313','#000000'];
+          for(key in data.coords){
+            var polyCoordis = [];
+            temp = wktFormatter(data.coords[key]['POLYGON']);
+            for (var i = 0; i < temp.length; i++) {
+              polyCoordis.push(temp[i]);
+            }
+            var color;
+            var polygon = new google.maps.Polygon({
+              description: pm_mpo.name_pm,
+              description_value: data.coords[key]['value'],
+              paths: polyCoordis,
+              strokeColor: "black",
+              strokeOpacity: 0.60,
+              strokeWeight: 0.70,
+              fillColor: colorArr[data.coords[key]['value']-1],
+              fillOpacity: 0.80, //0.60
+              zIndex: 9
+            });
+            polygon.setOptions({ zIndex: -1 });
+            polygon.addListener('click', polyInfo_tti);
+            app.sections.push(polygon);
+            polygon.setMap(app.map);
+          }
+        });
+        if(pm_mpo.pm != null){
+          pm_mpo.pm = previous;
+        }
+      }else{ //no section
+        removeSections();
+      }
+
+    });
+
     $("#sections").change(function(){
       $('#legend_section').find('*').not('h3').remove();
       $('#legend_section_multi').find('*').not('h3').remove();
@@ -579,11 +676,11 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         $('#legend_panel').show();
       }
       else if(this.value == "on" && onMultiple == true){
-        console.log("multi paneal appears");
+        //console.log("multi paneal appears");
+        $("#legend_multi_panel").show();
       }
       $("#legend_section").text("");
       $("#legend_section_multi").text("");
-      //$("#sections_multi").text("");
 
       var squareboxes = ["<img src='img/section1.png' height='10px'/>",
       "<img src='img/section2.png' height='10px'/>",
@@ -670,8 +767,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       var select_pm = document.getElementById("select_pm");
       select_pm.appendChild(disabled);
       if(this.value == "z"){ //aqui vamos colorear uno por uno, uno sobre otro, quitar modes y quitar legend en un nuevo mpo_multiple();
-        //console.log("you selected multiple");
-
         if(pm_mpo.pm1 != null || pm_mpo.pm2 != null || pm_mpo.pm3 != null ){
           $("#data-holder-multiple").show();
         }
@@ -708,10 +803,12 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       else{
         onMultiple = false;
         $("#mpo_draw").show();
+        $("#legend").text("Select a PM");
         $("#mpo_draw_multiple").hide();
         $("#main_pm").show();
         $("#default_multiple").hide();
         $("#data-holder-multiple").hide();
+        $("#legend_multi_panel").hide();
 
         clearCharts();
         removePolygons();
@@ -1032,6 +1129,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   }
 
   function mpo_multi(){
+    removePolygons();
+    $("#legend_multi_panel").show("slow");
     var available = {ispm1:0, ispm2:0, ispm3:0, count:0};
     for (var i = 1; i <= 3; i++) {
       if(pm_mpo["pm"+i] != null){
@@ -3088,8 +3187,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     app.infoWindow.close();
     app.payload.runAOI = false;
     //document.getElementById('legend').style.visibility = "hidden";
-    $('#legend').find('*').not('h3').remove();
+    $('#legend').find('*').not('h3').remove(); //eventualmente tambien aplicara para legend content multi n
     $("#legend_panel").hide();
+    $("#legend_multi_panel").hide();
     $('#description').find('*').not('h3').remove();
   }
   function removeSections(){
