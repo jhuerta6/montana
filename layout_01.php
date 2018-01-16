@@ -1171,13 +1171,15 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           var c = data["coords"+(z+1)].length;
           var points = [];
           //gris, verde, rojo -- testing colors
-          shapecolor = ["#84857B", "#13FF00",  "#FF0000", "#009BFF", "#EBF20D", "#fe9253", "#8C0909", "#0051FF", "#AB77FF", "#EBF20D", "#8C0909", "#07FDCA", "#008C35", "FFDBA5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
+          shapecolor = ["#84857B", "#13FF00", "#FF0000", "#009BFF", "#EBF20D", "#fe9253", "#8C0909", "#0051FF", "#AB77FF", "#EBF20D", "#8C0909", "#07FDCA", "#008C35", "FFDBA5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
           shapeoutline = ["#000000", "#0b9b00", "#c10000", "#007fd1", "#aaaf0a", "#d18f0a", "#8c0909", "#0037ad", "#873dff", "#aaaf0a", "8c0909", "36c9bd", "#008c35", "#ffdba5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
           colorSelector = 0;
           newzIndex = 0;
           legendText = "";
           maximum = -1;
+          var all_values = [];
           for(var i = 0; i < c; i++){
+            all_values.push(parseFloat(data["coords"+(z+1)][i]['value']));
             if(maximum < parseFloat(data["coords"+(z+1)][i]['value'])){
               maximum = data["coords"+(z+1)][i]['value'];
             }
@@ -1185,21 +1187,35 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           if(maximum == -1){
             maximum = 1;
           }
+          espacios = [];
+          espacios = getStandardDev(all_values);
+          if(espacios[espacios.length-1] < maximum){
+            espacios.push(parseFloat(maximum));
+          }
+          //console.log(espacios); /** TESTING **/
+          if(maximum == -1){
+            maximum = 1;
+          }
+          $("#legend_content_multi_"+(z+1)).text("");
+          $("#legend_content_multi__"+(z+1)).find('*').not('h3').remove();
           var div = document.createElement('div');
-          div.innerHTML = "<strong> Legend </strong>";
+          div.innerHTML = "<strong>"+pm_mpo["pm"+(z+1)]+"</strong>";
+          //console.log(pm_mpo.pm1);
           div.className = "center-text";
           var l = document.createElement('div');
-          l = document.getElementById('legend');
+          l = document.getElementById('legend_content_multi_'+(z+1));
           l.appendChild(div);
+
           var num_labels = 0;
-          if(pm_mpo.pm == "b_workers" || pm_mpo.pm == "freqtran" || pm_mpo.pm == "tti" || pm_mpo.pm == "b_carfrhh" || pm_mpo.pm == "B_TpDisadv" || pm_mpo.pm == "b_jobphh" || pm_mpo.pm == "coemisions" || pm_mpo.pm == "emar"){
+          //if(pm_mpo.pm == "b_workers" || pm_mpo.pm == "freqtran" || pm_mpo.pm == "tti" || pm_mpo.pm == "b_carfrhh" || pm_mpo.pm == "B_TpDisadv" || pm_mpo.pm == "b_jobphh" || pm_mpo.pm == "coemisions" || pm_mpo.pm == "emar"){
             maximum = parseFloat(maximum);
             maximum = maximum + 0.1;
-            num_labels = spawn(maximum);
-          }
+            num_labels = spawn_multi(espacios, (z+1));
+          //}
+          //console.log(num_labels);
+          //console.log(espacios);
           var up_to_one = 0;
-          //console.log(z);
-          //console.log(data["coords"+(z+1)]);
+
           for(key in data["coords"+(z+1)]){
             var polyCoordis = [];
             var valor_actual = parseFloat(data["coords"+(z+1)][key]['value']);
@@ -3194,7 +3210,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     app.infoWindow.close();
     app.payload.runAOI = false;
     //document.getElementById('legend').style.visibility = "hidden";
-    $('#legend').find('*').not('h3').remove(); //eventualmente tambien aplicara para legend content multi n
+    $('#legend, #legend_content_multi_1, #legend_content_multi_2, #legend_content_multi_3').find('*').not('h3').remove(); //eventualmente tambien aplicara para legend content multi n
     $("#legend_panel").hide();
     $("#legend_multi_panel").hide();
     $('#description').find('*').not('h3').remove();
@@ -3367,7 +3383,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     "<img src='img/neonpurplesquare.png' height='10px'/>",
     "<img src='img/graysquare.png' height='10px'/>"];
     $('#legendSpawner').find('*').not('h3').remove();
-
     for(var i = 0; i < value.length-1; i++){
       var div = document.createElement('div');
       div.innerHTML = squareboxes[i] + " " +
@@ -3379,6 +3394,40 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     }
     $("#legend_panel").css("visibility", "visible"); //why
     return value;
+  }
+
+  function spawn_multi(values, pos){
+    //console.log(values);
+    //console.log(pos);
+    var squareboxes = ["<img src='img/brightgreensquare.png' height='10px'/>",
+    "<img src='img/skybluesquare.png' height='10px'/>",
+    "<img src='img/yellowsquare.png' height='10px'/>",
+    "<img src='img/orangesquare.png' height='10px'/>",
+    "<img src='img/redsquare.png' height='10px'/>",
+    "<img src='img/maroonsquare.png' height='10px'/>",
+    "<img src='img/lilacsquare.png' height='10px'/>",
+    "<img src='img/yellowsquare.png' height='10px'/>",
+    "<img src='img/maroonsquare.png' height='10px'/>",
+    "<img src='img/cyansquare.png' height='10px'/>",
+    "<img src='img/navygreensquare.png' height='10px'/>",
+    "<img src='img/peachsquare.png' height='10px'/>",
+    "<img src='img/fleshsquare.png' height='10px'/>",
+    "<img src='img/brownsquare.png' height='10px'/>",
+    "<img src='img/neongreensquare.png' height='10px'/>",
+    "<img src='img/neonpurplesquare.png' height='10px'/>",
+    "<img src='img/graysquare.png' height='10px'/>"];
+    $('#legendSpawner').find('*').not('h3').remove();
+    for(var i = 0; i < values.length-1; i++){
+      var div = document.createElement('div');
+      div.innerHTML = squareboxes[i] + " " +
+      + parseFloat(values[i]).toFixed(2) + ' to ' + parseFloat(values[i+1]).toFixed(2);
+      var newLegend = document.createElement('div');
+      newLegend = document.getElementById('legend_content_multi_'+pos);
+      //document.getElementById('legend').style.visibility = "visible";
+      newLegend.appendChild(div);
+    }
+    $("#legend_multi_panel").css("visibility", "visible");
+    return values;
   }
   // ***********
   </script>
