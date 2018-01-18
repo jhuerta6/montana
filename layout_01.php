@@ -154,13 +154,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                     </select>
                   </div><br>
                   <div class="input-group">
-                    <span class="input-group-addon" id="add_on_multiple_2">PM</span>
+                    <span class="input-group-addon" id="add_on_multiple_2">PM 2</span>
                     <select type="text" class="form-control" placeholder="Performance Measure" aria-describedby="add_on" id="select_pm_multiple_2">
                       <option value="" disabled selected>Select a Performance Measure</option>
                     </select>
                   </div><br>
                   <div class="input-group">
-                    <span class="input-group-addon" id="add_on_multiple_3">PM</span>
+                    <span class="input-group-addon" id="add_on_multiple_3">PM 3</span>
                     <select type="text" class="form-control" placeholder="Performance Measure" aria-describedby="add_on" id="select_pm_multiple_3">
                       <option value="" disabled selected>Select a Performance Measure</option>
                     </select>
