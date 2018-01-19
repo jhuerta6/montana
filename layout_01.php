@@ -147,11 +147,19 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 </div><br>-->
 
                 <div id="default_multiple">
+                  <!--<div class="checkbox disabled">
+                    <label><input type="checkbox" value="" disabled>Option 3</label>
+                  </div> -->
                   <div class="input-group">
-                    <span class="input-group-addon" id="add_on_multiple_1">PM</span>
+
+                    <span class="input-group-addon" id="add_on_multiple_1">
+                      <input class="form-check-input" type="checkbox" value="" id="check_multi_1" disabled>
+                      PM</span>
                     <select type="text" class="form-control" placeholder="Performance Measure" aria-describedby="add_on" id="select_pm_multiple_1">
                       <option value="" disabled selected>Select a Performance Measure</option>
                     </select>
+
+
                   </div><br>
                   <div class="input-group">
                     <span class="input-group-addon" id="add_on_multiple_2">PM 2</span>
@@ -292,7 +300,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   <script src="https://cdn.rawgit.com/bjornharrtell/jsts/gh-pages/1.4.0/jsts.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.8.1/css/bootstrap-slider.css" />
   <script>
-  var app = {map:null, sections:[], polygons:[], label:"no filter", payload:{getMode:"polygons", runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, property:null, district:null, depth:0, from_depth:0, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0}};
+  var app = {map:null, sections:[], polygons:[], polygons2:[], polygons3:[], label:"no filter", payload:{getMode:"polygons", runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, property:null, district:null, depth:0, from_depth:0, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0}};
   var pm_mpo = {pm1:null, pm2:null, pm3:null,name_pm:null, pm:null, NE:null, SW:null, label:"no filter", getMode:"polygons", to_draw:null, draw_charts: false, runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0};
   var multi = {pm1:null, pm2:null, pm3:null};
   var hecho = false;
@@ -563,10 +571,39 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       pms:[]
     }
   };
-
+  var temp_poly_1 = [];
+  var temp_map_1;
   var onMultiple = false;
 
   $(document).ready(function(){
+
+    $("#check_multi_1").click(function(){ //HAVE TO GENERALIZE for all 3 SELECTORS
+      console.log(app.polygons);
+      //console.log(this.id);
+      //console.log(app.map);
+      if(this.checked){ //APPEAR IF DRAW HAS occurred
+        //console.log("polygons pm 1 appear");
+        if(this.id == "check_multi_1"){
+          runMPOMulti();
+          //app.polygons = temp_poly_1;
+        }
+
+      }
+      else{
+      //  console.log("polygons pm 1 disappear");
+
+        if(this.id == "check_multi_1"){
+          temp_poly_1 = app.polygons;
+          for(var i = 0; i < app.polygons.length; i++){
+            app.polygons[i].setMap(null);
+          }
+          app.polygons = [];
+        }
+
+      }
+      //$("#check_multi_1").prop("disabled", true);
+    });
+
     $("#add_on_multiple_2,#select_pm_multiple_2").hide();
     $("#add_on_multiple_3,#select_pm_multiple_3").hide();
     $("#data-holder").hide();
@@ -858,6 +895,12 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       $("#data-holder-multiple").show();
       if(this.id == "select_pm_multiple_1"){
         $("#pm_description_mul_1, #pm_data_mul_1").empty();
+
+        console.log("disabled: " + $("#check_multi_1").prop('disabled'));
+        console.log("checked: " + $("#check_multi_1").prop('checked')); //poder seleccionar o desaparecer pm's por pm's
+        $("#check_multi_1").removeProp("disabled");
+        $("#check_multi_1").prop("checked", true);
+
         $("#report1_text").text(this.value);
         var pm_content = document.getElementById("pm_description_mul_1");
         var pm_data = document.getElementById("pm_data_mul_1");
@@ -918,6 +961,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       $("#pm_description,#pm_data").empty();
       $("#label_container").hide();
       $("#disabled").prop("disabled", "true");
+
       if(this.value == "D-3-1) Truck Travel Time"){
         drawChartTTI();
         $("#label_container").show();
@@ -1262,7 +1306,16 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               });
               point.setOptions({ zIndex: 2 });
               point.addListener('click', pointInfo);
-              app.polygons.push(point);
+              if(z == 0){
+                app.polygons.push(point);
+              }
+              else if(z == 1){
+                app.polygons2.push(point);
+              }
+              else{
+                app.polygons3.push(point);
+              }
+
               point.setMap(app.map);
             }
             else if(pm_mpo["pm"+(z+1)] == "a22_new"){ //points
