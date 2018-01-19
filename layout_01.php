@@ -151,24 +151,25 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                     <label><input type="checkbox" value="" disabled>Option 3</label>
                   </div> -->
                   <div class="input-group">
-
                     <span class="input-group-addon" id="add_on_multiple_1">
                       <input class="form-check-input" type="checkbox" value="" id="check_multi_1" disabled>
                       PM</span>
                     <select type="text" class="form-control" placeholder="Performance Measure" aria-describedby="add_on" id="select_pm_multiple_1">
                       <option value="" disabled selected>Select a Performance Measure</option>
                     </select>
-
-
                   </div><br>
                   <div class="input-group">
-                    <span class="input-group-addon" id="add_on_multiple_2">PM 2</span>
+                    <span class="input-group-addon" id="add_on_multiple_2">
+                      <input class="form-check-input" type="checkbox" value="" id="check_multi_2" disabled>
+                      PM 2</span>
                     <select type="text" class="form-control" placeholder="Performance Measure" aria-describedby="add_on" id="select_pm_multiple_2">
                       <option value="" disabled selected>Select a Performance Measure</option>
                     </select>
                   </div><br>
                   <div class="input-group">
-                    <span class="input-group-addon" id="add_on_multiple_3">PM 3</span>
+                    <span class="input-group-addon" id="add_on_multiple_3">
+                      <input class="form-check-input" type="checkbox" value="" id="check_multi_3" disabled>
+                      PM 3</span>
                     <select type="text" class="form-control" placeholder="Performance Measure" aria-describedby="add_on" id="select_pm_multiple_3">
                       <option value="" disabled selected>Select a Performance Measure</option>
                     </select>
@@ -577,32 +578,54 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
   $(document).ready(function(){
 
-    $("#check_multi_1").click(function(){ //HAVE TO GENERALIZE for all 3 SELECTORS
-      console.log(app.polygons);
-      //console.log(this.id);
-      //console.log(app.map);
-      if(this.checked){ //APPEAR IF DRAW HAS occurred
-        //console.log("polygons pm 1 appear");
-        if(this.id == "check_multi_1"){
+    $("#check_multi_2").click(function(){ //HAVE TO GENERALIZE for all 3 SELECTORS
+      if(this.checked){
+        if(this.id == "check_multi_2"){
           runMPOMulti();
-          //app.polygons = temp_poly_1;
         }
-
       }
       else{
-      //  console.log("polygons pm 1 disappear");
-
-        if(this.id == "check_multi_1"){
+        if(this.id == "check_multi_2"){
           temp_poly_1 = app.polygons;
-          for(var i = 0; i < app.polygons.length; i++){
-            app.polygons[i].setMap(null);
+          for(var i = 0; i < app.polygons2.length; i++){
+            app.polygons2[i].setMap(null);
           }
-          app.polygons = [];
+          app.polygons2 = [];
         }
-
       }
-      //$("#check_multi_1").prop("disabled", true);
     });
+
+    /*$("#check_multi_2").click(function(){ //HAVE TO GENERALIZE for all 3 SELECTORS
+      if(this.checked){
+        if(this.id == "check_multi_2"){
+          runMPOMulti();
+        }
+      }
+      else{
+        if(this.id == "check_multi_2"){
+          for(var i = 0; i < app.polygons2.length; i++){
+            app.polygons2[i].setMap(null);
+          }
+          app.polygons2 = [];
+        }
+      }
+    });
+
+    $("#check_multi_3").click(function(){ //HAVE TO GENERALIZE for all 3 SELECTORS
+      if(this.checked){
+        if(this.id == "check_multi_3"){
+          runMPOMulti();
+        }
+      }
+      else{
+        if(this.id == "check_multi_3"){
+          for(var i = 0; i < app.polygons3.length; i++){
+            app.polygons3[i].setMap(null);
+          }
+          app.polygons3 = [];
+        }
+      }
+    });*/
 
     $("#add_on_multiple_2,#select_pm_multiple_2").hide();
     $("#add_on_multiple_3,#select_pm_multiple_3").hide();
@@ -895,23 +918,23 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       $("#data-holder-multiple").show();
       if(this.id == "select_pm_multiple_1"){
         $("#pm_description_mul_1, #pm_data_mul_1").empty();
-
-        console.log("disabled: " + $("#check_multi_1").prop('disabled'));
-        console.log("checked: " + $("#check_multi_1").prop('checked')); //poder seleccionar o desaparecer pm's por pm's
         $("#check_multi_1").removeProp("disabled");
         $("#check_multi_1").prop("checked", true);
-
         $("#report1_text").text(this.value);
         var pm_content = document.getElementById("pm_description_mul_1");
         var pm_data = document.getElementById("pm_data_mul_1");
       }else if(this.id == "select_pm_multiple_2"){
         $("#pm_description_mul_2, #pm_data_mul_2").empty();
         $("#report2_text").text(this.value);
+        $("#check_multi_2").removeProp("disabled");
+        $("#check_multi_2").prop("checked", true);
         var pm_content = document.getElementById("pm_description_mul_2");
         var pm_data = document.getElementById("pm_data_mul_2");
       }else{
         $("#pm_description_mul_3, #pm_data_mul_3").empty();
         $("#report3_text").text(this.value);
+        $("#check_multi_3").removeProp("disabled");
+        $("#check_multi_3").prop("checked", true);
         var pm_content = document.getElementById("pm_description_mul_3");
         var pm_data = document.getElementById("pm_data_mul_3");
       }
@@ -2055,7 +2078,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       $("#legend").text("");
       $('#legend').find('*').not('h3').remove();
       var div = document.createElement('div');
-      div.innerHTML = "<strong>"+pm_mpo.name_pm+"</strong>";
+      //div.innerHTML = "<strong>"+pm_mpo.name_pm+"</strong>";
       div.className = "center-text";
       var l = document.createElement('div');
       l = document.getElementById('legend');
