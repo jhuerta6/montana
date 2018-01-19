@@ -578,24 +578,24 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
   $(document).ready(function(){
 
-    $("#check_multi_2").click(function(){ //HAVE TO GENERALIZE for all 3 SELECTORS
+    $("#check_multi_1").click(function(){ //HAVE TO GENERALIZE for all 3 SELECTORS
       if(this.checked){
-        if(this.id == "check_multi_2"){
+        if(this.id == "check_multi_1"){
           runMPOMulti();
         }
       }
       else{
-        if(this.id == "check_multi_2"){
+        if(this.id == "check_multi_1"){
           temp_poly_1 = app.polygons;
-          for(var i = 0; i < app.polygons2.length; i++){
-            app.polygons2[i].setMap(null);
+          for(var i = 0; i < app.polygons.length; i++){
+            app.polygons[i].setMap(null);
           }
-          app.polygons2 = [];
+          app.polygons = [];
         }
       }
     });
 
-    /*$("#check_multi_2").click(function(){ //HAVE TO GENERALIZE for all 3 SELECTORS
+    $("#check_multi_2").click(function(){ //HAVE TO GENERALIZE for all 3 SELECTORS
       if(this.checked){
         if(this.id == "check_multi_2"){
           runMPOMulti();
@@ -625,7 +625,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           app.polygons3 = [];
         }
       }
-    });*/
+    });
 
     $("#add_on_multiple_2,#select_pm_multiple_2").hide();
     $("#add_on_multiple_3,#select_pm_multiple_3").hide();
@@ -1329,6 +1329,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               });
               point.setOptions({ zIndex: 2 });
               point.addListener('click', pointInfo);
+
               if(z == 0){
                 app.polygons.push(point);
               }
@@ -1367,7 +1368,15 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               });
               point.setOptions({ zIndex: 2 });
               point.addListener('click', pointInfo); //have to add PointInfo
-              app.polygons.push(point);
+              if(z == 0){
+                app.polygons.push(point);
+              }
+              else if(z == 1){
+                app.polygons2.push(point);
+              }
+              else{
+                app.polygons3.push(point);
+              }
               point.setMap(app.map);
             }
             else if(pm_mpo["pm"+(z+1)] == "crashes"){
@@ -1404,7 +1413,15 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               });
               point.setOptions({ zIndex: 2 });
               point.addListener('click', pointCrashInfo);
-              app.polygons.push(point);
+              if(z == 0){
+                app.polygons.push(point);
+              }
+              else if(z == 1){
+                app.polygons2.push(point);
+              }
+              else{
+                app.polygons3.push(point);
+              }
               point.setMap(app.map);
             }
             else if(pm_mpo["pm"+(z+1)] == "non-moto"){
@@ -1441,7 +1458,15 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               });
               point.setOptions({ zIndex: 2 });
               point.addListener('click', pointCrashNonInfo);
-              app.polygons.push(point);
+              if(z == 0){
+                app.polygons.push(point);
+              }
+              else if(z == 1){
+                app.polygons2.push(point);
+              }
+              else{
+                app.polygons3.push(point);
+              }
               point.setMap(app.map);
             }
             else if(pm_mpo["pm"+(z+1)] == "stop_bike"){
@@ -1504,10 +1529,19 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   strokeWeight: 4,
                   zIndex: 1
                 });
+
                 line.setMap(app.map);
                 line.setOptions({ zIndex: 1 });
                 line.addListener('click', lineInfo_pavement);
-                app.polygons.push(line);
+                if(z == 0){
+                  app.polygons.push(line);
+                }
+                else if(z == 1){
+                  app.polygons2.push(line);
+                }
+                else{
+                  app.polygons3.push(line);
+                }
               }
             }
             else if (pm_mpo["pm"+(z+1)] == "freqtran") {
@@ -1554,7 +1588,15 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 line.setMap(app.map);
                 line.setOptions({ zIndex: 1 });
                 //line.addListener('click', lineInfo_pavement);
-                app.polygons.push(line);
+                if(z == 0){
+                  app.polygons.push(line);
+                }
+                else if(z == 1){
+                  app.polygons2.push(line);
+                }
+                else{
+                  app.polygons3.push(line);
+                }
               }
             }
 
@@ -1624,7 +1666,15 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 });
                 polygon.setOptions({ zIndex: -1 });
                 polygon.addListener('click', polyInfo);
-                app.polygons.push(polygon);
+                if(z == 0){
+                  app.polygons.push(polygon);
+                }
+                else if(z == 1){
+                  app.polygons2.push(polygon);
+                }
+                else{
+                  app.polygons3.push(polygon);
+                }
                 polygon.setMap(app.map);
               }
               else{
@@ -1646,13 +1696,20 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 });
                 polygon.setOptions({ zIndex: -1 });
                 polygon.addListener('click', polyInfo);
-                app.polygons.push(polygon);
+                if(z == 0){
+                  app.polygons.push(polygon);
+                }
+                else if(z == 1){
+                  app.polygons2.push(polygon);
+                }
+                else{
+                  app.polygons3.push(polygon);
+                }
                 polygon.setMap(app.map);
               }
 
               var proceed = true;
               var color = '#00FF00';
-
               if(proceed){
                 var line = new google.maps.Polyline({
                   path: to_color,
@@ -1666,7 +1723,15 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 line.setMap(app.map);
                 line.setOptions({ zIndex: 1 });
                 //line.addListener('click', lineInfo_pavement);
-                app.polygons.push(line);
+                if(z == 0){
+                  app.polygons.push(line);
+                }
+                else if(z == 1){
+                  app.polygons2.push(line);
+                }
+                else{
+                  app.polygons3.push(line);
+                }
 
                 var propline = new google.maps.Polyline({
                   //path: to_color_proposed,
@@ -1681,7 +1746,16 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 //}
                 propline.setOptions({ zIndex: 1 });
                 //propline.addListener('click', lineInfo_pavement);
-                app.polygons.push(propline);
+
+                if(z == 0){
+                  app.polygons.push(propline);
+                }
+                else if(z == 1){
+                  app.polygons2.push(propline);
+                }
+                else{
+                  app.polygons3.push(propline);
+                }
               }
             }
 
@@ -1735,7 +1809,15 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 line.setMap(app.map);
                 line.setOptions({ zIndex: 1 });
                 //line.addListener('click', lineInfo_pavement);
-                app.polygons.push(line);
+                if(z == 0){
+                  app.polygons.push(line);
+                }
+                else if(z == 1){
+                  app.polygons2.push(line);
+                }
+                else{
+                  app.polygons3.push(line);
+                }
               }
             }
 
@@ -1772,7 +1854,15 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               });
               point.setOptions({ zIndex: 2 });
               //point.addListener('click', pointInfo);
-              app.polygons.push(point);
+              if(z == 0){
+                app.polygons.push(point);
+              }
+              else if(z == 1){
+                app.polygons2.push(point);
+              }
+              else{
+                app.polygons3.push(point);
+              }
               point.setMap(app.map);
 
               var reader = new jsts.io.WKTReader();
@@ -1809,7 +1899,15 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 line.setMap(app.map);
                 line.setOptions({ zIndex: 1 });
                 //line.addListener('click', lineInfo_pavement);
-                app.polygons.push(line);
+                if(z == 0){
+                  app.polygons.push(line);
+                }
+                else if(z == 1){
+                  app.polygons2.push(line);
+                }
+                else{
+                  app.polygons3.push(line);
+                }
               }
             }
 
@@ -1883,7 +1981,15 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 line.setMap(app.map);
                 line.setOptions({ zIndex: 1 });
                 line.addListener('click', lineInfo_parkride);
-                app.polygons.push(line);
+                if(z == 0){
+                  app.polygons.push(line);
+                }
+                else if(z == 1){
+                  app.polygons2.push(line);
+                }
+                else{
+                  app.polygons3.push(line);
+                }
               }
             }
             else if(pm_mpo["pm"+(z+1)] == "coemisions" || pm_mpo["pm"+(z+1)] == "emar" ){
@@ -1904,7 +2010,15 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               });
               polygon.setOptions({ zIndex: -1 });
               polygon.addListener('click', polyInfo);
-              app.polygons.push(polygon);
+              if(z == 0){
+                app.polygons.push(polygon);
+              }
+              else if(z == 1){
+                app.polygons2.push(polygon);
+              }
+              else{
+                app.polygons3.push(polygon);
+              }
               polygon.setMap(app.map);
             }
             else if(pm_mpo["pm"+(z+1)] == "tti"){
@@ -1925,7 +2039,15 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               });
               polygon.setOptions({ zIndex: -1 });
               polygon.addListener('click', polyInfo_tti);
-              app.polygons.push(polygon);
+              if(z == 0){
+                app.polygons.push(polygon);
+              }
+              else if(z == 1){
+                app.polygons2.push(polygon);
+              }
+              else{
+                app.polygons3.push(polygon);
+              }
               polygon.setMap(app.map);
             }
             else if (pm_mpo["pm"+(z+1)] == "a11"){
@@ -1947,7 +2069,15 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               });
               polygon.setOptions({ zIndex: -1 });
               polygon.addListener('click', polyInfo);
-              app.polygons.push(polygon);
+              if(z == 0){
+                app.polygons.push(polygon);
+              }
+              else if(z == 1){
+                app.polygons2.push(polygon);
+              }
+              else{
+                app.polygons3.push(polygon);
+              }
               polygon.setMap(app.map);
             }
             else{
@@ -1970,7 +2100,16 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               });
               polygon.setOptions({ zIndex: -1 });
               polygon.addListener('click', polyInfo);
-              app.polygons.push(polygon);
+
+              if(z == 0){
+                app.polygons.push(polygon);
+              }
+              else if(z == 1){
+                app.polygons2.push(polygon);
+              }
+              else{
+                app.polygons3.push(polygon);
+              }
               polygon.setMap(app.map);
             }
           }
@@ -3282,7 +3421,22 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         app.polygons[i].setMap(null);
       }
     }
+
+    if(app.polygons2){
+      for(var i = 0; i < app.polygons2.length; i++){
+        app.polygons2[i].setMap(null);
+      }
+    }
+
+    if(app.polygons3){
+      for(var i = 0; i < app.polygons3.length; i++){
+        app.polygons3[i].setMap(null);
+      }
+    }
+
     app.polygons = [];
+    app.polygons2 = [];
+    app.polygons3 = [];
     app.infoWindow.close();
     app.payload.runAOI = false;
     //document.getElementById('legend').style.visibility = "hidden";
