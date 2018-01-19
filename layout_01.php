@@ -581,6 +581,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       if(this.checked){
         if(this.id == "check_multi_1"){
           runMPOMulti();
+          $("#check_multi_2").prop("checked", true);
+          $("#check_multi_3").prop("checked", true);
         }
       }
       else{
@@ -598,6 +600,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       if(this.checked){
         if(this.id == "check_multi_2"){
           runMPOMulti();
+          $("#check_multi_3").prop("checked", true);
+          $("#check_multi_1").prop("checked", true);
         }
       }
       else{
@@ -614,6 +618,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       if(this.checked){
         if(this.id == "check_multi_3"){
           runMPOMulti();
+          $("#check_multi_2").prop("checked", true);
+          $("#check_multi_1").prop("checked", true);
         }
       }
       else{
@@ -1212,6 +1218,32 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     }
 
     pm_mpo.getMode = "polygons";
+    /*
+    if($("#check_multi_1").prop("checked")){console.log("checkbox 1 is checked");}else{console.log("checkbox 1 is unchecked");}
+    if($("#check_multi_2").prop("checked")){console.log("checkbox 2 is checked");}else{console.log("checkbox 2 is unchecked");}
+    if($("#check_multi_3").prop("checked")){console.log("checkbox 3 is checked");}else{console.log("checkbox 3 is unchecked");}
+
+    for (var z = 0; z < available.count; z++) {
+      if($("#check_multi_1").prop("checked") && z == 0){
+        console.log("skipping 1");
+        z++;
+      }else{
+        console.log("not skipping 1");
+      }
+      if($("#check_multi_2").prop("checked")&& z == 1){
+        console.log("skipping 2");
+        z++;
+       }else{
+         console.log("not skipping 2");
+        }
+      if($("#check_multi_3").prop("checked") && z == 2){
+        console.log("skipping 3");
+        z++;
+       }else{
+         console.log("not skipping 3");
+        }
+      console.log(z);
+    }*/
 
     //console.log(available);
 
