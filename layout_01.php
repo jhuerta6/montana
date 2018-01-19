@@ -577,7 +577,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   var onMultiple = false;
 
   $(document).ready(function(){
-
     $("#check_multi_1").click(function(){ //HAVE TO GENERALIZE for all 3 SELECTORS
       if(this.checked){
         if(this.id == "check_multi_1"){
@@ -586,7 +585,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       }
       else{
         if(this.id == "check_multi_1"){
-          temp_poly_1 = app.polygons;
+          //temp_poly_1 = app.polygons;
           for(var i = 0; i < app.polygons.length; i++){
             app.polygons[i].setMap(null);
           }
@@ -1214,6 +1213,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
     pm_mpo.getMode = "polygons";
 
+    //console.log(available);
+
     if(pm_mpo.runAOI == true && typeof rec != 'undefined' && rec.type == 'rectangle'){
       var getparams = app.payload;
       var bounds = rec.getBounds();
@@ -1266,7 +1267,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           $("#legend_content_multi_"+(z+1)).text("");
           $("#legend_content_multi__"+(z+1)).find('*').not('h3').remove();
           var div = document.createElement('div');
-          div.innerHTML = "<strong>"+pm_mpo["pm"+(z+1)]+"</strong>";
+          div.innerHTML = "<strong>"+$("#select_pm_multiple_"+(z+1)).prop("value")+"</strong>";
           //console.log(pm_mpo.pm1);
           div.className = "center-text";
           var l = document.createElement('div');
