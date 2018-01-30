@@ -3023,6 +3023,16 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     $('#legend').show();*/
   }
 
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async function demo() {
+    console.log('Taking a break...');
+    await sleep(5000);
+    console.log('Five seconds later');
+  }
+
   function timegen(){
     var from = $("#time_select_from").children(":selected").attr("value");
     //console.log(from);
@@ -3031,21 +3041,24 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     var delta = to - from;
     //    console.log(delta);
     var query = {from_year:from, to_year:to};
+
+    for(var i = 0; i < delta; i++){
+      //console.log("test #"+i);
+      //demo();
+    }
+
+    var i = 0, howManyTimes = 10;
+    function f() {
+      console.log( "hi" );
+      i++;
+      if( i < howManyTimes ){
+        setTimeout( f, 3000 );
+      }
+    }
+    f();
+
     $.get('timegen.php', query, function(data){
-      function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-      }
 
-      async function demo() {
-        console.log('Taking a break...');
-        await sleep(2000);
-        console.log('Two second later');
-      }
-
-      for(var i = 0; i < delta; i++){
-        console.log("test #"+i);
-        demo();
-      }
     });
 
   }
