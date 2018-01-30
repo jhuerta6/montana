@@ -122,6 +122,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             <li data-toggle="tooltip" data-placement="top" title="Click your drawn Area Of Interest to display statistics">
               <a data-toggle="tab" href="#statistics,#statisticsbtn" data-target="#statistics, #statisticsbtn">Statistics</a>
             </li>
+            <li><a data-toggle="tab" href="#timeline,#timelinebtn" data-target="#timeline, #timelinebtn">Timeline</a></li>
           </ul>
           <div class="col-sm-12">
             <div class="tab-content"><br>
@@ -202,6 +203,36 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               </div>
               <div id="statistics" class="tab-pane fade"><br>
               </div>
+
+              <div id="timeline" class="tab-pane fade">
+                <p> As of right now, you can only select data from <strong>Crashes</strong>. </p>
+                <div class="form-group">
+                  <label for="bit">Select the years</label>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <select class="form-control" id="time_select_from">
+                        <option id="time_option_from" value="">FROM</option>
+                        <option value="2012">2012</option>
+                        <option value="2013">2013</option>
+                        <option value="2014">2014</option>
+                        <option value="2015">2015</option>
+                        <option value="2016">2016</option>
+                      </select>
+                    </div>
+                    <div class="col-lg-6">
+                      <select class="form-control" id="time_select_to">
+                        <option id="time_option_to" value="">TO</option>
+                        <option value="2012">2012</option>
+                        <option value="2013">2013</option>
+                        <option value="2014">2014</option>
+                        <option value="2015">2015</option>
+                        <option value="2016">2016</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
           <div class="col-md-12"><br>
@@ -222,6 +253,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               </div>
               <div id="mpobtn" class="tab-pane fade">
                 <button type="button" class="btn btn-default form-control" id="mpo_draw" onclick="mpo();">Draw</button>
+              </div>
+              <div id="timelinebtn" class="tab-pane fade">
+                <button type="button" class="btn btn-default form-control" id="time_btn" onclick="timegen();">Timeline Generator</button>
               </div>
             </div>
           </div>
@@ -1330,13 +1364,21 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             }
             if(pm_mpo["pm"+(z+1)] == "crosw150ft"){ //points
               if(up_to_one == 0){
-                $('#legendSpawner').find('*').not('h3').remove();
-                var spawner = document.getElementById('legendSpawner');
+                $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
+                var div = document.createElement('div');
+                div.innerHTML = "<strong>"+$("#select_pm_multiple_"+(z+1)).prop("value")+"</strong>";
+                //console.log(pm_mpo.pm1);
+                div.className = "center-text";
+                var l = document.createElement('div');
+                l = document.getElementById('legend_content_multi_'+(z+1));
+                l.appendChild(div);
+
+                //var spawner = document.getElementById('legend_content_multi_'+(z+1));
                 var div = document.createElement('div');
                 div.innerHTML = "<img src='img/redsquare.png' height='10px'/> Bus stop <strong>beyond</strong> 150 ft. from a crosswalk" +
                 "<br> <img src='img/brightgreensquare.png' height='10px'/> Bus stop <strong>within</strong> 150 ft. from a crosswalk";
                 var newLegend = document.createElement('div');
-                newLegend = document.getElementById('legend');
+                newLegend = document.getElementById('legend_content_multi_'+(z+1));
                 document.getElementById('legend').style.visibility = "visible";
                 newLegend.appendChild(div);
               }
@@ -2224,8 +2266,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
     $.get('mpo_handler.php', pm_mpo, function(data){
       var points = [];
-      shapecolor = ["#84857B", "#13FF00", "#009BFF", "#EBF20D", "#fe9253", "#FF0000", "#8C0909", "#0051FF", "#AB77FF", "#EBF20D", "#8C0909", "#07FDCA", "#008C35", "FFDBA5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
-      shapeoutline = ["#000000", "#0b9b00", "#007fd1", "#aaaf0a", "#d18f0a", "#c10000", "#8c0909", "#0037ad", "#873dff", "#aaaf0a", "8c0909", "36c9bd", "#008c35", "#ffdba5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
+      shapecolor = ["#84857B", "#13FF00", "#FF0000", "#009BFF", "#EBF20D", "#fe9253", "#8C0909", "#0051FF", "#AB77FF", "#EBF20D", "#8C0909", "#07FDCA", "#008C35", "FFDBA5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
+      shapeoutline = ["#000000", "#0b9b00", "#c10000", "#007fd1", "#aaaf0a", "#d18f0a", "#8c0909", "#0037ad", "#873dff", "#aaaf0a", "8c0909", "36c9bd", "#008c35", "#ffdba5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
       colorSelector = 0;
       newzIndex = 0;
       legendText = "";
@@ -2979,6 +3021,33 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
     /*
     $('#legend').show();*/
+  }
+
+  function timegen(){
+    var from = $("#time_select_from").children(":selected").attr("value");
+    //console.log(from);
+    var to = $("#time_select_to").children(":selected").attr("value");
+    //console.log(to);
+    var delta = to - from;
+    //    console.log(delta);
+    var query = {from_year:from, to_year:to};
+    $.get('timegen.php', query, function(data){
+      function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+
+      async function demo() {
+        console.log('Taking a break...');
+        await sleep(2000);
+        console.log('Two second later');
+      }
+
+      for(var i = 0; i < delta; i++){
+        console.log("test #"+i);
+        demo();
+      }
+    });
+
   }
 
   /******************************************************************************/
