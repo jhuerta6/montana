@@ -3084,7 +3084,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             }else{
               not_fatal_crashes++;
             }
-            drawCrashesFromTimegen(d.notcoords[j]);
+            drawCrashesFromTimegen(d.notcoords[j], i);
           }
         }
         dialog += "In <strong>"+(from+i)+"</strong>, Montana had "+crashes_that_year+" crashes.<br>\n";
@@ -3105,7 +3105,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     });
   }
 
-  function drawCrashesFromTimegen(dataCrashes){
+  function drawCrashesFromTimegen(dataCrashes, isFirst){
     var getparams = app.payload;
     var bounds = app.map.getBounds();
     getparams.NE = bounds.getNorthEast().toJSON(); //north east corner
@@ -3124,9 +3124,12 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     var l = document.createElement('div');
     l = document.getElementById('legend');
     l.appendChild(div);
-    $('#legend_panel').show('slow');
-    //$('#legendSpawner').find('*').not('h3').remove();
-    //var spawner = document.getElementById('legendSpawner');
+    if(isFirst == 0){
+      $('#legend_panel').show('slow');
+    }
+    else{
+      $('#legend_panel').show();
+    }
     var div = document.createElement('div');
     div.innerHTML = "";
     div.innerHTML = "<img src='img/redsquare.png' height='10px'/> <strong>Fatal</strong> crashes" +
@@ -3135,8 +3138,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     newLegend = document.getElementById('legend');
     document.getElementById('legend').style.visibility = "visible";
     newLegend.appendChild(div);
-    //}
-    //up_to_one++;
 
     if(dataCrashes.fatal == 1){ //fatality
       //console.log(dataCrashes);
