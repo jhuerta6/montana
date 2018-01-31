@@ -256,6 +256,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               </div>
               <div id="timelinebtn" class="tab-pane fade">
                 <button type="button" class="btn btn-default form-control" id="time_btn" onclick="timegen();">Timeline Generator</button>
+                <br><br>
               </div>
             </div>
           </div>
@@ -3035,32 +3036,93 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
   function timegen(){
     var from = $("#time_select_from").children(":selected").attr("value");
-    //console.log(from);
     var to = $("#time_select_to").children(":selected").attr("value");
-    //console.log(to);
     var delta = to - from;
-    //    console.log(delta);
     var query = {from_year:from, to_year:to};
+    var d;
 
-    for(var i = 0; i < delta; i++){
-      //console.log("test #"+i);
-      //demo();
-    }
-
-    var i = 0, howManyTimes = 10;
-    function f() {
-      console.log( "hi" );
-      i++;
-      if( i < howManyTimes ){
-        setTimeout( f, 3000 );
+    var jqxhr = $.get('timegen.php', query, function(data){
+      d = data;
+    })
+    .done(function() {
+      var i = 0;
+      var count = 0;
+      function f() {
+        //console.log(2012+i);
+        for (var j = 0; j < d.notcoords.length; j++) {
+          if(d.notcoords[j].date == (2012+i)){
+            //console.log(d.notcoords[j]);
+            //aqui vamos a llamar y pasar los parametros
+            drawCrashesFromTimegen(d.notcoords[j]);
+          }
+        }
+        count++;
+        i++;
+        if( i < delta+1 ){
+          setTimeout( f, 2000 );
+        }
       }
-    }
-    f();
-
-    $.get('timegen.php', query, function(data){
-
+      f();
     });
+  }
 
+  function drawCrashesFromTimegen(dataCrashes){
+    //console.log(dataCrashes);
+    var getparams = app.payload;
+    var bounds = app.map.getBounds();
+    getparams.NE = bounds.getNorthEast().toJSON(); //north east corner
+    getparams.SW = bounds.getSouthWest().toJSON(); //south-west corner
+    pm_mpo.NE = getparams.NE;
+    pm_mpo.SW = getparams.SW;
+
+    var points = [];
+    //console.log(dataCrashes);
+    //if(up_to_one == 0){
+    $("#legend").text("");
+    $('#legend').find('*').not('h3').remove();
+    var div = document.createElement('div');
+    //div.innerHTML = "<strong>"+pm_mpo.name_pm+"</strong>";
+    div.className = "center-text";
+    var l = document.createElement('div');
+    l = document.getElementById('legend');
+    l.appendChild(div);
+    $('#legend_panel').show('slow');
+    $('#legendSpawner').find('*').not('h3').remove();
+    var spawner = document.getElementById('legendSpawner');
+    var div = document.createElement('div');
+    div.innerHTML = "";
+    div.innerHTML = "<img src='img/redsquare.png' height='10px'/> <strong>Fatal</strong> crashes" +
+    "<br> <img src='img/brightgreensquare.png' height='10px'/> <strong>Incapacitated</strong> crashes";
+    var newLegend = document.createElement('div');
+    newLegend = document.getElementById('legend');
+    document.getElementById('legend').style.visibility = "visible";
+    newLegend.appendChild(div);
+    //}
+    //up_to_one++;
+
+    if(dataCrashes.fatal == 1){ //fatality
+      var image = {
+        url: "./icons/crash_red.png"
+      };
+    }
+    else{
+      var image = {
+        url: "./icons/crash_green.png"
+      };
+    }
+    var point_obj = {lat: parseFloat(dataCrashes.lat), lng: parseFloat(dataCrashes.lon)};
+    points.push(point_obj);
+    //console.log(points[0]);
+    var point  = new google.maps.Marker({
+      position: points[0],
+      icon: image,
+      title: 'Crash',
+      value: 1
+    });
+    point.setOptions({ zIndex: 2 });
+    point.addListener('click', pointCrashInfo);
+    app.polygons.push(point);
+    point.setMap(app.map);
   }
 
   /******************************************************************************/
