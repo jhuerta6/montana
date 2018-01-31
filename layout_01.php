@@ -206,6 +206,14 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
               <div id="timeline" class="tab-pane fade">
                 <p> As of right now, you can only select data from <strong>Crashes</strong>. </p>
+                <div class="row">
+                  <div class="col-lg-6">
+                  <span> Number of seconds </span>
+                </div>
+                  <div class="col-lg-6">
+                  <input id="timegen_seconds" class="form-control" min="1" max="10" value="1" type="number" placeholder="How many seconds long?"><br>
+                </div>
+                </div>
                 <div class="form-group">
                   <label for="bit">Select the years</label>
                   <div class="row">
@@ -3040,6 +3048,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     var delta = to - from;
     var query = {from_year:from, to_year:to};
     var d;
+    var seconds = $("#timegen_seconds").val();
+    seconds *= 1000;
+    console.log("miliseconds: " + seconds);
 
     var jqxhr = $.get('timegen.php', query, function(data){
       d = data;
@@ -3049,6 +3060,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       var count = 0;
       function f() {
         //console.log(2012+i);
+        removePolygons();
         for (var j = 0; j < d.notcoords.length; j++) {
           if(d.notcoords[j].date == (2012+i)){
             //console.log(d.notcoords[j]);
@@ -3059,9 +3071,10 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         count++;
         i++;
         if( i < delta+1 ){
-          setTimeout( f, 2000 );
+          setTimeout( f, seconds );
         }
       }
+
       f();
     });
   }
@@ -3101,11 +3114,14 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     //up_to_one++;
 
     if(dataCrashes.fatal == 1){ //fatality
+      //console.log(dataCrashes);
+      var fatal = 1;
       var image = {
         url: "./icons/crash_red.png"
       };
     }
     else{
+      var fatal = 0;
       var image = {
         url: "./icons/crash_green.png"
       };
@@ -3117,7 +3133,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       position: points[0],
       icon: image,
       title: 'Crash',
-      value: 1
+      value: fatal
     });
     point.setOptions({ zIndex: 2 });
     point.addListener('click', pointCrashInfo);
