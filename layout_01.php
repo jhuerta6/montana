@@ -3067,6 +3067,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       d = data;
     })
     .done(function() {
+      $(document.body).css({'cursor': 'wait'});
       var i = 0;
       var count = 0;
       function f() {
@@ -3097,6 +3098,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           dialog += "Total crashes: " + total_crashes + ".\n";
           $("#timeline_dialog").html(dialog);
           $("#timeline_dialog_panel").show('slow');
+          $(document.body).css({'cursor': 'default'});
         }
       }
       f();
@@ -3123,8 +3125,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     l = document.getElementById('legend');
     l.appendChild(div);
     $('#legend_panel').show('slow');
-    $('#legendSpawner').find('*').not('h3').remove();
-    var spawner = document.getElementById('legendSpawner');
+    //$('#legendSpawner').find('*').not('h3').remove();
+    //var spawner = document.getElementById('legendSpawner');
     var div = document.createElement('div');
     div.innerHTML = "";
     div.innerHTML = "<img src='img/redsquare.png' height='10px'/> <strong>Fatal</strong> crashes" +
