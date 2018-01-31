@@ -3156,6 +3156,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       position: points[0],
       icon: image,
       title: 'Crash',
+      animation: google.maps.Animation.DROP,
       value: fatal
     });
     point.setOptions({ zIndex: 2 });
