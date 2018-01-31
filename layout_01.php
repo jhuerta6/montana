@@ -239,6 +239,10 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                     </div>
                   </div>
                 </div>
+                <div id="timeline_dialog_panel" class="panel panel-default">
+                  <div class="panel-body" id="timeline_dialog">
+                  </div>
+                </div>
               </div>
 
             </div>
@@ -620,6 +624,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   var onMultiple = false;
 
   $(document).ready(function(){
+    $("#timeline_dialog_panel").hide();
     $("#check_multi_1").click(function(){ //HAVE TO GENERALIZE for all 3 SELECTORS
       if(this.checked){
         if(this.id == "check_multi_1"){
@@ -3032,6 +3037,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     $('#legend').show();*/
   }
 
+  /*
   function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
@@ -3040,17 +3046,22 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     console.log('Taking a break...');
     await sleep(5000);
     console.log('Five seconds later');
-  }
+  }*/
 
   function timegen(){
     var from = $("#time_select_from").children(":selected").attr("value");
+    from = parseInt(from);
     var to = $("#time_select_to").children(":selected").attr("value");
     var delta = to - from;
     var query = {from_year:from, to_year:to};
     var d;
     var seconds = $("#timegen_seconds").val();
     seconds *= 1000;
-    console.log("miliseconds: " + seconds);
+    var total_crashes = 0;
+    var crashes_that_year;
+    var fatal_crashes = 0;
+    var not_fatal_crashes = 0;
+    var dialog = "";
 
     var jqxhr = $.get('timegen.php', query, function(data){
       d = data;
@@ -3059,28 +3070,40 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       var i = 0;
       var count = 0;
       function f() {
-        //console.log(2012+i);
+        crashes_that_year = 0;
+        fatal_crashes = 0;
+        not_fatal_crashes = 0;
         removePolygons();
         for (var j = 0; j < d.notcoords.length; j++) {
-          if(d.notcoords[j].date == (2012+i)){
-            //console.log(d.notcoords[j]);
-            //aqui vamos a llamar y pasar los parametros
+          if(d.notcoords[j].date == (from+i)){
+            crashes_that_year++;
+            total_crashes++;
+            if(d.notcoords[j].fatal == 1){
+              fatal_crashes++;
+            }else{
+              not_fatal_crashes++;
+            }
             drawCrashesFromTimegen(d.notcoords[j]);
           }
         }
+        dialog += "In <strong>"+(from+i)+"</strong>, Montana had "+crashes_that_year+" crashes.<br>\n";
+        dialog +=  fatal_crashes + " fatal, and " + not_fatal_crashes + " incapacitating.<br><br>\n"
         count++;
         i++;
         if( i < delta+1 ){
           setTimeout( f, seconds );
         }
+        if(i == delta+1){
+          dialog += "Total crashes: " + total_crashes + ".\n";
+          $("#timeline_dialog").html(dialog);
+          $("#timeline_dialog_panel").show('slow');
+        }
       }
-
       f();
     });
   }
 
   function drawCrashesFromTimegen(dataCrashes){
-    //console.log(dataCrashes);
     var getparams = app.payload;
     var bounds = app.map.getBounds();
     getparams.NE = bounds.getNorthEast().toJSON(); //north east corner
