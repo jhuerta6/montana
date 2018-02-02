@@ -3062,7 +3062,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     var fatal_crashes = 0;
     var not_fatal_crashes = 0;
     var dialog = "";
-    $("#timeline_dialog_panel").hide();
+    $("#timeline_dialog_panel ").hide();
 
     var jqxhr = $.get('timegen.php', query, function(data){
       d = data;
