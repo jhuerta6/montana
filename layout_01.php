@@ -242,6 +242,118 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 <div id="timeline_dialog_panel" class="panel panel-default">
                   <div class="panel-body" id="timeline_dialog">
                   </div>
+                  <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Section #</th>
+                        <th scope="col">2012 fatal</th>
+                        <th scope="col">2012 non-fatal</th>
+                        <th scope="col">2013 fatal</th>
+                        <th scope="col">2013 non-fatal</th>
+                        <th scope="col">2014 fatal</th>
+                        <th scope="col">2014 non-fatal</th>
+                        <th scope="col">2015 fatal</th>
+                        <th scope="col">2015 non-fatal</th>
+                        <th scope="col">2016 fatal</th>
+                        <th scope="col">2016 non-fatal</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td id="1_2012_fatal">1</td>
+                        <td id="1_2012_not">0</td>
+                        <td id="1_2013_fatal">1</td>
+                        <td id="1_2013_not">0</td>
+                        <td id="1_2014_fatal">1</td>
+                        <td id="1_2014_not">0</td>
+                        <td id="1_2015_fatal">1</td>
+                        <td id="1_2015_not">0</td>
+                        <td id="1_2016_fatal">1</td>
+                        <td id="1_2016_not">0</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td id="2_2012_fatal">1</td>
+                        <td id="2_2012_not">0</td>
+                        <td id="2_2013_fatal">1</td>
+                        <td id="2_2013_not">0</td>
+                        <td id="2_2014_fatal">1</td>
+                        <td id="2_2014_not">0</td>
+                        <td id="2_2015_fatal">1</td>
+                        <td id="2_2015_not">0</td>
+                        <td id="2_2016_fatal">1</td>
+                        <td id="2_2016_not">0</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">3</th>
+                        <td id="3_2012_fatal">1</td>
+                        <td id="3_2012_not">0</td>
+                        <td id="3_2013_fatal">1</td>
+                        <td id="3_2013_not">0</td>
+                        <td id="3_2014_fatal">1</td>
+                        <td id="3_2014_not">0</td>
+                        <td id="3_2015_fatal">1</td>
+                        <td id="3_2015_not">0</td>
+                        <td id="3_2016_fatal">1</td>
+                        <td id="3_2016_not">0</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">4</th>
+                        <td id="4_2012_fatal">1</td>
+                        <td id="4_2012_not">0</td>
+                        <td id="4_2013_fatal">1</td>
+                        <td id="4_2013_not">0</td>
+                        <td id="4_2014_fatal">1</td>
+                        <td id="4_2014_not">0</td>
+                        <td id="4_2015_fatal">1</td>
+                        <td id="4_2015_not">0</td>
+                        <td id="4_2016_fatal">1</td>
+                        <td id="4_2016_not">0</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">5</th>
+                        <td id="5_2012_fatal">1</td>
+                        <td id="5_2012_not">0</td>
+                        <td id="5_2013_fatal">1</td>
+                        <td id="5_2013_not">0</td>
+                        <td id="5_2014_fatal">1</td>
+                        <td id="5_2014_not">0</td>
+                        <td id="5_2015_fatal">1</td>
+                        <td id="5_2015_not">0</td>
+                        <td id="5_2016_fatal">1</td>
+                        <td id="5_2016_not">0</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">6</th>
+                        <td id="6_2012_fatal">1</td>
+                        <td id="6_2012_not">0</td>
+                        <td id="6_2013_fatal">1</td>
+                        <td id="6_2013_not">0</td>
+                        <td id="6_2014_fatal">1</td>
+                        <td id="6_2014_not">0</td>
+                        <td id="6_2015_fatal">1</td>
+                        <td id="6_2015_not">0</td>
+                        <td id="6_2016_fatal">1</td>
+                        <td id="6_2016_not">0</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">7</th>
+                        <td id="7_2012_fatal">1</td>
+                        <td id="7_2012_not">0</td>
+                        <td id="7_2013_fatal">1</td>
+                        <td id="7_2013_not">0</td>
+                        <td id="7_2014_fatal">1</td>
+                        <td id="7_2014_not">0</td>
+                        <td id="7_2015_fatal">1</td>
+                        <td id="7_2015_not">0</td>
+                        <td id="7_2016_fatal">1</td>
+                        <td id="7_2016_not">0</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
                 </div>
               </div>
 
@@ -3160,13 +3272,18 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       position: points[0],
       icon: image,
       title: 'Crash',
-      animation: google.maps.Animation.DROP,
+      //animation: google.maps.Animation.FADE,
       value: fatal
     });
+    //point.setOpacity(0);
     point.setOptions({ zIndex: 2 });
     point.addListener('click', pointCrashInfo);
     app.polygons.push(point);
     point.setMap(app.map);
+    // /test_opct(point);
+    // setTimeout(function() {
+    //     fadeInMarkers(point);
+    // }, 1000); //
   }
 
   /******************************************************************************/
