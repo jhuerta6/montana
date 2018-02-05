@@ -3492,34 +3492,65 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   function drawChartTTI(){
     clearCharts();
 
-    var data = google.visualization.arrayToDataTable([
-      ['Method', 'Value',],
-      ['Avg Montana Corridor ', 1.8],
-      ['S1: Piedras St', 0],
-      ['S2: Paisano Dr.', 2.3],
-      ['S3: Hawkins Blvd.', 1.9],
-      ['S4: Yarbrough Dr.', 1.8],
-      ['S5: Joe Battle Blvd.', 1.8],
-      ['S6: Zaragoza Rd.', 1.4],
-      ['S7: Araceli Ave.', 1.3]
-    ]);
-
-    var options = {
-      title: "Truck Travel Time Index",
-      legend: { position: 'none'},
-      animation:{ duration: 1000, easing: 'inAndOut', startup: true },
-      chartArea: { width: '70%' },
-      hAxis: { minValue: 0 },
-      vAxis: {}
-    };
-    bar_init = new google.visualization.BarChart(document.getElementById("chart_selected"));
-    bar_init.draw(data, options);
+    var data = new google.visualization.DataTable(
+      {"cols":
+      [{"id":"","label":"Section","type":"string"},
+      {"id":"","label":"value","type":"number"}],
+      "rows":
+      [{"c":[{"v":"Avg Montana Corridor"},{"v":1.8}]},
+      {"c":[{"v":" S1: Piedras St."},{"v":0}]},
+      {"c":[{"v":"S2: Paisano Dr."},{"v":2.3}]},
+      {"c":[{"v":"S3: Hawkins Blvd."},{"v":1.9}]},
+      {"c":[{"v":"S4: Yarbrough Dr."},{"v":1.8}]},
+      {"c":[{"v":"S5: Joe Battle Blvd."},{"v":1.8}]},
+      {"c":[{"v":"S6: Zaragoza Rd."},{"v":1.4}]},
+      {"c":[{"v":"S7: Araceli Ave."},{"v":1.3}]}
+    ]
   }
+);
+
+// var data = google.visualization.arrayToDataTable([
+//   ['Method', 'Value',],
+//   ['Avg Montana Corridor ', 1.8],
+//   ['S1: Piedras St', 0],
+//   ['S2: Paisano Dr.', 2.3],
+//   ['S3: Hawkins Blvd.', 1.9],
+//   ['S4: Yarbrough Dr.', 1.8],
+//   ['S5: Joe Battle Blvd.', 1.8],
+//   ['S6: Zaragoza Rd.', 1.4],
+//   ['S7: Araceli Ave.', 1.3]
+// ]);
+
+/*var options = {
+title: "Truck Travel Time Index",
+legend: { position: 'none'},
+animation:{ duration: 1000, easing: 'inAndOut', startup: true },
+chartArea: { width: '70%' },
+hAxis: { minValue: 0 },
+vAxis: {}
+};*/
+
+
+var options =
+  {"title":"Truck Travel Time Index",
+  "vAxis":{"title":"","minValue":0},
+  "hAxis":{"title":"","maxValue":2.5},
+  "legend":"none",
+  "is3D":false,
+  "width":1000,
+  "height":400,
+  animation:{ duration: 1000, easing: 'inAndOut', startup: true }
+  //"colors":["CC0000"]
+  };
+
+  bar_init = new google.visualization.BarChart(document.getElementById("chart_selected"));
+  bar_init.draw(data, options);
+}
 
   function drawChartTti_normal(){
     clearCharts();
 
-    var data = google.visualization.arrayToDataTable([
+    /*var data = google.visualization.arrayToDataTable([
       ['Method', 'Value',],
       ['Avg Montana Corridor ', 1.6],
       ['S1: Piedras St', 0],
@@ -3529,16 +3560,41 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       ['S5: Joe Battle Blvd.', 1.6],
       ['S6: Zaragoza Rd.', 1.4],
       ['S7: Araceli Ave.', 1.3]
-    ]);
+    ]);*/
 
-    var options = {
-      title: "Travel Time Index",
-      legend: { position: 'none'},
-      animation:{ duration: 1000, easing: 'inAndOut', startup: true },
-      chartArea: { width: '70%' },
-      hAxis: { minValue: 0 },
-      vAxis: {}
-    };
+    var data = new google.visualization.DataTable(
+      {"cols":
+      [{"id":"","label":"Section","type":"string"},
+      {"id":"","label":"value","type":"number"}],
+      "rows":
+      [{"c":[{"v":"Avg Montana Corridor"},{"v":1.6}]},
+      {"c":[{"v":" S1: Piedras St."},{"v":0}]},
+      {"c":[{"v":"S2: Paisano Dr."},{"v":1.9}]},
+      {"c":[{"v":"S3: Hawkins Blvd."},{"v":1.7}]},
+      {"c":[{"v":"S4: Yarbrough Dr."},{"v":1.6}]},
+      {"c":[{"v":"S5: Joe Battle Blvd."},{"v":1.6}]},
+      {"c":[{"v":"S6: Zaragoza Rd."},{"v":1.4}]},
+      {"c":[{"v":"S7: Araceli Ave."},{"v":1.3}]}
+    ]
+  }
+);
+
+var options =
+  {"title":"Truck Travel Time Index",
+  "vAxis":{"title":"","minValue":0},
+  "hAxis":{"title":"","maxValue":2.5,
+    viewWindow: {
+        min: 0,
+        max: 2.5
+    },
+    ticks: [0.5, 1.00, 1.50, 2, 2.5] // display labels every 25
+},
+  "legend":"none",
+  "is3D":false,
+  "width":1000,
+  "height":400,
+  animation:{ duration: 1000, easing: 'inAndOut', startup: true }
+  };
     bar_init = new google.visualization.BarChart(document.getElementById("chart_selected"));
     bar_init.draw(data, options);
   }
