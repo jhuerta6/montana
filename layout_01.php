@@ -208,7 +208,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 <p> As of right now, you can only select data from <strong>Crashes</strong>. </p>
                 <div class="row">
                   <div class="col-lg-6">
-                  <span> Number of seconds </span>
+                  <span> Delay in seconds</span>
                 </div>
                   <div class="col-lg-6">
                   <input id="timegen_seconds" class="form-control" min="1" max="10" value="1" type="number" placeholder="How many seconds long?"><br>
@@ -239,7 +239,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                     </div>
                   </div>
                 </div>
-                <div id="update_time_text"> EXAMPLE: Now showing info from the year 2012... </div>
+                <div class="text-center" id="update_time_text"> Click on Generate Timeline</div>
                 <div id="timeline_dialog_panel" class="panel panel-default">
                   <div class="panel-body" id="timeline_dialog">
                   </div>
@@ -3184,7 +3184,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       $(document.body).css({'cursor': 'wait'});
       var i = 0;
       var count = 0;
-      function f() {
+      function f() { //slows down the updates
         crashes_that_year = 0;
         fatal_crashes = 0;
         not_fatal_crashes = 0;
@@ -3201,6 +3201,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             drawCrashesFromTimegen(d.notcoords[j], i);
           }
         }
+        $("#update_time_text").text("Showing info from the year "+(from+i)+"...");
         dialog += "In <strong>"+(from+i)+"</strong>, Montana had "+crashes_that_year+" crashes.<br>\n";
         dialog +=  fatal_crashes + " fatal, and " + not_fatal_crashes + " incapacitating.<br><br>\n"
         count++;
@@ -3212,6 +3213,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           dialog += "Total crashes: " + total_crashes + ".\n";
           $("#timeline_dialog").html(dialog);
           $("#timeline_dialog_panel").show('slow');
+          $("#update_time_text").text("All done!");
           $(document.body).css({'cursor': 'default'});
         }
       }
