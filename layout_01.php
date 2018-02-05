@@ -239,6 +239,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                     </div>
                   </div>
                 </div>
+                <div id="update_time_text"> EXAMPLE: Now showing info from the year 2012... </div>
                 <div id="timeline_dialog_panel" class="panel panel-default">
                   <div class="panel-body" id="timeline_dialog">
                   </div>
@@ -3558,7 +3559,7 @@ var options =
         min: 0,
         max: 2.5
     },
-    ticks: [0.5, 1.00, 1.50, 2, 2.5] // display labels every 25
+    ticks: [0.5, 1.00, 1.50, 2, 2.5]
   },
   "legend":"none",
   "is3D":false,
@@ -3570,7 +3571,7 @@ var options =
     bar_init.draw(data, options);
   }
 
-  function drawChartc23(){
+  /*function drawChartc23(){
     clearCharts();
 
     var data = google.visualization.arrayToDataTable([
@@ -3595,7 +3596,7 @@ var options =
     };
     bar_init = new google.visualization.BarChart(document.getElementById("chart_selected"));
     bar_init.draw(data, options);
-  }
+  }*/
 
   function drawChart() {
     var nulls = nullChecker();
