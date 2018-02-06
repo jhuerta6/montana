@@ -1425,6 +1425,10 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       pm_mpo.SW = getparams.SW;
     }
 
+    $.get('mpo_multi_handler.php', pm_mpo, function(data){
+
+    });
+
     for (var z = 0; z < available.count; z++) {
       (function (z){
         //console.log(z);
@@ -3275,12 +3279,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       position: points[0],
       icon: image,
       title: 'Crash',
-      //animation: google.maps.Animation.FADE,
-      value: fatal
+      //animation: google.maps.Animation.BOUNCE,
+      value: dataCrashes.crashid
     });
     //point.setOpacity(0);
     point.setOptions({ zIndex: 2 });
-    point.addListener('click', pointCrashInfo);
+    point.addListener('click', tempGetIdCrashes);
+    //point.addListener('click', pointCrashInfo);
     app.polygons.push(point);
     point.setMap(app.map);
     // /test_opct(point);
@@ -3288,6 +3293,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     //     fadeInMarkers(point);
     // }, 1000); //
   }
+
+
 
   /******************************************************************************/
   google.charts.load('current', {'packages':['corechart', 'bar']});
@@ -3878,6 +3885,14 @@ var options =
     else{
       text = "Crash resulting in a incapacitating injury";
     }
+    app.infoWindow.setContent(text);
+    app.infoWindow.setPosition(event.latLng);
+    app.infoWindow.open(app.map);
+  }
+
+  function tempGetIdCrashes(event){
+    console.log(event.value);
+    text = event.value;
     app.infoWindow.setContent(text);
     app.infoWindow.setPosition(event.latLng);
     app.infoWindow.open(app.map);

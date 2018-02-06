@@ -8,6 +8,7 @@ $conn = mysqli_connect('ctis.utep.edu', 'ctis', '19691963', 'mpo_new');
 $toReturn = array();
 
 #call the method here
+getPolygons();
 
 header('Content-Type: application/json');
 echo json_encode($toReturn);
