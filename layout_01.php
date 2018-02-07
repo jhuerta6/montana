@@ -217,6 +217,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 <div class="form-group">
                   <label for="bit">Select the years</label>
                   <div class="row">
+                    <input id="slide_depth" type="text" class="span2" value="" data-slider-min="2012" data-slider-max="2016" data-slider-step="1" data-slider-value="[0,0]"/><br><br>
                     <div class="col-lg-6">
                       <select class="form-control" id="time_select_from">
                         <option id="time_option_from" value="">FROM</option>
@@ -753,8 +754,31 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   var temp_poly_1 = [];
   var temp_map_1;
   var onMultiple = false;
-
+  var from_year_slide = 2012;
+  var to_year_slide = 2012;
   $(document).ready(function(){
+
+    $("#slide_depth").slider({
+      natural_arrow_keys: true,
+      //range: true,
+      formatter: function(value) {
+        return 'From: ' + value[0] + ', To: ' + value[1] + '';
+      }
+    });
+    $("#slide_depth").on("slide", function(e) {
+      //console.log("sliding");
+      //console.log(e.value[1]);
+      //console.log(e.value[0]);
+      from_year_slide = e.value[0];
+      //console.log("from "+from_year_slide);
+      to_year_slide = e.value[1];
+      //console.log("to "+to_year_slide);
+    });
+    $("#slide_depth").on("change", function(e) {
+      to_year_slide = e.value.newValue[1];
+      from_year_slide = e.value.newValue[0];
+    });
+
     $("#timeline_dialog_panel").hide();
     $("#check_multi_1").click(function(){ //HAVE TO GENERALIZE for all 3 SELECTORS
       if(this.checked){
@@ -3182,9 +3206,11 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   var s1 = s2 = s3 = s4 = s5 = s6 = s7 = 0;
   var s1_fatal = s2_fatal = s3_fatal = s4_fatal = s5_fatal = s6_fatal = s7_fatal = 0;
   function timegen(){
-    var from = $("#time_select_from").children(":selected").attr("value");
+    //var from = $("#time_select_from").children(":selected").attr("value");
+    var from = from_year_slide;
     from = parseInt(from);
-    var to = $("#time_select_to").children(":selected").attr("value");
+    //var to = $("#time_select_to").children(":selected").attr("value");
+    var to = to_year_slide;
     var delta = to - from;
     var query = {from_year:from, to_year:to};
     var d;
