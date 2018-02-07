@@ -3235,7 +3235,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         not_fatal_crashes = 0;
         s1 = s2 = s3 = s4 = s5 = s6 = s7 = 0;
         s1_fatal = s2_fatal = s3_fatal = s4_fatal = s5_fatal = s6_fatal = s7_fatal = 0;
-        removePolygons();
+        if(i <= delta){
+          removePolygons();
+        }
         for (var j = 0; j < d.notcoords.length; j++) {
           if(i<=delta){
           if(d.notcoords[j].date == (from+i)){
@@ -3250,7 +3252,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           }
         }
         }
-        $("#update_time_text").text("Showing info from the year "+(from+i)+"...");
+        $("#update_time_text").html("Showing info from the year <strong>"+(from+i)+"</strong>...");
         //dialog += "In <strong>"+(from+i)+"</strong>, Montana had "+crashes_that_year+" crashes.<br>\n";
         //dialog +=  fatal_crashes + " fatal, and " + not_fatal_crashes + " incapacitating.<br><br>\n"
         count++;
