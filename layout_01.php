@@ -218,7 +218,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   <label for="bit">Select the years</label>
                   <div class="row">
                     <input id="slide_depth" type="text" class="span2" value="" data-slider-min="2012" data-slider-max="2016" data-slider-step="1" data-slider-value="[0,0]"/><br><br>
-                    <div class="col-lg-6">
+                    <!--<div class="col-lg-6">
                       <select class="form-control" id="time_select_from">
                         <option id="time_option_from" value="">FROM</option>
                         <option value="2012">2012</option>
@@ -237,10 +237,10 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                         <option value="2015">2015</option>
                         <option value="2016">2016</option>
                       </select>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
-                <div class="text-center" id="update_time_text"> Click on Generate Timeline</div>
+                <div class="text-center" id="update_time_text"></div>
                 <div id="timeline_dialog_panel" class="panel panel-default">
                   <div class="panel-body" id="timeline_dialog">
                   </div>
@@ -3237,6 +3237,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         s1_fatal = s2_fatal = s3_fatal = s4_fatal = s5_fatal = s6_fatal = s7_fatal = 0;
         removePolygons();
         for (var j = 0; j < d.notcoords.length; j++) {
+          if(i<=delta){
           if(d.notcoords[j].date == (from+i)){
             crashes_that_year++;
             total_crashes++;
@@ -3248,16 +3249,17 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             drawCrashesFromTimegen(d.notcoords[j], i);
           }
         }
+        }
         $("#update_time_text").text("Showing info from the year "+(from+i)+"...");
         //dialog += "In <strong>"+(from+i)+"</strong>, Montana had "+crashes_that_year+" crashes.<br>\n";
         //dialog +=  fatal_crashes + " fatal, and " + not_fatal_crashes + " incapacitating.<br><br>\n"
         count++;
         i++;
 
-        if( i < delta+1 ){
+        if( i < delta+2 ){
           setTimeout( f, seconds );
         }
-        if(i == delta+1){
+        if(i == delta+2){
           dialog += "Total crashes: " + total_crashes + ".\n";
           $("#timeline_dialog").html(dialog);
           $("#timeline_dialog_panel").show('slow');
