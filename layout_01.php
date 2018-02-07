@@ -1425,10 +1425,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       pm_mpo.SW = getparams.SW;
     }
 
-    $.get('mpo_multi_handler.php', pm_mpo, function(data){
-
-    });
-
     for (var z = 0; z < available.count; z++) {
       (function (z){
         //console.log(z);
@@ -3275,15 +3271,21 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     var point_obj = {lat: parseFloat(dataCrashes.lat), lng: parseFloat(dataCrashes.lon)};
     points.push(point_obj);
     //console.log(points[0]);
+    console.log(dataCrashes.crashid);
     var point  = new google.maps.Marker({
+      //description_value: "hey",
       position: points[0],
       icon: image,
       title: 'Crash',
+      id: dataCrashes.crashid,
+      label: dataCrashes.crashid
       //animation: google.maps.Animation.BOUNCE,
-      value: dataCrashes.crashid
+      //value: dataCrashes.crashid
     });
+    //console.log("should be the same"+point.value);
     //point.setOpacity(0);
     point.setOptions({ zIndex: 2 });
+    //point.addListener('click', pointCrashInfo);
     point.addListener('click', tempGetIdCrashes);
     //point.addListener('click', pointCrashInfo);
     app.polygons.push(point);
@@ -3891,8 +3893,7 @@ var options =
   }
 
   function tempGetIdCrashes(event){
-    console.log(event.value);
-    text = event.value;
+    text = this.id;
     app.infoWindow.setContent(text);
     app.infoWindow.setPosition(event.latLng);
     app.infoWindow.open(app.map);
