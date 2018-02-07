@@ -263,93 +263,93 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                     <tbody>
                       <tr>
                         <th scope="row">1</th>
-                        <td id="1_2012_fatal">1</td>
+                        <td id="1_2012_fatal">0</td>
                         <td id="1_2012_not">0</td>
-                        <td id="1_2013_fatal">1</td>
+                        <td id="1_2013_fatal">0</td>
                         <td id="1_2013_not">0</td>
-                        <td id="1_2014_fatal">1</td>
+                        <td id="1_2014_fatal">0</td>
                         <td id="1_2014_not">0</td>
-                        <td id="1_2015_fatal">1</td>
+                        <td id="1_2015_fatal">0</td>
                         <td id="1_2015_not">0</td>
-                        <td id="1_2016_fatal">1</td>
+                        <td id="1_2016_fatal">0</td>
                         <td id="1_2016_not">0</td>
                       </tr>
                       <tr>
                         <th scope="row">2</th>
-                        <td id="2_2012_fatal">1</td>
+                        <td id="2_2012_fatal">0</td>
                         <td id="2_2012_not">0</td>
-                        <td id="2_2013_fatal">1</td>
+                        <td id="2_2013_fatal">0</td>
                         <td id="2_2013_not">0</td>
-                        <td id="2_2014_fatal">1</td>
+                        <td id="2_2014_fatal">0</td>
                         <td id="2_2014_not">0</td>
-                        <td id="2_2015_fatal">1</td>
+                        <td id="2_2015_fatal">0</td>
                         <td id="2_2015_not">0</td>
-                        <td id="2_2016_fatal">1</td>
+                        <td id="2_2016_fatal">0</td>
                         <td id="2_2016_not">0</td>
                       </tr>
                       <tr>
                         <th scope="row">3</th>
-                        <td id="3_2012_fatal">1</td>
+                        <td id="3_2012_fatal">0</td>
                         <td id="3_2012_not">0</td>
-                        <td id="3_2013_fatal">1</td>
+                        <td id="3_2013_fatal">0</td>
                         <td id="3_2013_not">0</td>
-                        <td id="3_2014_fatal">1</td>
+                        <td id="3_2014_fatal">0</td>
                         <td id="3_2014_not">0</td>
-                        <td id="3_2015_fatal">1</td>
+                        <td id="3_2015_fatal">0</td>
                         <td id="3_2015_not">0</td>
-                        <td id="3_2016_fatal">1</td>
+                        <td id="3_2016_fatal">0</td>
                         <td id="3_2016_not">0</td>
                       </tr>
                       <tr>
                         <th scope="row">4</th>
-                        <td id="4_2012_fatal">1</td>
+                        <td id="4_2012_fatal">0</td>
                         <td id="4_2012_not">0</td>
-                        <td id="4_2013_fatal">1</td>
+                        <td id="4_2013_fatal">0</td>
                         <td id="4_2013_not">0</td>
-                        <td id="4_2014_fatal">1</td>
+                        <td id="4_2014_fatal">0</td>
                         <td id="4_2014_not">0</td>
-                        <td id="4_2015_fatal">1</td>
+                        <td id="4_2015_fatal">0</td>
                         <td id="4_2015_not">0</td>
-                        <td id="4_2016_fatal">1</td>
+                        <td id="4_2016_fatal">0</td>
                         <td id="4_2016_not">0</td>
                       </tr>
                       <tr>
                         <th scope="row">5</th>
-                        <td id="5_2012_fatal">1</td>
+                        <td id="5_2012_fatal">0</td>
                         <td id="5_2012_not">0</td>
-                        <td id="5_2013_fatal">1</td>
+                        <td id="5_2013_fatal">0</td>
                         <td id="5_2013_not">0</td>
-                        <td id="5_2014_fatal">1</td>
+                        <td id="5_2014_fatal">0</td>
                         <td id="5_2014_not">0</td>
-                        <td id="5_2015_fatal">1</td>
+                        <td id="5_2015_fatal">0</td>
                         <td id="5_2015_not">0</td>
-                        <td id="5_2016_fatal">1</td>
+                        <td id="5_2016_fatal">0</td>
                         <td id="5_2016_not">0</td>
                       </tr>
                       <tr>
                         <th scope="row">6</th>
-                        <td id="6_2012_fatal">1</td>
+                        <td id="6_2012_fatal">0</td>
                         <td id="6_2012_not">0</td>
-                        <td id="6_2013_fatal">1</td>
+                        <td id="6_2013_fatal">0</td>
                         <td id="6_2013_not">0</td>
-                        <td id="6_2014_fatal">1</td>
+                        <td id="6_2014_fatal">0</td>
                         <td id="6_2014_not">0</td>
-                        <td id="6_2015_fatal">1</td>
+                        <td id="6_2015_fatal">0</td>
                         <td id="6_2015_not">0</td>
-                        <td id="6_2016_fatal">1</td>
+                        <td id="6_2016_fatal">0</td>
                         <td id="6_2016_not">0</td>
                       </tr>
                       <tr>
                         <th scope="row">7</th>
-                        <td id="7_2012_fatal">1</td>
+                        <td id="7_2012_fatal">0</td>
                         <td id="7_2012_not">0</td>
-                        <td id="7_2013_fatal">1</td>
+                        <td id="7_2013_fatal">0</td>
                         <td id="7_2013_not">0</td>
-                        <td id="7_2014_fatal">1</td>
+                        <td id="7_2014_fatal">0</td>
                         <td id="7_2014_not">0</td>
-                        <td id="7_2015_fatal">1</td>
+                        <td id="7_2015_fatal">0</td>
                         <td id="7_2015_not">0</td>
-                        <td id="7_2016_fatal">1</td>
+                        <td id="7_2016_fatal">0</td>
                         <td id="7_2016_not">0</td>
                       </tr>
                     </tbody>
@@ -3161,6 +3161,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     console.log('Five seconds later');
   }*/
 
+  var s1 = s2 = s3 = s4 = s5 = s6 = s7 = 0;
   function timegen(){
     var from = $("#time_select_from").children(":selected").attr("value");
     from = parseInt(from);
@@ -3176,7 +3177,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     var not_fatal_crashes = 0;
     var dialog = "";
     $("#timeline_dialog_panel ").hide();
-
     var jqxhr = $.get('timegen.php', query, function(data){
       d = data;
     })
@@ -3188,6 +3188,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         crashes_that_year = 0;
         fatal_crashes = 0;
         not_fatal_crashes = 0;
+        s1 = s2 = s3 = s4 = s5 = s6 = s7 = 0;
         removePolygons();
         for (var j = 0; j < d.notcoords.length; j++) {
           if(d.notcoords[j].date == (from+i)){
@@ -3206,6 +3207,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         dialog +=  fatal_crashes + " fatal, and " + not_fatal_crashes + " incapacitating.<br><br>\n"
         count++;
         i++;
+
         if( i < delta+1 ){
           setTimeout( f, seconds );
         }
@@ -3222,6 +3224,42 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   }
 
   function drawCrashesFromTimegen(dataCrashes, isFirst){
+    var section_to_use = 0;
+    if(dataCrashes.section_num == 1){
+      console.log(dataCrashes.section_num);
+      s1++;
+      section_to_use = s1;
+    }
+    else if(dataCrashes.section_num == 2){
+      console.log(dataCrashes.section_num);
+      s2++;
+      section_to_use = s2;
+    }
+    else if(dataCrashes.section_num == 3){
+      console.log(dataCrashes.section_num);
+      s3++;
+      section_to_use = s3;
+    }
+    else if(dataCrashes.section_num == 4){
+      console.log(dataCrashes.section_num);
+      s4++;
+      section_to_use = s4;
+    }
+    else if(dataCrashes.section_num == 5){
+      console.log(dataCrashes.section_num);
+      s5++;
+      section_to_use = s5;
+    }
+    else if(dataCrashes.section_num == 6){
+      console.log(dataCrashes.section_num);
+      s6++;
+      section_to_use = s6;
+    }
+    else{
+      console.log(dataCrashes.section_num);
+      s7++;
+      section_to_use = s7;
+    }
     var getparams = app.payload;
     var bounds = app.map.getBounds();
     getparams.NE = bounds.getNorthEast().toJSON(); //north east corner
@@ -3230,12 +3268,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     pm_mpo.SW = getparams.SW;
 
     var points = [];
-    //console.log(dataCrashes);
-    //if(up_to_one == 0){
     $("#legend").text("");
     $('#legend').find('*').not('h3').remove();
     var div = document.createElement('div');
-    //div.innerHTML = "<strong>"+pm_mpo.name_pm+"</strong>";
     div.className = "center-text";
     var l = document.createElement('div');
     l = document.getElementById('legend');
@@ -3255,8 +3290,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     document.getElementById('legend').style.visibility = "visible";
     newLegend.appendChild(div);
 
-    if(dataCrashes.fatal == 1){ //fatality
-      //console.log(dataCrashes);
+    if(dataCrashes.fatal == 1){
       var fatal = 1;
       var image = {
         url: "./icons/crash_red.png"
@@ -3270,33 +3304,28 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     }
     var point_obj = {lat: parseFloat(dataCrashes.lat), lng: parseFloat(dataCrashes.lon)};
     points.push(point_obj);
-    //console.log(points[0]);
-    console.log(dataCrashes.crashid);
+
+    var isFatal;
+    if(dataCrashes.incap == 1){
+      isFatal = "not";
+    }else{
+      isFatal = "fatal";
+    }
+
+    $("#"+dataCrashes.section_num+"_"+dataCrashes.date+"_"+isFatal).html(section_to_use);
+
     var point  = new google.maps.Marker({
-      //description_value: "hey",
       position: points[0],
       icon: image,
       title: 'Crash',
-      id: dataCrashes.crashid,
-      label: dataCrashes.crashid
-      //animation: google.maps.Animation.BOUNCE,
-      //value: dataCrashes.crashid
+      id: dataCrashes.crashid
     });
-    //console.log("should be the same"+point.value);
-    //point.setOpacity(0);
+
     point.setOptions({ zIndex: 2 });
-    //point.addListener('click', pointCrashInfo);
     point.addListener('click', tempGetIdCrashes);
-    //point.addListener('click', pointCrashInfo);
     app.polygons.push(point);
     point.setMap(app.map);
-    // /test_opct(point);
-    // setTimeout(function() {
-    //     fadeInMarkers(point);
-    // }, 1000); //
   }
-
-
 
   /******************************************************************************/
   google.charts.load('current', {'packages':['corechart', 'bar']});
