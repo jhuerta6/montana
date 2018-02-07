@@ -244,7 +244,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   <div class="panel-body" id="timeline_dialog">
                   </div>
                   <div class="table-responsive">
-                  <table class="table">
+                  <table class="table table-hover">
                     <thead>
                       <tr>
                         <th scope="col">Section #</th>
@@ -476,6 +476,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       pms: ["a11","a12","a13","a21","a22","a23","a24"],
       a11:{
         name: "A-1-1) Population Within 1/2 Mile of Frequent Transit Service",
+        short: "Population nearby transit",
         mode: ["T"],
         description: "",
         content: "9% and 12% of population in Section 1 and 2 respectively live within a 1/2 mile of transit service with a headway of 20 minutes or less. \n" +
@@ -488,6 +489,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         key: "freqtran"
       },
       a12:{
+        short: "Bikeways build-out",
         name: "A-1-2) Bikeways build-out",
         mode: ["B"],
         description: "",
@@ -501,6 +503,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         key: "sectionnum"
       },
       a13:{
+        short: "Population nearby bikeways",
         name: "A-1-3) Population within 1/2 Mile of Existing Bikeways",
         mode: ["B"],
         description: "",
@@ -514,6 +517,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         key: "b_workers"
       },
       a21:{
+        short: "Bus stops with crosswalks",
         name: "A-2-1) Bus Stops Along Busy Roadways With No Marked Crosswalk Within 150 ft.",
         mode: ["T", "W"],
         description: "",
@@ -526,6 +530,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         key: "crosw150ft"
       },
       a22:{
+        short: "Bus stops with bicycle parking",
         name: "A-2-2) Bus Stops with Bicycle Parking",
         mode: ["T", "B"],
         description: "",
@@ -538,6 +543,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         key: "a22_new"
       },
       a23:{
+        short: "Car-free households",
         name: "A-2-3) Car-Free Households",
         mode: ["D","T","W","B"],
         description: "",
@@ -551,6 +557,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         key: "b_carfrhh"
       },
       a24:{
+        short: "Transportation disadvantaged households",
         name: "A-2-4) Transportation Disadvantaged Households",
         mode: ["D","T","W","B"],
         description: "",
@@ -568,6 +575,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       name: "B) Community to Community",
       pms: ["b14","b22","b31a","b31b"],
       b14:{
+        short: "Jobs/Housing balance ratio",
         description: null,
         content: "Housing Rich (ratio < 1) are majority of block groups in Sections 3, 4, 5, 6, 7. \n" +
         "Balanced (1 to 1.29) is one block group in Section 1. \n" +
@@ -581,6 +589,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         key: "b_jobphh"
       },
       b22:{
+        short: "Crashes involving non-motorized users",
         description: null,
         content: "There was a total of 7 crashes that resulted in an incapacitating injury of a vulnerable road user along Montana Ave. between 2012 and 2016. \n" +
         "3 of the 7 crashes occurred in Section 3 , at Montana Ave. and Mattox St. which is a signalized intersection with a pedestrian signal with a marked crosswalk.",
@@ -593,6 +602,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         key: "non-moto"
       },
       b31a:{
+        short: "Estimated emissions: carbon monoxide",
         description: null,
         content: "Congestion in Section 1 and 2 produces 86% of all PM emissions in the Montana Ave. corridor.",
         note: null,
@@ -604,6 +614,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         key: "coemisions"
       },
       b31b:{
+        short: "Estimated emissions: particle matter",
         description: null,
         content: "Congestion in Section 1 and 2 produces 86% of all PM emissions in the Montana Ave. corridor.",
         note: null,
@@ -620,6 +631,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       name: "C) Community to Region",
       pms: ["c22","c23","c24","c31","c32"],
       c22:{
+        short: "Bus stops nearby bikeways",
         description: null,
         content: "Overall 23% of transit stops are located within 1 block of existing bikeways. \n" +
         "Sections 3, 4, and 5 have more than 50% of bus stops located within 1 block of existing bikeways.",
@@ -632,6 +644,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         key: "c22"
       },
       c23:{
+        short: "Park & ride parking spaces",
         description: null,
         content: "Two park and ride facilities with a total capacity of 153 parking spaces are currently located within the Montana Corridor serving routes that have daily ridership below 1,000 passengers. \n" +
         "Section 2 has a 103-space park and ride lot at the Eastside Transfer Center. \n" +
@@ -645,6 +658,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         key: "2016_daily"
       },
       c24:{
+        short: "Transit daily ridership",
         description: null,
         content: "20,928 passengers daily travelled in Sunmetro routes along the Montana Ave. corridor in 2016 \n"+
         "Highest daily ridership was recorded in the following routes providing service in Sections 1 and 2: route 59 (15-minute interval, 3,100 passengers), route 35 (40-minute interval, 2,600 passengers), "+
@@ -660,6 +674,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         key: "2016_daily"
       },
       c31:{
+        short: "Travel time index",
         description: null,
         content: "On average, passenger vehicles travelling along the corridor experienced up to 1.9-times longer travel time compared to free-flow conditions. \n"+
         "The Travel Time Index ranged between 1.3 (Section 7) and 1.9 (Section 2).",
@@ -672,6 +687,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         key: "tti"
       },
       c32:{
+        short: "Crashes involving all users",
         description: null,
         content: "There was a total of 7 fatal crashes and 57 serious injury crashes along Montana Ave. between 2012 and 2016. \n"+
         "Majority of serious injuries occurred between Paisano Dr. and Joe Battle Blvd. (Sections 2, 3, 4).\n"+
@@ -691,6 +707,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       //pms: ["d11","d21","d31"],
       pms: ["d11","d31"],
       d11:{
+        short: "Pavements in poor condition",
         content: "19 miles within the Montana Ave. corridor are in poor condition, most of them are located in Section 1 and 2. \n"+
         "Section 6 and 7 have no roadways in poor condition.",
         sources: "FHWA Highway Performance Management System (HPMS)",
@@ -714,6 +731,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         key: "x"
       },
       d31:{
+        short: "Truck Travel Time Index",
         content: "On average, trucks travelling along the corridor experienced up to a double travel time.\n"+
         "The Travel Time Index Ranged between 1.3 (Section 7) and 2.3 (Section 2)",
         sources: "National Performance Management Research Data Set (NPMRDS)",
@@ -1052,7 +1070,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         for (var i = 0; i < blocks[this.value].pms.length; i++) {
           var temp = blocks[this.value].pms[i];
           var elem_blck = document.createElement("option");
-          elem_blck.innerHTML = blocks[this.value][temp].name;
+          elem_blck.innerHTML = blocks[this.value][temp].short;
           elem_blck.id = this.value;
           var select_pm = document.getElementById("select_pm");
           select_pm.appendChild(elem_blck);
@@ -1182,7 +1200,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       var block = $(this).children(":selected").attr("id");
       for(var i = 0; i < blocks[block].pms.length; i++){
         var block_pm = blocks[block].pms[i];
-        if(blocks[block][block_pm].name == this.value){
+        if(blocks[block][block_pm].short == this.value){
           pm_mpo.pm = blocks[block][block_pm].key;
           pm_mpo.filter_prop = blocks[block][block_pm].key;
           pm_mpo.filter_prop_n = this.value;
@@ -1205,7 +1223,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       var block = $(this).children(":selected").attr("id");
       for(var i = 0; i < blocks[block].pms.length; i++){
         var block_pm = blocks[block].pms[i];
-        if(blocks[block][block_pm].name == this.value){
+        if(blocks[block][block_pm].short == this.value){
           var p_content = document.createElement('p');
           p_content.innerHTML = blocks[block][block_pm].content;
           pm_content.appendChild(p_content);
@@ -3162,6 +3180,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   }*/
 
   var s1 = s2 = s3 = s4 = s5 = s6 = s7 = 0;
+  var s1_fatal = s2_fatal = s3_fatal = s4_fatal = s5_fatal = s6_fatal = s7_fatal = 0;
   function timegen(){
     var from = $("#time_select_from").children(":selected").attr("value");
     from = parseInt(from);
@@ -3189,6 +3208,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         fatal_crashes = 0;
         not_fatal_crashes = 0;
         s1 = s2 = s3 = s4 = s5 = s6 = s7 = 0;
+        s1_fatal = s2_fatal = s3_fatal = s4_fatal = s5_fatal = s6_fatal = s7_fatal = 0;
         removePolygons();
         for (var j = 0; j < d.notcoords.length; j++) {
           if(d.notcoords[j].date == (from+i)){
@@ -3203,8 +3223,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           }
         }
         $("#update_time_text").text("Showing info from the year "+(from+i)+"...");
-        dialog += "In <strong>"+(from+i)+"</strong>, Montana had "+crashes_that_year+" crashes.<br>\n";
-        dialog +=  fatal_crashes + " fatal, and " + not_fatal_crashes + " incapacitating.<br><br>\n"
+        //dialog += "In <strong>"+(from+i)+"</strong>, Montana had "+crashes_that_year+" crashes.<br>\n";
+        //dialog +=  fatal_crashes + " fatal, and " + not_fatal_crashes + " incapacitating.<br><br>\n"
         count++;
         i++;
 
@@ -3225,40 +3245,62 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
   function drawCrashesFromTimegen(dataCrashes, isFirst){
     var section_to_use = 0;
-    if(dataCrashes.section_num == 1){
-      console.log(dataCrashes.section_num);
+    if(dataCrashes.section_num == 1 && dataCrashes.incap == 1){
       s1++;
       section_to_use = s1;
     }
-    else if(dataCrashes.section_num == 2){
-      console.log(dataCrashes.section_num);
+    else if(dataCrashes.section_num == 2 && dataCrashes.incap == 1){
       s2++;
       section_to_use = s2;
     }
-    else if(dataCrashes.section_num == 3){
-      console.log(dataCrashes.section_num);
+    else if(dataCrashes.section_num == 3 && dataCrashes.incap == 1){
       s3++;
       section_to_use = s3;
     }
-    else if(dataCrashes.section_num == 4){
-      console.log(dataCrashes.section_num);
+    else if(dataCrashes.section_num == 4 && dataCrashes.incap == 1){
       s4++;
       section_to_use = s4;
     }
-    else if(dataCrashes.section_num == 5){
-      console.log(dataCrashes.section_num);
+    else if(dataCrashes.section_num == 5 && dataCrashes.incap == 1){
       s5++;
       section_to_use = s5;
     }
-    else if(dataCrashes.section_num == 6){
-      console.log(dataCrashes.section_num);
+    else if(dataCrashes.section_num == 6 && dataCrashes.incap == 1){
       s6++;
       section_to_use = s6;
     }
-    else{
-      console.log(dataCrashes.section_num);
+    else if(dataCrashes.section_num == 7 && dataCrashes.incap == 1){
       s7++;
       section_to_use = s7;
+    }
+
+    if(dataCrashes.section_num == 1 && dataCrashes.fatal == 1){
+      s1_fatal++;
+      section_to_use = s1_fatal;
+    }
+    else if(dataCrashes.section_num == 2 && dataCrashes.fatal == 1){
+      s2_fatal++;
+      section_to_use = s2_fatal;
+    }
+    else if(dataCrashes.section_num == 3 && dataCrashes.fatal == 1){
+      s3_fatal++;
+      section_to_use = s3_fatal;
+    }
+    else if(dataCrashes.section_num == 4 && dataCrashes.fatal == 1){
+      s4_fatal++;
+      section_to_use = s4_fatal;
+    }
+    else if(dataCrashes.section_num == 5 && dataCrashes.fatal == 1){
+      s5_fatal++;
+      section_to_use = s5_fatal;
+    }
+    else if(dataCrashes.section_num == 6 && dataCrashes.fatal == 1){
+      s6_fatal++;
+      section_to_use = s6_fatal;
+    }
+    else if(dataCrashes.section_num == 7 && dataCrashes.fatal == 1){
+      s7_fatal++;
+      section_to_use = s7_fatal;
     }
     var getparams = app.payload;
     var bounds = app.map.getBounds();
