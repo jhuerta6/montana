@@ -732,7 +732,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         key: "x"
       },
       d31:{
-        short: "B.3.1.Truck Travel Time Index",
+        short: "D.3.1.Truck Travel Time Index",
         content: "On average, trucks travelling along the corridor experienced up to a double travel time.\n"+
         "The Travel Time Index Ranged between 1.3 (Section 7) and 2.3 (Section 2)",
         sources: "National Performance Management Research Data Set (NPMRDS)",
@@ -2712,8 +2712,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             $('#legendSpawner').find('*').not('h3').remove();
             var spawner = document.getElementById('legendSpawner');
             var div = document.createElement('div');
-            div.innerHTML = "<img src='img/redsquare.png' height='10px'/> <strong>Fatal</strong> crashes" +
-            "<br> <img src='img/brightgreensquare.png' height='10px'/> <strong>Incapacitated</strong> crashes";
+            div.innerHTML = "<img src='img/redsquare.png' height='10px'/> Crash resulting in <strong>fatal</strong> injuries" +
+            "<br> <img src='img/brightgreensquare.png' height='10px'/> Crash resulting in <strong>serious</strong> injuries";
             var newLegend = document.createElement('div');
             newLegend = document.getElementById('legend');
             document.getElementById('legend').style.visibility = "visible";
@@ -3184,9 +3184,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             var spawner = document.getElementById('legendSpawner');
             var div = document.createElement('div');
             div.innerHTML =
-            "<img src='img/brightgreensquare.png' height='10px'/> 20 - 500 daily passengers" +
-            "<br> <img src='img/skybluesquare.png' height='10px'/> 500 - 1000 daily passengers"+
-            "<br> <img src='img/yellowsquare.png' height='10px'/> 1000 - 2000 daily passengers"+
+            "<img src='img/brightgreensquare.png' height='10px'/> 20 to 500 daily passengers" +
+            "<br> <img src='img/skybluesquare.png' height='10px'/> 500 to 1000 daily passengers"+
+            "<br> <img src='img/yellowsquare.png' height='10px'/> 1000 to 2000 daily passengers"+
             "<br> <img src='img/orangesquare.png' height='10px'/> 2000 to 3150 daily passengers";
             var newLegend = document.createElement('div');
             newLegend = document.getElementById('legend');
@@ -3319,10 +3319,17 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           app.polygons.push(polygon);
           polygon.setMap(app.map);
         }
-        else if(pm_mpo.pm == "tti"){
+        else if(pm_mpo.pm == "!tti"){
           temp = wktFormatter(data.coords[key]['POLYGON']);
           for (var i = 0; i < temp.length; i++) {
             polyCoordis.push(temp[i]);
+          }
+          var color;
+          if(data.coords[key]['value'] == 1){
+            color = shapecolor[0];
+          }
+          else if(data.coords[key]['value'] == 2){
+
           }
           var polygon = new google.maps.Polygon({
             description: pm_mpo.name_pm,
@@ -3331,7 +3338,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             strokeColor: shapeoutline[colorSelector],
             strokeOpacity: 0.60,
             strokeWeight: 0.70,
-            fillColor: shapecolor[colorSelector],
+            fillColor: color,
             fillOpacity: 0.60,
             zIndex: -1
           });
