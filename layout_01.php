@@ -3109,7 +3109,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             var spawner = document.getElementById('legendSpawner');
             var div = document.createElement('div');
             div.innerHTML =
-            "<img src='img/brightgreensquare.png' height='10px'/> Testing";
+            "<img src='img/brightgreensquare.png' height='10px'/> Existing bikeways" +
+            "<br><img src='img/redsquare.png' height='10px'/> Bus stops located within 600 ft. of existing bikeways";
             var newLegend = document.createElement('div');
             newLegend = document.getElementById('legend');
             document.getElementById('legend').style.visibility = "visible";
@@ -3164,7 +3165,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             var line = new google.maps.Polyline({
               path: to_color,
               value: data.coords[key]['value'],
-              strokeColor: 'red',
+              strokeColor: color,
               strokeOpacity: 1.0,
               strokeWeight: 4,
               zIndex: 1
@@ -3301,7 +3302,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           else if(pm_mpo.pm == "emar" && data.coords[key]['value'] > 200){
             color = shapecolor[2];
           }
-          console.log(data.coords[key]['value']);
+
           var polygon = new google.maps.Polygon({
             description: pm_mpo.name_pm,
             description_value: data.coords[key]['value'],
