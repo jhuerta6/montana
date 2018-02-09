@@ -476,8 +476,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       //pms:["a11", "a12", "a13", "a21", "a23", "a24"],
       pms: ["a11","a12","a13","a21","a22","a23","a24"],
       a11:{
-        name: "A-1-1) Population Within 1/2 Mile of Frequent Transit Service",
-        short: "Population nearby transit",
+        name: "A.1.1. Population Within 1/2 Mile of Frequent Transit Service",
+        short: "A.1.1. Population nearby transit",
         mode: ["T"],
         description: "",
         content: "9% and 12% of population in Section 1 and 2 respectively live within a 1/2 mile of transit service with a headway of 20 minutes or less. \n" +
@@ -490,8 +490,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         key: "freqtran"
       },
       a12:{
-        short: "Bikeways build-out",
-        name: "A-1-2) Bikeways build-out",
+        short: "A.1.2. Bikeways build-out",
+        name: "A.1.2. Bikeways build-out",
         mode: ["B"],
         description: "",
         content: "This performance measure compares the mileage of existing bikeways with the mileage suggested in the 2016 COEP Bike Plan. \n"+
@@ -504,8 +504,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         key: "sectionnum"
       },
       a13:{
-        short: "Population nearby bikeways",
-        name: "A-1-3) Population within 1/2 Mile of Existing Bikeways",
+        short: "A.1.3. Population nearby bikeways",
+        name: "A.1.3. Population within 1/2 Mile of Existing Bikeways",
         mode: ["B"],
         description: "",
         content: "More than 60% of population has access to bikeways in Sections 2, 3, 4. \n" +
@@ -518,8 +518,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         key: "b_workers"
       },
       a21:{
-        short: "Bus stops with crosswalks",
-        name: "A-2-1) Bus Stops Along Busy Roadways With No Marked Crosswalk Within 150 ft.",
+        short: "A.2.1. Bus stops with crosswalks",
+        name: "A.2.1. Bus Stops Along Busy Roadways With No Marked Crosswalk Within 150 ft.",
         mode: ["T", "W"],
         description: "",
         content: "Majority of Sunmetro bus stops on highly trafficked roadways are not located in proximity of crosswalks, therefore safe access to transit may be compromised. \n" +
@@ -531,8 +531,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         key: "crosw150ft"
       },
       a22:{
-        short: "Bus stops with bicycle parking",
-        name: "A-2-2) Bus Stops with Bicycle Parking",
+        short: "A.2.2. Bus stops with bicycle parking",
+        name: "A.2.2. Bus Stops with Bicycle Parking",
         mode: ["T", "B"],
         description: "",
         content: "Currently only the Five Points Transfer Center and Eastside Transfer Center offer bicycle parking. \n" +
@@ -544,8 +544,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         key: "a22_new"
       },
       a23:{
-        short: "Car-free households",
-        name: "A-2-3) Car-Free Households",
+        short: "A.2.3. Car-free households",
+        name: "A.2.3. Car-Free Households",
         mode: ["D","T","W","B"],
         description: "",
         content: "12% of households within the Montana Corridor do not own a car. \n" +
@@ -558,8 +558,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         key: "b_carfrhh"
       },
       a24:{
-        short: "Transportation disadvantaged households",
-        name: "A-2-4) Transportation Disadvantaged Households",
+        short: "A.2.4. Transportation disadvantaged households",
+        name: "A.2.4. Transportation Disadvantaged Households",
         mode: ["D","T","W","B"],
         description: "",
         content: "In the map, a block group is considered disadvantaged when more than 1/3 of population is disadvantaged. \n" +
@@ -576,7 +576,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       name: "B) Community to Community",
       pms: ["b14","b22","b31a","b31b"],
       b14:{
-        short: "Jobs/Housing balance ratio",
+        short: "B.1.4. Jobs/Housing balance ratio",
         description: null,
         content: "Housing Rich (ratio < 1) are majority of block groups in Sections 3, 4, 5, 6, 7. \n" +
         "Balanced (1 to 1.29) is one block group in Section 1. \n" +
@@ -585,12 +585,12 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         sources: "ACS 2011-2015, U.S. Census",
         overall: false,
         periods: "5-year average 2011-2015",
-        name: "B-1-4) Jobs-Housing Ratio",
+        name: "B.1.4. Jobs-Housing Ratio",
         mode: ["D","T","W","B"],
         key: "b_jobphh"
       },
       b22:{
-        short: "Crashes involving non-motorized users",
+        short: "B.2.2. Crashes involving non-motorized users",
         description: null,
         content: "There was a total of 7 crashes that resulted in an incapacitating injury of a vulnerable road user along Montana Ave. between 2012 and 2016. \n" +
         "3 of the 7 crashes occurred in Section 3 , at Montana Ave. and Mattox St. which is a signalized intersection with a pedestrian signal with a marked crosswalk.",
@@ -598,31 +598,31 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         sources: "Texas Department of Transportation CRIS database",
         overall: false,
         periods: "2012-2016",
-        name: "B-2-2) Crashes Involving Non-Motorized Users",
+        name: "B.2.2. Crashes Involving Non-Motorized Users",
         mode: ["W","B"],
         key: "non-moto"
       },
       b31a:{
-        short: "Estimated emissions: carbon monoxide",
+        short: "B.3.1.A. Estimated emissions: carbon monoxide",
         description: null,
         content: "Congestion in Section 1 and 2 produces 86% of all PM emissions in the Montana Ave. corridor.",
         note: null,
         sources: "EPMPO Travel Demand Model (TDM), Air Quality Sketch Planning Tool",
         overall: false,
+        name: "B.3.1.A. Estimated Emissions CO",
         periods: "Network year 2012",
-        name: "B-3-1-A) Estimated Emissions CO",
         mode: ["D"],
         key: "coemisions"
       },
       b31b:{
-        short: "Estimated emissions: particle matter",
-        description: null,
+        short: "B.3.1.B. Estimated emissions: particle matter",
         content: "Congestion in Section 1 and 2 produces 86% of all PM emissions in the Montana Ave. corridor.",
+        description: null,
         note: null,
         sources: "EPMPO Travel Demand Model (TDM), Air Quality Sketch Planning Tool",
         overall: false,
+        name: "B.3.1.B. Estimated Emissions PM",
         periods: "Network year 2012",
-        name: "B-3-1-B) Estimated Emissions PM",
         mode: ["D"],
         key: "emar"
       },
@@ -632,7 +632,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       name: "C) Community to Region",
       pms: ["c22","c23","c24","c31","c32"],
       c22:{
-        short: "Bus stops nearby bikeways",
+        short: "C.2.2. Bus stops nearby bikeways",
         description: null,
         content: "Overall 23% of transit stops are located within 1 block of existing bikeways. \n" +
         "Sections 3, 4, and 5 have more than 50% of bus stops located within 1 block of existing bikeways.",
@@ -640,12 +640,12 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         sources: "Sunmetro, City of El Paso",
         overall: false,
         periods: null,
-        name: "C-2-2) Bus Stops Within 600ft. of Bikeways",
+        name: "C.2.2. Bus Stops Within 600ft. of Bikeways",
         mode: ["T","B"],
         key: "c22"
       },
       c23:{
-        short: "Park & ride parking spaces",
+        short: "C.2.3. Park & ride parking spaces",
         description: null,
         content: "Two park and ride facilities with a total capacity of 153 parking spaces are currently located within the Montana Corridor serving routes that have daily ridership below 1,000 passengers. \n" +
         "Section 2 has a 103-space park and ride lot at the Eastside Transfer Center. \n" +
@@ -654,12 +654,12 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         sources: "Sunmetro website",
         overall: false,
         periods: "As of August 2017",
-        name: "C-2-3) Number of Park and Ride parking spaces",
+        name: "C.2.3. Number of Park and Ride parking spaces",
         mode: ["D","T"],
         key: "2016_daily"
       },
       c24:{
-        short: "Transit daily ridership",
+        short: "C.2.4. Transit daily ridership",
         description: null,
         content: "20,928 passengers daily travelled in Sunmetro routes along the Montana Ave. corridor in 2016 \n"+
         "Highest daily ridership was recorded in the following routes providing service in Sections 1 and 2: route 59 (15-minute interval, 3,100 passengers), route 35 (40-minute interval, 2,600 passengers), "+
@@ -670,12 +670,12 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         sources: "Sunmetro",
         overall: false,
         periods: "2016",
-        name: "C-2-4) Transit Daily Ridership",
+        name: "C.2.4. Transit Daily Ridership",
         mode: ["T"],
         key: "2016_daily"
       },
       c31:{
-        short: "Travel time index",
+        short: "C.3.1. Travel time index",
         description: null,
         content: "On average, passenger vehicles travelling along the corridor experienced up to 1.9-times longer travel time compared to free-flow conditions. \n"+
         "The Travel Time Index ranged between 1.3 (Section 7) and 1.9 (Section 2).",
@@ -683,12 +683,12 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         sources: "National Performance Management Research Data Set (NPMRDS)",
         overall: false,
         periods: "February 2017 - July 2017",
-        name: "C-3-1) Travel Time Index",
+        name: "C.3.1. Travel Time Index",
         mode: ["D",],
         key: "tti"
       },
       c32:{
-        short: "Crashes involving all users",
+        short: "C.3.2 Crashes involving all users",
         description: null,
         content: "There was a total of 7 fatal crashes and 57 serious injury crashes along Montana Ave. between 2012 and 2016. \n"+
         "Majority of serious injuries occurred between Paisano Dr. and Joe Battle Blvd. (Sections 2, 3, 4).\n"+
@@ -697,7 +697,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         sources: "Texas Department of Transportation CRIS database",
         overall: false,
         periods: "2012-2016",
-        name: "C-3-2) Crashes",
+        name: "C.3.2. Crashes",
         mode: ["D", "F"],
         key: "crashes"
       },
@@ -708,7 +708,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       //pms: ["d11","d21","d31"],
       pms: ["d11","d31"],
       d11:{
-        short: "Pavements in poor condition",
+        short: "D.1.1. Pavements in poor condition",
         content: "19 miles within the Montana Ave. corridor are in poor condition, most of them are located in Section 1 and 2. \n"+
         "Section 6 and 7 have no roadways in poor condition.",
         sources: "FHWA Highway Performance Management System (HPMS)",
@@ -716,23 +716,23 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         note: "Mileage reflects only roadways that were collected in HPMS that year.",
         description: null,
         overall: false,
-        name: "D-1-1) Pavements in Poor Condition",
+        name: "D.1.1. Pavements in Poor Condition",
         mode: ["D"],
         key: "iri"
       },
       d21:{
-        content: "Data was not available at the time of the analysis.",
+        content: "D.2.3 . Data was not available at the time of the analysis.",
         sources: null,
         periods: null,
         note: null,
         description: null,
         overall: false,
-        name: "D-2-1) Vehicle Miles Travelled",
+        name: "D.2.1. Vehicle Miles Travelled",
         mode: ["D","T","B","F"],
         key: "x"
       },
       d31:{
-        short: "Truck Travel Time Index",
+        short: "B.3.1.Truck Travel Time Index",
         content: "On average, trucks travelling along the corridor experienced up to a double travel time.\n"+
         "The Travel Time Index Ranged between 1.3 (Section 7) and 2.3 (Section 2)",
         sources: "National Performance Management Research Data Set (NPMRDS)",
@@ -740,7 +740,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         note: "Data was not available for Section 1 (between Piedras St. and Paisano Dr.)",
         description: null,
         overall: false,
-        name: "D-3-1) Truck Travel Time",
+        name: "D.3.1. Truck Travel Time",
         mode: ["F"],
         key: "tti"
       },
@@ -1193,15 +1193,15 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       $("#label_container").hide();
       $("#disabled").prop("disabled", "true");
 
-      if(this.value == "D-3-1) Truck Travel Time"){
+      if(this.value == blocks.d.d31.short){
         drawChartTTI();
         $("#label_container").show();
         $("#labels").val(7);
       }
-      else if(this.value == "C-2-3) Number of Park and Ride parking spaces"){
+      else if(this.value == blocks.c.c23.short){
         drawChartc23();
       }
-      else if(this.value == "C-3-1) Travel Time Index"){
+      else if(this.value == blocks.c.c31.short){
         drawChartTti_normal();
         $("#label_container").show();
         $("#labels").val(7);
@@ -3683,7 +3683,43 @@ var options =
     bar_init.draw(data, options);
   }
 
-  /*function drawChartc23(){
+  function drawChartc23(){
+    clearCharts();
+    var data = new google.visualization.DataTable(
+      {"cols":
+      [{"id":"","label":"Section","type":"string"},
+      {"id":"","label":"value","type":"number"}],
+      "rows":
+      [{"c":[{"v":"Total Montana Corridor"},{"v":153}]},
+      {"c":[{"v":" S1: Piedras St."},{"v":0}]},
+      {"c":[{"v":"S2: Paisano Dr."},{"v":103}]},
+      {"c":[{"v":"S3: Hawkins Blvd."},{"v":0}]},
+      {"c":[{"v":"S4: Yarbrough Dr."},{"v":0}]},
+      {"c":[{"v":"S5: Joe Battle Blvd."},{"v":50}]},
+      {"c":[{"v":"S6: Zaragoza Rd."},{"v":0}]},
+      {"c":[{"v":"S7: Araceli Ave."},{"v":0}]}
+    ]
+  }
+);
+
+    var options =
+      {"title": blocks.c.c23.short, "vAxis":{"title":"","minValue":0}, "hAxis":{"title":"","maxValue":200,
+        viewWindow: {
+          min: 0,
+          max: 200
+        },
+        ticks: [0, 50, 100, 150]
+        },
+        "legend":"none",
+        "is3D":false,
+        "width":1000,
+        "height":400,
+        animation:{ duration: 1000, easing: 'inAndOut', startup: true }
+      };
+    bar_init = new google.visualization.BarChart(document.getElementById("chart_selected"));
+    bar_init.draw(data, options);
+}/*
+/*
     clearCharts();
 
     var data = google.visualization.arrayToDataTable([
