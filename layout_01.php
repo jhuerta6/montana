@@ -2805,7 +2805,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             var div = document.createElement('div');
             div.innerHTML =
             "<img src='img/brightgreensquare.png' height='10px'/> Population within 1/2 mile of existing bikeways" +
-            "<br><img src='img/redsquare.png height='10px'/> Existing bikeways";
+            "<br><img src='img/redsquare.png' height='10px'/> Existing bikeways";
             var newLegend = document.createElement('div');
             newLegend = document.getElementById('legend');
             document.getElementById('legend').style.visibility = "visible";
