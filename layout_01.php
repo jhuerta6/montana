@@ -2523,6 +2523,54 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           app.polygons.push(point);
           point.setMap(app.map);
         }
+        else if(pm_mpo.pm == "b_jobphh"){ //polygon
+          if(up_to_one == 0){
+            $('#legendSpawner').find('*').not('h3').remove();
+            var spawner = document.getElementById('legendSpawner');
+            var div = document.createElement('div');
+            div.innerHTML = "<img src='img/graysquare.png' height='10px'/> Housing rich (jobs-housing ratio < 1.00)" +
+            "<br><img src='img/redsquare.png' height='10px'/> Balanced (jobs-housing ratio 1.00 - 1.29)"+
+            "<br><img src='img/brightgreensquare.png' height='10px'/> Job rich (jobs-housing ratio > 1.29)";
+            var newLegend = document.createElement('div');
+            newLegend = document.getElementById('legend');
+            document.getElementById('legend').style.visibility = "visible";
+            newLegend.appendChild(div);
+          }
+          up_to_one++;
+
+          temp = wktFormatter(data.coords[key]['POLYGON']);
+          //console.log(temp);
+          for (var i = 0; i < temp.length; i++) {
+            polyCoordis.push(temp[i]);
+          }
+          var color;
+          if(data.coords[key]['value'] < 1.00){
+            color = shapecolor[0];
+          }
+          else if(data.coords[key]['value'] >= 1.00 && data.coords[key]['value'] <= 1.29){
+            color = shapecolor[1];
+          }
+          else if(data.coords[key]['value'] >= 1.29){
+            color = shapecolor[2];
+          }
+
+          var polygon = new google.maps.Polygon({
+            description: pm_mpo.name_pm,
+            description_value: data.coords[key]['value'],
+            paths: polyCoordis,
+            strokeColor: 'black',
+            strokeOpacity: 0.60,
+            strokeWeight: 0.70,
+            fillColor: color,
+            fillOpacity: 0.60,
+            zIndex: -1
+          });
+
+          polygon.setOptions({ zIndex: -1 });
+          polygon.addListener('click', polyInfo);
+          app.polygons.push(polygon);
+          polygon.setMap(app.map);
+        }
         else if(pm_mpo.pm == "a22_new"){ //points
           if(up_to_one == 0){
             $('#legendSpawner').find('*').not('h3').remove();
@@ -2606,6 +2654,59 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           app.polygons.push(polygon);
           polygon.setMap(app.map);
         }
+        else if(pm_mpo.pm == "B_TpDisadv"){
+          if(up_to_one == 0){
+            $('#legendSpawner').find('*').not('h3').remove();
+            var spawner = document.getElementById('legendSpawner');
+            var div = document.createElement('div');
+            div.innerHTML =  "Indicator of potential disadvantage by block group"
+            "<br><img src='img/graysquare.png' height='10px'/> 0%"+
+            "<br><img src='img/brightgreensquare.png' height='10px'/> 1%" +
+            "<br><img src='img/redsquare.png' height='10px'/> 2% - 3%" +
+            "<br><img src='img/skybluesquare.png' height='10px'/> 4% - 5%";
+            var newLegend = document.createElement('div');
+            newLegend = document.getElementById('legend');
+            document.getElementById('legend').style.visibility = "visible";
+            newLegend.appendChild(div);
+          }
+          up_to_one++;
+
+
+          temp = wktFormatter(data.coords[key]['POLYGON']);
+          //console.log(temp);
+          for (var i = 0; i < temp.length; i++) {
+            polyCoordis.push(temp[i]);
+          }
+          var color;
+          if(data.coords[key]['value'] == 0){
+            color = shapecolor[0];
+          }
+          else if(data.coords[key]['value'] == 1){
+            color = shapecolor[1];
+          }
+          else if(data.coords[key]['value'] >= 2 && data.coords[key]['value'] <= 3){
+            color = shapecolor[2];
+          }
+          else{
+            color = shapecolor[3];
+          }
+
+          var polygon = new google.maps.Polygon({
+            description: pm_mpo.name_pm,
+            description_value: data.coords[key]['value'],
+            paths: polyCoordis,
+            strokeColor: 'black',
+            strokeOpacity: 0.60,
+            strokeWeight: 0.70,
+            fillColor: color,
+            fillOpacity: 0.60,
+            zIndex: -1
+          });
+          polygon.setOptions({ zIndex: -1 });
+          polygon.addListener('click', polyInfo);
+          app.polygons.push(polygon);
+          polygon.setMap(app.map);
+        }
         else if(pm_mpo.pm == "crashes"){
           if(up_to_one == 0){
             $('#legendSpawner').find('*').not('h3').remove();
@@ -2648,8 +2749,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             $('#legendSpawner').find('*').not('h3').remove();
             var spawner = document.getElementById('legendSpawner');
             var div = document.createElement('div');
-            div.innerHTML = "<img src='img/redsquare.png' height='10px'/> Pedestrian crashes" +
-            "<br> <img src='img/orangesquare.png' height='10px'/> Pedalcyclist crashes";
+            div.innerHTML = "<img src='img/redsquare.png' height='10px'/> Crash involving a pedestrian" +
+            "<br> <img src='img/orangesquare.png' height='10px'/> Crash involving a cyclist";
             var newLegend = document.createElement('div');
             newLegend = document.getElementById('legend');
             document.getElementById('legend').style.visibility = "visible";
@@ -3150,10 +3251,57 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           }
         }
         else if(pm_mpo.pm == "coemisions" || pm_mpo.pm == "emar" ){
+          if(up_to_one == 0 && pm_mpo.pm == "coemisions"){
+            $('#legendSpawner').find('*').not('h3').remove();
+            var spawner = document.getElementById('legendSpawner');
+            var div = document.createElement('div');
+            div.innerHTML = "<img src='img/graysquare.png' height='10px'/> Less than 500 lbs of CO per acre" +
+            "<br><img src='img/redsquare.png' height='10px'/> From 500 to 1000 lbs of CO per acre"+
+            "<br><img src='img/brightgreensquare.png' height='10px'/> More than 1000 lbs of CO per acre";
+            var newLegend = document.createElement('div');
+            newLegend = document.getElementById('legend');
+            document.getElementById('legend').style.visibility = "visible";
+            newLegend.appendChild(div);
+          }
+          else if(up_to_one == 0 && pm_mpo.pm == "emar"){
+            $('#legendSpawner').find('*').not('h3').remove();
+            var spawner = document.getElementById('legendSpawner');
+            var div = document.createElement('div');
+            div.innerHTML = "<img src='img/graysquare.png' height='10px'/> Less than 100 lbs of PM10 per acre" +
+            "<br><img src='img/redsquare.png' height='10px'/> From 100 to 200 lbs of PM10 per acre"+
+            "<br><img src='img/brightgreensquare.png' height='10px'/> More than 200 lbs of PM10 per acre";
+            var newLegend = document.createElement('div');
+            newLegend = document.getElementById('legend');
+            document.getElementById('legend').style.visibility = "visible";
+            newLegend.appendChild(div);
+          }
+          up_to_one++;
           temp = wktFormatter(data.coords[key]['POLYGON']);
           for (var i = 0; i < temp.length; i++) {
             polyCoordis.push(temp[i]);
           }
+          var color;
+
+          if(pm_mpo.pm == "coemisions" && data.coords[key]['value'] < 500){
+            color = shapecolor[0];
+          }
+          else if(pm_mpo.pm == "coemisions" && data.coords[key]['value'] >= 500 && data.coords[key]['value'] <= 1000){
+            color = shapecolor[1];
+          }
+          else if(pm_mpo.pm == "coemisions" && data.coords[key]['value'] > 1000){
+            color = shapecolor[2];
+          }
+
+          if(pm_mpo.pm == "emar" && data.coords[key]['value'] < 100){
+            color = shapecolor[0];
+          }
+          else if(pm_mpo.pm == "emar" && data.coords[key]['value'] >= 100 && data.coords[key]['value'] <= 200){
+            color = shapecolor[1];
+          }
+          else if(pm_mpo.pm == "emar" && data.coords[key]['value'] > 200){
+            color = shapecolor[2];
+          }
+          console.log(data.coords[key]['value']);
           var polygon = new google.maps.Polygon({
             description: pm_mpo.name_pm,
             description_value: data.coords[key]['value'],
@@ -3161,7 +3309,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             strokeColor: shapeoutline[colorSelector],
             strokeOpacity: 0.60,
             strokeWeight: 0.70,
-            fillColor: shapecolor[colorSelector],
+            fillColor: color,
             fillOpacity: 0.60,
             zIndex: -1
           });
