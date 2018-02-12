@@ -127,7 +127,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           <div class="col-sm-12">
             <div class="tab-content"><br>
               <div id="default" class="tab-pane fade in active">
-                <p class="text-muted"> Try drawing an Area of Interest with the tools at the top of the map. <br> Click your drawn Area Of Interest to display statistics. </p>
+                <!--<p class="text-muted"> Try drawing an Area of Interest with the tools at the top of the map. <br> Click your drawn Area Of Interest to display statistics. </p>-->
                 <!--<div id="label_container" class="input-group">
                   <span data-toggle="tooltip" data-placement="top" title="Number of representations for the data" class="input-group-addon" id="basic-addon3"># labels</span>
                   <input type="number" class="form-control" value="1" min="1"placeholder="...labels" id="labels" aria-describedby="basic-addon3">
@@ -472,7 +472,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     elements:["a", "b","c", "d", "z"],
     a:{
       id: "a",
-      name: "A) Within Community",
+      name: "A. Within Community",
       //pms:["a11", "a12", "a13", "a21", "a23", "a24"],
       pms: ["a11","a12","a13","a21","a22","a23","a24"],
       a11:{
@@ -573,7 +573,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     },
     b:{
       id: "b", //falta el b12
-      name: "B) Community to Community",
+      name: "B. Community to Community",
       pms: ["b14","b22","b31a","b31b"],
       b14:{
         short: "B.1.4. Jobs/Housing balance ratio",
@@ -629,7 +629,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     },
     c:{ //falta c.2.6 = non-sov travel
       id: "c",
-      name: "C) Community to Region",
+      name: "C. Community to Region",
       pms: ["c22","c23","c24","c31","c32"],
       c22:{
         short: "C.2.2. Bus stops nearby bikeways",
@@ -656,7 +656,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         periods: "As of August 2017",
         name: "C.2.3. Number of Park and Ride parking spaces",
         mode: ["D","T"],
-        key: "2016_daily"
+        key: "parkride"
       },
       c24:{
         short: "C.2.4. Transit daily ridership",
@@ -704,7 +704,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     },
     d:{
       id: "d",
-      name: "D) Region to Region",
+      name: "D. Region to Region",
       //pms: ["d11","d21","d31"],
       pms: ["d11","d31"],
       d11:{
@@ -2659,11 +2659,11 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             $('#legendSpawner').find('*').not('h3').remove();
             var spawner = document.getElementById('legendSpawner');
             var div = document.createElement('div');
-            div.innerHTML =  "Indicator of potential disadvantage by block group"
-            "<br><img src='img/graysquare.png' height='10px'/> 0%"+
-            "<br><img src='img/brightgreensquare.png' height='10px'/> 1%" +
-            "<br><img src='img/redsquare.png' height='10px'/> 2% - 3%" +
-            "<br><img src='img/skybluesquare.png' height='10px'/> 4% - 5%";
+            div.innerHTML =  "Indicator of potential disadvantage by block group" +
+            "<br><img src='img/brightgreensquare.png' height='10px'/> 0%"+
+            "<br><img src='img/redsquare.png' height='10px'/> 1%" +
+            "<br><img src='img/skybluesquare.png' height='10px'/> 2% - 3%" +
+            "<br><img src='img/yellowsquare.png' height='10px'/> 4% - 5%";
             var newLegend = document.createElement('div');
             newLegend = document.getElementById('legend');
             document.getElementById('legend').style.visibility = "visible";
@@ -2679,16 +2679,16 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           }
           var color;
           if(data.coords[key]['value'] == 0){
-            color = shapecolor[0];
-          }
-          else if(data.coords[key]['value'] == 1){
             color = shapecolor[1];
           }
-          else if(data.coords[key]['value'] >= 2 && data.coords[key]['value'] <= 3){
+          else if(data.coords[key]['value'] == 1){
             color = shapecolor[2];
           }
-          else{
+          else if(data.coords[key]['value'] >= 2 && data.coords[key]['value'] <= 3){
             color = shapecolor[3];
+          }
+          else{
+            color = shapecolor[4];
           }
 
           var polygon = new google.maps.Polygon({
@@ -3178,16 +3178,14 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           }
         }
 
-        else if (pm_mpo.pm == "2016_daily") {
+        else if (pm_mpo.pm == "parkride") {
           if(up_to_one == 0){
             $('#legendSpawner').find('*').not('h3').remove();
             var spawner = document.getElementById('legendSpawner');
             var div = document.createElement('div');
             div.innerHTML =
-            "<img src='img/brightgreensquare.png' height='10px'/> 20 to 500 daily passengers" +
-            "<br> <img src='img/skybluesquare.png' height='10px'/> 500 to 1000 daily passengers"+
-            "<br> <img src='img/yellowsquare.png' height='10px'/> 1000 to 2000 daily passengers"+
-            "<br> <img src='img/orangesquare.png' height='10px'/> 2000 to 3150 daily passengers";
+            "<img src='img/brightgreensquare.png' height='10px'/> 103-space park and ride lot at the <strong>Eastside Transfer Center</strong>" +
+            "<br> <img src='img/skybluesquare.png' height='10px'/> 50-space park and ride lot at <strong>Edgemere/RC Poe</strong>";
             var newLegend = document.createElement('div');
             newLegend = document.getElementById('legend');
             document.getElementById('legend').style.visibility = "visible";
@@ -3195,61 +3193,44 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           }
           up_to_one++;
 
-          var temp = []; //gets created after each line/data
-          var to_color = [];
-          x = data.coords[key]['POLYGON'];
-          temp.push(x); //individual
-          var reader = new jsts.io.WKTReader();
-          var a = reader.read(x);
+          var point_obj = {lat: 31.7831258, lng: -106.3898768};
+          points.push(point_obj);
 
-          if(a.getGeometryType() == "LineString"){
-            var coord;
-            var ln = a.getCoordinates();
-            for (var i = 0; i < ln.length; i++) {
-              coord = {lat: ln[i]['y'], lng: ln[i]['x']};
-              to_color.push(coord);
-            }
-          }else{
-            var coord;
-            var multi = a.getCoordinates();
-            for (var i = 0; i < multi.length; i++) {
-              coord = {lat: multi[i]['y'], lng: multi[i]['x']};
-              to_color.push(coord);
-            }
-          }
-          if(data.coords[key]['value'] >= 20 && data.coords[key]['value'] <= 500){ //very good
-            var proceed = true;
-            var color = '#00FF00';
-          }else if(data.coords[key]['value'] >= 500 && data.coords[key]['value'] <= 1000){ //good
-            var proceed = true;
-            var color = '#009BFF';
-          }else if(data.coords[key]['value'] >= 1000 && data.coords[key]['value'] <= 2000){ //fair
-            var proceed = true;
-            var color = '#FFFF00';
-          }else if(data.coords[key]['value'] >= 2000 && data.coords[key]['value'] <= 3150){ //poor
-            var proceed = true;
-            var color = '#FFAA00';
-          }
-          else{
-            var proceed = false;
-            var color = '#000000';
-          }
+          point_obj = {lat: 31.7941869, lng: -106.2561862};
+          points.push(point_obj);
 
-          if(proceed){
-            var line = new google.maps.Polyline({
-              path: to_color,
-              //path: flightPlanCoordinates,
-              value: data.coords[key]['value'],
-              strokeColor: color,
-              strokeOpacity: 1.0,
-              strokeWeight: 4,
-              zIndex: 1
-            });
-            line.setMap(app.map);
-            line.setOptions({ zIndex: 1 });
-            line.addListener('click', lineInfo_parkride);
-            app.polygons.push(line);
-          }
+          var colores = [];
+          colores.push('http://www.googlemapsmarkers.com/v1/13FF00/');
+          colores.push('http://www.googlemapsmarkers.com/v1/009BFF/');
+
+            for (var i = 0; i < points.length; i++) {
+              var indv = points[i];
+              var point  = new google.maps.Marker({
+                position: indv,
+                icon: colores[i],
+                title: 'Park & Ride Lot',
+                animation: google.maps.Animation.DROP
+              });
+              point.setOptions({ zIndex: 2 });
+              //point.addListener('click', pointInfo);
+              app.polygons.push(point);
+              point.setMap(app.map);
+            }
+
+          /*
+          var point  = new google.maps.Marker({
+            position: points[key],
+            icon: image,
+            title: 'Bus Stop',
+            value: data.coords[key]['value'],
+            animation: google.maps.Animation.DROP
+          });
+          point.setOptions({ zIndex: 2 });
+          point.addListener('click', pointInfo);
+          app.polygons.push(point);
+          point.setMap(app.map);
+          */
+
         }
         else if(pm_mpo.pm == "coemisions" || pm_mpo.pm == "emar" ){
           if(up_to_one == 0 && pm_mpo.pm == "coemisions"){
@@ -3914,32 +3895,7 @@ var options =
     bar_init = new google.visualization.BarChart(document.getElementById("chart_selected"));
     bar_init.draw(data, options);
 }/*
-/*
-    clearCharts();
 
-    var data = google.visualization.arrayToDataTable([
-      ['Method', 'Value',],
-      ['Total Montana Corridor ', 153],
-      ['S1: Piedras St', 0],
-      ['S2: Paisano Dr.', 103],
-      ['S3: Hawkins Blvd.', 0],
-      ['S4: Yarbrough Dr.', 0],
-      ['S5: Joe Battle Blvd.', 50],
-      ['S6: Zaragoza Rd.', 0],
-      ['S7: Araceli Ave.', 0]
-    ]);
-
-    var options = {
-      title: "Park and Ride Parking Spaces",
-      legend: { position: 'none'},
-      animation:{ duration: 1000, easing: 'inAndOut', startup: true },
-      chartArea: { width: '70%' },
-      hAxis: { minValue: 0 },
-      vAxis: {}
-    };
-    bar_init = new google.visualization.BarChart(document.getElementById("chart_selected"));
-    bar_init.draw(data, options);
-  }*/
 
   function drawChart() {
     var nulls = nullChecker();

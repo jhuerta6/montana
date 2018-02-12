@@ -268,6 +268,9 @@ function getPolygons(){
 		elseif($data->pm == "non-moto"){
 			$query = "SELECT lat as lat, lng as lng, fatal, incap, pedestrian as value FROM b22";
 		}
+		elseif($data->pm == "parkride"){
+			$query = "SELECT lat as lat, lng as lng, fatal, incap, pedestrian as value FROM b22 LIMIT 1";
+		}
 		elseif($data->pm == "iri"){
 			$query = "SELECT astext(SHAPE) AS POLYGON, iri as value FROM d11 AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
 		}
