@@ -77,13 +77,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       <div class="row">
         <div class="col">
           <div id="data-holder" class="panel panel-default">
-            <h3 class="text-center">Report</h3><br>
+            <h3 class="text-center">Summary</h3><br>
             <div id="pm_description" class="container panel panel-default"></div>
             <div id="pm_data" class="container panel panel-default"></div>
           </div>
 
           <div id="data-holder-multiple" class="panel panel-default">
-            <h3 class="text-center">Reports</h3>
+            <h3 class="text-center">Summaries</h3>
             <ul class="nav nav-tabs">
               <li class="active"><a data-toggle="tab" href="#report1" data-target="#report1">PM #1</a></li>
               <li><a data-toggle="tab" href="#report2" data-target="#report2">PM #2</a></li>
@@ -92,17 +92,17 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
             <div class="tab-content" >
               <div id="report1" class="tab-pane fade in active">
-                  <h3 id="report1_text" class="text-center">Report for PM 1</h3><br>
+                  <h3 id="report1_text" class="text-center">Summary for PM 1</h3><br>
                   <div id="pm_description_mul_1" class="container panel panel-default"></div>
                   <div id="pm_data_mul_1" class="container panel panel-default"></div>
               </div>
               <div id="report2" class="tab-pane fade">
-                  <h3 id="report2_text" class="text-center">Report for PM 2</h3><br>
+                  <h3 id="report2_text" class="text-center">Summary for PM 2</h3><br>
                   <div id="pm_description_mul_2" class="container panel panel-default"></div>
                   <div id="pm_data_mul_2" class="container panel panel-default"></div>
               </div>
               <div id="report3" class="tab-pane fade">
-                  <h3 id="report3_text" class="text-center">Report for PM 3</h3><br>
+                  <h3 id="report3_text" class="text-center">Summary for PM 3</h3><br>
                   <div id="pm_description_mul_3" class="container panel panel-default"></div>
                   <div id="pm_data_mul_3" class="container panel panel-default"></div>
               </div>
@@ -218,26 +218,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   <label for="bit">Select the years</label>
                   <div class="row">
                     <input id="slide_depth" type="text" class="span2" value="" data-slider-min="2012" data-slider-max="2016" data-slider-step="1" data-slider-value="[0,0]"/><br><br>
-                    <!--<div class="col-lg-6">
-                      <select class="form-control" id="time_select_from">
-                        <option id="time_option_from" value="">FROM</option>
-                        <option value="2012">2012</option>
-                        <option value="2013">2013</option>
-                        <option value="2014">2014</option>
-                        <option value="2015">2015</option>
-                        <option value="2016">2016</option>
-                      </select>
-                    </div>
-                    <div class="col-lg-6">
-                      <select class="form-control" id="time_select_to">
-                        <option id="time_option_to" value="">TO</option>
-                        <option value="2012">2012</option>
-                        <option value="2013">2013</option>
-                        <option value="2014">2014</option>
-                        <option value="2015">2015</option>
-                        <option value="2016">2016</option>
-                      </select>
-                    </div> -->
                   </div>
                 </div>
                 <div class="text-center" id="update_time_text"></div>
@@ -248,17 +228,17 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   <table class="table table-hover">
                     <thead>
                       <tr>
-                        <th scope="col">Section #</th>
-                        <th scope="col">2012 fatal</th>
-                        <th scope="col">2012 non-fatal</th>
-                        <th scope="col">2013 fatal</th>
-                        <th scope="col">2013 non-fatal</th>
-                        <th scope="col">2014 fatal</th>
-                        <th scope="col">2014 non-fatal</th>
-                        <th scope="col">2015 fatal</th>
-                        <th scope="col">2015 non-fatal</th>
-                        <th scope="col">2016 fatal</th>
-                        <th scope="col">2016 non-fatal</th>
+                        <th scope="col">Section number</th>
+                        <th scope="col">2012 fatal crash</th>
+                        <th scope="col">2012 serious injury crash</th>
+                        <th scope="col">2013 fatal crash</th>
+                        <th scope="col">2013 serious injury crash</th>
+                        <th scope="col">2014 fatal crash</th>
+                        <th scope="col">2014 serious injury crash</th>
+                        <th scope="col">2015 fatal crash</th>
+                        <th scope="col">2015 serious injury crash</th>
+                        <th scope="col">2016 fatal crash</th>
+                        <th scope="col">2016 serious injury crash</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -381,7 +361,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 <button type="button" class="btn btn-default form-control" id="mpo_draw" onclick="mpo();">Draw</button>
               </div>
               <div id="timelinebtn" class="tab-pane fade">
-                <button type="button" class="btn btn-default form-control" id="time_btn" onclick="timegen();">Timeline Generator</button>
+                <button type="button" class="btn btn-default form-control" id="time_btn" onclick="timegen();">Generate Timeline</button>
                 <br><br>
               </div>
             </div>
@@ -3420,10 +3400,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   var s1 = s2 = s3 = s4 = s5 = s6 = s7 = 0;
   var s1_fatal = s2_fatal = s3_fatal = s4_fatal = s5_fatal = s6_fatal = s7_fatal = 0;
   function timegen(){
-    //var from = $("#time_select_from").children(":selected").attr("value");
     var from = from_year_slide;
     from = parseInt(from);
-    //var to = $("#time_select_to").children(":selected").attr("value");
     var to = to_year_slide;
     var delta = to - from;
     var query = {from_year:from, to_year:to};
@@ -3466,9 +3444,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           }
         }
         }
-        $("#update_time_text").html("Showing info from the year <strong>"+(from+i)+"</strong>...");
-        //dialog += "In <strong>"+(from+i)+"</strong>, Montana had "+crashes_that_year+" crashes.<br>\n";
-        //dialog +=  fatal_crashes + " fatal, and " + not_fatal_crashes + " incapacitating.<br><br>\n"
+        $("#update_time_text").html("Displaying crashes ocurred in the year <strong>"+(from+i)+"</strong>...");
         count++;
         i++;
 
@@ -3568,9 +3544,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       $('#legend_panel').show();
     }
     var div = document.createElement('div');
-    div.innerHTML = "";
-    div.innerHTML = "<img src='img/redsquare.png' height='10px'/> <strong>Fatal</strong> crashes" +
-    "<br> <img src='img/brightgreensquare.png' height='10px'/> <strong>Incapacitated</strong> crashes";
+    div.innerHTML = "<img src='img/redsquare.png' height='10px'/> Crash resulting in <strong>fatal</strong> injuries" +
+    "<br> <img src='img/brightgreensquare.png' height='10px'/> Crash resulting in <strong>serious</strong> injuries";
     var newLegend = document.createElement('div');
     newLegend = document.getElementById('legend');
     document.getElementById('legend').style.visibility = "visible";
@@ -3608,7 +3583,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     });
 
     point.setOptions({ zIndex: 2 });
-    point.addListener('click', tempGetIdCrashes);
+    //point.addListener('click', tempGetIdCrashes);
     app.polygons.push(point);
     point.setMap(app.map);
   }
