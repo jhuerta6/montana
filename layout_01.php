@@ -47,7 +47,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <h3 class="text-center" style="color:#FF8000;"> Performance Measures for Montana Corridor</h3>
     <h6 class="hidden-xs text-center"><i style="color: white;">"</i><strong><i style="color:#FF8000;" class="text-center">CTIS </i></strong><i class="text-center" style="color:white;">is designated as a Member of National, Regional, and Tier 1 University Transportation Center."</i></h6>
-    <p class="hidden-xs text-right" style="color: white"> Version 1.45c (02/11/2018)</p>
+    <p class="hidden-xs text-right" style="color: white"> Version 1.46 (02/12/2018)</p>
   </nav>
 
   <div class="container panel panel-default">
@@ -135,7 +135,19 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
                   <label class="form-check-label" for="defaultCheck1">
-                    Display sections
+                    Display Sections
+                  </label>
+                </div><br>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="municipality">
+                  <label class="form-check-label" for="municipality">
+                    Display Municipalities
+                  </label>
+                </div><br>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="boundary">
+                  <label class="form-check-label" for="boundary">
+                    Display Boundaries
                   </label>
                 </div><br>
                 <!--<div class="input-group">
@@ -382,7 +394,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   </div>
                   <div id="sections_one" class="tab-pane fade"><br>
                     <!--<h3 id="sections_one_text" class="text-center">Legend para Sections</h3><br>-->
-                    <div id="legend_section" class="container panel panel-default">Click the checkbox next to 'Display sections'</div>
+                    <div id="legend_section" class="container panel panel-default">Click the checkbox next to 'Display Sections'</div>
                   </div>
                 </div>
               </div>
@@ -410,7 +422,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   </div>
                   <div id="sections_multi" class="tab-pane fade"><br>
                     <!--<h3 id="sections_multi_text" class="text-center">Legend para Sections multi</h3><br>-->
-                    <div id="legend_section_multi" class="container panel panel-default">Click the checkbox next to 'Display sections'</div>
+                    <div id="legend_section_multi" class="container panel panel-default">Click the checkbox next to 'Display Sections'</div>
                   </div>
                 </div>
               </div>
@@ -442,7 +454,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   <script src="https://cdn.rawgit.com/bjornharrtell/jsts/gh-pages/1.4.0/jsts.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.8.1/css/bootstrap-slider.css" />
   <script>
-  var app = {map:null, sections:[], polygons:[], polygons2:[], polygons3:[], label:"no filter", payload:{getMode:"polygons", runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, property:null, district:null, depth:0, from_depth:0, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0}};
+  var app = {map:null, municipality:[], boundary:[], sections:[], polygons:[], polygons2:[], polygons3:[], label:"no filter", payload:{getMode:"polygons", runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, property:null, district:null, depth:0, from_depth:0, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0}};
   var pm_mpo = {pm1:null, pm2:null, pm3:null,name_pm:null, pm:null, NE:null, SW:null, label:"no filter", getMode:"polygons", to_draw:null, draw_charts: false, runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0};
   var multi = {pm1:null, pm2:null, pm3:null};
   var hecho = false;
@@ -831,6 +843,130 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       var select_blocks = document.getElementById("select_blocks");
       select_blocks.appendChild(elem_blck);
     }
+
+    $("#municipality").change(function(){
+      $('#legend_section').find('*').not('h3').remove();
+      $('#legend_section_multi').find('*').not('h3').remove();
+
+      if(this.checked == true && onMultiple == false){
+        $('#legend_panel').show();
+      }
+      else if(this.checked == true && onMultiple == true){
+        $("#legend_multi_panel").show();
+      }
+      $("#legend_section").text("");
+      $("#legend_section_multi").text("");
+
+      if(this.checked == true){ //sections
+        if(pm_mpo.pm != null){
+          var previous = pm_mpo.pm;
+        }
+        pm_mpo.pm = "municipality";
+        pm_mpo.getMode = "polygons";
+
+          var getparams = app.payload;
+          var bounds = app.map.getBounds();
+          getparams.NE = bounds.getNorthEast().toJSON(); //north east corner
+          getparams.SW = bounds.getSouthWest().toJSON(); //south-west corner
+          pm_mpo.NE = getparams.NE;
+          pm_mpo.SW = getparams.SW;
+
+        $.get('mpo_handler.php', pm_mpo, function(data){
+          //var colorArr = ['#bebebe','#959595','#6b6b6b','#555555','#303030','#131313','#000000'];
+          for(key in data.coords){
+            var polyCoordis = [];
+            temp = wktFormatter(data.coords[key]['POLYGON']);
+            for (var i = 0; i < temp.length; i++) {
+              polyCoordis.push(temp[i]);
+            }
+            var color;
+            var polygon = new google.maps.Polygon({
+              description: "Municipality",
+              description_value: data.coords[key]['value'],
+              paths: polyCoordis,
+              strokeColor: "black",
+              strokeOpacity: 0.60,
+              strokeWeight: 0.70,
+              fillColor: 'orange',
+              fillOpacity: 0.50, //0.60
+              zIndex: 9
+            });
+            polygon.setOptions({ zIndex: -1 });
+            polygon.addListener('mouseover', munibound);
+            app.municipality.push(polygon);
+            polygon.setMap(app.map);
+          }
+        });
+        if(pm_mpo.pm != null){
+          pm_mpo.pm = previous;
+        }
+      }else{ //no section
+        removeMunicipality();
+      }
+
+    });
+
+    $("#boundary").change(function(){
+      $('#legend_section').find('*').not('h3').remove();
+      $('#legend_section_multi').find('*').not('h3').remove();
+
+      if(this.checked == true && onMultiple == false){
+        $('#legend_panel').show();
+      }
+      else if(this.checked == true && onMultiple == true){
+        $("#legend_multi_panel").show();
+      }
+      $("#legend_section").text("");
+      $("#legend_section_multi").text("");
+
+      if(this.checked == true){ //sections
+        if(pm_mpo.pm != null){
+          var previous = pm_mpo.pm;
+        }
+        pm_mpo.pm = "boundary";
+        pm_mpo.getMode = "polygons";
+
+          var getparams = app.payload;
+          var bounds = app.map.getBounds();
+          getparams.NE = bounds.getNorthEast().toJSON(); //north east corner
+          getparams.SW = bounds.getSouthWest().toJSON(); //south-west corner
+          pm_mpo.NE = getparams.NE;
+          pm_mpo.SW = getparams.SW;
+
+          $.get('mpo_handler.php', pm_mpo, function(data){
+            //var colorArr = ['#bebebe','#959595','#6b6b6b','#555555','#303030','#131313','#000000'];
+            for(key in data.coords){
+              var polyCoordis = [];
+              temp = wktFormatter(data.coords[key]['POLYGON']);
+              for (var i = 0; i < temp.length; i++) {
+                polyCoordis.push(temp[i]);
+              }
+              var color;
+              var polygon = new google.maps.Polygon({
+                description: "Municipality",
+                description_value: data.coords[key]['value'],
+                paths: polyCoordis,
+                strokeColor: "black",
+                strokeOpacity: 0.60,
+                strokeWeight: 0.70,
+                fillColor: 'blue',
+                fillOpacity: 0.50, //0.60
+                zIndex: 9
+              });
+              polygon.setOptions({ zIndex: -1 });
+              polygon.addListener('mouseover', munibound);
+              app.boundary.push(polygon);
+              polygon.setMap(app.map);
+            }
+          });
+          if(pm_mpo.pm != null){
+            pm_mpo.pm = previous;
+          }
+        }else{ //no section
+          removeBoundary();
+        }
+
+    });
 
     $("#defaultCheck1").change(function(){ //sections checkbox
       $('#legend_section').find('*').not('h3').remove();
@@ -3383,7 +3519,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             $('#legendSpawner').find('*').not('h3').remove();
             var spawner = document.getElementById('legendSpawner');
             var div = document.createElement('div');
-            div.innerHTML = "Check the checkbox next to 'display sections' and look at the 'Section' tab";
+            div.innerHTML = "Check the checkbox next to 'Display Sections' and look at the 'Section' tab";
             var newLegend = document.createElement('div');
             newLegend = document.getElementById('legend');
             document.getElementById('legend').style.visibility = "visible";
@@ -4041,6 +4177,35 @@ var options =
     //$('#legend').find('*').not('h3').remove();
     $('#description').find('*').not('h3').remove();
   }
+
+  function removeBoundary(){
+    if(app.boundary){
+      for(var i = 0; i < app.boundary.length; i++){
+        app.boundary[i].setMap(null);
+      }
+    }
+    app.boundary = [];
+    app.infoWindow.close();
+    app.payload.runAOI = false;
+    //document.getElementById('legend').style.visibility = "hidden";
+    //$('#legend').find('*').not('h3').remove();
+    $('#description').find('*').not('h3').remove();
+  }
+
+  function removeMunicipality(){
+    if(app.municipality){
+      for(var i = 0; i < app.municipality.length; i++){
+        app.municipality[i].setMap(null);
+      }
+    }
+    app.municipality = [];
+    app.infoWindow.close();
+    app.payload.runAOI = false;
+    //document.getElementById('legend').style.visibility = "hidden";
+    //$('#legend').find('*').not('h3').remove();
+    $('#description').find('*').not('h3').remove();
+  }
+
   function printMaps() {
     var body               = $('body');
     var mapContainer       = $('#map');
@@ -4070,6 +4235,13 @@ var options =
 
   function polyInfo_tti(event){
     text = "Section number: " + this.description_value;
+    app.infoWindow.setContent(text);
+    app.infoWindow.setPosition(event.latLng);
+    app.infoWindow.open(app.map);
+  }
+
+  function munibound(event){
+    text = "Section name: " + this.description_value;
     app.infoWindow.setContent(text);
     app.infoWindow.setPosition(event.latLng);
     app.infoWindow.open(app.map);

@@ -378,6 +378,14 @@ function getPolygons(){
 		}
 		elseif($data->pm == "sections"){
 			$query = "SELECT astext(SHAPE) AS POLYGON, sectionnum as value FROM polygon AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
+			//$query = "SELECT astext(SHAPE) AS POLYGON, name as value FROM muni AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
+			//$query = "SELECT astext(SHAPE) AS POLYGON, name as value FROM mpoboudary AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
+		}
+		elseif($data->pm == "municipality"){
+			$query = "SELECT astext(SHAPE) AS POLYGON, name as value FROM muni AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
+		}
+		elseif($data->pm == "boundary"){
+			$query = "SELECT astext(SHAPE) AS POLYGON, name as value FROM mpoboudary AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
 		}
 		/*elseif($data->pm == "b_workers"){
 			$query = "SELECT objectid, astext(SHAPE) AS POLYGON, $data->pm as value FROM polygon AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
