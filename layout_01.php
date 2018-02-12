@@ -2587,7 +2587,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             "<br><img src='img/redsquare.png' height='10px'/> 0.01% - 0.05%" +
             "<br><img src='img/skybluesquare.png' height='10px'/> 0.051% - 0.1%" +
             "<br><img src='img/yellowsquare.png' height='10px'/> 0.11% - 0.15%" +
-            "<br><img src='img/orangesquare.png' height='10px'/> 0.15% - 0.61%";
+            "<br><img src='img/orangesquare.png' height='10px'/> 0.151% - 0.61%";
             var newLegend = document.createElement('div');
             newLegend = document.getElementById('legend');
             document.getElementById('legend').style.visibility = "visible";
