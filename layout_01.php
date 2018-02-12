@@ -147,7 +147,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="" id="boundary">
                   <label class="form-check-label" for="boundary">
-                    Display Boundaries
+                    Display El Paso MPO Boundary
                   </label>
                 </div><br>
                 <!--<div class="input-group">
@@ -946,14 +946,14 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               }
               var color;
               var polygon = new google.maps.Polygon({
-                description: "Municipality",
+                description: "Boundary",
                 description_value: data.coords[key]['value'],
                 paths: polyCoordis,
                 strokeColor: "black",
-                strokeOpacity: 0.60,
-                strokeWeight: 0.70,
-                fillColor: 'blue',
-                fillOpacity: 0.50, //0.60
+                strokeOpacity: 1,
+                strokeWeight: 3,
+                fillColor: 'white',
+                fillOpacity: 0.05, //0.60
                 zIndex: 9
               });
               polygon.setOptions({ zIndex: -1 });
@@ -2968,7 +2968,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             $('#legendSpawner').find('*').not('h3').remove();
             var spawner = document.getElementById('legendSpawner');
             var div = document.createElement('div');
-            div.innerHTML = "<br> <img src='img/brightgreensquare.png' height='10px'/> Area of population within 1/2 mile of high frequency transit service";
+            div.innerHTML = "<br> <img src='img/brightgreensquare.png' height='10px'/> Area within 1/2 mile of high frequency transit service";
             var newLegend = document.createElement('div');
             newLegend = document.getElementById('legend');
             document.getElementById('legend').style.visibility = "visible";
