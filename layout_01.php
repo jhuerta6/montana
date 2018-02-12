@@ -3996,7 +3996,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 );
 
 var options =
-  {"title":"Truck Travel Time Index",
+  {"title":blocks.d.d31.name,
   "vAxis":{"title":"","minValue":0},
   "hAxis":{"title":"","maxValue":2.5,
     viewWindow: {
@@ -4037,7 +4037,7 @@ function drawChart_a11(){
 );
 
 var options =
-{"title": blocks.a.a11.short,
+{"title": blocks.a.a11.name,
 "vAxis":{"title":"","minValue":0},
 "hAxis":{"title":"","maxValue":100,
 viewWindow: {
@@ -4078,7 +4078,7 @@ bar_init.draw(data, options);
 );
 
 var options =
-  {"title":"Travel Time Index",
+  {"title":blocks.c.c31.name,
   "vAxis":{"title":"","minValue":0},
   "hAxis":{"title":"","maxValue":2.5,
     viewWindow: {
