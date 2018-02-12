@@ -946,14 +946,14 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               }
               var color;
               var polygon = new google.maps.Polygon({
-                description: "Municipality",
+                description: "Boundary",
                 description_value: data.coords[key]['value'],
                 paths: polyCoordis,
                 strokeColor: "black",
-                strokeOpacity: 0.60,
-                strokeWeight: 0.70,
-                fillColor: 'blue',
-                fillOpacity: 0.50, //0.60
+                strokeOpacity: 1,
+                strokeWeight: 3,
+                fillColor: 'white',
+                fillOpacity: 0.05, //0.60
                 zIndex: 9
               });
               polygon.setOptions({ zIndex: -1 });
