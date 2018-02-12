@@ -364,9 +364,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           <div class="col-md-12"><br>
             <div class="tab-content">
               <div id="defaultbtn" class="tab-pane fade in active">
-                <button type="button" class="btn btn-success form-control" id="mpo_draw" onclick="runMPO();">Draw</button><br><br>
-                <button type="button" class="btn btn-success form-control" id="mpo_draw_multiple" onclick="runMPOMulti();">Draw Multi</button><br><br>
-                <button data-toggle="tooltip" data-placement="top" title="Only bring up the data touched by the Area Of Interest" class="btn btn-primary form-control" type="button" id="runAOI" onClick="runAOI()">Run AOI</button> <br><br>
+                <button type="button" class="btn btn-success form-control" id="mpo_draw" onclick="runMPO();">Display</button><br><br>
+                <button type="button" class="btn btn-success form-control" id="mpo_draw_multiple" onclick="runMPOMulti();">Display Multiple</button><br><br>
+                <button data-toggle="tooltip" data-placement="top" title="Only bring up the data touched by the Area Of Interest" class="btn btn-primary form-control" type="button" id="runAOI" onClick="runAOI()">Display w/ AOI</button> <br><br>
                 <button class="btn btn-warning form-control" type="button" id="clear" onClick="removePolygons()">Clear</button><br><br>
               </div>
               <div id="filtersbtn" class="tab-pane fade">
@@ -3216,21 +3216,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               app.polygons.push(point);
               point.setMap(app.map);
             }
-
-          /*
-          var point  = new google.maps.Marker({
-            position: points[key],
-            icon: image,
-            title: 'Bus Stop',
-            value: data.coords[key]['value'],
-            animation: google.maps.Animation.DROP
-          });
-          point.setOptions({ zIndex: 2 });
-          point.addListener('click', pointInfo);
-          app.polygons.push(point);
-          point.setMap(app.map);
-          */
-
         }
         else if(pm_mpo.pm == "coemisions" || pm_mpo.pm == "emar" ){
           if(up_to_one == 0 && pm_mpo.pm == "coemisions"){
