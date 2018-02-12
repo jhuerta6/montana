@@ -1176,7 +1176,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             for (var i = 0; i < blocks[blocks.elements[j]].pms.length; i++) {
               var temp = blocks[blocks.elements[j]].pms[i];
               var elem_blck = document.createElement("option");
-              elem_blck.innerHTML = blocks[blocks.elements[j]][temp].name;
+              elem_blck.innerHTML = blocks[blocks.elements[j]][temp].short;
               elem_blck.id = blocks.elements[j];
               var select_pm = document.getElementById(selects[z]);
               select_pm.appendChild(elem_blck);
@@ -1218,7 +1218,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       var to_use = {"select_pm_multiple_1":"pm1","select_pm_multiple_2":"pm2", "select_pm_multiple_3":"pm3"};
       for(var i = 0; i < blocks[block].pms.length; i++){
         var block_pm = blocks[block].pms[i];
-        if(blocks[block][block_pm].name == this.value){
+        if(blocks[block][block_pm].short == this.value){
           pm_mpo[to_use[this.id]] = blocks[block][block_pm].key;
         }
       }
@@ -1235,6 +1235,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
     $("#select_pm_multiple_1, #select_pm_multiple_2, #select_pm_multiple_3").change(function(){
       $("#data-holder-multiple").show();
+      //console.log(this.id);
       if(this.id == "select_pm_multiple_1"){
         $("#pm_description_mul_1, #pm_data_mul_1").empty();
         $("#check_multi_1").removeProp("disabled");
@@ -1261,7 +1262,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       var block = $(this).children(":selected").attr("id");
       for(var i = 0; i < blocks[block].pms.length; i++){
         var block_pm = blocks[block].pms[i];
-        if(blocks[block][block_pm].name == this.value){
+        if(blocks[block][block_pm].short == this.value){
           var p_content = document.createElement('p');
           p_content.innerHTML = blocks[block][block_pm].content;
           pm_content.appendChild(p_content);
@@ -1593,8 +1594,23 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           var c = data["coords"+(z+1)].length;
           var points = [];
           //gris, verde, rojo -- testing colors
-          shapecolor = ["#84857B", "#13FF00", "#FF0000", "#009BFF", "#EBF20D", "#fe9253", "#8C0909", "#0051FF", "#AB77FF", "#EBF20D", "#8C0909", "#07FDCA", "#008C35", "FFDBA5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
-          shapeoutline = ["#000000", "#0b9b00", "#c10000", "#007fd1", "#aaaf0a", "#d18f0a", "#8c0909", "#0037ad", "#873dff", "#aaaf0a", "8c0909", "36c9bd", "#008c35", "#ffdba5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
+          //shapecolor = ["#84857B", "#13FF00", "#FF0000", "#009BFF", "#EBF20D", "#fe9253", "#8C0909", "#0051FF", "#AB77FF", "#EBF20D", "#8C0909", "#07FDCA", "#008C35", "FFDBA5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
+          //shapeoutline = ["#000000", "#0b9b00", "#c10000", "#007fd1", "#aaaf0a", "#d18f0a", "#8c0909", "#0037ad", "#873dff", "#aaaf0a", "8c0909", "36c9bd", "#008c35", "#ffdba5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
+          shapecolor = ["#009BFF", "#EBF20D", "#fe9253", "#8C0909", "#0051FF", "#AB77FF", "#07FDCA", "#008C35", "FFDBA5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
+          shapeoutline = ["#007fd1", "#aaaf0a", "#d18f0a", "#8c0909", "#0037ad", "#873dff", "#aaaf0a", "8c0909", "36c9bd", "#008c35", "#ffdba5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
+          var squareboxes = [
+          "<img src='img/skybluesquare.png' height='10px'/>",
+          "<img src='img/yellowsquare.png' height='10px'/>",
+          "<img src='img/orangesquare.png' height='10px'/>",
+          "<img src='img/maroonsquare.png' height='10px'/>",
+          "<img src='img/navybluesquare.png' height='10px'/>",
+          "<img src='img/lilacsquare.png' height='10px'/>",
+          "<img src='img/cyansquare.png' height='10px'/>",
+          "<img src='img/navygreensquare.png' height='10px'/>",
+          "<img src='img/fleshsquare.png' height='10px'/>",
+          "<img src='img/brownsquare.png' height='10px'/>",
+          "<img src='img/neongreensquare.png' height='10px'/>",
+          "<img src='img/neonpurplesquare.png' height='10px'/>"];
           colorSelector = 0;
           newzIndex = 0;
           legendText = "";
@@ -1632,7 +1648,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           //if(pm_mpo.pm == "b_workers" || pm_mpo.pm == "freqtran" || pm_mpo.pm == "tti" || pm_mpo.pm == "b_carfrhh" || pm_mpo.pm == "B_TpDisadv" || pm_mpo.pm == "b_jobphh" || pm_mpo.pm == "coemisions" || pm_mpo.pm == "emar"){
             maximum = parseFloat(maximum);
             maximum = maximum + 0.1;
-            num_labels = spawn_multi(espacios, (z+1));
+            //num_labels = spawn_multi(espacios, (z+1));
           //}
           //console.log(num_labels);
           //console.log(espacios);
@@ -1663,8 +1679,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
                 //var spawner = document.getElementById('legend_content_multi_'+(z+1));
                 var div = document.createElement('div');
-                div.innerHTML = "<img src='img/redsquare.png' height='10px'/> Bus stop <strong>beyond</strong> 150 ft. from a crosswalk" +
-                "<br> <img src='img/brightgreensquare.png' height='10px'/> Bus stop <strong>within</strong> 150 ft. from a crosswalk";
+                div.innerHTML = "<img src='img/brightgreensquare.png' height='10px'/> Bus stop <strong>beyond</strong> 150 ft. from a crosswalk" +
+                "<br> <img src='img/redsquare.png' height='10px'/> Bus stop <strong>within</strong> 150 ft. from a crosswalk";
                 var newLegend = document.createElement('div');
                 newLegend = document.getElementById('legend_content_multi_'+(z+1));
                 document.getElementById('legend').style.visibility = "visible";
@@ -1704,6 +1720,69 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               }
 
               point.setMap(app.map);
+            }
+            else if(pm_mpo["pm"+(z+1)]  == "b_jobphh"){ //polygon
+              if(up_to_one == 0){
+                $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
+                var div = document.createElement('div');
+                div.innerHTML = "<strong>"+$("#select_pm_multiple_"+(z+1)).prop("value")+"</strong>";
+                //console.log(pm_mpo.pm1);
+                div.className = "center-text";
+                var l = document.createElement('div');
+                l = document.getElementById('legend_content_multi_'+(z+1));
+                l.appendChild(div);
+
+                var div = document.createElement('div');
+                div.innerHTML = "<img src='img/skybluesquare.png' height='10px'/> Housing rich (jobs-housing ratio < 1.00)" +
+                "<br><img src='img/yellowsquare.png' height='10px'/> Balanced (jobs-housing ratio 1.00 - 1.29)"+
+                "<br><img src='img/orangesquare.png' height='10px'/> Job rich (jobs-housing ratio > 1.29)";
+                var newLegend = document.createElement('div');
+                newLegend = document.getElementById('legend_content_multi_'+(z+1));
+                document.getElementById('legend').style.visibility = "visible";
+                newLegend.appendChild(div);
+              }
+              up_to_one++;
+
+              temp = wktFormatter(data["coords"+(z+1)][key]['POLYGON']);
+              //console.log(temp);
+              for (var i = 0; i < temp.length; i++) {
+                polyCoordis.push(temp[i]);
+              }
+              var color;
+              if(data["coords"+(z+1)][key]['value'] < 1.00){
+                color = shapecolor[0];
+              }
+              else if(data["coords"+(z+1)][key]['value'] >= 1.00 && data["coords"+(z+1)][key]['value'] <= 1.29){
+                color = shapecolor[1];
+              }
+              else if(data["coords"+(z+1)][key]['value'] >= 1.29){
+                color = shapecolor[2];
+              }
+
+              var polygon = new google.maps.Polygon({
+                description: pm_mpo["name_pm"+(z+1)],
+                description_value: data["coords"+(z+1)][key]['value'],
+                paths: polyCoordis,
+                strokeColor: 'black',
+                strokeOpacity: 0.60,
+                strokeWeight: 0.70,
+                fillColor: color,
+                fillOpacity: 0.60,
+                zIndex: -1
+              });
+
+              polygon.setOptions({ zIndex: -1 });
+              polygon.addListener('click', polyInfo);
+              if(z == 0){
+                app.polygons.push(point);
+              }
+              else if(z == 1){
+                app.polygons2.push(point);
+              }
+              else{
+                app.polygons3.push(point);
+              }
+              polygon.setMap(app.map);
             }
             else if(pm_mpo["pm"+(z+1)] == "a22_new"){ //points
               if(up_to_one == 0){
@@ -1831,9 +1910,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 app.polygons3.push(point);
               }
               point.setMap(app.map);
-            }
-            else if(pm_mpo["pm"+(z+1)] == "stop_bike"){
-
             }
             else if (pm_mpo["pm"+(z+1)] == "iri") {
               if(up_to_one == 0){
@@ -2609,6 +2685,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           if(up_to_one == 0){
             $('#legendSpawner').find('*').not('h3').remove();
             var spawner = document.getElementById('legendSpawner');
+
             var div = document.createElement('div');
             div.innerHTML = "<img src='img/redsquare.png' height='10px'/> Bus stop <strong>beyond</strong> 150 ft. from a crosswalk" +
             "<br> <img src='img/brightgreensquare.png' height='10px'/> Bus stop <strong>within</strong> 150 ft. from a crosswalk";
