@@ -852,7 +852,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       select_blocks.appendChild(elem_blck);
     }
 
-    $("#defaultCheck1").change(function(){
+    $("#defaultCheck1").change(function(){ //sections checkbox
       $('#legend_section').find('*').not('h3').remove();
       $('#legend_section_multi').find('*').not('h3').remove();
 
@@ -892,22 +892,14 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         }
         pm_mpo.pm = "sections";
         pm_mpo.getMode = "polygons";
-        if(pm_mpo.runAOI == true && typeof rec != 'undefined' && rec.type == 'rectangle'){
-          var getparams = app.payload;
-          var bounds = rec.getBounds();
-          getparams.NE = bounds.getNorthEast().toJSON();
-          getparams.SW = bounds.getSouthWest().toJSON();
-          pm_mpo.NE = getparams.NE;
-          pm_mpo.SW = getparams.SW;
-        }
-        else{
+
           var getparams = app.payload;
           var bounds = app.map.getBounds();
           getparams.NE = bounds.getNorthEast().toJSON(); //north east corner
           getparams.SW = bounds.getSouthWest().toJSON(); //south-west corner
           pm_mpo.NE = getparams.NE;
           pm_mpo.SW = getparams.SW;
-        }
+
         $.get('mpo_handler.php', pm_mpo, function(data){
           var colorArr = ['#bebebe','#959595','#6b6b6b','#555555','#303030','#131313','#000000'];
           for(key in data.coords){
@@ -1401,6 +1393,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
   function runMPO(){
     pm_mpo.runFilters = false;
+    pm_mpo.runAOI = false;
     mpo();
   }
 
@@ -3178,6 +3171,81 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           }
         }
 
+        else if(pm_mpo.pm == "2016_daily"){
+          if(up_to_one == 0){
+            $('#legendSpawner').find('*').not('h3').remove();
+            var spawner = document.getElementById('legendSpawner');
+            var div = document.createElement('div');
+            div.innerHTML =
+            "<img src='img/brightgreensquare.png' height='10px'/> 20 to 500 daily passengers" +
+            "<br> <img src='img/skybluesquare.png' height='10px'/> 500 to 1000 daily passengers"+
+            "<br> <img src='img/yellowsquare.png' height='10px'/> 1000 to 2000 daily passengers"+
+            "<br> <img src='img/orangesquare.png' height='10px'/> 2000 to 3150 daily passengers";
+            var newLegend = document.createElement('div');
+            newLegend = document.getElementById('legend');
+            document.getElementById('legend').style.visibility = "visible";
+            newLegend.appendChild(div);
+          }
+          up_to_one++;
+
+          var temp = []; //gets created after each line/data
+          var to_color = [];
+          x = data.coords[key]['POLYGON'];
+          temp.push(x); //individual
+          var reader = new jsts.io.WKTReader();
+          var a = reader.read(x);
+          if(a.getGeometryType() == "LineString"){
+            var coord;
+            var ln = a.getCoordinates();
+            for (var i = 0; i < ln.length; i++) {
+              coord = {lat: ln[i]['y'], lng: ln[i]['x']};
+              to_color.push(coord);
+            }
+          }
+          else{
+            var coord;
+            var multi = a.getCoordinates();
+            for (var i = 0; i < multi.length; i++) {
+              coord = {lat: multi[i]['y'], lng: multi[i]['x']};
+              to_color.push(coord);
+            }
+          }
+
+          if(data.coords[key]['value'] >= 20 && data.coords[key]['value'] <= 500){ //very good
+            var proceed = true;
+            var color = '#00FF00';
+          }else if(data.coords[key]['value'] >= 500 && data.coords[key]['value'] <= 1000){ //good
+            var proceed = true;
+            var color = '#009BFF';
+          }else if(data.coords[key]['value'] >= 1000 && data.coords[key]['value'] <= 2000){ //fair
+            var proceed = true;
+            var color = '#FFFF00';
+          }else if(data.coords[key]['value'] >= 2000 && data.coords[key]['value'] <= 3150){ //poor
+            var proceed = true;
+            var color = '#FFAA00';
+          }
+          else{
+            var proceed = false;
+            var color = '#000000';
+          }
+
+          if(proceed){
+            var line = new google.maps.Polyline({
+              path: to_color,
+              //path: flightPlanCoordinates,
+              value: data.coords[key]['value'],
+              strokeColor: color,
+              strokeOpacity: 1.0,
+              strokeWeight: 4,
+              zIndex: 1
+            });
+            line.setMap(app.map);
+            line.setOptions({ zIndex: 1 });
+            line.addListener('click', lineInfo_parkride);
+            app.polygons.push(line);
+          }
+        }
+
         else if (pm_mpo.pm == "parkride") {
           if(up_to_one == 0){
             $('#legendSpawner').find('*').not('h3').remove();
@@ -3223,8 +3291,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             var spawner = document.getElementById('legendSpawner');
             var div = document.createElement('div');
             div.innerHTML = "<img src='img/graysquare.png' height='10px'/> Less than 500 lbs of CO per acre" +
-            "<br><img src='img/redsquare.png' height='10px'/> From 500 to 1000 lbs of CO per acre"+
-            "<br><img src='img/brightgreensquare.png' height='10px'/> More than 1000 lbs of CO per acre";
+            "<br><img src='img/brightgreensquare.png' height='10px'/> From 500 to 1000 lbs of CO per acre"+
+            "<br><img src='img/redsquare.png' height='10px'/> More than 1000 lbs of CO per acre";
             var newLegend = document.createElement('div');
             newLegend = document.getElementById('legend');
             document.getElementById('legend').style.visibility = "visible";
