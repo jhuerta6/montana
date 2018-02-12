@@ -382,7 +382,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   </div>
                   <div id="sections_one" class="tab-pane fade"><br>
                     <!--<h3 id="sections_one_text" class="text-center">Legend para Sections</h3><br>-->
-                    <div id="legend_section" class="container panel panel-default">Turn Sections to On</div>
+                    <div id="legend_section" class="container panel panel-default">Click the checkbox next to 'Display sections'</div>
                   </div>
                 </div>
               </div>
@@ -410,7 +410,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   </div>
                   <div id="sections_multi" class="tab-pane fade"><br>
                     <!--<h3 id="sections_multi_text" class="text-center">Legend para Sections multi</h3><br>-->
-                    <div id="legend_section_multi" class="container panel panel-default">Turn Sections to On</div>
+                    <div id="legend_section_multi" class="container panel panel-default">Click the checkbox next to 'Display sections'</div>
                   </div>
                 </div>
               </div>
@@ -1178,6 +1178,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         $("#label_container").show();
         $("#labels").val(7);
       }
+      else if(this.value == blocks.a.a11.short){
+        drawChart_a11();
+      }
 
       else if(
         this.value == "A-2-3) Car-Free Households" || this.value == "A-2-4) Transportation Disadvantaged Households" ||
@@ -1344,6 +1347,10 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
     //$("#legend").hide();
   }); //end document.ready
+
+  function chartMaker(){
+
+  }
 
   function runAOI(){
     pm_mpo.runAOI = true;
@@ -2501,9 +2508,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             $('#legendSpawner').find('*').not('h3').remove();
             var spawner = document.getElementById('legendSpawner');
             var div = document.createElement('div');
-            div.innerHTML = "<img src='img/graysquare.png' height='10px'/> Housing rich (jobs-housing ratio < 1.00)" +
+            div.innerHTML = "<img src='img/brightgreensquare.png' height='10px'/> Housing rich (jobs-housing ratio < 1.00)" +
             "<br><img src='img/redsquare.png' height='10px'/> Balanced (jobs-housing ratio 1.00 - 1.29)"+
-            "<br><img src='img/brightgreensquare.png' height='10px'/> Job rich (jobs-housing ratio > 1.29)";
+            "<br><img src='img/skybluesquare.png' height='10px'/> Job rich (jobs-housing ratio > 1.29)";
             var newLegend = document.createElement('div');
             newLegend = document.getElementById('legend');
             document.getElementById('legend').style.visibility = "visible";
@@ -2518,13 +2525,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           }
           var color;
           if(data.coords[key]['value'] < 1.00){
-            color = shapecolor[0];
-          }
-          else if(data.coords[key]['value'] >= 1.00 && data.coords[key]['value'] <= 1.29){
             color = shapecolor[1];
           }
-          else if(data.coords[key]['value'] >= 1.29){
+          else if(data.coords[key]['value'] >= 1.00 && data.coords[key]['value'] <= 1.29){
             color = shapecolor[2];
+          }
+          else if(data.coords[key]['value'] >= 1.29){
+            color = shapecolor[3];
           }
 
           var polygon = new google.maps.Polygon({
@@ -2576,11 +2583,11 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             $('#legendSpawner').find('*').not('h3').remove();
             var spawner = document.getElementById('legendSpawner');
             var div = document.createElement('div');
-            div.innerHTML = "<img src='img/graysquare.png' height='10px'/> 0%"+
-            "<br><img src='img/brightgreensquare.png' height='10px'/> 0.01% - 0.05%" +
-            "<br><img src='img/redsquare.png' height='10px'/> 0.051% - 0.1%" +
-            "<br><img src='img/skybluesquare.png' height='10px'/> 0.11% - 0.15%" +
-            "<br><img src='img/yellowsquare.png' height='10px'/> 0.15% - 0.61%";
+            div.innerHTML = "<img src='img/brightgreensquare.png' height='10px'/> 0%"+
+            "<br><img src='img/redsquare.png' height='10px'/> 0.01% - 0.05%" +
+            "<br><img src='img/skybluesquare.png' height='10px'/> 0.051% - 0.1%" +
+            "<br><img src='img/yellowsquare.png' height='10px'/> 0.11% - 0.15%" +
+            "<br><img src='img/orangesquare.png' height='10px'/> 0.15% - 0.61%";
             var newLegend = document.createElement('div');
             newLegend = document.getElementById('legend');
             document.getElementById('legend').style.visibility = "visible";
@@ -2596,19 +2603,19 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           }
           var color;
           if(data.coords[key]['value'] == 0){
-            color = shapecolor[0];
-          }
-          else if(data.coords[key]['value'] >= 0.01 && data.coords[key]['value'] <= 0.05){
             color = shapecolor[1];
           }
-          else if(data.coords[key]['value'] >= 0.051 && data.coords[key]['value'] <= 0.1){
+          else if(data.coords[key]['value'] >= 0.01 && data.coords[key]['value'] <= 0.05){
             color = shapecolor[2];
           }
-          else if(data.coords[key]['value'] >= 0.11 && data.coords[key]['value'] <= 0.15){
+          else if(data.coords[key]['value'] >= 0.051 && data.coords[key]['value'] <= 0.1){
             color = shapecolor[3];
           }
-          else{
+          else if(data.coords[key]['value'] >= 0.11 && data.coords[key]['value'] <= 0.15){
             color = shapecolor[4];
+          }
+          else{
+            color = shapecolor[5];
           }
 
           var polygon = new google.maps.Polygon({
@@ -2858,7 +2865,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             var line = new google.maps.Polygon({
               path: to_color,
               value: data.coords[key]['value'],
-              strokeColor: color,
+              strokeColor: 'black',
               fillColor: color,
               fillOpacity: 0.60,
               strokeOpacity: 0.60,
@@ -2954,7 +2961,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               strokeColor: shapeoutline[colorSelector],
               strokeOpacity: 0.60,
               strokeWeight: 0.70,
-              fillColor: shapecolor[colorSelector],
+              fillColor: shapecolor[1],
               fillOpacity: 0.60,
               zIndex: -1
             });
@@ -2976,7 +2983,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               strokeColor: shapeoutline[colorSelector],
               strokeOpacity: 0.60,
               strokeWeight: 0.70,
-              fillColor: shapecolor[colorSelector],
+              fillColor: shapecolor[1],
               fillOpacity: 0.60,
               zIndex: -1
             });
@@ -3069,6 +3076,44 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               strokeWeight: 3,
               zIndex: 1
             });
+            line.setMap(app.map);
+            line.setOptions({ zIndex: 1 });
+            //line.addListener('click', lineInfo_pavement);
+            app.polygons.push(line);
+          }
+          if(key < data.existing.length){
+            var to_color = [];
+            var reader = new jsts.io.WKTReader();
+            y = data.existing[key]['LINE'];
+            temp.push(y);
+            var a = reader.read(y);
+
+            if(a.getGeometryType() == "LineString"){
+              var coord;
+              var ln = a.getCoordinates();
+              for (var i = 0; i < ln.length; i++) {
+                coord = {lat: ln[i]['y'], lng: ln[i]['x']};
+                to_color.push(coord);
+              }
+            }
+            else{
+              var coord;
+              var multi = a.getCoordinates();
+              for (var i = 0; i < multi.length; i++) {
+                coord = {lat: multi[i]['y'], lng: multi[i]['x']};
+                to_color.push(coord);
+              }
+            }
+
+            var line = new google.maps.Polyline({
+              path: to_color,
+              //value: data.coords[key]['value'],
+              strokeColor: "#13FF00",
+              strokeOpacity: 1.0,
+              strokeWeight: 4,
+              zIndex: 1
+            });
+
             line.setMap(app.map);
             line.setOptions({ zIndex: 1 });
             //line.addListener('click', lineInfo_pavement);
@@ -3270,9 +3315,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             $('#legendSpawner').find('*').not('h3').remove();
             var spawner = document.getElementById('legendSpawner');
             var div = document.createElement('div');
-            div.innerHTML = "<img src='img/graysquare.png' height='10px'/> Less than 500 lbs of CO per acre" +
-            "<br><img src='img/brightgreensquare.png' height='10px'/> From 500 to 1000 lbs of CO per acre"+
-            "<br><img src='img/redsquare.png' height='10px'/> More than 1000 lbs of CO per acre";
+            div.innerHTML = "<img src='img/brightgreensquare.png' height='10px'/> Less than 500 lbs of CO per acre" +
+            "<br><img src='img/redsquare.png' height='10px'/> From 500 to 1000 lbs of CO per acre"+
+            "<br><img src='img/skybluesquare.png' height='10px'/> More than 1000 lbs of CO per acre";
             var newLegend = document.createElement('div');
             newLegend = document.getElementById('legend');
             document.getElementById('legend').style.visibility = "visible";
@@ -3282,9 +3327,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             $('#legendSpawner').find('*').not('h3').remove();
             var spawner = document.getElementById('legendSpawner');
             var div = document.createElement('div');
-            div.innerHTML = "<img src='img/graysquare.png' height='10px'/> Less than 100 lbs of PM10 per acre" +
+            div.innerHTML = "<img src='img/brightgreensquare.png' height='10px'/> Less than 100 lbs of PM10 per acre" +
             "<br><img src='img/redsquare.png' height='10px'/> From 100 to 200 lbs of PM10 per acre"+
-            "<br><img src='img/brightgreensquare.png' height='10px'/> More than 200 lbs of PM10 per acre";
+            "<br><img src='img/skybluesquare.png' height='10px'/> More than 200 lbs of PM10 per acre";
             var newLegend = document.createElement('div');
             newLegend = document.getElementById('legend');
             document.getElementById('legend').style.visibility = "visible";
@@ -3298,23 +3343,23 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           var color;
 
           if(pm_mpo.pm == "coemisions" && data.coords[key]['value'] < 500){
-            color = shapecolor[0];
-          }
-          else if(pm_mpo.pm == "coemisions" && data.coords[key]['value'] >= 500 && data.coords[key]['value'] <= 1000){
             color = shapecolor[1];
           }
-          else if(pm_mpo.pm == "coemisions" && data.coords[key]['value'] > 1000){
+          else if(pm_mpo.pm == "coemisions" && data.coords[key]['value'] >= 500 && data.coords[key]['value'] <= 1000){
             color = shapecolor[2];
+          }
+          else if(pm_mpo.pm == "coemisions" && data.coords[key]['value'] > 1000){
+            color = shapecolor[3];
           }
 
           if(pm_mpo.pm == "emar" && data.coords[key]['value'] < 100){
-            color = shapecolor[0];
-          }
-          else if(pm_mpo.pm == "emar" && data.coords[key]['value'] >= 100 && data.coords[key]['value'] <= 200){
             color = shapecolor[1];
           }
-          else if(pm_mpo.pm == "emar" && data.coords[key]['value'] > 200){
+          else if(pm_mpo.pm == "emar" && data.coords[key]['value'] >= 100 && data.coords[key]['value'] <= 200){
             color = shapecolor[2];
+          }
+          else if(pm_mpo.pm == "emar" && data.coords[key]['value'] > 200){
+            color = shapecolor[3];
           }
 
           var polygon = new google.maps.Polygon({
@@ -3338,7 +3383,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             $('#legendSpawner').find('*').not('h3').remove();
             var spawner = document.getElementById('legendSpawner');
             var div = document.createElement('div');
-            div.innerHTML = "Check 'display sections' and look at the 'Section' tab";
+            div.innerHTML = "Check the checkbox next to 'display sections' and look at the 'Section' tab";
             var newLegend = document.createElement('div');
             newLegend = document.getElementById('legend');
             document.getElementById('legend').style.visibility = "visible";
@@ -3832,6 +3877,47 @@ var options =
   bar_init.draw(data, options);
 }
 
+function drawChart_a11(){
+  clearCharts();
+
+  var data = new google.visualization.DataTable(
+    {"cols":
+    [{"id":"","label":"Section","type":"string"},
+    {"id":"","label":"Population %","type":"number"}],
+    "rows":
+    [{"c":[{"v":"Avg Montana Corridor"},{"v":4}]},
+    {"c":[{"v":" S1: Piedras St."},{"v":9}]},
+    {"c":[{"v":"S2: Paisano Dr."},{"v":12}]},
+    {"c":[{"v":"S3: Hawkins Blvd."},{"v":0}]},
+    {"c":[{"v":"S4: Yarbrough Dr."},{"v":0}]},
+    {"c":[{"v":"S5: Joe Battle Blvd."},{"v":0}]},
+    {"c":[{"v":"S6: Zaragoza Rd."},{"v":0}]},
+    {"c":[{"v":"S7: Araceli Ave."},{"v":0}]}
+  ]
+}
+);
+
+var options =
+{"title": blocks.a.a11.short,
+"vAxis":{"title":"","minValue":0},
+"hAxis":{"title":"","maxValue":100,
+viewWindow: {
+  min: 0,
+  max: 100
+},
+ticks: [0, 20, 40, 60, 80, 100]
+},
+"legend":"none",
+"is3D":false,
+"width":1000,
+"height":400,
+animation:{ duration: 1000, easing: 'inAndOut', startup: true }
+};
+
+bar_init = new google.visualization.BarChart(document.getElementById("chart_selected"));
+bar_init.draw(data, options);
+}
+
   function drawChartTti_normal(){
     clearCharts();
 
@@ -3908,187 +3994,6 @@ var options =
     bar_init = new google.visualization.BarChart(document.getElementById("chart_selected"));
     bar_init.draw(data, options);
 }/*
-
-
-  function drawChart() {
-    var nulls = nullChecker();
-    if(nulls.length == 4){
-      alert("No property selected to run statistics.");
-      return;
-    }
-    else{
-      $(document.body).css({'cursor': 'wait'});
-      var not_nulls = [];
-      for(var i = 1; i <= 4; i++){
-        if(nulls.includes(i) == false){not_nulls.push(i);}
-      }
-    }
-
-    var maxaoi, minaoi, medaoi, weightedaoi, previous1, previous2, previous3, previous4;
-    if(rec.type =='rectangle'){
-      pm_mpo.getMode = "AOI";
-      bounds = rec.getBounds();
-    }
-    else{
-      pm_mpo.runAOI = true;
-      pm_mpo.getMode = "line";
-      var bounds = app.map.getBounds();
-    }
-    getparams = app.payload;
-    getparams.NE = bounds.getNorthEast().toJSON();
-    getparams.SW = bounds.getSouthWest().toJSON();
-    pm_mpo.NE = getparams.NE;
-    pm_mpo.SW = getparams.SW;
-    var chart_divs = ['chart_selected', 'chart_area_2','chart_area_3', 'chart_area_4'];
-    var histogram_divs = ['chart_histogram_1', 'chart_histogram_2', 'chart_histogram_3', 'chart_histogram_4'];
-    var chart_ns = ['chart1n', 'chart2n', 'chart3n', 'chart4n'];
-    var to_draws = ['chart1', 'chart2', 'chart3', 'chart4'];
-    var data_arr = ['maxAOIch','minAOIch','medAOIch','weightedAOIch'];
-    var charts = [chart, chart_2, chart_3, chart_4];
-    var chart_histos = [chart_histo, chart_histo_2, chart_histo_3, chart_histo_4];
-    for (var i = 0; i < nulls.length; i++) {
-      var position = nulls[i];
-      chart_divs.splice(position-1, 1);
-    }
-    previous1 = app.payload.chart1;
-    previous2 = app.payload.chart2;
-    previous3 = app.payload.chart3;
-    previous4 = app.payload.chart4;
-    for (var i = 0; i < not_nulls.length; i++) {
-      (function (i){
-        var name = 'pm_mpo.'+chart_ns[i];
-        name = eval(name);
-        var to_d = 'pm_mpo.'+to_draws[i];
-        to_d = eval(to_d);
-        pm_mpo.to_draw = to_d;
-        var datos_max = 'data.'+data_arr[0]+(i+1);
-        var datos_min = 'data.'+data_arr[1]+(i+1);
-        var datos_med = 'data.'+data_arr[2]+(i+1);
-        var datos_avg = 'data.'+data_arr[3]+(i+1);
-        var elem_chart = chart_divs[i];
-        var elem_histo = histogram_divs[i];
-        var bar_init = charts[i];
-        var histo_init = chart_histos[i];
-        //nullSelector(i);
-        pm_mpo.draw_charts = true;
-        $.get('mpo_handler.php', pm_mpo, function(data){
-          maxaoi = parseFloat(data.max);
-          minaoi = parseFloat(data.min);
-          medaoi = parseFloat(data.med);
-          weightedaoi = parseFloat(data.avg);
-          weightedaoi = parseFloat(weightedaoi).toFixed(2);
-          weightedaoi = parseFloat(weightedaoi);
-
-          maxaoi_all = parseFloat(data.max_all);
-          minaoi_all = parseFloat(data.min_all);
-          medaoi_all = parseFloat(data.med_all);
-          weightedaoi_all = parseFloat(data.avg_all);
-          weightedaoi_all = parseFloat(weightedaoi_all).toFixed(2);
-          weightedaoi_all = parseFloat(weightedaoi_all);
-
-          var data_aoi = google.visualization.arrayToDataTable([
-            ['Method', 'Value',], ['Maximum ', maxaoi], ['Minimum ', minaoi], ['Median ', medaoi], ['Average ', weightedaoi]
-          ]);
-
-          var data_all = google.visualization.arrayToDataTable([
-            ['Method', 'Value',], ['Maximum ', maxaoi_all], ['Minimum ', minaoi_all], ['Median ', medaoi_all], ['Average ', weightedaoi_all]
-          ]);
-
-          var options = {
-            title: "Selected Area of Interest",
-            legend: { position: 'none'},
-            animation:{ duration: 1000, easing: 'inAndOut', startup: true },
-            chartArea: { width: '70%' },
-            hAxis: { minValue: 0 },
-            vAxis: {}
-          };
-          bar_init = new google.visualization.BarChart(document.getElementById(elem_chart));
-          bar_init.draw(data_aoi, options);
-
-          var options = {
-            title: "Overall Montana",
-            legend: { position: 'none'},
-            animation:{ duration: 1000, easing: 'inAndOut', startup: true },
-            chartArea: { width: '70%' },
-            hAxis: { minValue: 0 },
-            vAxis: {}
-          };
-          bar_init = new google.visualization.BarChart(document.getElementById("chart_overall"));
-          bar_init.draw(data_all, options);
-
-          $("#pm_description,#pm_data").empty();
-          var pm_description = document.getElementById("pm_description");
-          var pm_data = document.getElementById("pm_data");
-          $("#data-holder").show();
-          if(pm_mpo.to_draw == "iri" && data.suma_poor_aoi > 0){
-            var p_description = document.createElement('p');
-            p_description.innerHTML = "19 miles within the Montana Ave. corridor are in poor condition.";
-            pm_description.appendChild(p_description);
-            var p_data = document.createElement('p');
-            p_data.innerHTML = "Your Area of Interest has "+data.suma_poor_aoi+" miles of roadways in poor condition, which represent "+parseFloat(data.percent).toFixed(2)+"% of the total miles in poor condition.";
-            pm_data.appendChild(p_data);
-          }
-
-        }).done(function(data){
-          $(document.body).css({'cursor': 'auto'});
-        });
-        if(rec.type =='rectangle'){
-          app.payload.getMode = "AOI";
-        }
-        else{
-          app.payload.getMode = "line";
-        }
-        app.payload.chart1 = previous1;
-        app.payload.chart2 = previous2;
-        app.payload.chart3 = previous3;
-        app.payload.chart4 = previous4;
-      })(i);
-    }
-    pm_mpo.draw_charts = false;
-    pm_mpo.runAOI = false;
-  }
-
-  function lineParser(){
-    pm_mpo.getMode = "line";
-    var lineString = "";
-    paths = rec.getPath();
-    paths = paths.getArray();
-
-    for (var i = 0; i < paths.length; i++) {
-      if(paths.length > 1 && i < paths.length - 1){
-        lineString += paths[i].lng() + ' ' + paths[i].lat() + ',';
-      }
-      else{
-        lineString += paths[i].lng() + ' ' + paths[i].lat();
-      }
-    }
-    pm_mpo.lineString = lineString;
-    pm_mpo.runLine = true;
-  }
-  function polyParser(){
-    pm_mpo.getMode = "line";
-    var lineString = "";
-    var first = "";
-    var count = 0;
-    paths = rec.getPath();
-    paths = paths.getArray();
-
-    for (var i = 0; i < paths.length; i++) {
-      if(paths.length > 1 && i < paths.length - 1){
-        lineString += paths[i].lng() + ' ' + paths[i].lat() + ',';
-        if(count == 0){
-          first = ',' + paths[i].lng() + ' ' + paths[i].lat();
-          count++;
-        }
-      }
-      else{
-        lineString += paths[i].lng() + ' ' + paths[i].lat();
-      }
-    }
-    lineString += first;
-    pm_mpo.lineString = lineString;
-    pm_mpo.runPoly = true;
-  }
   /******************************************************************************/
   function clearCharts(){
     $(".chart").empty();

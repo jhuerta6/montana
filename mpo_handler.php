@@ -317,6 +317,24 @@ function getPolygons(){
 			$query = "SELECT astext(SHAPE) AS POLYGON, OGR_FID as value FROM a13_poly_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 		}
 		elseif($data->pm == "sectionnum"){
+			$query = "SELECT astext(SHAPE) AS LINE, objectid as value FROM a13_existing_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
+
+			$toReturn['query2'] = $query;
+			$result = mysqli_query($conn, $query);
+			$result = fetchAll($result);
+
+			$ordered =  array();
+			$ids = array();
+			$ids = array_unique($result, SORT_REGULAR);
+
+			for($i = 0; $i < sizeof($result); $i++){
+				if(isset($ids[$i])){
+					array_push($ordered, $ids[$i]);
+				}
+			}
+
+			$toReturn['existing'] = $ordered;
+
 			$query = "SELECT objectid, astext(SHAPE) AS POLYGON, sectionnum as value FROM a12_proposed_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 		}
 		elseif($data->pm == "c22"){
