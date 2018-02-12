@@ -892,7 +892,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               zIndex: 9
             });
             polygon.setOptions({ zIndex: -1 });
-            polygon.addListener('mouseover', munibound);
+            polygon.addListener('mouseover', muni);
             app.municipality.push(polygon);
             polygon.setMap(app.map);
           }
@@ -954,7 +954,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 zIndex: 9
               });
               polygon.setOptions({ zIndex: -1 });
-              polygon.addListener('mouseover', munibound);
+              polygon.addListener('mouseover', bound);
               app.boundary.push(polygon);
               polygon.setMap(app.map);
             }
@@ -4240,8 +4240,16 @@ var options =
     app.infoWindow.open(app.map);
   }
 
-  function munibound(event){
-    text = "Section name: " + this.description_value;
+  function muni(event){
+    text = "Municipality: " + this.description_value;
+    app.infoWindow.setContent(text);
+    app.infoWindow.setPosition(event.latLng);
+    app.infoWindow.open(app.map);
+  }
+
+
+  function bound(event){
+    text = "Boundary: " + this.description_value;
     app.infoWindow.setContent(text);
     app.infoWindow.setPosition(event.latLng);
     app.infoWindow.open(app.map);
