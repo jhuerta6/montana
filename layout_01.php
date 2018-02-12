@@ -1363,7 +1363,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     });
 
     //$("#legend").hide();
-  });
+  }); //end document.ready
 
   function runAOI(){
     pm_mpo.runAOI = true;
@@ -3353,33 +3353,18 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           app.polygons.push(polygon);
           polygon.setMap(app.map);
         }
-        else if(pm_mpo.pm == "!tti"){
-          temp = wktFormatter(data.coords[key]['POLYGON']);
-          for (var i = 0; i < temp.length; i++) {
-            polyCoordis.push(temp[i]);
+        else if(pm_mpo.pm == "tti"){
+          if(up_to_one == 0){
+            $('#legendSpawner').find('*').not('h3').remove();
+            var spawner = document.getElementById('legendSpawner');
+            var div = document.createElement('div');
+            div.innerHTML = "Check 'display sections' and look at the 'Section' tab";
+            var newLegend = document.createElement('div');
+            newLegend = document.getElementById('legend');
+            document.getElementById('legend').style.visibility = "visible";
+            newLegend.appendChild(div);
           }
-          var color;
-          if(data.coords[key]['value'] == 1){
-            color = shapecolor[0];
-          }
-          else if(data.coords[key]['value'] == 2){
-
-          }
-          var polygon = new google.maps.Polygon({
-            description: pm_mpo.name_pm,
-            description_value: data.coords[key]['value'],
-            paths: polyCoordis,
-            strokeColor: shapeoutline[colorSelector],
-            strokeOpacity: 0.60,
-            strokeWeight: 0.70,
-            fillColor: color,
-            fillOpacity: 0.60,
-            zIndex: -1
-          });
-          polygon.setOptions({ zIndex: -1 });
-          polygon.addListener('click', polyInfo_tti);
-          app.polygons.push(polygon);
-          polygon.setMap(app.map);
+          up_to_one++;
         }
         else if (pm_mpo.pm == "a11"){
           temp = wktFormatter(data.coords[key]['POLYGON']);
