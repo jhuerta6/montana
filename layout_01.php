@@ -880,6 +880,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               polyCoordis.push(temp[i]);
             }
             var color;
+            for(var i=0; i<1000; i++){
+              color ='#'+Math.random().toString(16).substr(2,6);
+            }
             var polygon = new google.maps.Polygon({
               description: "Municipality",
               description_value: data.coords[key]['value'],
@@ -887,7 +890,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               strokeColor: "black",
               strokeOpacity: 0.60,
               strokeWeight: 0.70,
-              fillColor: 'orange',
+              fillColor: color,
               fillOpacity: 0.50, //0.60
               zIndex: 9
             });
