@@ -2147,7 +2147,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 }
               }
             }
-            else if (pm_mpo["pm"+(z+1)] == "freqtran") {
+            else if (pm_mpo["pm"+(z+1)] == "freqtran") { //done
               if(up_to_one == 0){
                 $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
                 var div = document.createElement('div');
@@ -2216,7 +2216,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 }
               }
             }
-
             else if (pm_mpo["pm"+(z+1)] == "b_workers") {
               if(up_to_one == 0){
                 $('#legendSpawner').find('*').not('h3').remove();
@@ -2375,7 +2374,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 }
               }
             }
-
             else if (pm_mpo["pm"+(z+1)] == "sectionnum") {
               if(up_to_one == 0){
                 $('#legendSpawner').find('*').not('h3').remove();
@@ -2437,7 +2435,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 }
               }
             }
-
             else if (pm_mpo["pm"+(z+1)] == "c22") {
               if(up_to_one == 0){
                 $('#legendSpawner').find('*').not('h3').remove();
@@ -2527,7 +2524,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 }
               }
             }
-
             else if (pm_mpo["pm"+(z+1)] == "2016_daily") {
               if(up_to_one == 0){
                 $('#legendSpawner').find('*').not('h3').remove();
