@@ -2876,7 +2876,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               polygon.setMap(app.map);
               */
             }
-            else if (pm_mpo["pm"+(z+1)] == "a11"){
+            else if (pm_mpo["pm"+(z+1)] =="a11"){
               temp = wktFormatter(data["coords"+(z+1)][key]['POLYGON']);
               //console.log(temp);
               for (var i = 0; i < temp.length; i++) {
