@@ -483,7 +483,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       },
       a12:{
         short: "A.1.2. Bikeways build-out",
-        name: "A.1.2. Bikeways build-out",
+        name: "A.1.2. Percentage of bikeways build-out",
         mode: ["B"],
         description: "",
         content: "This performance measure compares the mileage of existing bikeways with the mileage suggested in the 2016 COEP Bike Plan. \n"+
@@ -1240,19 +1240,46 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         $("#pm_description_mul_1, #pm_data_mul_1").empty();
         $("#check_multi_1").removeProp("disabled");
         $("#check_multi_1").prop("checked", true);
-        $("#report1_text").text(this.value);
+        var proper;
+        for (var i = 0; i < blocks.elements.length; i++) {
+          for (var j = 0; j < blocks[blocks.elements[i]].pms.length; j++) {
+            var pm = blocks[blocks.elements[i]].pms[j];
+            if(this.value == blocks[blocks.elements[i]][pm].short){
+              proper = blocks[blocks.elements[i]][pm].name;
+            }
+          }
+        }
+        $("#report1_text").text(proper);
         var pm_content = document.getElementById("pm_description_mul_1");
         var pm_data = document.getElementById("pm_data_mul_1");
       }else if(this.id == "select_pm_multiple_2"){
         $("#pm_description_mul_2, #pm_data_mul_2").empty();
-        $("#report2_text").text(this.value);
+        var proper;
+        for (var i = 0; i < blocks.elements.length; i++) {
+          for (var j = 0; j < blocks[blocks.elements[i]].pms.length; j++) {
+            var pm = blocks[blocks.elements[i]].pms[j];
+            if(this.value == blocks[blocks.elements[i]][pm].short){
+              proper = blocks[blocks.elements[i]][pm].name;
+            }
+          }
+        }
+        $("#report2_text").text(proper);
         $("#check_multi_2").removeProp("disabled");
         $("#check_multi_2").prop("checked", true);
         var pm_content = document.getElementById("pm_description_mul_2");
         var pm_data = document.getElementById("pm_data_mul_2");
       }else{
         $("#pm_description_mul_3, #pm_data_mul_3").empty();
-        $("#report3_text").text(this.value);
+        var proper;
+        for (var i = 0; i < blocks.elements.length; i++) {
+          for (var j = 0; j < blocks[blocks.elements[i]].pms.length; j++) {
+            var pm = blocks[blocks.elements[i]].pms[j];
+            if(this.value == blocks[blocks.elements[i]][pm].short){
+              proper = blocks[blocks.elements[i]][pm].name;
+            }
+          }
+        }
+        $("#report3_text").text(proper);
         $("#check_multi_3").removeProp("disabled");
         $("#check_multi_3").prop("checked", true);
         var pm_content = document.getElementById("pm_description_mul_3");
