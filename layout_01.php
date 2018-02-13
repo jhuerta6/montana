@@ -2498,15 +2498,23 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 }
               }
             }
-            else if (pm_mpo["pm"+(z+1)] == "c22") {
+            else if (pm_mpo["pm"+(z+1)] == "c22") { //done
               if(up_to_one == 0){
-                $('#legendSpawner').find('*').not('h3').remove();
-                var spawner = document.getElementById('legendSpawner');
+                $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
+                var div = document.createElement('div');
+                div.innerHTML = "<strong>"+$("#select_pm_multiple_"+(z+1)).prop("value")+"</strong>";
+                //console.log(pm_mpo.pm1);
+                div.className = "center-text";
+                var l = document.createElement('div');
+                l = document.getElementById('legend_content_multi_'+(z+1));
+                l.appendChild(div);
+
                 var div = document.createElement('div');
                 div.innerHTML =
-                "<img src='img/brightgreensquare.png' height='10px'/> Testing";
+                "<img src='img/navybluesquare.png' height='10px'/> Existing bikeways" +
+                "<br><img src='img/redsquare.png' height='10px'/> Bus stops located within 600 ft. of existing bikeways";
                 var newLegend = document.createElement('div');
-                newLegend = document.getElementById('legend');
+                newLegend = document.getElementById('legend_content_multi_'+(z+1));
                 document.getElementById('legend').style.visibility = "visible";
                 newLegend.appendChild(div);
               }
@@ -2561,13 +2569,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 var proceed = false;
               }
 
-              var color = '#00FF00';
+              var color = '#0000FF';
 
               if(proceed){
                 var line = new google.maps.Polyline({
                   path: to_color,
                   value: data["coords"+(z+1)][key]['value'],
-                  strokeColor: 'red',
+                  strokeColor: color,
                   strokeOpacity: 1.0,
                   strokeWeight: 4,
                   zIndex: 1
