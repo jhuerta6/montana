@@ -954,7 +954,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 strokeWeight: 3,
                 fillColor: 'white',
                 fillOpacity: 0.05, //0.60
-                zIndex: 9
+                zIndex: -2
               });
               polygon.setOptions({ zIndex: -1 });
               polygon.addListener('mouseover', bound);
@@ -1039,7 +1039,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               fillOpacity: 0.80, //0.60
               zIndex: 9
             });
-            polygon.setOptions({ zIndex: -1 });
+            polygon.setOptions({ zIndex: 9 });
             polygon.addListener('click', polyInfo_tti);
             app.sections.push(polygon);
             polygon.setMap(app.map);
