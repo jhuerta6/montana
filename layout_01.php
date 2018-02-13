@@ -47,7 +47,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <h3 class="text-center" style="color:#FF8000;"> Performance Measures for Montana Corridor</h3>
     <h6 class="hidden-xs text-center"><i style="color: white;">"</i><strong><i style="color:#FF8000;" class="text-center">CTIS </i></strong><i class="text-center" style="color:white;">is designated as a Member of National, Regional, and Tier 1 University Transportation Center."</i></h6>
-    <p class="hidden-xs text-right" style="color: white"> Version 1.46 (02/12/2018)</p>
+    <p class="hidden-xs text-right" style="color: white"> Version 1.46b (02/13/2018)</p>
   </nav>
 
   <div class="container panel panel-default">
@@ -132,18 +132,28 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   <span data-toggle="tooltip" data-placement="top" title="Number of representations for the data" class="input-group-addon" id="basic-addon3"># labels</span>
                   <input type="number" class="form-control" value="1" min="1"placeholder="...labels" id="labels" aria-describedby="basic-addon3">
                 </div>-->
+                <div class="input-group" id="muni_dropbox">
+                  <span class="input-group-addon" id="add_on">Municipalities</span>
+                  <select type="text" class="form-control" placeholder="Municipality" aria-describedby="add_on" id="select_muni">
+                    <option value="" disabled selected>Select a municipality</option>
+                  </select>
+                </div>
+                <br>
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
                   <label class="form-check-label" for="defaultCheck1">
                     Display Sections
                   </label>
                 </div><br>
-                <div class="form-check">
+                <!--<div class="form-check">
                   <input class="form-check-input" type="checkbox" value="" id="municipality">
                   <label class="form-check-label" for="municipality">
                     Display Municipalities
                   </label>
-                </div><br>
+                </div><br>-->
+
+
+
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="" id="boundary">
                   <label class="form-check-label" for="boundary">
@@ -749,6 +759,59 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   var from_year_slide = 2012;
   var to_year_slide = 2012;
   $(document).ready(function(){
+    //testing space
+    $.get('getMunicipality.php', function(data){
+      for (var i = 0; i < data.coords.length; i++) {
+        var blck = data.coords[i].value;
+        var elem_blck = document.createElement("option");
+        elem_blck.innerHTML = blck;
+        elem_blck.id = blck;
+        elem_blck.value = blck;
+        var select_blocks = document.getElementById("select_muni");
+        select_blocks.appendChild(elem_blck);
+      }
+    });
+
+    $("#select_muni").change(function(){
+      if(app.municipality){
+        for(var i = 0; i < app.municipality.length; i++){
+          app.municipality[i].setMap(null);
+        }
+      }
+      app.municipality = [];
+      app.infoWindow.close();
+      var muni_name = $(this).children(":selected").attr("id");
+      var name = {name: muni_name};
+      $.get('setMunicipality.php', name, function(data){
+        for(key in data.coords){
+          var polyCoordis = [];
+          temp = wktFormatter(data.coords[key]['POLYGON']);
+          for (var i = 0; i < temp.length; i++) {
+            polyCoordis.push(temp[i]);
+          }
+          var color;
+          for(var i=0; i<1000; i++){
+            color ='#'+Math.random().toString(16).substr(2,6);
+          }
+          var polygon = new google.maps.Polygon({
+            description: "Municipality",
+            description_value: data.coords[key]['value'],
+            paths: polyCoordis,
+            strokeColor: "black",
+            strokeOpacity: 0.60,
+            strokeWeight: 0.70,
+            fillColor: color,
+            fillOpacity: 0.50, //0.60
+            zIndex: 9
+          });
+          polygon.setOptions({ zIndex: -1 });
+          polygon.addListener('mouseover', muni);
+          app.municipality.push(polygon);
+          polygon.setMap(app.map);
+        }
+      });
+    });
+    //end testing space
 
     $("#slide_depth").slider({
       natural_arrow_keys: true,
