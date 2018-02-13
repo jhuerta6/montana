@@ -2068,16 +2068,23 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               }
               point.setMap(app.map);
             }
-            else if (pm_mpo["pm"+(z+1)] == "iri") {
+            else if (pm_mpo["pm"+(z+1)] == "iri") { //done
               if(up_to_one == 0){
-                $('#legendSpawner').find('*').not('h3').remove();
-                var spawner = document.getElementById('legendSpawner');
+                $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
+                var div = document.createElement('div');
+                div.innerHTML = "<strong>"+$("#select_pm_multiple_"+(z+1)).prop("value")+"</strong>";
+                //console.log(pm_mpo.pm1);
+                div.className = "center-text";
+                var l = document.createElement('div');
+                l = document.getElementById('legend_content_multi_'+(z+1));
+                l.appendChild(div);
+
                 var div = document.createElement('div');
                 div.innerHTML =
                 "<img src='img/redsquare.png' height='10px'/> Poor (IRI > 170)" +
                 "<br> <img src='img/brightgreensquare.png' height='10px'/> Good & Fair (IRI < 170)";
                 var newLegend = document.createElement('div');
-                newLegend = document.getElementById('legend');
+                newLegend = document.getElementById('legend_content_multi_'+(z+1));
                 document.getElementById('legend').style.visibility = "visible";
                 newLegend.appendChild(div);
               }
@@ -2142,7 +2149,21 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             }
             else if (pm_mpo["pm"+(z+1)] == "freqtran") {
               if(up_to_one == 0){
+                $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
+                var div = document.createElement('div');
+                div.innerHTML = "<strong>"+$("#select_pm_multiple_"+(z+1)).prop("value")+"</strong>";
+                //console.log(pm_mpo.pm1);
+                div.className = "center-text";
+                var l = document.createElement('div');
+                l = document.getElementById('legend_content_multi_'+(z+1));
+                l.appendChild(div);
 
+                var div = document.createElement('div');
+                div.innerHTML = "<br> <img src='img/navybluesquare.png' height='10px'/> Area within 1/2 mile of high frequency transit service";
+                var newLegend = document.createElement('div');
+                newLegend = document.getElementById('legend_content_multi_'+(z+1));
+                document.getElementById('legend').style.visibility = "visible";
+                newLegend.appendChild(div);
               }
               up_to_one++;
 
@@ -2168,7 +2189,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 }
               }
               var proceed = true;
-              var color = '#00FF00';
+              var color = '#0000FF';
 
               if(proceed){
                 var line = new google.maps.Polygon({
@@ -2178,7 +2199,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   fillColor: color,
                   fillOpacity: 0.60,
                   strokeOpacity: 0.60,
-                  strokeWeight: 0.70,
+                  strokeWeight: 0.75,
                   zIndex: -1
                 });
                 line.setMap(app.map);
