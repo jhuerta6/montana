@@ -2595,18 +2595,25 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 }
               }
             }
-            else if (pm_mpo["pm"+(z+1)] == "2016_daily") {
+            else if (pm_mpo["pm"+(z+1)] == "2016_daily") { //done
               if(up_to_one == 0){
-                $('#legendSpawner').find('*').not('h3').remove();
-                var spawner = document.getElementById('legendSpawner');
+                $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
+                var div = document.createElement('div');
+                div.innerHTML = "<strong>"+$("#select_pm_multiple_"+(z+1)).prop("value")+"</strong>";
+                //console.log(pm_mpo.pm1);
+                div.className = "center-text";
+                var l = document.createElement('div');
+                l = document.getElementById('legend_content_multi_'+(z+1));
+                l.appendChild(div);
+
                 var div = document.createElement('div');
                 div.innerHTML =
-                "<img src='img/brightgreensquare.png' height='10px'/> 20 - 500 daily passengers" +
-                "<br> <img src='img/skybluesquare.png' height='10px'/> 500 - 1000 daily passengers"+
-                "<br> <img src='img/yellowsquare.png' height='10px'/> 1000 - 2000 daily passengers"+
+                "<img src='img/brightgreensquare.png' height='10px'/> 20 to 500 daily passengers" +
+                "<br> <img src='img/skybluesquare.png' height='10px'/> 500 to 1000 daily passengers"+
+                "<br> <img src='img/yellowsquare.png' height='10px'/> 1000 to 2000 daily passengers"+
                 "<br> <img src='img/orangesquare.png' height='10px'/> 2000 to 3150 daily passengers";
                 var newLegend = document.createElement('div');
-                newLegend = document.getElementById('legend');
+                newLegend = document.getElementById('legend_content_multi_'+(z+1));
                 document.getElementById('legend').style.visibility = "visible";
                 newLegend.appendChild(div);
               }
@@ -2676,19 +2683,134 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 }
               }
             }
-            else if(pm_mpo["pm"+(z+1)] == "coemisions" || pm_mpo["pm"+(z+1)] == "emar" ){
+            else if (pm_mpo["pm"+(z+1)] == "parkride") {//done
+              if(up_to_one == 0){
+                $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
+                var div = document.createElement('div');
+                div.innerHTML = "<strong>"+$("#select_pm_multiple_"+(z+1)).prop("value")+"</strong>";
+                //console.log(pm_mpo.pm1);
+                div.className = "center-text";
+                var l = document.createElement('div');
+                l = document.getElementById('legend_content_multi_'+(z+1));
+                l.appendChild(div);
+
+                var div = document.createElement('div');
+                div.innerHTML =
+                "<img src='img/brightgreensquare.png' height='10px'/> 103-space park and ride lot at the <strong>Eastside Transfer Center</strong>" +
+                "<br> <img src='img/skybluesquare.png' height='10px'/> 50-space park and ride lot at <strong>Edgemere/RC Poe</strong>";
+                var newLegend = document.createElement('div');
+                newLegend = document.getElementById('legend_content_multi_'+(z+1));
+                document.getElementById('legend').style.visibility = "visible";
+                newLegend.appendChild(div);
+              }
+              up_to_one++;
+
+              var point_obj = {lat: 31.7831258, lng: -106.3898768};
+              points.push(point_obj);
+
+              point_obj = {lat: 31.7941869, lng: -106.2561862};
+              points.push(point_obj);
+
+              var colores = [];
+              colores.push('http://www.googlemapsmarkers.com/v1/13FF00/');
+              colores.push('http://www.googlemapsmarkers.com/v1/009BFF/');
+
+                for (var i = 0; i < points.length; i++) {
+                  var indv = points[i];
+                  var point  = new google.maps.Marker({
+                    position: indv,
+                    icon: colores[i],
+                    title: 'Park & Ride Lot',
+                    animation: google.maps.Animation.DROP
+                  });
+                  point.setOptions({ zIndex: 2 });
+                  //point.addListener('click', pointInfo);
+                  if(z == 0){
+                    app.polygons.push(point);
+                  }
+                  else if(z == 1){
+                    app.polygons2.push(point);
+                  }
+                  else{
+                    app.polygons3.push(point);
+                  }
+                  point.setMap(app.map);
+                }
+            }
+            else if(pm_mpo["pm"+(z+1)] == "coemisions" || pm_mpo["pm"+(z+1)] == "emar" ){ //done
+              if(up_to_one == 0 && pm_mpo["pm"+(z+1)] == "coemisions"){
+                $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
+                var div = document.createElement('div');
+                div.innerHTML = "<strong>"+$("#select_pm_multiple_"+(z+1)).prop("value")+"</strong>";
+                //console.log(pm_mpo.pm1);
+                div.className = "center-text";
+                var l = document.createElement('div');
+                l = document.getElementById('legend_content_multi_'+(z+1));
+                l.appendChild(div);
+
+                var div = document.createElement('div');
+                div.innerHTML = "<img src='img/skybluesquare.png' height='10px'/> Less than 500 lbs of CO per acre" +
+                "<br><img src='img/yellowsquare.png' height='10px'/> From 500 to 1000 lbs of CO per acre"+
+                "<br><img src='img/orangesquare.png' height='10px'/> More than 1000 lbs of CO per acre";
+                var newLegend = document.createElement('div');
+                newLegend = document.getElementById('legend_content_multi_'+(z+1));
+                document.getElementById('legend').style.visibility = "visible";
+                newLegend.appendChild(div);
+              }
+              else if(up_to_one == 0 && pm_mpo["pm"+(z+1)] == "emar"){
+                $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
+                var div = document.createElement('div');
+                div.innerHTML = "<strong>"+$("#select_pm_multiple_"+(z+1)).prop("value")+"</strong>";
+                //console.log(pm_mpo.pm1);
+                div.className = "center-text";
+                var l = document.createElement('div');
+                l = document.getElementById('legend_content_multi_'+(z+1));
+                l.appendChild(div);
+
+                var div = document.createElement('div');
+                div.innerHTML = "<img src='img/skybluesquare.png' height='10px'/> Less than 100 lbs of PM10 per acre" +
+                "<br><img src='img/yellowsquare.png' height='10px'/> From 100 to 200 lbs of PM10 per acre"+
+                "<br><img src='img/orangesquare.png' height='10px'/> More than 200 lbs of PM10 per acre";
+                var newLegend = document.createElement('div');
+                newLegend = document.getElementById('legend_content_multi_'+(z+1));
+                document.getElementById('legend').style.visibility = "visible";
+                newLegend.appendChild(div);
+              }
+              up_to_one++;
               temp = wktFormatter(data["coords"+(z+1)][key]['POLYGON']);
               for (var i = 0; i < temp.length; i++) {
                 polyCoordis.push(temp[i]);
               }
+
+              var color;
+              if(pm_mpo["pm"+(z+1)] == "coemisions" && data["coords"+(z+1)][key]['value'] < 500){
+                color = shapecolor[0];
+              }
+              else if(pm_mpo["pm"+(z+1)] == "coemisions" && data["coords"+(z+1)][key]['value'] >= 500 && data["coords"+(z+1)][key]['value'] <= 1000){
+                color = shapecolor[1];
+              }
+              else if(pm_mpo["pm"+(z+1)] == "coemisions" && data["coords"+(z+1)][key]['value'] > 1000){
+                color = shapecolor[2];
+              }
+
+              if(pm_mpo["pm"+(z+1)] == "emar" && data["coords"+(z+1)][key]['value'] < 100){
+                color = shapecolor[0];
+              }
+              else if(pm_mpo["pm"+(z+1)] == "emar" && data["coords"+(z+1)][key]['value'] >= 100 && data["coords"+(z+1)][key]['value'] <= 200){
+                color = shapecolor[1];
+              }
+              else if(pm_mpo["pm"+(z+1)] == "emar" && data["coords"+(z+1)][key]['value'] > 200){
+                color = shapecolor[2];
+              }
+
               var polygon = new google.maps.Polygon({
-                description: pm_mpo.name_pm,
+                description: pm_mpo["name_pm"+(z+1)],
                 description_value: data["coords"+(z+1)][key]['value'],
                 paths: polyCoordis,
-                strokeColor: shapeoutline[colorSelector],
+                strokeColor: 'black',
                 strokeOpacity: 0.60,
                 strokeWeight: 0.70,
-                fillColor: shapecolor[colorSelector],
+                fillColor: color,
                 fillOpacity: 0.60,
                 zIndex: -1
               });

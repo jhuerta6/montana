@@ -189,6 +189,9 @@ function getPolygons(){
 
 				$query = "SELECT objectid, astext(SHAPE) AS POLYGON, sectionnum as value FROM a12_proposed_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 			}
+			elseif($data->$val == "parkride"){
+				$query = "SELECT lat as lat, lng as lng, fatal, incap, pedestrian as value FROM b22 LIMIT 1";
+			}
 			elseif($data->$val == "c22"){
 				$query = "SELECT objectid, astext(SHAPE) AS LINE, objectid as value FROM c22_bike_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 4), p.SHAPE)";
 
