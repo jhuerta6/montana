@@ -1825,7 +1825,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               }
               point.setMap(app.map);
             }
-            else if(pm_mpo["pm"+(z+1)] == "b_carfrhh"){
+            else if(pm_mpo["pm"+(z+1)] == "b_carfrhh"){ //done
               if(up_to_one == 0){
                 $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
                 var div = document.createElement('div');
@@ -1896,8 +1896,72 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               }
               polygon.setMap(app.map);
             }
-            else if(pm_mpo["pm"+(z+1)] == "B_TpDisadv"){
+            else if(pm_mpo["pm"+(z+1)] == "B_TpDisadv"){ //done
+              if(up_to_one == 0){
+                $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
+                var div = document.createElement('div');
+                div.innerHTML = "<strong>"+$("#select_pm_multiple_"+(z+1)).prop("value")+"</strong>";
+                //console.log(pm_mpo.pm1);
+                div.className = "center-text";
+                var l = document.createElement('div');
+                l = document.getElementById('legend_content_multi_'+(z+1));
+                l.appendChild(div);
 
+                var div = document.createElement('div');
+                div.innerHTML = "Indicator of potential disadvantage by block group"+
+                "<br><img src='img/skybluesquare.png' height='10px'/> 0%"+
+                "<br><img src='img/yellowsquare.png' height='10px'/> 1%" +
+                "<br><img src='img/orangesquare.png' height='10px'/> 2% - 3%" +
+                "<br><img src='img/maroonsquare.png' height='10px'/> 4% - 5%";
+                var newLegend = document.createElement('div');
+                newLegend = document.getElementById('legend_content_multi_'+(z+1));
+                document.getElementById('legend').style.visibility = "visible";
+                newLegend.appendChild(div);
+              }
+              up_to_one++;
+
+              temp = wktFormatter(data["coords"+(z+1)][key]['POLYGON']);
+              //console.log(temp);
+              for (var i = 0; i < temp.length; i++) {
+                polyCoordis.push(temp[i]);
+              }
+              var color;
+              if(data["coords"+(z+1)][key]['value'] == 0){
+                color = shapecolor[0];
+              }
+              else if(data["coords"+(z+1)][key]['value'] == 1){
+                color = shapecolor[1];
+              }
+              else if(data["coords"+(z+1)][key]['value'] >= 2 && data["coords"+(z+1)][key]['value'] <= 3){
+                color = shapecolor[2];
+              }
+              else{
+                color = shapecolor[3];
+              }
+
+              var polygon = new google.maps.Polygon({
+                description: pm_mpo["name_pm"+(z+1)],
+                description_value: data["coords"+(z+1)][key]['value'],
+                paths: polyCoordis,
+                strokeColor: 'black',
+                strokeOpacity: 0.60,
+                strokeWeight: 0.70,
+                fillColor: color,
+                fillOpacity: 0.60,
+                zIndex: 0
+              });
+              polygon.setOptions({ zIndex: 0 });
+              polygon.addListener('click', polyInfo);
+              if(z == 0){
+                app.polygons.push(polygon);
+              }
+              else if(z == 1){
+                app.polygons2.push(polygon);
+              }
+              else{
+                app.polygons3.push(polygon);
+              }
+              polygon.setMap(app.map);
             }
             else if(pm_mpo["pm"+(z+1)] == "crashes"){
               if(up_to_one == 0){
@@ -2944,7 +3008,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             newLegend.appendChild(div);
           }
           up_to_one++;
-
 
           temp = wktFormatter(data.coords[key]['POLYGON']);
           //console.log(temp);
