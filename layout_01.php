@@ -1666,7 +1666,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 colorSelector = i+1;
               }
             }
-            if(pm_mpo["pm"+(z+1)] == "crosw150ft"){ //points
+            if(pm_mpo["pm"+(z+1)] == "crosw150ft"){ //points done
               if(up_to_one == 0){
                 $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
                 var div = document.createElement('div');
@@ -1721,7 +1721,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
               point.setMap(app.map);
             }
-            else if(pm_mpo["pm"+(z+1)]  == "b_jobphh"){ //polygon
+            else if(pm_mpo["pm"+(z+1)]  == "b_jobphh"){ //polygon done
               if(up_to_one == 0){
                 $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
                 var div = document.createElement('div');
@@ -1784,32 +1784,36 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               }
               polygon.setMap(app.map);
             }
-            else if(pm_mpo["pm"+(z+1)] == "a22_new"){ //points
+            else if(pm_mpo["pm"+(z+1)] == "a22_new"){ //points done
               if(up_to_one == 0){
-                $('#legendSpawner').find('*').not('h3').remove();
-                var spawner = document.getElementById('legendSpawner');
+                $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
                 var div = document.createElement('div');
-                div.innerHTML = "<img src='img/redsquare.png' height='10px'/> Bus stop <strong>beyond</strong> 150 ft. from a crosswalk" +
-                "<br> <img src='img/brightgreensquare.png' height='10px'/> Bus stop <strong>within</strong> 150 ft. from a crosswalk";
+                div.innerHTML = "<strong>"+$("#select_pm_multiple_"+(z+1)).prop("value")+"</strong>";
+                //console.log(pm_mpo.pm1);
+                div.className = "center-text";
+                var l = document.createElement('div');
+                l = document.getElementById('legend_content_multi_'+(z+1));
+                l.appendChild(div);
+
+                var div = document.createElement('div');
+                div.innerHTML = "<img src='img/redsquare.png' height='10px'/> Bus Stops With Bicycle Parking";
                 var newLegend = document.createElement('div');
-                newLegend = document.getElementById('legend');
+                newLegend = document.getElementById('legend_content_multi_'+(z+1));
                 document.getElementById('legend').style.visibility = "visible";
                 newLegend.appendChild(div);
               }
               up_to_one++;
 
-              url: "./icons/mini_green_bus.png"
-
               var point_obj = {lat: parseFloat(data["coords"+(z+1)][key]['lat']), lng: parseFloat(data["coords"+(z+1)][key]['lng'])};
               points.push(point_obj);
               var point  = new google.maps.Marker({
                 position: points[key],
-                icon: image,
+                //icon: image,
                 title: 'Bus Stop',
                 value: data["coords"+(z+1)][key]['value']
               });
               point.setOptions({ zIndex: 2 });
-              point.addListener('click', pointInfo); //have to add PointInfo
+              //point.addListener('click', pointInfo); //have to add PointInfo
               if(z == 0){
                 app.polygons.push(point);
               }
@@ -1820,6 +1824,80 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 app.polygons3.push(point);
               }
               point.setMap(app.map);
+            }
+            else if(pm_mpo["pm"+(z+1)] == "b_carfrhh"){
+              if(up_to_one == 0){
+                $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
+                var div = document.createElement('div');
+                div.innerHTML = "<strong>"+$("#select_pm_multiple_"+(z+1)).prop("value")+"</strong>";
+                //console.log(pm_mpo.pm1);
+                div.className = "center-text";
+                var l = document.createElement('div');
+                l = document.getElementById('legend_content_multi_'+(z+1));
+                l.appendChild(div);
+
+                var div = document.createElement('div');
+                div.innerHTML =  "<img src='img/skybluesquare.png' height='10px'/> 0%"+
+                "<br><img src='img/yellowsquare.png' height='10px'/> 0.01% - 0.05%" +
+                "<br><img src='img/orangesquare.png' height='10px'/> 0.051% - 0.1%" +
+                "<br><img src='img/maroonsquare.png' height='10px'/> 0.11% - 0.15%" +
+                "<br><img src='img/navybluesquare.png' height='10px'/> 0.151% - 0.61%";
+                var newLegend = document.createElement('div');
+                newLegend = document.getElementById('legend_content_multi_'+(z+1));
+                document.getElementById('legend').style.visibility = "visible";
+                newLegend.appendChild(div);
+              }
+              up_to_one++;
+
+
+              temp = wktFormatter(data["coords"+(z+1)][key]['POLYGON']);
+              //console.log(temp);
+              for (var i = 0; i < temp.length; i++) {
+                polyCoordis.push(temp[i]);
+              }
+              var color;
+              if(data["coords"+(z+1)][key]['value'] == 0){
+                color = shapecolor[0];
+              }
+              else if(data["coords"+(z+1)][key]['value'] >= 0.01 && data["coords"+(z+1)][key]['value'] <= 0.05){
+                color = shapecolor[1];
+              }
+              else if(data["coords"+(z+1)][key]['value'] >= 0.051 && data["coords"+(z+1)][key]['value'] <= 0.1){
+                color = shapecolor[2];
+              }
+              else if(data["coords"+(z+1)][key]['value'] >= 0.11 && data["coords"+(z+1)][key]['value'] <= 0.15){
+                color = shapecolor[3];
+              }
+              else{
+                color = shapecolor[4];
+              }
+
+              var polygon = new google.maps.Polygon({
+                description: pm_mpo["name_pm"+(z+1)],
+                description_value: data["coords"+(z+1)][key]['value'],
+                paths: polyCoordis,
+                strokeColor: 'black',
+                strokeOpacity: 0.60,
+                strokeWeight: 0.70,
+                fillColor: color,
+                fillOpacity: 0.60,
+                zIndex: 0
+              });
+              polygon.setOptions({ zIndex: 0 });
+              polygon.addListener('click', polyInfo);
+              if(z == 0){
+                app.polygons.push(polygon);
+              }
+              else if(z == 1){
+                app.polygons2.push(polygon);
+              }
+              else{
+                app.polygons3.push(polygon);
+              }
+              polygon.setMap(app.map);
+            }
+            else if(pm_mpo["pm"+(z+1)] == "B_TpDisadv"){
+
             }
             else if(pm_mpo["pm"+(z+1)] == "crashes"){
               if(up_to_one == 0){
@@ -4307,7 +4385,8 @@ var options =
 
   function polyInfo(event){
     var val = parseFloat(this.description_value).toFixed(2);
-    text = this.description + ": " + val;
+    //text = this.description + ": " + val;
+    text = val;
     app.infoWindow.setContent(text);
     app.infoWindow.setPosition(event.latLng);
     app.infoWindow.open(app.map);
