@@ -2216,15 +2216,23 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 }
               }
             }
-            else if (pm_mpo["pm"+(z+1)] == "b_workers") {
+            else if (pm_mpo["pm"+(z+1)] == "b_workers") { //done
               if(up_to_one == 0){
-                $('#legendSpawner').find('*').not('h3').remove();
-                var spawner = document.getElementById('legendSpawner');
+                $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
+                var div = document.createElement('div');
+                div.innerHTML = "<strong>"+$("#select_pm_multiple_"+(z+1)).prop("value")+"</strong>";
+                //console.log(pm_mpo.pm1);
+                div.className = "center-text";
+                var l = document.createElement('div');
+                l = document.getElementById('legend_content_multi_'+(z+1));
+                l.appendChild(div);
+
                 var div = document.createElement('div');
                 div.innerHTML =
-                "<img src='img/brightgreensquare.png' height='10px'/> Testing";
+                "<img src='img/navybluesquare.png' height='10px'/> Population within 1/2 mile of existing bikeways" +
+                "<br><img src='img/redsquare.png' height='10px'/> Existing bikeways";
                 var newLegend = document.createElement('div');
-                newLegend = document.getElementById('legend');
+                newLegend = document.getElementById('legend_content_multi_'+(z+1));
                 document.getElementById('legend').style.visibility = "visible";
                 newLegend.appendChild(div);
               }
@@ -2270,13 +2278,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   polyCoordis.push(temp[i]);
                 }
                 var polygon = new google.maps.Polygon({
-                  description: pm_mpo.name_pm,
+                  description: pm_mpo["name_pm"+(z+1)],
                   description_value: data["coords"+(z+1)][key]['value'],
                   paths: polyCoordis,
                   strokeColor: shapeoutline[colorSelector],
                   strokeOpacity: 0.60,
                   strokeWeight: 0.70,
-                  fillColor: shapecolor[colorSelector],
+                  fillColor: '#0000FF',
                   fillOpacity: 0.60,
                   zIndex: -1
                 });
@@ -2300,13 +2308,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   polyCoordis.push(temp[i]);
                 }
                 var polygon = new google.maps.Polygon({
-                  description: pm_mpo.name_pm,
+                  description: pm_mpo["name_pm"+(z+1)],
                   description_value: data["coords"+(z+1)][key]['value'],
                   paths: polyCoordis,
                   strokeColor: shapeoutline[colorSelector],
                   strokeOpacity: 0.60,
                   strokeWeight: 0.70,
-                  fillColor: shapecolor[colorSelector],
+                  fillColor: '#0000FF',
                   fillOpacity: 0.60,
                   zIndex: -1
                 });
@@ -2374,15 +2382,23 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 }
               }
             }
-            else if (pm_mpo["pm"+(z+1)] == "sectionnum") {
+            else if (pm_mpo["pm"+(z+1)] == "sectionnum") {//done
               if(up_to_one == 0){
-                $('#legendSpawner').find('*').not('h3').remove();
-                var spawner = document.getElementById('legendSpawner');
+                $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
+                var div = document.createElement('div');
+                div.innerHTML = "<strong>"+$("#select_pm_multiple_"+(z+1)).prop("value")+"</strong>";
+                //console.log(pm_mpo.pm1);
+                div.className = "center-text";
+                var l = document.createElement('div');
+                l = document.getElementById('legend_content_multi_'+(z+1));
+                l.appendChild(div);
+
                 var div = document.createElement('div');
                 div.innerHTML =
-                "<img src='img/neonpurplesquare.png' height='10px'/> Proposed Bikeways";
+                "<img src='img/neonpurplesquare.png' height='10px'/> Proposed Bikeways in City of El Paso Bike Plan <br>"+
+                "<img src='img/brightgreensquare.png' height='10px'/> Existing Bikeways";
                 var newLegend = document.createElement('div');
-                newLegend = document.getElementById('legend');
+                newLegend = document.getElementById('legend_content_multi_'+(z+1));
                 document.getElementById('legend').style.visibility = "visible";
                 newLegend.appendChild(div);
               }
@@ -2421,6 +2437,53 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   strokeWeight: 3,
                   zIndex: 1
                 });
+                line.setMap(app.map);
+                line.setOptions({ zIndex: 1 });
+                //line.addListener('click', lineInfo_pavement);
+                if(z == 0){
+                  app.polygons.push(line);
+                }
+                else if(z == 1){
+                  app.polygons2.push(line);
+                }
+                else{
+                  app.polygons3.push(line);
+                }
+              }
+
+              if(key < data.existing.length){
+                var to_color = [];
+                var reader = new jsts.io.WKTReader();
+                y = data.existing[key]['LINE'];
+                temp.push(y);
+                var a = reader.read(y);
+
+                if(a.getGeometryType() == "LineString"){
+                  var coord;
+                  var ln = a.getCoordinates();
+                  for (var i = 0; i < ln.length; i++) {
+                    coord = {lat: ln[i]['y'], lng: ln[i]['x']};
+                    to_color.push(coord);
+                  }
+                }
+                else{
+                  var coord;
+                  var multi = a.getCoordinates();
+                  for (var i = 0; i < multi.length; i++) {
+                    coord = {lat: multi[i]['y'], lng: multi[i]['x']};
+                    to_color.push(coord);
+                  }
+                }
+
+                var line = new google.maps.Polyline({
+                  path: to_color,
+                  //value: data.coords[key]['value'],
+                  strokeColor: "#13FF00",
+                  strokeOpacity: 1.0,
+                  strokeWeight: 4,
+                  zIndex: 1
+                });
+
                 line.setMap(app.map);
                 line.setOptions({ zIndex: 1 });
                 //line.addListener('click', lineInfo_pavement);
