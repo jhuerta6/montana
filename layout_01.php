@@ -1774,13 +1774,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               polygon.setOptions({ zIndex: -1 });
               polygon.addListener('click', polyInfo);
               if(z == 0){
-                app.polygons.push(point);
+                app.polygons.push(polygon);
               }
               else if(z == 1){
-                app.polygons2.push(point);
+                app.polygons2.push(polygon);
               }
               else{
-                app.polygons3.push(point);
+                app.polygons3.push(polygon);
               }
               polygon.setMap(app.map);
             }
@@ -1950,6 +1950,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 fillOpacity: 0.60,
                 zIndex: 0
               });
+
               polygon.setOptions({ zIndex: 0 });
               polygon.addListener('click', polyInfo);
               if(z == 0){
