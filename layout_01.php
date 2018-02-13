@@ -2828,7 +2828,26 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               polygon.setMap(app.map);
             }
             else if(pm_mpo["pm"+(z+1)] == "tti"){
-              temp = wktFormatter(data["coords"+(z+1)][key]['POLYGON']);
+              if(up_to_one == 0){
+                $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
+                var div = document.createElement('div');
+                div.innerHTML = "<strong>"+$("#select_pm_multiple_"+(z+1)).prop("value")+"</strong>";
+                //console.log(pm_mpo.pm1);
+                div.className = "center-text";
+                var l = document.createElement('div');
+                l = document.getElementById('legend_content_multi_'+(z+1));
+                l.appendChild(div);
+
+                var div = document.createElement('div');
+                div.innerHTML = "Check the checkbox next to 'Display Sections' and look at the 'Section' tab";
+                var newLegend = document.createElement('div');
+                newLegend = document.getElementById('legend_content_multi_'+(z+1));
+                document.getElementById('legend').style.visibility = "visible";
+                newLegend.appendChild(div);
+              }
+              up_to_one++;
+
+              /*temp = wktFormatter(data["coords"+(z+1)][key]['POLYGON']);
               for (var i = 0; i < temp.length; i++) {
                 polyCoordis.push(temp[i]);
               }
@@ -2855,6 +2874,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 app.polygons3.push(polygon);
               }
               polygon.setMap(app.map);
+              */
             }
             else if (pm_mpo["pm"+(z+1)] == "a11"){
               temp = wktFormatter(data["coords"+(z+1)][key]['POLYGON']);
@@ -2863,7 +2883,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 polyCoordis.push(temp[i]);
               }
               var polygon = new google.maps.Polygon({
-                description: pm_mpo.name_pm,
+                description: pm_mpo["name_pm"+(z+1)],
                 description_value: data["coords"+(z+1)][key]['value'],
                 paths: polyCoordis,
                 strokeColor: shapeoutline[colorSelector],
