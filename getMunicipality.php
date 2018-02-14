@@ -423,6 +423,15 @@ function getMunicipalities(){
 		}
 	}
 
+	$query = "SELECT name as value FROM mpoboudary";
+	$toReturn['query2'] = $query;
+	$result = mysqli_query($conn, $query);
+	$result = fetchAll($result);
+
+	for($i = 0; $i < sizeof($result); $i++){
+		array_push($ordered, $result[$i]);
+	}
+
 	$toReturn['coords'] = $ordered;
 }
 ?>

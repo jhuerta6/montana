@@ -47,7 +47,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <h3 class="text-center" style="color:#FF8000;"> Performance Measures for Montana Corridor</h3>
     <h6 class="hidden-xs text-center"><i style="color: white;">"</i><strong><i style="color:#FF8000;" class="text-center">CTIS </i></strong><i class="text-center" style="color:white;">is designated as a Member of National, Regional, and Tier 1 University Transportation Center."</i></h6>
-    <p class="hidden-xs text-right" style="color: white"> Version 1.46b (02/13/2018)</p>
+    <p class="hidden-xs text-right" style="color: white"> Version 1.46c (02/14/2018)</p>
   </nav>
 
   <div class="container panel panel-default">
@@ -761,6 +761,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   $(document).ready(function(){
     //testing space
     $.get('getMunicipality.php', function(data){
+      var blck = "ALL";
+      var elem_blck = document.createElement("option");
+      elem_blck.innerHTML = blck;
+      elem_blck.id = blck;
+      elem_blck.value = blck;
+      var select_blocks = document.getElementById("select_muni");
+      select_blocks.appendChild(elem_blck);
       for (var i = 0; i < data.coords.length; i++) {
         var blck = data.coords[i].value;
         var elem_blck = document.createElement("option");
@@ -773,6 +780,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     });
 
     $("#select_muni").change(function(){
+      $(document.body).css({'cursor': 'wait'});
       if(app.municipality){
         for(var i = 0; i < app.municipality.length; i++){
           app.municipality[i].setMap(null);
@@ -783,6 +791,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       var muni_name = $(this).children(":selected").attr("id");
       var name = {name: muni_name};
       $.get('setMunicipality.php', name, function(data){
+        var isColorSet = false;
+
         for(key in data.coords){
           var polyCoordis = [];
           temp = wktFormatter(data.coords[key]['POLYGON']);
@@ -790,8 +800,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             polyCoordis.push(temp[i]);
           }
           var color;
-          for(var i=0; i<1000; i++){
-            color ='#'+Math.random().toString(16).substr(2,6);
+          if(!isColorSet){
+            for(var i=0; i<1000; i++){
+              color ='#'+Math.random().toString(16).substr(2,6);
+              if(muni_name != "ALL"){
+                isColorSet = true;
+              }
+            }
           }
           var polygon = new google.maps.Polygon({
             description: "Municipality",
@@ -809,6 +824,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           app.municipality.push(polygon);
           polygon.setMap(app.map);
         }
+      }).done(function(data){
+        $(document.body).css({'cursor': 'default'});
       });
     });
     //end testing space
