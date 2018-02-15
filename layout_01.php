@@ -759,7 +759,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   var from_year_slide = 2012;
   var to_year_slide = 2012;
   $(document).ready(function(){
-    //testing space
+
     $.get('getMunicipality.php', function(data){
       var blck = "ALL";
       var elem_blck = document.createElement("option");
@@ -817,9 +817,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             strokeWeight: 0.70,
             fillColor: color,
             fillOpacity: 0.50, //0.60
-            zIndex: 9
+            zIndex: -98
           });
-          polygon.setOptions({ zIndex: -1 });
+          polygon.setOptions({ zIndex: -98});
           polygon.addListener('mouseover', muni);
           app.municipality.push(polygon);
           polygon.setMap(app.map);
@@ -972,9 +972,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               strokeWeight: 0.70,
               fillColor: color,
               fillOpacity: 0.50, //0.60
-              zIndex: 9
+              zIndex: -97
             });
-            polygon.setOptions({ zIndex: -1 });
+            polygon.setOptions({ zIndex: -97 });
             polygon.addListener('mouseover', muni);
             app.municipality.push(polygon);
             polygon.setMap(app.map);
@@ -1034,9 +1034,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 strokeWeight: 3,
                 fillColor: 'white',
                 fillOpacity: 0.05, //0.60
-                zIndex: -2
+                zIndex: -99
               });
-              polygon.setOptions({ zIndex: -1 });
+              polygon.setOptions({ zIndex: -99 });
               polygon.addListener('mouseover', bound);
               app.boundary.push(polygon);
               polygon.setMap(app.map);
@@ -1117,9 +1117,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               strokeWeight: 0.70,
               fillColor: colorArr[data.coords[key]['value']-1],
               fillOpacity: 0.80, //0.60
-              zIndex: 9
+              zIndex: -97
             });
-            polygon.setOptions({ zIndex: 9 });
+            polygon.setOptions({ zIndex: -97 });
             polygon.addListener('click', polyInfo_tti);
             app.sections.push(polygon);
             polygon.setMap(app.map);
