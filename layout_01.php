@@ -761,6 +761,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   $(document).ready(function(){
 
     $.get('getMunicipality.php', function(data){
+      var blck = "NONE";
+      var elem_blck = document.createElement("option");
+      elem_blck.innerHTML = blck;
+      elem_blck.id = blck;
+      elem_blck.value = blck;
+      var select_blocks = document.getElementById("select_muni");
+      select_blocks.appendChild(elem_blck);
       var blck = "ALL";
       var elem_blck = document.createElement("option");
       elem_blck.innerHTML = blck;
@@ -780,7 +787,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     });
 
     $("#select_muni").change(function(){
-      $(document.body).css({'cursor': 'wait'});
       if(app.municipality){
         for(var i = 0; i < app.municipality.length; i++){
           app.municipality[i].setMap(null);
@@ -788,45 +794,49 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       }
       app.municipality = [];
       app.infoWindow.close();
-      var muni_name = $(this).children(":selected").attr("id");
-      var name = {name: muni_name};
-      $.get('setMunicipality.php', name, function(data){
-        var isColorSet = false;
 
-        for(key in data.coords){
-          var polyCoordis = [];
-          temp = wktFormatter(data.coords[key]['POLYGON']);
-          for (var i = 0; i < temp.length; i++) {
-            polyCoordis.push(temp[i]);
-          }
-          var color;
-          if(!isColorSet){
-            for(var i=0; i<1000; i++){
-              color ='#'+Math.random().toString(16).substr(2,6);
-              if(muni_name != "ALL"){
-                isColorSet = true;
+      var muni_name = $(this).children(":selected").attr("id");
+      if(muni_name != "NONE"){
+        $(document.body).css({'cursor': 'wait'});
+        var name = {name: muni_name};
+        $.get('setMunicipality.php', name, function(data){
+          var isColorSet = false;
+
+          for(key in data.coords){
+            var polyCoordis = [];
+            temp = wktFormatter(data.coords[key]['POLYGON']);
+            for (var i = 0; i < temp.length; i++) {
+              polyCoordis.push(temp[i]);
+            }
+            var color;
+            if(!isColorSet){
+              for(var i=0; i<1000; i++){
+                color ='#'+Math.random().toString(16).substr(2,6);
+                if(muni_name != "ALL"){
+                  isColorSet = true;
+                }
               }
             }
+            var polygon = new google.maps.Polygon({
+              description: "Municipality",
+              description_value: data.coords[key]['value'],
+              paths: polyCoordis,
+              strokeColor: "black",
+              strokeOpacity: 0.60,
+              strokeWeight: 0.70,
+              fillColor: color,
+              fillOpacity: 0.50, //0.60
+              zIndex: -98
+            });
+            polygon.setOptions({ zIndex: -98});
+            polygon.addListener('mouseover', muni);
+            app.municipality.push(polygon);
+            polygon.setMap(app.map);
           }
-          var polygon = new google.maps.Polygon({
-            description: "Municipality",
-            description_value: data.coords[key]['value'],
-            paths: polyCoordis,
-            strokeColor: "black",
-            strokeOpacity: 0.60,
-            strokeWeight: 0.70,
-            fillColor: color,
-            fillOpacity: 0.50, //0.60
-            zIndex: -98
-          });
-          polygon.setOptions({ zIndex: -98});
-          polygon.addListener('mouseover', muni);
-          app.municipality.push(polygon);
-          polygon.setMap(app.map);
-        }
-      }).done(function(data){
-        $(document.body).css({'cursor': 'default'});
-      });
+        }).done(function(data){
+          $(document.body).css({'cursor': 'default'});
+        });
+      }
     });
     //end testing space
 

@@ -6,7 +6,7 @@ ini_set('max_execution_time', 30000); //300 seconds = 5 minutes
 $conn = mysqli_connect('ctis.utep.edu', 'ctis', '19691963', 'mpo_new');
 //global array that will return requested data
 $toReturn = array();
-//echo "start";
+
 setMunicipalities();
 
 header('Content-Type: application/json');
@@ -31,13 +31,6 @@ function fetchAll($result){
 function setMunicipalities(){
 	global $conn, $toReturn;
 	$data = new dataToQueryPolygons();
-	/*$query = "SET @geom1 = 'POLYGON(($data->lng1 $data->lat1,$data->lng1	$data->lat2,$data->lng2	$data->lat2,$data->lng2	$data->lat1,$data->lng1	$data->lat1))'";
-	$toReturn['query'] = $query;
-	$result = mysqli_query($conn, $query);
-	$toReturn['set'] = $result;*/
-
-	//$query = "SELECT astext(SHAPE) AS POLYGON, name as value FROM muni AS p WHERE name = $data->name AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
-	//echo $data->name;
 	if($data->name == "ALL"){
 		$query = "SELECT astext(SHAPE) AS POLYGON, name as value FROM muni";
 	}
@@ -61,7 +54,7 @@ function setMunicipalities(){
 	}
 
 	if($data->name == "ALL"){
-		$query = "SELECT astext(SHAPE) AS POLYGON, name as value FROM mpoboudary";
+		$query = "SELECT astext(SHAPE) AS POLYGON, name as value FROM mpoboudary WHERE name != \"EL PASO COUNTY\"	";
 		$toReturn['query2'] = $query;
 		$result = mysqli_query($conn, $query);
 		$result = fetchAll($result);
