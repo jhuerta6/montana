@@ -1703,7 +1703,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       pm_mpo.NE = getparams.NE;
       pm_mpo.SW = getparams.SW;
     }
-
+    var iterator = 0;
     for (var z = 0; z < available.count; z++) {
       (function (z){
         //console.log(z);
@@ -1762,6 +1762,11 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           l.appendChild(div);
 
           var num_labels = 0;
+
+
+
+
+
           //if(pm_mpo.pm == "b_workers" || pm_mpo.pm == "freqtran" || pm_mpo.pm == "tti" || pm_mpo.pm == "b_carfrhh" || pm_mpo.pm == "B_TpDisadv" || pm_mpo.pm == "b_jobphh" || pm_mpo.pm == "coemisions" || pm_mpo.pm == "emar"){
             maximum = parseFloat(maximum);
             maximum = maximum + 0.1;
@@ -1837,9 +1842,36 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               }
 
               point.setMap(app.map);
-            }
-            else if(pm_mpo["pm"+(z+1)]  == "b_jobphh"){ //polygon done
+            } //green and red
+            else if(pm_mpo["pm"+(z+1)] == "b_jobphh"){ //polygon done
+              colores_a_usar = 3;
+              //squareboxes
+              //shapecolor
+
+
+
               if(up_to_one == 0){
+
+
+                var housing_legend = [
+                  " Housing rich (jobs-housing ration < 1.00)",
+                  " Balanced (jobs-housing ratio 1.00 to 1.29)",
+                  " Job rich (jobs-housing ratio > 1.29)"
+                ];
+                var innerhtml = "";
+                for (var i = 0; i < colores_a_usar; i++) {
+                  if (i == 0) {
+                    innerhtml += squareboxes[iterator] + housing_legend[i];
+                  }
+                  else{
+                    innerhtml += "<br>" + squareboxes[iterator] + housing_legend[i];
+                  }
+                  iterator++;
+                }
+
+                console.log(innerhtml);
+
+
                 $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
                 var div = document.createElement('div');
                 div.innerHTML = "<strong>"+$("#select_pm_multiple_"+(z+1)).prop("value")+"</strong>";
@@ -1850,9 +1882,10 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 l.appendChild(div);
 
                 var div = document.createElement('div');
-                div.innerHTML = "<img src='img/skybluesquare.png' height='10px'/> Housing rich (jobs-housing ratio < 1.00)" +
+                /*div.innerHTML = "<img src='img/skybluesquare.png' height='10px'/> Housing rich (jobs-housing ratio < 1.00)" +
                 "<br><img src='img/yellowsquare.png' height='10px'/> Balanced (jobs-housing ratio 1.00 - 1.29)"+
-                "<br><img src='img/orangesquare.png' height='10px'/> Job rich (jobs-housing ratio > 1.29)";
+                "<br><img src='img/orangesquare.png' height='10px'/> Job rich (jobs-housing ratio > 1.29)";*/
+                div.innerHTML =  innerhtml;
                 var newLegend = document.createElement('div');
                 newLegend = document.getElementById('legend_content_multi_'+(z+1));
                 document.getElementById('legend').style.visibility = "visible";
@@ -1943,6 +1976,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               point.setMap(app.map);
             }
             else if(pm_mpo["pm"+(z+1)] == "b_carfrhh"){ //done
+              colores_a_usar = 5;
               if(up_to_one == 0){
                 $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
                 var div = document.createElement('div');
@@ -2014,6 +2048,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               polygon.setMap(app.map);
             }
             else if(pm_mpo["pm"+(z+1)] == "B_TpDisadv"){ //done
+              colores_a_usar = 4;
               if(up_to_one == 0){
                 $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
                 var div = document.createElement('div');
@@ -2265,6 +2300,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               }
             }
             else if (pm_mpo["pm"+(z+1)] == "freqtran") { //done
+              colores_a_usar = 1;
               if(up_to_one == 0){
                 $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
                 var div = document.createElement('div');
@@ -2334,6 +2370,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               }
             }
             else if (pm_mpo["pm"+(z+1)] == "b_workers") { //done
+              colores_a_usar = 2;
               if(up_to_one == 0){
                 $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
                 var div = document.createElement('div');
@@ -2500,6 +2537,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               }
             }
             else if (pm_mpo["pm"+(z+1)] == "sectionnum") {//done
+              colores_a_usar = 2;
               if(up_to_one == 0){
                 $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
                 var div = document.createElement('div');
@@ -2713,6 +2751,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               }
             }
             else if (pm_mpo["pm"+(z+1)] == "2016_daily") { //done
+              colores_a_usar = 4;
               if(up_to_one == 0){
                 $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
                 var div = document.createElement('div');
@@ -2855,6 +2894,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 }
             }
             else if(pm_mpo["pm"+(z+1)] == "coemisions" || pm_mpo["pm"+(z+1)] == "emar" ){ //done
+              colores_a_usar = 3;
               if(up_to_one == 0 && pm_mpo["pm"+(z+1)] == "coemisions"){
                 $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
                 var div = document.createElement('div');
@@ -4542,6 +4582,146 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       }
     }
   }
+
+
+        /*function drawChart() {
+          var nulls = nullChecker();
+          if(nulls.length == 4){
+            alert("No property selected to run statistics.");
+            return;
+          }
+          else{
+            $(document.body).css({'cursor': 'wait'});
+            var not_nulls = [];
+            for(var i = 1; i <= 4; i++){
+              if(nulls.includes(i) == false){not_nulls.push(i);}
+            }
+          }
+          var maxaoi, minaoi, medaoi, weightedaoi, previous1, previous2, previous3, previous4;
+          if(rec.type =='rectangle'){
+            pm_mpo.getMode = "AOI";
+            bounds = rec.getBounds();
+          }
+          else{
+            pm_mpo.runAOI = true;
+            pm_mpo.getMode = "line";
+            var bounds = app.map.getBounds();
+          }
+          getparams = app.payload;
+          getparams.NE = bounds.getNorthEast().toJSON();
+          getparams.SW = bounds.getSouthWest().toJSON();
+          pm_mpo.NE = getparams.NE;
+          pm_mpo.SW = getparams.SW;
+          var chart_divs = ['chart_area_1', 'chart_area_2','chart_area_3', 'chart_area_4'];
+          var histogram_divs = ['chart_histogram_1', 'chart_histogram_2', 'chart_histogram_3', 'chart_histogram_4'];
+          var chart_ns = ['chart1n', 'chart2n', 'chart3n', 'chart4n'];
+          var to_draws = ['chart1', 'chart2', 'chart3', 'chart4'];
+          var data_arr = ['maxAOIch','minAOIch','medAOIch','weightedAOIch'];
+          var charts = [chart, chart_2, chart_3, chart_4];
+          var chart_histos = [chart_histo, chart_histo_2, chart_histo_3, chart_histo_4];
+          for (var i = 0; i < nulls.length; i++) {
+            var position = nulls[i];
+            chart_divs.splice(position-1, 1);
+          }
+          previous1 = app.payload.chart1;
+          previous2 = app.payload.chart2;
+          previous3 = app.payload.chart3;
+          previous4 = app.payload.chart4;
+          for (var i = 0; i < not_nulls.length; i++) {
+            (function (i){
+              var name = 'pm_mpo.'+chart_ns[i];
+              name = eval(name);
+              var to_d = 'pm_mpo.'+to_draws[i];
+              to_d = eval(to_d);
+              pm_mpo.to_draw = to_d;
+              var datos_max = 'data.'+data_arr[0]+(i+1);
+              var datos_min = 'data.'+data_arr[1]+(i+1);
+              var datos_med = 'data.'+data_arr[2]+(i+1);
+              var datos_avg = 'data.'+data_arr[3]+(i+1);
+              var elem_chart = chart_divs[i];
+              var elem_histo = histogram_divs[i];
+              var bar_init = charts[i];
+              var histo_init = chart_histos[i];
+              //nullSelector(i);
+              pm_mpo.draw_charts = true;
+              $.get('mpo_handler.php', pm_mpo, function(data){
+                maxaoi = parseFloat(data.max);
+                minaoi = parseFloat(data.min);
+                medaoi = parseFloat(data.med);
+                weightedaoi = parseFloat(data.avg);
+                weightedaoi = parseFloat(weightedaoi).toFixed(2);
+                weightedaoi = parseFloat(weightedaoi);
+                var data = google.visualization.arrayToDataTable([
+                  ['Method', 'Value',],
+                  ['Maximum ', maxaoi],
+                  ['Minimum ', minaoi],
+                  ['Median ', medaoi],
+                  ['Average ', weightedaoi]
+                ]);
+                var options = {
+                  title: name,
+                  legend: { position: 'none'},
+                  animation:{ duration: 1000, easing: 'inAndOut', startup: true },
+                  chartArea: { width: '70%' },
+                  hAxis: { minValue: 0 },
+                  vAxis: {}
+                };
+                bar_init = new google.visualization.BarChart(document.getElementById(elem_chart));
+                bar_init.draw(data, options);
+              }).done(function(data){
+                $(document.body).css({'cursor': 'auto'});
+              });
+              /** This was the histogram **/
+              /*var histo_array;
+              app.payload.getMode = "histogram";
+              $.get('polygonHandler.php', app.payload, function(data){
+              histo_array = data.values;
+              histo_array = histo_array.filter(nums => nums != "");
+              var data = new google.visualization.DataTable();
+              data.addColumn('string', 'Property');
+              data.addColumn('number', 'Value');
+              data.addRows(histo_array.length);
+              var max = Math.max(...histo_array);
+              for (var i = 0; i < histo_array.length; i++) {
+              data.setCell(i, 1, parseFloat(histo_array[i]));
+            }
+            var size;
+            size = Math.sqrt(histo_array.length - 1) - 1;
+            if(size == 0){
+            size = 1;
+            size = max/size;
+          }else{
+          size = max/size;
+        }
+        size = parseFloat(size).toFixed(1);
+        var options = {
+        title: name,
+        legend: { position: 'none' },
+        histogram: { bucketSize: size },
+        hAxis: { type: 'category' }
+      };
+      histo_init = new google.visualization.Histogram(document.getElementById(elem_histo));
+      histo_init.draw(data, options);
+    }).done(function(data){
+    $(document.body).css({'cursor': 'auto'});
+  });****/
+  /*if(rec.type =='rectangle'){
+    app.payload.getMode = "AOI";
+  }
+  else{
+    app.payload.getMode = "line";
+  }
+  app.payload.chart1 = previous1;
+  app.payload.chart2 = previous2;
+  app.payload.chart3 = previous3;
+  app.payload.chart4 = previous4;
+})(i);
+}
+pm_mpo.draw_charts = false;
+pm_mpo.runAOI = false;
+}
+*/
+
   function nullChecker(){
     var nulls = [];
     for (var i = 0; i < 4; i++) {
@@ -4571,9 +4751,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       {"c":[{"v":"S5: Joe Battle Blvd."},{"v":1.8}]},
       {"c":[{"v":"S6: Zaragoza Rd."},{"v":1.4}]},
       {"c":[{"v":"S7: Araceli Ave."},{"v":1.3}]}
-    ]
-  }
-);
+      ]
+    }
+  );
 
 var options =
   {"title":blocks.d.d31.name,
