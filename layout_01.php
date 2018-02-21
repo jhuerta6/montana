@@ -2973,12 +2973,10 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             else if(pm_mpo["pm"+(z+1)] == "coemisions" || pm_mpo["pm"+(z+1)] == "emar" ){ //done
               colores_a_usar = 3;
               if(up_to_one == 0 && pm_mpo["pm"+(z+1)] == "coemisions"){
-
                 var legend = [
-                  " 20 to 500 daily passengers",
-                  " 500 to 1000 daily passengers",
-                  " 1000 to 2000 daily passengers",
-                  " 2000 to 3150 daily passengers"
+                  " Less than 500 lbs of CO per acre",
+                  " From 500 to 1000 lbs of CO per acre",
+                  " More than 1000 lbs of CO per acre"
                 ];
 
                 var innerhtml = "";
@@ -2991,8 +2989,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   }
                   iterator++;
                 }
-
-
                 $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
                 var div = document.createElement('div');
                 div.innerHTML = "<strong>"+$("#select_pm_multiple_"+(z+1)).prop("value")+"</strong>";
@@ -3003,21 +2999,17 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 l.appendChild(div);
 
                 var div = document.createElement('div');
-                div.innerHTML = "<img src='img/skybluesquare.png' height='10px'/> Less than 500 lbs of CO per acre" +
-                "<br><img src='img/yellowsquare.png' height='10px'/> From 500 to 1000 lbs of CO per acre"+
-                "<br><img src='img/orangesquare.png' height='10px'/> More than 1000 lbs of CO per acre";
+                div.innerHTML = innerhtml;
                 var newLegend = document.createElement('div');
                 newLegend = document.getElementById('legend_content_multi_'+(z+1));
                 document.getElementById('legend').style.visibility = "visible";
                 newLegend.appendChild(div);
               }
               else if(up_to_one == 0 && pm_mpo["pm"+(z+1)] == "emar"){
-
                 var legend = [
-                  " 20 to 500 daily passengers",
-                  " 500 to 1000 daily passengers",
-                  " 1000 to 2000 daily passengers",
-                  " 2000 to 3150 daily passengers"
+                  " Less than 100 lbs of PM10 per acre",
+                  " From 100 to 200 lbs of PM10 per acre",
+                  " More than 200 lbs of PM10 per acre"
                 ];
 
                 var innerhtml = "";
@@ -3042,9 +3034,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 l.appendChild(div);
 
                 var div = document.createElement('div');
-                div.innerHTML = "<img src='img/skybluesquare.png' height='10px'/> Less than 100 lbs of PM10 per acre" +
-                "<br><img src='img/yellowsquare.png' height='10px'/> From 100 to 200 lbs of PM10 per acre"+
-                "<br><img src='img/orangesquare.png' height='10px'/> More than 200 lbs of PM10 per acre";
+                div.innerHTML = innerhtml;
                 var newLegend = document.createElement('div');
                 newLegend = document.getElementById('legend_content_multi_'+(z+1));
                 document.getElementById('legend').style.visibility = "visible";
@@ -3058,23 +3048,23 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
               var color;
               if(pm_mpo["pm"+(z+1)] == "coemisions" && data["coords"+(z+1)][key]['value'] < 500){
-                color = shapecolor[0];
+                color = shapecolor[iterator-(colores_a_usar-0)];
               }
               else if(pm_mpo["pm"+(z+1)] == "coemisions" && data["coords"+(z+1)][key]['value'] >= 500 && data["coords"+(z+1)][key]['value'] <= 1000){
-                color = shapecolor[1];
+                color = shapecolor[iterator-(colores_a_usar-1)];
               }
               else if(pm_mpo["pm"+(z+1)] == "coemisions" && data["coords"+(z+1)][key]['value'] > 1000){
-                color = shapecolor[2];
+                color = shapecolor[iterator-(colores_a_usar-2)];
               }
 
               if(pm_mpo["pm"+(z+1)] == "emar" && data["coords"+(z+1)][key]['value'] < 100){
-                color = shapecolor[0];
+                color = shapecolor[iterator-(colores_a_usar-0)];
               }
               else if(pm_mpo["pm"+(z+1)] == "emar" && data["coords"+(z+1)][key]['value'] >= 100 && data["coords"+(z+1)][key]['value'] <= 200){
-                color = shapecolor[1];
+                color = shapecolor[iterator-(colores_a_usar-1)];
               }
               else if(pm_mpo["pm"+(z+1)] == "emar" && data["coords"+(z+1)][key]['value'] > 200){
-                color = shapecolor[2];
+                color = shapecolor[iterator-(colores_a_usar-2)];
               }
 
               var polygon = new google.maps.Polygon({
@@ -3089,7 +3079,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 zIndex: -1
               });
               polygon.setOptions({ zIndex: -1 });
-              polygon.addListener('click', polyInfo);
+              polygon.addListener('click', poly_co_pm);
               if(z == 0){
                 app.polygons.push(polygon);
               }
@@ -5109,6 +5099,15 @@ var options =
     var val = parseFloat(this.description_value).toFixed(2);
     //text = this.description + ": " + val;
     text = val + "%";
+    app.infoWindow.setContent(text);
+    app.infoWindow.setPosition(event.latLng);
+    app.infoWindow.open(app.map);
+  }
+
+  function poly_co_pm(event){
+    var val = parseFloat(this.description_value).toFixed(2);
+    //text = this.description + ": " + val;
+    text = val + " lbs";
     app.infoWindow.setContent(text);
     app.infoWindow.setPosition(event.latLng);
     app.infoWindow.open(app.map);
