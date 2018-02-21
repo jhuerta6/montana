@@ -22,6 +22,19 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css" />
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <style>
+
+  .element {
+  animation: pulse 3s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: #000000;
+  }
+  100% {
+    background-color: #ffffff;
+  }
+}
   .slider {
     width: 100% !important;
   }
@@ -53,8 +66,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   <div class="container panel panel-default">
     <div class="row"><br>
       <div class="col-sm-9">
-        <div class="input-group">
-          <span class="input-group-addon" id="add_on">Planning Block</span>
+        <div class="input-group element">
+          <span class="input-group-addon element" id="add_on">Planning Block</span>
           <select type="text" class="form-control" placeholder="Block Level" aria-describedby="add_on" id="select_blocks">
             <option value="" disabled selected>Select a Planning Block</option>
           </select>
@@ -127,11 +140,12 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           <div class="col-sm-12">
             <div class="tab-content"><br>
               <div id="default" class="tab-pane fade in active">
-                <!--<p class="text-muted"> Try drawing an Area of Interest with the tools at the top of the map. <br> Click your drawn Area Of Interest to display statistics. </p>-->
-                <!--<div id="label_container" class="input-group">
-                  <span data-toggle="tooltip" data-placement="top" title="Number of representations for the data" class="input-group-addon" id="basic-addon3"># labels</span>
-                  <input type="number" class="form-control" value="1" min="1"placeholder="...labels" id="labels" aria-describedby="basic-addon3">
-                </div>-->
+                <div id="intro" class="panel">
+                  <div class="panel-body text-center" >
+                    <h1> Welcome to the PMMC Web Application<br><br>To start, please select a singular <span class="element">Planning Block from its dropdown list, or choose "Multiple"</span> to display various performances measures at a time.</h1>
+                  </div>
+                </div>
+                <div id="main_default">
                 <div class="input-group" id="muni_dropbox">
                   <span class="input-group-addon" id="add_on">Municipalities</span>
                   <select type="text" class="form-control" placeholder="Municipality" aria-describedby="add_on" id="select_muni">
@@ -145,30 +159,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                     Display Sections
                   </label>
                 </div><br>
-                <!--<div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="municipality">
-                  <label class="form-check-label" for="municipality">
-                    Display Municipalities
-                  </label>
-                </div><br>-->
-
-
-
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="" id="boundary">
                   <label class="form-check-label" for="boundary">
                     Display El Paso MPO Boundary
                   </label>
-                </div><br>
-                <!--<div class="input-group">
-                  <span class="input-group-addon">Sections</span>
-                  <select type="text" class="form-control" placeholder="Performance Measure" aria-describedby="add_on" id="sections">
-                    <option value="" disable selected>Display Sections</option>
-                    <option value="on">On</option>
-                    <option value="off">Off</option>
-                  </select>
-                </div><br>-->
-
+                </div>
+              <br>
                 <div id="default_multiple">
                   <!--<div class="checkbox disabled">
                     <label><input type="checkbox" value="" disabled>Option 3</label>
@@ -199,6 +196,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   </div><br>
                 </div>
               </div>
+              </div>
               <div id="filters" class="tab-pane fade"><br>
                 <div class="form-check">
                   <p class="form-check-label">
@@ -225,7 +223,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               </div>
               <div id="statistics" class="tab-pane fade"><br>
               </div>
-
               <div id="timeline" class="tab-pane fade">
                 <p> As of right now, you can only select data from <strong>Crashes</strong>. </p>
                 <div class="row">
@@ -360,7 +357,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 </div>
                 </div>
               </div>
-
             </div>
           </div>
           <div class="col-md-12"><br>
@@ -759,7 +755,14 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   var from_year_slide = 2012;
   var to_year_slide = 2012;
   $(document).ready(function(){
-
+    /**AS the user enters, disappear the tools **/
+    //$("#main_default, #defaultbtn").hide();
+    //$("#filters, #filtersbtn").hide();
+    //$("#statistics, #statisticsbtn").hide();
+    //$("#timeline, #timelinebtn").hide();
+    $("#intro").show('slow');
+    //$("#intro").show();
+    /** End -  As the user enters, dissappear the tools **/
     $.get('getMunicipality.php', function(data){
       var blck = "NONE";
       var elem_blck = document.createElement("option");
@@ -1235,6 +1238,14 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     });
 
     $("#select_blocks").change(function(){
+      $("#intro").remove();
+      //$("#main_default, #defaultbtn").show();
+      $("#add_on").removeClass('element');
+      //$("#main_default, #defaultbtn").show();
+      //$("#filters, #filtersbtn").show();
+      //$("#statistics, #statisticsbtn").show();
+      //$("#timeline, #timelinebtn").show();
+
       $("#select_pm").empty();
       var disabled = document.createElement("option");
       disabled.innerHTML = "Select a Performance Measure";
