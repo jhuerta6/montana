@@ -1844,7 +1844,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
               point.setMap(app.map);
             } //green and red
-
             else if(pm_mpo["pm"+(z+1)] == "b_jobphh"){ //polygon done
               colores_a_usar = 3;
               if(up_to_one == 0){
@@ -2319,6 +2318,21 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             else if (pm_mpo["pm"+(z+1)] == "freqtran") { //done
               colores_a_usar = 1;
               if(up_to_one == 0){
+
+                var legend = [" Area within 1/2 mile of high frequency transit service"
+                ];
+
+                var innerhtml = "";
+                for (var i = 0; i < colores_a_usar; i++) {
+                  if (i == 0) {
+                    innerhtml += squareboxes[iterator] + legend[i];
+                  }
+                  else{
+                    innerhtml += "<br>" + squareboxes[iterator] + legend[i];
+                  }
+                  iterator++;
+                }
+
                 $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
                 var div = document.createElement('div');
                 div.innerHTML = "<strong>"+$("#select_pm_multiple_"+(z+1)).prop("value")+"</strong>";
@@ -2329,7 +2343,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 l.appendChild(div);
 
                 var div = document.createElement('div');
-                div.innerHTML = "<br> <img src='img/navybluesquare.png' height='10px'/> Area within 1/2 mile of high frequency transit service";
+                div.innerHTML = innerhtml;
                 var newLegend = document.createElement('div');
                 newLegend = document.getElementById('legend_content_multi_'+(z+1));
                 document.getElementById('legend').style.visibility = "visible";
@@ -2359,13 +2373,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 }
               }
               var proceed = true;
-              var color = '#0000FF';
+              var color = shapecolor[iterator-(colores_a_usar-0)];
 
               if(proceed){
                 var line = new google.maps.Polygon({
                   path: to_color,
                   value: data["coords"+(z+1)][key]['value'],
-                  strokeColor: color,
+                  strokeColor: "black",
                   fillColor: color,
                   fillOpacity: 0.60,
                   strokeOpacity: 0.60,
@@ -2389,6 +2403,22 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             else if (pm_mpo["pm"+(z+1)] == "b_workers") { //done
               colores_a_usar = 2;
               if(up_to_one == 0){
+
+                var legend = [" Population within 1/2 mile of existing bikeways",
+                  " Existing bikeways"
+                ];
+
+                var innerhtml = "";
+                for (var i = 0; i < colores_a_usar; i++) {
+                  if (i == 0) {
+                    innerhtml += squareboxes[iterator] + legend[i];
+                  }
+                  else{
+                    innerhtml += "<br>" + squareboxes[iterator] + legend[i];
+                  }
+                  iterator++;
+                }
+
                 $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
                 var div = document.createElement('div');
                 div.innerHTML = "<strong>"+$("#select_pm_multiple_"+(z+1)).prop("value")+"</strong>";
@@ -2399,9 +2429,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 l.appendChild(div);
 
                 var div = document.createElement('div');
-                div.innerHTML =
-                "<img src='img/navybluesquare.png' height='10px'/> Population within 1/2 mile of existing bikeways" +
-                "<br><img src='img/redsquare.png' height='10px'/> Existing bikeways";
+                div.innerHTML = innerhtml;
                 var newLegend = document.createElement('div');
                 newLegend = document.getElementById('legend_content_multi_'+(z+1));
                 document.getElementById('legend').style.visibility = "visible";
@@ -2439,6 +2467,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 }
               }//end if
 
+              color_poly = shapecolor[iterator-(colores_a_usar-0)];
+              color_linea = shapecolor[iterator-(colores_a_usar-1)];
+
               x = data["coords"+(z+1)][key]['POLYGON'];
               var b = reader.read(x);
               temp_poly.push(x);
@@ -2455,7 +2486,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   strokeColor: shapeoutline[colorSelector],
                   strokeOpacity: 0.60,
                   strokeWeight: 0.70,
-                  fillColor: '#0000FF',
+                  fillColor: color_poly,
                   fillOpacity: 0.60,
                   zIndex: -1
                 });
@@ -2485,7 +2516,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   strokeColor: shapeoutline[colorSelector],
                   strokeOpacity: 0.60,
                   strokeWeight: 0.70,
-                  fillColor: '#0000FF',
+                  fillColor: color_poly,
                   fillOpacity: 0.60,
                   zIndex: -1
                 });
@@ -2509,7 +2540,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 var line = new google.maps.Polyline({
                   path: to_color,
                   value: data["coords"+(z+1)][key]['value'],
-                  strokeColor: 'red',
+                  strokeColor: color_linea,
                   strokeOpacity: 1.0,
                   strokeWeight: 4,
                   zIndex: 1
@@ -2531,7 +2562,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 var propline = new google.maps.Polyline({
                   //path: to_color_proposed,
                   value: data.proposed[key]['value'],
-                  strokeColor: '#A020F0',
+                  strokeColor: color_linea,
                   strokeOpacity: 1.0,
                   strokeWeight: 3,
                   zIndex: 1
@@ -2556,6 +2587,22 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             else if (pm_mpo["pm"+(z+1)] == "sectionnum") {//done
               colores_a_usar = 2;
               if(up_to_one == 0){
+
+                var legend = [" Proposed Bikeways in City of El Paso Bike Plan",
+                  " Existing bikeways"
+                ];
+
+                var innerhtml = "";
+                for (var i = 0; i < colores_a_usar; i++) {
+                  if (i == 0) {
+                    innerhtml += squareboxes[iterator] + legend[i];
+                  }
+                  else{
+                    innerhtml += "<br>" + squareboxes[iterator] + legend[i];
+                  }
+                  iterator++;
+                }
+
                 $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
                 var div = document.createElement('div');
                 div.innerHTML = "<strong>"+$("#select_pm_multiple_"+(z+1)).prop("value")+"</strong>";
@@ -2566,9 +2613,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 l.appendChild(div);
 
                 var div = document.createElement('div');
-                div.innerHTML =
-                "<img src='img/neonpurplesquare.png' height='10px'/> Proposed Bikeways in City of El Paso Bike Plan <br>"+
-                "<img src='img/brightgreensquare.png' height='10px'/> Existing Bikeways";
+                div.innerHTML = innerhtml;
                 var newLegend = document.createElement('div');
                 newLegend = document.getElementById('legend_content_multi_'+(z+1));
                 document.getElementById('legend').style.visibility = "visible";
@@ -2598,7 +2643,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 }
               }
               var proceed = true;
-              var color = '#A020F0';
+              var color = shapecolor[iterator-(colores_a_usar-0)];
               if(proceed){
                 var line = new google.maps.Polyline({
                   path: to_color,
@@ -2650,7 +2695,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 var line = new google.maps.Polyline({
                   path: to_color,
                   //value: data.coords[key]['value'],
-                  strokeColor: "#13FF00",
+                  strokeColor: shapecolor[iterator-(colores_a_usar-1)],
                   strokeOpacity: 1.0,
                   strokeWeight: 4,
                   zIndex: 1
@@ -2770,6 +2815,25 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             else if (pm_mpo["pm"+(z+1)] == "2016_daily") { //done
               colores_a_usar = 4;
               if(up_to_one == 0){
+
+                var legend = [
+                  " 20 to 500 daily passengers",
+                  " 500 to 1000 daily passengers",
+                  " 1000 to 2000 daily passengers",
+                  " 2000 to 3150 daily passengers"
+                ];
+
+                var innerhtml = "";
+                for (var i = 0; i < colores_a_usar; i++) {
+                  if (i == 0) {
+                    innerhtml += squareboxes[iterator] + legend[i];
+                  }
+                  else{
+                    innerhtml += "<br>" + squareboxes[iterator] + legend[i];
+                  }
+                  iterator++;
+                }
+
                 $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
                 var div = document.createElement('div');
                 div.innerHTML = "<strong>"+$("#select_pm_multiple_"+(z+1)).prop("value")+"</strong>";
@@ -2780,11 +2844,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 l.appendChild(div);
 
                 var div = document.createElement('div');
-                div.innerHTML =
-                "<img src='img/brightgreensquare.png' height='10px'/> 20 to 500 daily passengers" +
-                "<br> <img src='img/skybluesquare.png' height='10px'/> 500 to 1000 daily passengers"+
-                "<br> <img src='img/yellowsquare.png' height='10px'/> 1000 to 2000 daily passengers"+
-                "<br> <img src='img/orangesquare.png' height='10px'/> 2000 to 3150 daily passengers";
+                div.innerHTML = innerhtml;
                 var newLegend = document.createElement('div');
                 newLegend = document.getElementById('legend_content_multi_'+(z+1));
                 document.getElementById('legend').style.visibility = "visible";
@@ -2816,20 +2876,20 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               }
               if(data["coords"+(z+1)][key]['value'] >= 20 && data["coords"+(z+1)][key]['value'] <= 500){ //very good
                 var proceed = true;
-                var color = '#00FF00';
+                var color = shapecolor[iterator-(colores_a_usar-0)];
               }else if(data["coords"+(z+1)][key]['value'] >= 500 && data["coords"+(z+1)][key]['value'] <= 1000){ //good
                 var proceed = true;
-                var color = '#009BFF';
+                var color = shapecolor[iterator-(colores_a_usar-1)];
               }else if(data["coords"+(z+1)][key]['value'] >= 1000 && data["coords"+(z+1)][key]['value'] <= 2000){ //fair
                 var proceed = true;
-                var color = '#FFFF00';
+                var color = shapecolor[iterator-(colores_a_usar-2)];
               }else if(data["coords"+(z+1)][key]['value'] >= 2000 && data["coords"+(z+1)][key]['value'] <= 3150){ //poor
                 var proceed = true;
-                var color = '#FFAA00';
+                var color = shapecolor[iterator-(colores_a_usar-3)];
               }
               else{
                 var proceed = false;
-                var color = '#000000';
+                var color = "#000000";
               }
 
               if(proceed){
@@ -2913,6 +2973,26 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             else if(pm_mpo["pm"+(z+1)] == "coemisions" || pm_mpo["pm"+(z+1)] == "emar" ){ //done
               colores_a_usar = 3;
               if(up_to_one == 0 && pm_mpo["pm"+(z+1)] == "coemisions"){
+
+                var legend = [
+                  " 20 to 500 daily passengers",
+                  " 500 to 1000 daily passengers",
+                  " 1000 to 2000 daily passengers",
+                  " 2000 to 3150 daily passengers"
+                ];
+
+                var innerhtml = "";
+                for (var i = 0; i < colores_a_usar; i++) {
+                  if (i == 0) {
+                    innerhtml += squareboxes[iterator] + legend[i];
+                  }
+                  else{
+                    innerhtml += "<br>" + squareboxes[iterator] + legend[i];
+                  }
+                  iterator++;
+                }
+
+
                 $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
                 var div = document.createElement('div');
                 div.innerHTML = "<strong>"+$("#select_pm_multiple_"+(z+1)).prop("value")+"</strong>";
@@ -2932,6 +3012,26 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 newLegend.appendChild(div);
               }
               else if(up_to_one == 0 && pm_mpo["pm"+(z+1)] == "emar"){
+
+                var legend = [
+                  " 20 to 500 daily passengers",
+                  " 500 to 1000 daily passengers",
+                  " 1000 to 2000 daily passengers",
+                  " 2000 to 3150 daily passengers"
+                ];
+
+                var innerhtml = "";
+                for (var i = 0; i < colores_a_usar; i++) {
+                  if (i == 0) {
+                    innerhtml += squareboxes[iterator] + legend[i];
+                  }
+                  else{
+                    innerhtml += "<br>" + squareboxes[iterator] + legend[i];
+                  }
+                  iterator++;
+                }
+
+
                 $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
                 var div = document.createElement('div');
                 div.innerHTML = "<strong>"+$("#select_pm_multiple_"+(z+1)).prop("value")+"</strong>";
