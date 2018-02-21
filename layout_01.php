@@ -1713,13 +1713,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           //gris, verde, rojo -- testing colors
           //shapecolor = ["#84857B", "#13FF00", "#FF0000", "#009BFF", "#EBF20D", "#fe9253", "#8C0909", "#0051FF", "#AB77FF", "#EBF20D", "#8C0909", "#07FDCA", "#008C35", "FFDBA5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
           //shapeoutline = ["#000000", "#0b9b00", "#c10000", "#007fd1", "#aaaf0a", "#d18f0a", "#8c0909", "#0037ad", "#873dff", "#aaaf0a", "8c0909", "36c9bd", "#008c35", "#ffdba5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
-          shapecolor = ["#009BFF", "#EBF20D", "#fe9253", "#8C0909", "#0051FF", "#AB77FF", "#07FDCA", "#008C35", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
+          shapecolor = ["#009BFF", "#EBF20D", "#fe9253", "#DB24FF", "#0051FF", "#AB77FF", "#07FDCA", "#008C35", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
           shapeoutline = ["#007fd1", "#aaaf0a", "#d18f0a", "#8c0909", "#0037ad", "#873dff", "#aaaf0a", "8c0909", "36c9bd", "#008c35", "#ffdba5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
           var squareboxes = [
           "<img src='img/skybluesquare.png' height='10px'/>",
           "<img src='img/yellowsquare.png' height='10px'/>",
           "<img src='img/orangesquare.png' height='10px'/>",
-          "<img src='img/maroonsquare.png' height='10px'/>",
+          "<img src='img/brightpinksquare.png' height='10px'/>",
           "<img src='img/navybluesquare.png' height='10px'/>",
           "<img src='img/lilacsquare.png' height='10px'/>",
           "<img src='img/cyansquare.png' height='10px'/>",
@@ -1762,10 +1762,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           l.appendChild(div);
 
           var num_labels = 0;
-
-
-
-
 
           //if(pm_mpo.pm == "b_workers" || pm_mpo.pm == "freqtran" || pm_mpo.pm == "tti" || pm_mpo.pm == "b_carfrhh" || pm_mpo.pm == "B_TpDisadv" || pm_mpo.pm == "b_jobphh" || pm_mpo.pm == "coemisions" || pm_mpo.pm == "emar"){
             maximum = parseFloat(maximum);
