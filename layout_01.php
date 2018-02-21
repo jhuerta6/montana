@@ -1713,7 +1713,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           //gris, verde, rojo -- testing colors
           //shapecolor = ["#84857B", "#13FF00", "#FF0000", "#009BFF", "#EBF20D", "#fe9253", "#8C0909", "#0051FF", "#AB77FF", "#EBF20D", "#8C0909", "#07FDCA", "#008C35", "FFDBA5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
           //shapeoutline = ["#000000", "#0b9b00", "#c10000", "#007fd1", "#aaaf0a", "#d18f0a", "#8c0909", "#0037ad", "#873dff", "#aaaf0a", "8c0909", "36c9bd", "#008c35", "#ffdba5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
-          shapecolor = ["#009BFF", "#EBF20D", "#fe9253", "#8C0909", "#0051FF", "#AB77FF", "#07FDCA", "#008C35", "FFDBA5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
+          shapecolor = ["#009BFF", "#EBF20D", "#fe9253", "#8C0909", "#0051FF", "#AB77FF", "#07FDCA", "#008C35", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
           shapeoutline = ["#007fd1", "#aaaf0a", "#d18f0a", "#8c0909", "#0037ad", "#873dff", "#aaaf0a", "8c0909", "36c9bd", "#008c35", "#ffdba5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
           var squareboxes = [
           "<img src='img/skybluesquare.png' height='10px'/>",
@@ -1788,6 +1788,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 colorSelector = i+1;
               }
             }
+
             if(pm_mpo["pm"+(z+1)] == "crosw150ft"){ //points done
               if(up_to_one == 0){
                 $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
@@ -1843,15 +1844,10 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
               point.setMap(app.map);
             } //green and red
+
             else if(pm_mpo["pm"+(z+1)] == "b_jobphh"){ //polygon done
               colores_a_usar = 3;
-              //squareboxes
-              //shapecolor
-
-
-
               if(up_to_one == 0){
-
 
                 var housing_legend = [
                   " Housing rich (jobs-housing ration < 1.00)",
@@ -1868,9 +1864,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   }
                   iterator++;
                 }
-
-                console.log(innerhtml);
-
 
                 $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
                 var div = document.createElement('div');
@@ -1900,13 +1893,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               }
               var color;
               if(data["coords"+(z+1)][key]['value'] < 1.00){
-                color = shapecolor[0];
+                color = shapecolor[iterator-colores_a_usar];
               }
               else if(data["coords"+(z+1)][key]['value'] >= 1.00 && data["coords"+(z+1)][key]['value'] <= 1.29){
-                color = shapecolor[1];
+                color = shapecolor[iterator-(colores_a_usar-1)];
               }
               else if(data["coords"+(z+1)][key]['value'] >= 1.29){
-                color = shapecolor[2];
+                color = shapecolor[iterator-(colores_a_usar-2)];
               }
 
               var polygon = new google.maps.Polygon({
@@ -1978,6 +1971,20 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             else if(pm_mpo["pm"+(z+1)] == "b_carfrhh"){ //done
               colores_a_usar = 5;
               if(up_to_one == 0){
+
+                var legend = [" 0%"," 0.01% - 0.05%"," 0.051% - 0.1%",
+                " 0.11% - 0.15%"," 0.151% - 0.61%"];
+
+                var innerhtml = "";
+                for (var i = 0; i < colores_a_usar; i++) {
+                  if (i == 0) {
+                    innerhtml += squareboxes[iterator] + legend[i];
+                  }
+                  else{
+                    innerhtml += "<br>" + squareboxes[iterator] + legend[i];
+                  }
+                  iterator++;
+                }
                 $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
                 var div = document.createElement('div');
                 div.innerHTML = "<strong>"+$("#select_pm_multiple_"+(z+1)).prop("value")+"</strong>";
@@ -1988,11 +1995,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 l.appendChild(div);
 
                 var div = document.createElement('div');
-                div.innerHTML =  "<img src='img/skybluesquare.png' height='10px'/> 0%"+
-                "<br><img src='img/yellowsquare.png' height='10px'/> 0.01% - 0.05%" +
-                "<br><img src='img/orangesquare.png' height='10px'/> 0.051% - 0.1%" +
-                "<br><img src='img/maroonsquare.png' height='10px'/> 0.11% - 0.15%" +
-                "<br><img src='img/navybluesquare.png' height='10px'/> 0.151% - 0.61%";
+                div.innerHTML =  innerhtml;
                 var newLegend = document.createElement('div');
                 newLegend = document.getElementById('legend_content_multi_'+(z+1));
                 document.getElementById('legend').style.visibility = "visible";
@@ -2008,19 +2011,19 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               }
               var color;
               if(data["coords"+(z+1)][key]['value'] == 0){
-                color = shapecolor[0];
+                color = shapecolor[iterator-(colores_a_usar)];
               }
               else if(data["coords"+(z+1)][key]['value'] >= 0.01 && data["coords"+(z+1)][key]['value'] <= 0.05){
-                color = shapecolor[1];
+                color = shapecolor[iterator-(colores_a_usar-1)];
               }
               else if(data["coords"+(z+1)][key]['value'] >= 0.051 && data["coords"+(z+1)][key]['value'] <= 0.1){
-                color = shapecolor[2];
+                color = shapecolor[iterator-(colores_a_usar-2)];
               }
               else if(data["coords"+(z+1)][key]['value'] >= 0.11 && data["coords"+(z+1)][key]['value'] <= 0.15){
-                color = shapecolor[3];
+                color = shapecolor[iterator-(colores_a_usar-3)];
               }
               else{
-                color = shapecolor[4];
+                color = shapecolor[iterator-(colores_a_usar-4)];
               }
 
               var polygon = new google.maps.Polygon({
@@ -2050,6 +2053,24 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             else if(pm_mpo["pm"+(z+1)] == "B_TpDisadv"){ //done
               colores_a_usar = 4;
               if(up_to_one == 0){
+
+                var legend = [" 0%",
+                  " 1%",
+                  " 2%- 3%",
+                  " 4% - %5"
+                ];
+
+                var innerhtml = "";
+                for (var i = 0; i < colores_a_usar; i++) {
+                  if (i == 0) {
+                    innerhtml += squareboxes[iterator] + legend[i];
+                  }
+                  else{
+                    innerhtml += "<br>" + squareboxes[iterator] + legend[i];
+                  }
+                  iterator++;
+                }
+
                 $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
                 var div = document.createElement('div');
                 div.innerHTML = "<strong>"+$("#select_pm_multiple_"+(z+1)).prop("value")+"</strong>";
@@ -2060,11 +2081,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 l.appendChild(div);
 
                 var div = document.createElement('div');
-                div.innerHTML = "Indicator of potential disadvantage by block group"+
-                "<br><img src='img/skybluesquare.png' height='10px'/> 0%"+
-                "<br><img src='img/yellowsquare.png' height='10px'/> 1%" +
-                "<br><img src='img/orangesquare.png' height='10px'/> 2% - 3%" +
-                "<br><img src='img/maroonsquare.png' height='10px'/> 4% - 5%";
+                div.innerHTML = "Indicator of potential disadvantage by block group<br>"+innerhtml;
                 var newLegend = document.createElement('div');
                 newLegend = document.getElementById('legend_content_multi_'+(z+1));
                 document.getElementById('legend').style.visibility = "visible";
@@ -2079,16 +2096,16 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               }
               var color;
               if(data["coords"+(z+1)][key]['value'] == 0){
-                color = shapecolor[0];
+                color = shapecolor[iterator-(colores_a_usar-0)];
               }
               else if(data["coords"+(z+1)][key]['value'] == 1){
-                color = shapecolor[1];
+                color = shapecolor[iterator-(colores_a_usar-1)];
               }
               else if(data["coords"+(z+1)][key]['value'] >= 2 && data["coords"+(z+1)][key]['value'] <= 3){
-                color = shapecolor[2];
+                color = shapecolor[iterator-(colores_a_usar-2)];
               }
               else{
-                color = shapecolor[3];
+                color = shapecolor[iterator-(colores_a_usar-3)];
               }
 
               var polygon = new google.maps.Polygon({
@@ -4991,7 +5008,7 @@ var options =
   function polyInfo(event){
     var val = parseFloat(this.description_value).toFixed(2);
     //text = this.description + ": " + val;
-    text = val;
+    text = val + "%";
     app.infoWindow.setContent(text);
     app.infoWindow.setPosition(event.latLng);
     app.infoWindow.open(app.map);
