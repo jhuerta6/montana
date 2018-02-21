@@ -5092,7 +5092,7 @@ var options =
   }
 
   function polyInfo(event){
-    var val = parseFloat(this.description_value).toFixed(2);
+    var val = parseFloat(this.description_value).toFixed(3);
     //text = this.description + ": " + val;
     text = val + "%";
     app.infoWindow.setContent(text);
