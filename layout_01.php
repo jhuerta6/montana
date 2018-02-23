@@ -868,7 +868,10 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     $("#check_multi_1").click(function(){ //HAVE TO GENERALIZE for all 3 SELECTORS
       if(this.checked){
         if(this.id == "check_multi_1"){
-          runMPOMulti();
+          //runMPOMulti();
+          for(var i = 0; i < app.polygons.length; i++){
+            app.polygons[i].setMap(app.map);
+          }
           $("#check_multi_2").prop("checked", true);
           $("#check_multi_3").prop("checked", true);
         }
@@ -879,7 +882,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           for(var i = 0; i < app.polygons.length; i++){
             app.polygons[i].setMap(null);
           }
-          app.polygons = [];
+          //app.polygons = [];
         }
       }
     });
