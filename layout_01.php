@@ -60,7 +60,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <h3 class="text-center" style="color:#FF8000;"> Performance Measures for Montana Corridor</h3>
     <h6 class="hidden-xs text-center"><i style="color: white;">"</i><strong><i style="color:#FF8000;" class="text-center">CTIS </i></strong><i class="text-center" style="color:white;">is designated as a Member of National, Regional, and Tier 1 University Transportation Center."</i></h6>
-    <p class="hidden-xs text-right" style="color: white"> Version 1.4.7 (02/21/2018)</p>
+    <p class="hidden-xs text-right" style="color: white"> Version 1.4.8 (02/26/2018)</p>
   </nav>
 
   <div class="container panel panel-default">
@@ -868,21 +868,16 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     $("#check_multi_1").click(function(){ //HAVE TO GENERALIZE for all 3 SELECTORS
       if(this.checked){
         if(this.id == "check_multi_1"){
-          //runMPOMulti();
           for(var i = 0; i < app.polygons.length; i++){
             app.polygons[i].setMap(app.map);
           }
-          //$("#check_multi_2").prop("checked", true);
-          //$("#check_multi_3").prop("checked", true);
         }
       }
       else{
         if(this.id == "check_multi_1"){
-          //temp_poly_1 = app.polygons;
           for(var i = 0; i < app.polygons.length; i++){
             app.polygons[i].setMap(null);
           }
-          //app.polygons = [];
         }
       }
     });
@@ -890,9 +885,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     $("#check_multi_2").click(function(){ //HAVE TO GENERALIZE for all 3 SELECTORS
       if(this.checked){
         if(this.id == "check_multi_2"){
-          runMPOMulti();
-          $("#check_multi_3").prop("checked", true);
-          $("#check_multi_1").prop("checked", true);
+          for (var i = 0; i < app.polygons2.length; i++) {
+            app.polygons2[i].setMap(app.map);
+          }
         }
       }
       else{
@@ -900,7 +895,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           for(var i = 0; i < app.polygons2.length; i++){
             app.polygons2[i].setMap(null);
           }
-          app.polygons2 = [];
         }
       }
     });
@@ -908,9 +902,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     $("#check_multi_3").click(function(){ //HAVE TO GENERALIZE for all 3 SELECTORS
       if(this.checked){
         if(this.id == "check_multi_3"){
-          runMPOMulti();
-          $("#check_multi_2").prop("checked", true);
-          $("#check_multi_1").prop("checked", true);
+          for(var i = 0; i < app.polygons3.length; i++){
+            app.polygons3[i].setMap(app.map);
+          }
         }
       }
       else{
@@ -918,7 +912,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           for(var i = 0; i < app.polygons3.length; i++){
             app.polygons3[i].setMap(null);
           }
-          app.polygons3 = [];
         }
       }
     });
@@ -1619,7 +1612,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     //$("#legend").hide();
   }); //end document.ready
 
-  function chartMaker(){
+  function chartMontanaAvg(key){
 
   }
 
@@ -2066,7 +2059,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 var legend = [" 0%",
                   " 1%",
                   " 2%- 3%",
-                  " 4% - %5"
+                  " 4% - 5%"
                 ];
 
                 var innerhtml = "";
