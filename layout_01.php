@@ -1613,7 +1613,10 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   }); //end document.ready
 
   function chartMontanaAvg(key){
-
+    var contenedor_charts = {
+      "key" = {s1=0.5,s2=0.1,s3=0.4,s4=3.6,s5=5.9,s6=4.2,s7=1.34,avg=2.5},
+      "key2" = {s1=0.5,s2=0.1,s3=0.4,s4=3.6,s5=5.9,s6=4.2,s7=1.34,avg=2.5}
+    }
   }
 
   function runAOI(){
