@@ -1613,10 +1613,72 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   }); //end document.ready
 
   function chartMontanaAvg(key){
+    //falta b12, street density
+    //falta c26
+    //change tti to ttti everywhere
     var contenedor_charts = {
-      "key": {s1:0.5,s2:0.1,s3:0.4,s4:3.6,s5:5.9,s6:4.2,s7:1.34,avg:2.5},
-      "key2": {s1:0.5,s2:0.1,s3:0.4,s4:3.6,s5:5.9,s6:4.2,s7:1.34,avg:2.5}
+      "freqtran": {s1:9,s2:12,s3:0,s4:0,s5:0,s6:0,s7:0,avg:4},
+      "sectionnum": {s1:0,s2:14,s3:17,s4:18,s5:15,s6:0,s7:0,avg:11},
+      "b_workers": {s1:1,s2:62,s3:75,s4:94,s5:34,s6:0,s7:0,avg:72},
+      "crows150ft": {s1:70,s2:88,s3:71,s4:77,s5:97,s6:null,s7:null,avg:79},
+      "a22_new": {s1:1,s2:1,s3:null,s4:null,s5:null,s6:null,s7:null,avg:2},
+      "b_carfrhh": {s1:18,s2:11,s3:10,s4:4,s5:1,s6:9,s7:16,avg:12},
+      "B_TpDisadv": {s1:null,s2:null,s3:null,s4:null,s5:null,s6:null,s7:null,avg:null},
+      "b_jobphh": {s1:1.76,s2:3.48,s3:0.19,s4:0.28,s5:0.25,s6:0.14,s7:0.01,avg:1.28},
+      "non-moto": {s1:null,s2:1,s3:3,s4:1,s5:1,s6:1,s7:0,avg:7},
+      "coemisions": {s1:7118,s2:7012,s3:946,s4:917,s5:377,s6:73,s7:3,avg:16447},
+      "emar": {s1:7118,s2:7012,s3:946,s4:917,s5:377,s6:73,s7:3,avg:16447},
+      "c22": {s1:0,s2:17,s3:54,s4:70,s5:52,s6:0,s7:0,avg:23},
+      "parkride": {s1:0,s2:103,s3:0,s4:0,s5:50,s6:0,s7:0,avg:153},
+      "2016_daily": {s1:null,s2:null,s3:null,s4:null,s5:null,s6:null,s7:null,avg:20928},
+      "tti": {s1:null,s2:1.9,s3:1.7,s4:1.6,s5:1.6,s6:1.4,s7:1.3,avg:1.6},
+      "crashes": {s1:null,s2:17,s3:14,s4:14,s5:7,s6:9,s7:3,avg:64},
+      "iri": {s1:19,s2:9,s3:6,s4:1,s5:2,s6:1,s7:0,avg:38},
+      "ttti": {s1:null,s2:null,s3:null,s4:null,s5:null,s6:null,s7:null,avg:null},
+      "b12": {s1:null,s2:null,s3:null,s4:null,s5:null,s6:null,s7:null,avg:null},
+      "c26": {s1:10,s2:9,s3:1,s4:3,s5:0,s6:1,s7:3,avg:9}
     }
+    clearCharts();
+    if(contenedor_charts[key]){
+      var name;
+      for (var i = 0; i < blocks.elements.length; i++) {
+        var level = blocks.elements[i];
+        for (var j = 0; j < blocks[level].pms.length; j++) {
+          var pm = blocks[level].pms[j];
+          if(blocks[level][pm].key == key){
+            name = blocks[level][pm].name;
+          }
+        }
+      }
+
+    var data = new google.visualization.DataTable(
+      {"cols":
+      [{"id":"","label":"Section","type":"string"},
+      {"id":"","label":"Value","type":"number"}],
+      "rows":
+      [{"c":[{"v":"Avg Montana Corridor"},{"v":contenedor_charts[key]["avg"]}]},
+      {"c":[{"v":" S1: Piedras St."},{"v":contenedor_charts[key]["s1"],}]},
+      {"c":[{"v":"S2: Paisano Dr."},{"v":contenedor_charts[key]["s2"]}]},
+      {"c":[{"v":"S3: Hawkins Blvd."},{"v":contenedor_charts[key]["s3"]}]},
+      {"c":[{"v":"S4: Yarbrough Dr."},{"v":contenedor_charts[key]["s4"]}]},
+      {"c":[{"v":"S5: Joe Battle Blvd."},{"v":contenedor_charts[key]["s5"]}]},
+      {"c":[{"v":"S6: Zaragoza Rd."},{"v":contenedor_charts[key]["s6"]}]},
+      {"c":[{"v":"S7: Araceli Ave."},{"v":contenedor_charts[key]["s7"]}]}
+      ]
+    }
+  );
+    var options = {
+      title: name,
+      legend: { position: 'none'},
+      animation:{ duration: 1000, easing: 'inAndOut', startup: true },
+      "width":1000,
+      "height":400,
+      hAxis: { minValue: 0 },
+      vAxis: {}
+    };
+    bar_init = new google.visualization.BarChart(document.getElementById("chart_selected"));
+    bar_init.draw(data, options);
+  }
   }
 
   function runAOI(){
@@ -3286,6 +3348,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     }
 
     $.get('mpo_handler.php', pm_mpo, function(data){
+      chartMontanaAvg(pm_mpo.pm);
       var points = [];
       shapecolor = ["#84857B", "#13FF00", "#FF0000", "#009BFF", "#EBF20D", "#fe9253", "#8C0909", "#0051FF", "#AB77FF", "#EBF20D", "#8C0909", "#07FDCA", "#008C35", "FFDBA5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
       shapeoutline = ["#000000", "#0b9b00", "#c10000", "#007fd1", "#aaaf0a", "#d18f0a", "#8c0909", "#0037ad", "#873dff", "#aaaf0a", "8c0909", "36c9bd", "#008c35", "#ffdba5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
