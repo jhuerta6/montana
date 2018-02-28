@@ -740,7 +740,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         overall: false,
         name: "D.3.1. Truck Travel Time",
         mode: ["F"],
-        key: "tti"
+        key: "ttti"
       },
     },
     z:{
@@ -1631,7 +1631,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       "c22": {s1:0,s2:17,s3:54,s4:70,s5:52,s6:0,s7:0,avg:23},
       "parkride": {s1:0,s2:103,s3:0,s4:0,s5:50,s6:0,s7:0,avg:153},
       "2016_daily": {s1:null,s2:null,s3:null,s4:null,s5:null,s6:null,s7:null,avg:20928},
-      "tti": {s1:null,s2:1.9,s3:1.7,s4:1.6,s5:1.6,s6:1.4,s7:1.3,avg:1.6},
+      //"tti": {s1:null,s2:1.9,s3:1.7,s4:1.6,s5:1.6,s6:1.4,s7:1.3,avg:1.6},
       "crashes": {s1:null,s2:17,s3:14,s4:14,s5:7,s6:9,s7:3,avg:64},
       "iri": {s1:19,s2:9,s3:6,s4:1,s5:2,s6:1,s7:0,avg:38},
       "ttti": {s1:null,s2:null,s3:null,s4:null,s5:null,s6:null,s7:null,avg:null},
