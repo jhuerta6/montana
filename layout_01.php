@@ -1329,7 +1329,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       $("#add_on_multiple_3,#select_pm_multiple_3").show();
     });
 
-
     $("#select_pm_multiple_1, #select_pm_multiple_2, #select_pm_multiple_3").change(function(){
       $("#data-holder-multiple").show();
       //console.log(this.id);
@@ -1609,13 +1608,11 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       pm_mpo.depth_method = this.value;
     });
 
-    //$("#legend").hide();
   }); //end document.ready
 
   function chartMontanaAvg(key){
     //falta b12, street density
     //falta c26
-    //change tti to ttti everywhere
     var contenedor_charts = {
       "freqtran": {s1:9,s2:12,s3:0,s4:0,s5:0,s6:0,s7:0,avg:4},
       "sectionnum": {s1:0,s2:14,s3:17,s4:18,s5:15,s6:0,s7:0,avg:11},
@@ -1651,35 +1648,35 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         }
       }
 
-    var data = new google.visualization.DataTable(
-      {"cols":
-      [{"id":"","label":"Section","type":"string"},
-      {"id":"","label":"Value","type":"number"}],
-      "rows":
-      [{"c":[{"v":"Avg Montana Corridor"},{"v":contenedor_charts[key]["avg"]}]},
-      {"c":[{"v":" S1: Piedras St."},{"v":contenedor_charts[key]["s1"],}]},
-      {"c":[{"v":"S2: Paisano Dr."},{"v":contenedor_charts[key]["s2"]}]},
-      {"c":[{"v":"S3: Hawkins Blvd."},{"v":contenedor_charts[key]["s3"]}]},
-      {"c":[{"v":"S4: Yarbrough Dr."},{"v":contenedor_charts[key]["s4"]}]},
-      {"c":[{"v":"S5: Joe Battle Blvd."},{"v":contenedor_charts[key]["s5"]}]},
-      {"c":[{"v":"S6: Zaragoza Rd."},{"v":contenedor_charts[key]["s6"]}]},
-      {"c":[{"v":"S7: Araceli Ave."},{"v":contenedor_charts[key]["s7"]}]}
+      var data = new google.visualization.DataTable(
+        {"cols":
+        [{"id":"","label":"Section","type":"string"},
+        {"id":"","label":"Value","type":"number"}],
+        "rows":
+        [{"c":[{"v":"Avg Montana Corridor"},{"v":contenedor_charts[key]["avg"]}]},
+        {"c":[{"v":" S1: Piedras St."},{"v":contenedor_charts[key]["s1"],}]},
+        {"c":[{"v":"S2: Paisano Dr."},{"v":contenedor_charts[key]["s2"]}]},
+        {"c":[{"v":"S3: Hawkins Blvd."},{"v":contenedor_charts[key]["s3"]}]},
+        {"c":[{"v":"S4: Yarbrough Dr."},{"v":contenedor_charts[key]["s4"]}]},
+        {"c":[{"v":"S5: Joe Battle Blvd."},{"v":contenedor_charts[key]["s5"]}]},
+        {"c":[{"v":"S6: Zaragoza Rd."},{"v":contenedor_charts[key]["s6"]}]},
+        {"c":[{"v":"S7: Araceli Ave."},{"v":contenedor_charts[key]["s7"]}]}
       ]
     }
   );
-    var options = {
-      title: name,
-      legend: { position: 'none'},
-      animation:{ duration: 1000, easing: 'inAndOut', startup: true },
-      "width":1000,
-      "height":400,
-      hAxis: { minValue: 0 },
-      vAxis: {}
-    };
-    bar_init = new google.visualization.BarChart(document.getElementById("chart_selected"));
-    bar_init.draw(data, options);
-  }
-  }
+  var options = {
+    title: name,
+    legend: { position: 'none'},
+    animation:{ duration: 1000, easing: 'inAndOut', startup: true },
+    "width":1000,
+    "height":400,
+    hAxis: { minValue: 0 },
+    vAxis: {}
+  };
+  bar_init = new google.visualization.BarChart(document.getElementById("chart_selected"));
+  bar_init.draw(data, options);
+}
+}
 
   function runAOI(){
     pm_mpo.runAOI = true;
@@ -4759,6 +4756,11 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     }
   }
 
+
+  function user_generated_charts(){
+    var max = min = med = avg = 0;
+
+  }
 
         /*function drawChart() {
           var nulls = nullChecker();
