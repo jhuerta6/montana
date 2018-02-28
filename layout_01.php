@@ -4757,8 +4757,10 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   }
 
 
-  function user_generated_charts(){
-    var max = min = med = avg = 0; //do we need this measures? ask.
+  function user_generated_charts(key, position){
+    var max = min = med = avg = 0;
+    //parameters: key so we know which query to make, and the position of which chart, if multiple
+    //get the legend separation as well
 
 
 
@@ -4977,20 +4979,20 @@ function drawChart_a11(){
 );
 
 var options =
-{"title": blocks.a.a11.name,
-"vAxis":{"title":"","minValue":0},
-"hAxis":{"title":"","maxValue":100,
-viewWindow: {
+{ "title": blocks.a.a11.name,
+  "vAxis":{"title":"","minValue":0},
+  "hAxis":{"title":"","maxValue":100,
+  viewWindow: {
   min: 0,
   max: 100
 },
-ticks: [0, 20, 40, 60, 80, 100]
+  ticks: [0, 20, 40, 60, 80, 100]
 },
-"legend":"none",
-"is3D":false,
-"width":1000,
-"height":400,
-animation:{ duration: 1000, easing: 'inAndOut', startup: true }
+  "legend":"none",
+  "is3D":false,
+  "width":1000,
+  "height":400,
+  animation:{ duration: 1000, easing: 'inAndOut', startup: true }
 };
 
 bar_init = new google.visualization.BarChart(document.getElementById("chart_selected"));
