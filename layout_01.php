@@ -142,7 +142,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               <div id="default" class="tab-pane fade in active">
                 <div id="intro" class="panel">
                   <div class="panel-body text-center" >
-                    <h1> Welcome to the PMMC Web Application<br><br>To start, please <span class="element">select a singular Planning Block from its dropdown list, or choose "Multiple"</span> to display various performances measures at a time.</h1>
+                    <h1> Welcome to the PMMC Web Application<br><br><h2>To start, please <span class="element">select a singular Planning Block from its dropdown list, or choose "Multiple"</span> to display various performances measures at a time.</h2><br><br><br><br></h1>
                   </div>
                 </div>
                 <div id="main_default">
