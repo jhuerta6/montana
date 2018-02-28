@@ -4758,7 +4758,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
 
   function user_generated_charts(){
-    var max = min = med = avg = 0;
+    var max = min = med = avg = 0; //do we need this measures? ask.
+
+
 
   }
 
