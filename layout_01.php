@@ -4756,7 +4756,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     }
   }
 
-
   function user_generated_charts(key, position){
     var max = min = med = avg = 0;
     //parameters: key so we know which query to make, and the position of which chart, if multiple
