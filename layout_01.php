@@ -108,16 +108,19 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   <h3 id="report1_text" class="text-center">Summary for PM 1</h3><br>
                   <div id="pm_description_mul_1" class="container panel panel-default"></div>
                   <div id="pm_data_mul_1" class="container panel panel-default"></div>
+                  <div class="chart" style="padding-left: 35px;" id="chart_selected1"> </div>
               </div>
               <div id="report2" class="tab-pane fade">
                   <h3 id="report2_text" class="text-center">Summary for PM 2</h3><br>
                   <div id="pm_description_mul_2" class="container panel panel-default"></div>
                   <div id="pm_data_mul_2" class="container panel panel-default"></div>
+                  <div class="chart" style="padding-left: 35px;" id="chart_selected2"> </div>
               </div>
               <div id="report3" class="tab-pane fade">
                   <h3 id="report3_text" class="text-center">Summary for PM 3</h3><br>
                   <div id="pm_description_mul_3" class="container panel panel-default"></div>
                   <div id="pm_data_mul_3" class="container panel panel-default"></div>
+                  <div class="chart" style="padding-left: 35px;" id="chart_selected3"> </div>
               </div>
             </div>
           </div>
@@ -1610,9 +1613,18 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
   }); //end document.ready
 
-  function chartMontanaAvg(key){
+function chartMontanaAvg(key, isMulti, loop_num, multikey){
     //falta b12, street density
     //falta c26
+    if(loop_num == 1 || loop_num == 0){
+      clearCharts();
+    }
+    var whatChart = "chart_selected";
+    if(isMulti){
+      whatChart = "chart_selected"+loop_num;
+      key = multikey;
+      //console.log(whatChart);
+    }
     var contenedor_charts = {
       "freqtran": {s1:9,s2:12,s3:0,s4:0,s5:0,s6:0,s7:0,avg:4},
       "sectionnum": {s1:0,s2:14,s3:17,s4:18,s5:15,s6:0,s7:0,avg:11},
@@ -1635,7 +1647,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       "b12": {s1:null,s2:null,s3:null,s4:null,s5:null,s6:null,s7:null,avg:null},
       "c26": {s1:10,s2:9,s3:1,s4:3,s5:0,s6:1,s7:3,avg:9}
     }
-    clearCharts();
+    //clearCharts();
     if(contenedor_charts[key]){
       var name;
       for (var i = 0; i < blocks.elements.length; i++) {
@@ -1673,9 +1685,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     hAxis: { minValue: 0 },
     vAxis: {}
   };
-  bar_init = new google.visualization.BarChart(document.getElementById("chart_selected"));
-  bar_init.draw(data, options);
-}
+    bar_init = new google.visualization.BarChart(document.getElementById(whatChart));
+    bar_init.draw(data, options);
+  }
 }
 
   function runAOI(){
@@ -1727,34 +1739,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     }
 
     pm_mpo.getMode = "polygons";
-    /*
-    if($("#check_multi_1").prop("checked")){console.log("checkbox 1 is checked");}else{console.log("checkbox 1 is unchecked");}
-    if($("#check_multi_2").prop("checked")){console.log("checkbox 2 is checked");}else{console.log("checkbox 2 is unchecked");}
-    if($("#check_multi_3").prop("checked")){console.log("checkbox 3 is checked");}else{console.log("checkbox 3 is unchecked");}
-
-    for (var z = 0; z < available.count; z++) {
-      if($("#check_multi_1").prop("checked") && z == 0){
-        console.log("skipping 1");
-        z++;
-      }else{
-        console.log("not skipping 1");
-      }
-      if($("#check_multi_2").prop("checked")&& z == 1){
-        console.log("skipping 2");
-        z++;
-       }else{
-         console.log("not skipping 2");
-        }
-      if($("#check_multi_3").prop("checked") && z == 2){
-        console.log("skipping 3");
-        z++;
-       }else{
-         console.log("not skipping 3");
-        }
-      console.log(z);
-    }*/
-
-    //console.log(available);
 
     if(pm_mpo.runAOI == true && typeof rec != 'undefined' && rec.type == 'rectangle'){
       var getparams = app.payload;
@@ -1777,6 +1761,10 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       (function (z){
         //console.log(z);
         $.get('mpo_multi_handler.php', pm_mpo, function(data){
+          var isMulti = true;
+          var loop_num = (z+1);
+          var multi_key = pm_mpo["pm"+(z+1)];
+          chartMontanaAvg(pm_mpo.pm, isMulti, loop_num, multi_key);
           var c = data["coords"+(z+1)].length;
           var points = [];
           //gris, verde, rojo -- testing colors
@@ -3345,7 +3333,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     }
 
     $.get('mpo_handler.php', pm_mpo, function(data){
-      chartMontanaAvg(pm_mpo.pm);
+      var isMulti = false;
+      var loop_num = 0;
+      chartMontanaAvg(pm_mpo.pm, isMulti, loop_num);
       var points = [];
       shapecolor = ["#84857B", "#13FF00", "#FF0000", "#009BFF", "#EBF20D", "#fe9253", "#8C0909", "#0051FF", "#AB77FF", "#EBF20D", "#8C0909", "#07FDCA", "#008C35", "FFDBA5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
       shapeoutline = ["#000000", "#0b9b00", "#c10000", "#007fd1", "#aaaf0a", "#d18f0a", "#8c0909", "#0037ad", "#873dff", "#aaaf0a", "8c0909", "36c9bd", "#008c35", "#ffdba5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
