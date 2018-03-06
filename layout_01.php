@@ -1613,6 +1613,69 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
   }); //end document.ready
 
+  function chartSectionLevel(key){
+    var data = new google.visualization.DataTable();
+    switch (key) {
+      case blocks.a.a11.key:
+        data.addColumn('string','Country');
+        data.addColumn('number','Population');
+        data.addColumn('number','Area');
+        data.addRows([
+          ['CN', 1324, 9640821],
+          ['IN', 1133, 3287263],
+          ['US', 304, 9629091],
+          ['ID', 232, 1904569],
+          ['BR', 187, 8514877]
+        ]);
+        break;
+      case blocks.a.a12.key:
+        data.addColumn('string','Years');
+        data.addColumn('number','Number Crashes');
+        data.addColumn('number','Percentage');
+        data.addRows([
+          ['2017', 1324, 9640821],
+          ['2016', 1133, 3287263],
+          ['2015', 304, 9629091],
+          ['2014', 232, 1904569],
+          ['2013', 187, 8514877]
+        ]);
+        break;
+      case blocks.a.a13.key:
+        console.log('chart for ' + blocks.a.a13.key);
+        break;
+      default:
+        console.log('Sorry, no chart found for ' + key);
+    }
+
+    var name;
+    for (var i = 0; i < blocks.elements.length; i++) {
+      var level = blocks.elements[i];
+      for (var j = 0; j < blocks[level].pms.length; j++) {
+        var pm = blocks[level].pms[j];
+        if(blocks[level][pm].key == key){
+          name = blocks[level][pm].name;
+        }
+      }
+    }
+
+    /*var options = {
+      title: name,
+      legend: { position: 'none'},
+      animation:{ duration: 1000, easing: 'inAndOut', startup: true },
+      chartArea: { width: '70%' },
+      hAxis: { minValue: 0 },
+      vAxis: {}
+    };*/
+
+
+        var table = new google.visualization.Table(document.getElementById('chart_selected'));
+
+        table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
+
+    //bar_init = new google.visualization.BarChart(document.getElementById("chart_selected"));
+    //bar_init.draw(data, options);
+  }
+
 function chartMontanaAvg(key, isMulti, loop_num, multikey){
     //falta b12, street density
     //falta c26
@@ -3336,6 +3399,7 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
       var isMulti = false;
       var loop_num = 0;
       chartMontanaAvg(pm_mpo.pm, isMulti, loop_num);
+      chartSectionLevel(pm_mpo.pm);
       var points = [];
       shapecolor = ["#84857B", "#13FF00", "#FF0000", "#009BFF", "#EBF20D", "#fe9253", "#8C0909", "#0051FF", "#AB77FF", "#EBF20D", "#8C0909", "#07FDCA", "#008C35", "FFDBA5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
       shapeoutline = ["#000000", "#0b9b00", "#c10000", "#007fd1", "#aaaf0a", "#d18f0a", "#8c0909", "#0037ad", "#873dff", "#aaaf0a", "8c0909", "36c9bd", "#008c35", "#ffdba5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
@@ -4556,7 +4620,7 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
   }
 
   /******************************************************************************/
-  google.charts.load('current', {'packages':['corechart', 'bar']});
+  google.charts.load('current', {'packages':['corechart', 'bar', 'table']});
   google.charts.setOnLoadCallback(initialize);
   function initialize () {
   }
