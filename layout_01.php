@@ -443,6 +443,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       <div class="row">
         <div class="col-sm-9">
           <div class="chart" id="chart_selected"> </div><hr>
+          <div class="chart" id="table_selected"> </div><br>
           <div class="chart" id="chart_overall"> </div>
         </div>
         <div class="col-sm-3">
@@ -1614,66 +1615,42 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   }); //end document.ready
 
   function chartSectionLevel(key){
+    //get info from php, get 7 sections, ajax call,
     var data = new google.visualization.DataTable();
     switch (key) {
       case blocks.a.a11.key:
-        data.addColumn('string','Country');
-        data.addColumn('number','Population');
-        data.addColumn('number','Area');
-        data.addRows([
-          ['CN', 1324, 9640821],
-          ['IN', 1133, 3287263],
-          ['US', 304, 9629091],
-          ['ID', 232, 1904569],
-          ['BR', 187, 8514877]
-        ]);
-        break;
+      data.addColumn('string','Year');
+      data.addColumn('number','Population Within 1/2 Mile');
+      data.addColumn('number','Total Population');
+      data.addColumn('number','% Population');
+      data.addRows([
+        ["2012", 13000, 800000, 5],
+        ["2013", 13344, 802355, 2],
+        ["2014", 15234, 809285, 3],
+        ["2015", 17000, 850000, 4]
+      ]);
+      break;
       case blocks.a.a12.key:
-        data.addColumn('string','Years');
-        data.addColumn('number','Number Crashes');
-        data.addColumn('number','Percentage');
-        data.addRows([
-          ['2017', 1324, 9640821],
-          ['2016', 1133, 3287263],
-          ['2015', 304, 9629091],
-          ['2014', 232, 1904569],
-          ['2013', 187, 8514877]
-        ]);
-        break;
+      data.addColumn('string','Years');
+      data.addColumn('number','Number Crashes');
+      data.addColumn('number','Percentage');
+      data.addRows([
+        ['2017', 1324, 9640821],
+        ['2016', 1133, 3287263],
+        ['2015', 304, 9629091],
+        ['2014', 232, 1904569],
+        ['2013', 187, 8514877]
+      ]);
+      break;
       case blocks.a.a13.key:
-        console.log('chart for ' + blocks.a.a13.key);
-        break;
+      console.log('chart for ' + blocks.a.a13.key);
+      break;
       default:
-        console.log('Sorry, no chart found for ' + key);
+      console.log('Sorry, no chart found for ' + key);
     }
 
-    var name;
-    for (var i = 0; i < blocks.elements.length; i++) {
-      var level = blocks.elements[i];
-      for (var j = 0; j < blocks[level].pms.length; j++) {
-        var pm = blocks[level].pms[j];
-        if(blocks[level][pm].key == key){
-          name = blocks[level][pm].name;
-        }
-      }
-    }
-
-    /*var options = {
-      title: name,
-      legend: { position: 'none'},
-      animation:{ duration: 1000, easing: 'inAndOut', startup: true },
-      chartArea: { width: '70%' },
-      hAxis: { minValue: 0 },
-      vAxis: {}
-    };*/
-
-
-        var table = new google.visualization.Table(document.getElementById('chart_selected'));
-
-        table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
-
-    //bar_init = new google.visualization.BarChart(document.getElementById("chart_selected"));
-    //bar_init.draw(data, options);
+    var table = new google.visualization.Table(document.getElementById('table_selected'));
+    table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
   }
 
 function chartMontanaAvg(key, isMulti, loop_num, multikey){
