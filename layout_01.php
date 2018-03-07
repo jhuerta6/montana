@@ -1651,10 +1651,17 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
   }); //end document.ready
 
-  function chartSectionLevel(key){
-    //get info from php, get 7 sections, ajax call,
+  function chartSectionLevel(k){
+
+    //get info from php, get 7 sections, ajax call
+    //have to define the data we will get from the ajax call
     var data = new google.visualization.DataTable();
-    switch (key) {
+    var to_send = {key:k};
+    $.get('mpo_section_level.php', to_send, function(data){
+
+    });
+
+    switch (k) {
       case blocks.a.a11.key:
       data.addColumn('string','Year');
       data.addColumn('number','Population Within 1/2 Mile');
