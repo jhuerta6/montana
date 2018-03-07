@@ -456,26 +456,25 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           </ul>
           <div class="tab-content" >
             <div id="sections_multi_1" class="tab-pane fade in active"><br>
-              <!-- <div id="sections_content_multi_1" class="container panel panel-default">Please select a PM</div> -->
-              <div class="chart" id="table_selected"> </div><br>
+              <div class="chart" id="table_selected_1"> </div><br>
             </div>
             <div id="sections_multi_2" class="tab-pane fade"><br>
-              <!-- <div id="sections_content_multi_2" class="container panel panel-default">Please select a PM</div> -->
+              <div class="chart" id="table_selected_2"> </div><br>
             </div>
             <div id="sections_multi_3" class="tab-pane fade"><br>
-              <!-- <div id="sections_content_multi_3" class="container panel panel-default">Please select a PM</div> -->
+              <div class="chart" id="table_selected_3"> </div><br>
             </div>
             <div id="sections_multi_4" class="tab-pane fade"><br>
-              <!-- <div id="sections_content_multi_4" class="container panel panel-default">Please select a PM</div> -->
+              <div class="chart" id="table_selected_4"> </div><br>
             </div>
             <div id="sections_multi_5" class="tab-pane fade"><br>
-              <!-- <div id="sections_content_multi_5" class="container panel panel-default">Please select a PM</div> -->
+              <div class="chart" id="table_selected_5"> </div><br>
             </div>
             <div id="sections_multi_6" class="tab-pane fade"><br>
-              <!-- <div id="sections_content_multi_6" class="container panel panel-default">Please select a PM</div> -->
+              <div class="chart" id="table_selected_6"> </div><br>
             </div>
             <div id="sections_multi_7" class="tab-pane fade"><br>
-              <!-- <div id="sections_content_multi_7" class="container panel panel-default">Please select a PM</div> -->
+              <div class="chart" id="table_selected_7"> </div><br>
             </div>
           </div>
         </div>
@@ -1657,19 +1656,20 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     }
     var to_send = {key:k};
     $.get('mpo_section_level.php', to_send, function(data){
-      for(var i = 0; i < 7; i++){
+      for(var i = 1; i <= 7; i++){
+        //console.log(data["loop at 5"]);
         var data_table = new google.visualization.DataTable();
         switch (k) {
           case blocks.a.a11.key:
           data_table.addColumn('string','Year');
-          data_table.addColumn('number','Population Within 1/2 Mile');
+          data_table.addColumn('string','Population Within 1/2 Mile');
           data_table.addColumn('number','Total Population');
           data_table.addColumn('number','% Population');
           data_table.addRows([
-            ["2012", 13000, 800000, 5],
-            ["2013", 13344, 802355, 2],
-            ["2014", 15234, 809285, 3],
-            ["2015", 17000, 850000, 4]
+            ["2012", data["loop at "+i], 800000, 5],
+            ["2013", "13344", 802355, 2],
+            ["2014", "15234", 809285, 3],
+            ["2015", "17000", 850000, 4]
           ]);
           break;
           case blocks.a.a12.key:
@@ -1691,7 +1691,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           console.log('Sorry, no chart found for ' + k + ", loop " + i);
         }
 
-        var table = new google.visualization.Table(document.getElementById('table_selected'));
+        var table = new google.visualization.Table(document.getElementById('table_selected'+'_'+i));
         table.draw(data_table, {showRowNumber: true, width: '100%', height: '100%'});
       }
     });
