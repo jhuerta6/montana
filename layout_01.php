@@ -1651,50 +1651,50 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
   }); //end document.ready
 
-  function chartSectionLevel(k){
+  function chartSectionLevel(k, isMulti, loop_num){
+    if(isMulti){
 
-    //get info from php, get 7 sections, ajax call
-    //have to define the data we will get from the ajax call
-    var data = new google.visualization.DataTable();
+    }
     var to_send = {key:k};
     $.get('mpo_section_level.php', to_send, function(data){
+      for(var i = 0; i < 7; i++){
+        var data_table = new google.visualization.DataTable();
+        switch (k) {
+          case blocks.a.a11.key:
+          data_table.addColumn('string','Year');
+          data_table.addColumn('number','Population Within 1/2 Mile');
+          data_table.addColumn('number','Total Population');
+          data_table.addColumn('number','% Population');
+          data_table.addRows([
+            ["2012", 13000, 800000, 5],
+            ["2013", 13344, 802355, 2],
+            ["2014", 15234, 809285, 3],
+            ["2015", 17000, 850000, 4]
+          ]);
+          break;
+          case blocks.a.a12.key:
+          data_table.addColumn('string','Years');
+          data_table.addColumn('number','Number Crashes');
+          data_table.addColumn('number','Percentage');
+          data_table.addRows([
+            ['2017', 1324, 9640821],
+            ['2016', 1133, 3287263],
+            ['2015', 304, 9629091],
+            ['2014', 232, 1904569],
+            ['2013', 187, 8514877]
+          ]);
+          break;
+          case blocks.a.a13.key:
+          console.log('chart for ' + blocks.a.a13.key);
+          break;
+          default:
+          console.log('Sorry, no chart found for ' + k + ", loop " + i);
+        }
 
+        var table = new google.visualization.Table(document.getElementById('table_selected'));
+        table.draw(data_table, {showRowNumber: true, width: '100%', height: '100%'});
+      }
     });
-
-    switch (k) {
-      case blocks.a.a11.key:
-      data.addColumn('string','Year');
-      data.addColumn('number','Population Within 1/2 Mile');
-      data.addColumn('number','Total Population');
-      data.addColumn('number','% Population');
-      data.addRows([
-        ["2012", 13000, 800000, 5],
-        ["2013", 13344, 802355, 2],
-        ["2014", 15234, 809285, 3],
-        ["2015", 17000, 850000, 4]
-      ]);
-      break;
-      case blocks.a.a12.key:
-      data.addColumn('string','Years');
-      data.addColumn('number','Number Crashes');
-      data.addColumn('number','Percentage');
-      data.addRows([
-        ['2017', 1324, 9640821],
-        ['2016', 1133, 3287263],
-        ['2015', 304, 9629091],
-        ['2014', 232, 1904569],
-        ['2013', 187, 8514877]
-      ]);
-      break;
-      case blocks.a.a13.key:
-      console.log('chart for ' + blocks.a.a13.key);
-      break;
-      default:
-      console.log('Sorry, no chart found for ' + key);
-    }
-
-    var table = new google.visualization.Table(document.getElementById('table_selected'));
-    table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
   }
 
 function chartMontanaAvg(key, isMulti, loop_num, multikey){
