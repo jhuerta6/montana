@@ -443,7 +443,43 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       <div class="row">
         <div class="col-sm-9">
           <div class="chart" id="chart_selected"> </div><hr>
-          <div class="chart" id="table_selected"> </div><br>
+          <div id="section_multi_panel" class="panel panel-default" style="visibility: visible;">
+            <h3 class="text-center">Section Level Analysis</h3><br>
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#sections_multi_1" data-target="#sections_multi_1">Section #1</a></li>
+            <li><a data-toggle="tab" href="#sections_multi_2" data-target="#sections_multi_2">Section #2</a></li>
+            <li><a data-toggle="tab" href="#sections_multi_3" data-target="#sections_multi_3">Section #3</a></li>
+            <li><a data-toggle="tab" href="#sections_multi_4" data-target="#sections_multi_4">Section #4</a></li>
+            <li><a data-toggle="tab" href="#sections_multi_5" data-target="#sections_multi_5">Section #5</a></li>
+            <li><a data-toggle="tab" href="#sections_multi_6" data-target="#sections_multi_6">Section #6</a></li>
+            <li><a data-toggle="tab" href="#sections_multi_7" data-target="#sections_multi_7">Section #7</a></li>
+          </ul>
+          <div class="tab-content" >
+            <div id="sections_multi_1" class="tab-pane fade in active"><br>
+              <!-- <div id="sections_content_multi_1" class="container panel panel-default">Please select a PM</div> -->
+              <div class="chart" id="table_selected"> </div><br>
+            </div>
+            <div id="sections_multi_2" class="tab-pane fade"><br>
+              <!-- <div id="sections_content_multi_2" class="container panel panel-default">Please select a PM</div> -->
+            </div>
+            <div id="sections_multi_3" class="tab-pane fade"><br>
+              <!-- <div id="sections_content_multi_3" class="container panel panel-default">Please select a PM</div> -->
+            </div>
+            <div id="sections_multi_4" class="tab-pane fade"><br>
+              <!-- <div id="sections_content_multi_4" class="container panel panel-default">Please select a PM</div> -->
+            </div>
+            <div id="sections_multi_5" class="tab-pane fade"><br>
+              <!-- <div id="sections_content_multi_5" class="container panel panel-default">Please select a PM</div> -->
+            </div>
+            <div id="sections_multi_6" class="tab-pane fade"><br>
+              <!-- <div id="sections_content_multi_6" class="container panel panel-default">Please select a PM</div> -->
+            </div>
+            <div id="sections_multi_7" class="tab-pane fade"><br>
+              <!-- <div id="sections_content_multi_7" class="container panel panel-default">Please select a PM</div> -->
+            </div>
+          </div>
+        </div>
+
           <div class="chart" id="chart_overall"> </div>
         </div>
         <div class="col-sm-3">
@@ -927,6 +963,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     $("#label_container").hide();
     $("#legend_panel").hide();
     $("#legend_multi_panel").hide();
+    $("#section_multi_panel").hide();
     for (var i = 0; i < blocks.elements.length; i++) {
       var blck = blocks.elements[i];
       var elem_blck = document.createElement("option");
@@ -3354,6 +3391,7 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
       removePolygons();
     }
     $('#legend_panel').show('slow');
+    $('#section_multi_panel').show();
     pm_mpo.getMode = "polygons";
     if(pm_mpo.runAOI == true && typeof rec != 'undefined' && rec.type == 'rectangle'){
       var getparams = app.payload;
