@@ -442,8 +442,11 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       </div>
       <div class="row">
         <div class="col-sm-9">
-          <div class="chart" id="chart_selected"> </div><hr>
-          <div id="section_multi_panel" class="panel panel-default" style="visibility: visible;">
+          <div id="corridor_individual_panel" class="panel panel-default" style="visibility: visible;">
+            <h3 class="text-center">Corridor Level Analysis</h3><br>
+            <div class="chart" id="chart_selected"> </div>
+          </div>
+        <div id="section_individual_panel" class="panel panel-default" style="visibility: visible;">
             <h3 class="text-center">Section Level Analysis</h3><br>
           <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#sections_multi_1" data-target="#sections_multi_1">Section #1</a></li>
