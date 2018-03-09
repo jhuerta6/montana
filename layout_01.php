@@ -1675,15 +1675,16 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           ]);
           break;
           case blocks.a.a12.key:
-          data_table.addColumn('string','Years');
-          data_table.addColumn('number','Number Crashes');
-          data_table.addColumn('number','Percentage');
+          data_table.addColumn('string','Year');
+          data_table.addColumn('string','Existing (miles)');
+          data_table.addColumn('string','Proposed in Bike Plan (miles)');
+          data_table.addColumn('string','% Build-out');
           data_table.addRows([
-            ['2017', 1324, 9640821],
-            ['2016', 1133, 3287263],
-            ['2015', 304, 9629091],
-            ['2014', 232, 1904569],
-            ['2013', 187, 8514877]
+            ['2018', "No data for year","No data for year","No data for year"],
+            ['2017', "No data for year","No data for year","No data for year"],
+            ['2016', data["existing"+i],data["proposed"+i],data["percent"+i]],
+            ['2015', "No data for year","No data for year","No data for year"],
+            ['2014', "No data for year","No data for year","No data for year"],
           ]);
           break;
           case blocks.a.a13.key:

@@ -57,8 +57,10 @@ function getSectionLevelData(){ //we will send to seven sections
         $toReturn['half_pop'.$i] = "No data in Section ".$i;
       }
       break;
-      case "bar":
-
+      case "sectionnum":
+      $toReturn['existing'.$i] = "No data in Section ".$i;
+      $toReturn['proposed'.$i] = "No data in Section ".$i;
+      $toReturn['percent'.$i] = "No data in Section ".$i;
       break;
       default:
       $toReturn['default'] = "key is ".$key;
