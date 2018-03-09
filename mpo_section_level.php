@@ -58,12 +58,32 @@ function getSectionLevelData(){ //we will send to seven sections
         }
       break;
       case "sectionnum":
-        $toReturn['existing'.$i] = "No data in Section ".$i;
-        $toReturn['proposed'.$i] = "No data in Section ".$i;
+        $query = "select sum(shleng_buf) from a13_existing_new where sectionnum = $i";
+        $existing = mysqli_query($conn, $query);
+        $existing = fetchAll($existing);
+        if($existing[0]['sum(shleng_buf)']){
+          $send_existing = $existing[0]['sum(shleng_buf)'];
+          $toReturn['existing'.$i] = number_format($send_existing, 2, '.', '');
+        }
+        else{
+          $toReturn['existing'.$i] = "No data in Section ".$i;
+        }
+
+        $query = "select sum(shleng_buf) from a12_proposed_new where sectionnum = $i";
+        $proposed = mysqli_query($conn, $query);
+        $proposed = fetchAll($proposed);
+        if($proposed[0]['sum(shleng_buf)']){
+          $send_proposed = $proposed[0]['sum(shleng_buf)'];
+          $toReturn['proposed'.$i] = number_format($send_proposed, 2, '.', '');
+        }
+        else{
+          $toReturn['proposed'.$i] = "No data in Section ".$i;
+        }
+
         $toReturn['percent'.$i] = "No data in Section ".$i;
       break;
       default:
-      $toReturn['default'] = "key is ".$key;
+        $toReturn['default'] = "key is ".$key;
     }
   }
 
