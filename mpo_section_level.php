@@ -35,7 +35,27 @@ function getSectionLevelData(){ //we will send to seven sections
   for ($i=1; $i <= 7; $i++) {
     switch ($key) {
       case "freqtran":
-      $toReturn['loop at '.$i] = "test".$i;
+      $query = "select sum(b_popul) from a11_new where sectionnum = $i";
+      $result = mysqli_query($conn, $query);
+    	$result = fetchAll($result);
+      if($result[0]["sum(b_popul)"]){
+        $query = "select sum(b_popul) from polygon where sectionnum = $i";
+        $result = mysqli_query($conn, $query);
+      	$result = fetchAll($result);
+        $toReturn['total_pop'.$i] = number_format($result[0]["sum(b_popul)"], 2, '.', '');
+        $query = "select sum(trans_pop) from a11_new where sectionnum = $i";
+        $result_1 = mysqli_query($conn, $query);
+      	$result_1 = fetchAll($result_1);
+        $toReturn['half_pop'.$i] = number_format($result_1[0]["sum(trans_pop)"], 2, '.', '');
+        $result_1 = 100 * $result_1[0]["sum(trans_pop)"];
+        $result_1 /= $result[0]["sum(b_popul)"];
+        $result = (String)number_format($result_1, 2, '.', '');
+        $toReturn['feedback'.$i] = $result;
+      }else{
+        $toReturn['feedback'.$i] = "No data in Section ".$i;
+        $toReturn['total_pop'.$i] = "No data in Section ".$i;
+        $toReturn['half_pop'.$i] = "No data in Section ".$i;
+      }
       break;
       case "bar":
 

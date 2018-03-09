@@ -1660,19 +1660,18 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     var to_send = {key:k};
     $.get('mpo_section_level.php', to_send, function(data){
       for(var i = 1; i <= 7; i++){
-        //console.log(data["loop at 5"]);
         var data_table = new google.visualization.DataTable();
         switch (k) {
           case blocks.a.a11.key:
           data_table.addColumn('string','Year');
           data_table.addColumn('string','Population Within 1/2 Mile');
-          data_table.addColumn('number','Total Population');
-          data_table.addColumn('number','% Population');
+          data_table.addColumn('string','Total Population');
+          data_table.addColumn('string','% Population');
           data_table.addRows([
-            ["2012", data["loop at "+i], 800000, 5],
-            ["2013", "13344", 802355, 2],
-            ["2014", "15234", 809285, 3],
-            ["2015", "17000", 850000, 4]
+            ["2013-2017", "No data for year", "No data for year", "No data for year"],
+            ["2012-2016", data["half_pop"+i], data["total_pop"+i], data["feedback"+i]],
+            ["2011-2015", "No data for year", "No data for year", "No data for year"],
+            ["2010-2014", "No data for year", "No data for year", "No data for year"]
           ]);
           break;
           case blocks.a.a12.key:
