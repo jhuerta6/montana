@@ -80,7 +80,20 @@ function getSectionLevelData(){ //we will send to seven sections
           $toReturn['proposed'.$i] = "No data in Section ".$i;
         }
 
-        $toReturn['percent'.$i] = "No data in Section ".$i;
+        if($existing[0]['sum(shleng_buf)']){
+          if($proposed[0]['sum(shleng_buf)']){
+            $send_existing = $existing[0]['sum(shleng_buf)'];
+            $send_proposed = $proposed[0]['sum(shleng_buf)'];
+            $send_existing = $send_existing * 100;
+            $percent = $send_existing / $send_proposed;
+
+            $toReturn['percent'.$i] = number_format($percent, 2, '.', '');
+          }
+        }
+        else{
+          $toReturn['percent'.$i] = "No data for Section ".$i;
+        }
+
       break;
       default:
         $toReturn['default'] = "key is ".$key;
