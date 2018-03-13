@@ -1688,7 +1688,17 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           ]);
           break;
           case blocks.a.a13.key:
-          console.log('chart for ' + blocks.a.a13.key);
+          data_table.addColumn('string','Years');
+          data_table.addColumn('string','Population Within 1/2 mile');
+          data_table.addColumn('string','Total Population');
+          data_table.addColumn('string','% Population');
+          data_table.addRows([
+            ['2013-2017', "No data for year","No data for year","No data for year"],
+            ['2012-2016', "No data for year","No data for year","No data for year"],
+            ['2011-2015', data["existing"+i],data["proposed"+i],data["percent"+i]],
+            ['2010-2014', "No data for year","No data for year","No data for year"],
+            ['2009-2013', "No data for year","No data for year","No data for year"],
+          ]);
           break;
           default:
           console.log('Sorry, no chart found for ' + k + ", loop " + i);

@@ -93,7 +93,43 @@ function getSectionLevelData(){ //we will send to seven sections
         else{
           $toReturn['percent'.$i] = "No data for Section ".$i;
         }
+      break;
+      case "b_workers":
+        $query = "select sum(bikhalf_po) from a13_poly_new where sectionnum = $i";
+        $existing = mysqli_query($conn, $query);
+        $existing = fetchAll($existing);
+        if($existing[0]['sum(bikhalf_po)']){
+          $send_existing = $existing[0]['sum(bikhalf_po)'];
+          $toReturn['existing'.$i] = number_format($send_existing, 2, '.', '');
+        }
+        else{
+          $toReturn['existing'.$i] = "No data in Section ".$i;
+        }
 
+        $query = "select sum(b_popul) from polygon where sectionnum = $i";
+        $proposed = mysqli_query($conn, $query);
+        $proposed = fetchAll($proposed);
+        if($proposed[0]['sum(b_popul)']){
+          $send_proposed = $proposed[0]['sum(b_popul)'];
+          $toReturn['proposed'.$i] = number_format($send_proposed, 2, '.', '');
+        }
+        else{
+          $toReturn['proposed'.$i] = "No data in Section ".$i;
+        }
+
+        if($existing[0]['sum(bikhalf_po)']){
+          if($proposed[0]['sum(b_popul)']){
+            $send_existing = $existing[0]['sum(bikhalf_po)'];
+            $send_proposed = $proposed[0]['sum(b_popul)'];
+            $send_existing = $send_existing * 100;
+            $percent = $send_existing / $send_proposed;
+
+            $toReturn['percent'.$i] = number_format($percent, 2, '.', '');
+          }
+        }
+        else{
+          $toReturn['percent'.$i] = "No data for Section ".$i;
+        }
       break;
       default:
         $toReturn['default'] = "key is ".$key;
