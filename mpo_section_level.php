@@ -131,6 +131,43 @@ function getSectionLevelData(){ //we will send to seven sections
           $toReturn['percent'.$i] = "No data for Section ".$i;
         }
       break;
+      case "crosw150ft":
+        $query = "select count(crosw150ft) from a21 where crosw150ft = 1 and sect_num = $i";
+        $within = mysqli_query($conn, $query);
+        $within = fetchAll($within);
+        if($within[0]['count(crosw150ft)']){ //count(crosw150ft)
+          $send_within = $within[0]['count(crosw150ft)'];
+          $toReturn['within'.$i] = number_format($send_within, 2, '.', '');
+        }
+        else{
+          $toReturn['within'.$i] = "No data in Section ".$i;
+        }
+
+        $query = "select count(crosw150ft) from a21 where sect_num = $i";
+        $total_bus = mysqli_query($conn, $query);
+        $total_bus = fetchAll($total_bus);
+        if($total_bus[0]['count(crosw150ft)']){
+          $send_total_bus = $total_bus[0]['count(crosw150ft)'];
+          $toReturn['total_bus'.$i] = number_format($send_total_bus, 2, '.', '');
+        }
+        else{
+          $toReturn['total_bus'.$i] = "No data in Section ".$i;
+        }
+
+        if($within[0]['count(crosw150ft)']){
+          if($total_bus[0]['count(crosw150ft)']){
+            $send_within = $within[0]['count(crosw150ft)'];
+            $send_total_bus = $total_bus[0]['count(crosw150ft)'];
+            $send_within = $send_within * 100;
+            $percent_bus = $send_within / $send_total_bus;
+
+            $toReturn['percent_bus'.$i] = number_format($percent_bus, 2, '.', '');
+          }
+        }
+        else{
+          $toReturn['percent_bus'.$i] = "No data for Section ".$i;
+        }
+      break;
       default:
         $toReturn['default'] = "key is ".$key;
     }

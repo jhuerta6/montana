@@ -1700,6 +1700,19 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             ['2009-2013', "No data for year","No data for year","No data for year"],
           ]);
           break;
+          case blocks.a.a21.key:
+          data_table.addColumn('string','Year');
+          data_table.addColumn('string','Bus Stops Within');
+          data_table.addColumn('string','Total Bus Stops');
+          data_table.addColumn('string','% Bus Stops Within');
+          data_table.addRows([
+            ['2018', "No data for year","No data for year","No data for year"],
+            ['2017', "No data for year","No data for year","No data for year"],
+            ['2016', data["within"+i],data["total_bus"+i],data["percent_bus"+i]],
+            ['2015', "No data for year","No data for year","No data for year"],
+            ['2014', "No data for year","No data for year","No data for year"],
+          ]);
+          break;
           default:
           console.log('Sorry, no chart found for ' + k + ", loop " + i);
         }
