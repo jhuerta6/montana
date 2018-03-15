@@ -244,6 +244,59 @@ function getSectionLevelData(){ //we will send to seven sections
           $toReturn['percent_carfree'.$i] = "No data for Section ".$i;
         }
       break;
+      case "B_TpDisadv":
+        $query = "select sum(t_popovr65), sum(t_1parenhh), sum(t_lep), sum(t_pov), sum(t_carfrehh), sum(b_tpdisadv) from polygon where sectionnum = $i";
+        $values = mysqli_query($conn, $query);
+        $values = fetchAll($values);
+        $old = $values[0]['sum(t_popovr65)'];
+        $sp = $values[0]['sum(t_1parenhh)'];
+        $lep = $values[0]['sum(t_lep)'];
+        $bpl = $values[0]['sum(t_pov)'];
+        $cf = $values[0]['sum(t_carfrehh)'];
+        $sum = $values[0]['sum(b_tpdisadv)'];
+
+        if($old >= 0){
+          $toReturn['old'.$i] = $old;
+        }
+        else{
+          $toReturn['old'.$i] = "No data for Section ".$i;
+        }
+
+        if($sp >= 0){
+          $toReturn['sp'.$i] = $sp;
+        }
+        else{
+          $toReturn['sp'.$i] = "No data for Section ".$i;
+        }
+
+        if($lep >= 0){
+          $toReturn['lep'.$i] = $lep;
+        }
+        else{
+          $toReturn['lep'.$i] = "No data for Section ".$i;
+        }
+
+        if($bpl >= 0){
+          $toReturn['bpl'.$i] = $bpl;
+        }
+        else{
+          $toReturn['bpl'.$i] = "No data for Section ".$i;
+        }
+
+        if($cf >= 0){
+          $toReturn['cf'.$i] = $cf;
+        }
+        else{
+          $toReturn['cf'.$i] = "No data for Section ".$i;
+        }
+
+        if($sum >= 0){
+          $toReturn['sum'.$i] = $sum;
+        }
+        else{
+          $toReturn['sum'.$i] = "No data for Section ".$i;
+        }
+      break;
       default:
         $toReturn['default'] = "key is ".$key;
     }

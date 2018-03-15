@@ -1726,17 +1726,33 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           ]);
           break;
           case blocks.a.a23.key:
-          data_table.addColumn('string','Years');
-          data_table.addColumn('string','HHs Car-Free');
-          data_table.addColumn('string','Total HHs');
-          data_table.addColumn('string','% Car-Free');
-          data_table.addRows([
-            ['2013-2017', "No data for year","No data for year","No data for year"],
-            ['2012-2016', "No data for year","No data for year","No data for year"],
-            ['2011-2015', data["hh"+i],data["total_hh"+i],data["percent_carfree"+i]],
-            ['2010-2014', "No data for year","No data for year","No data for year"],
-            ['2009-2013', "No data for year","No data for year","No data for year"],
-          ]);
+            data_table.addColumn('string','Years');
+            data_table.addColumn('string','HHs Car-Free');
+            data_table.addColumn('string','Total HHs');
+            data_table.addColumn('string','% Car-Free');
+            data_table.addRows([
+              ['2013-2017', "No data for year","No data for year","No data for year"],
+              ['2012-2016', "No data for year","No data for year","No data for year"],
+              ['2011-2015', data["hh"+i],data["total_hh"+i],data["percent_carfree"+i]],
+              ['2010-2014', "No data for year","No data for year","No data for year"],
+              ['2009-2013', "No data for year","No data for year","No data for year"],
+            ]);
+          break;
+          case blocks.a.a24.key:
+            data_table.addColumn('string','Years');
+            data_table.addColumn('string','Older Than 65 Years');
+            data_table.addColumn('string','Single Parent');
+            data_table.addColumn('string','Limited English Proficiency');
+            data_table.addColumn('string','Below Poverty Level');
+            data_table.addColumn('string','Car-free');
+            data_table.addColumn('string','Sum of Indicators of Potential Disadvantage');
+            data_table.addRows([
+              ['2013-2017', "No data for year","No data for year","No data for year","No data for year","No data for year","No data for year"],
+              ['2012-2016', "No data for year","No data for year","No data for year","No data for year","No data for year","No data for year"],
+              ['2011-2015', data["old"+i],data["sp"+i],data["lep"+i],data["bpl"+i],data["cf"+i],data["sum"+i]],
+              ['2010-2014', "No data for year","No data for year","No data for year","No data for year","No data for year","No data for year"],
+              ['2009-2013', "No data for year","No data for year","No data for year","No data for year","No data for year","No data for year"],
+            ]);
           break;
           default:
           console.log('Sorry, no chart found for ' + k + ", loop " + i);
