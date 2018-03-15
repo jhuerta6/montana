@@ -137,7 +137,7 @@ function getSectionLevelData(){ //we will send to seven sections
         $within = fetchAll($within);
         if($within[0]['count(crosw150ft)']){ //count(crosw150ft)
           $send_within = $within[0]['count(crosw150ft)'];
-          $toReturn['within'.$i] = number_format($send_within, 2, '.', '');
+          $toReturn['within'.$i] = number_format($send_within, 0, '.', '');
         }
         else{
           $toReturn['within'.$i] = "No data in Section ".$i;
@@ -148,7 +148,7 @@ function getSectionLevelData(){ //we will send to seven sections
         $total_bus = fetchAll($total_bus);
         if($total_bus[0]['count(crosw150ft)']){
           $send_total_bus = $total_bus[0]['count(crosw150ft)'];
-          $toReturn['total_bus'.$i] = number_format($send_total_bus, 2, '.', '');
+          $toReturn['total_bus'.$i] = number_format($send_total_bus, 0, '.', '');
         }
         else{
           $toReturn['total_bus'.$i] = "No data in Section ".$i;
