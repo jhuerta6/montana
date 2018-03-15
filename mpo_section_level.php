@@ -168,6 +168,82 @@ function getSectionLevelData(){ //we will send to seven sections
           $toReturn['percent_bus'.$i] = "No data for Section ".$i;
         }
       break;
+      case "a22_new":
+        $query = "select count(section_num) from a22_new where section_num = $i";
+        $with = mysqli_query($conn, $query);
+        $with = fetchAll($with);
+        if($with[0]['count(section_num)']){ //count(section_num)
+          $send_with = $with[0]['count(section_num)'];
+          $toReturn['with'.$i] = number_format($send_with, 0, '.', '');
+        }
+        else{
+          $toReturn['with'.$i] = "No data in Section ".$i;
+        }
+
+        $query = "select count(section_num) from a22_new where section_num = $i";
+        $total_bus = mysqli_query($conn, $query);
+        $total_bus = fetchAll($total_bus);
+        if($total_bus[0]['count(section_num)']){
+          $send_total_bus = $total_bus[0]['count(section_num)'];
+          $toReturn['total_bus'.$i] = number_format($send_total_bus, 0, '.', '');
+        }
+        else{
+          $toReturn['total_bus'.$i] = "No data in Section ".$i;
+        }
+
+        if($with[0]['count(section_num)']){
+          if($total_bus[0]['count(section_num)']){
+            $send_with = $with[0]['count(section_num)'];
+            $send_total_bus = $total_bus[0]['count(section_num)'];
+            $send_with = $send_with * 100;
+            $percent_bus = $send_with / $send_total_bus;
+
+            $toReturn['percent_bus'.$i] = number_format($percent_bus, 2, '.', '');
+          }
+        }
+        else{
+          $toReturn['percent_bus'.$i] = "No data for Section ".$i;
+        }
+      break;
+      case "b_carfrhh":
+        //select count(b_carfrhh) from polygon where sectionnum = 1;
+        //select sum(b_carfrhh) from polygon where sectionnum = 1;
+        $query = "select count(b_carfrhh) from polygon where sectionnum = $i";
+        $total_hh = mysqli_query($conn, $query);
+        $total_hh = fetchAll($total_hh);
+        if($total_hh[0]['count(b_carfrhh)']){ //count(b_carfrhh)
+          $send_total_hh = $total_hh[0]['count(b_carfrhh)'];
+          $toReturn['total_hh'.$i] = number_format($send_total_hh, 0, '.', '');
+        }
+        else{
+          $toReturn['total_hh'.$i] = "No data in Section ".$i;
+        }
+
+        $query = "select sum(b_carfrhh) from polygon where sectionnum = $i";
+        $hh = mysqli_query($conn, $query);
+        $hh = fetchAll($hh);
+        if($hh[0]['sum(b_carfrhh)']){
+          $send_hh = $hh[0]['sum(b_carfrhh)'];
+          $toReturn['hh'.$i] = number_format($send_hh, 2, '.', '');
+        }
+        else{
+          $toReturn['hh'.$i] = "No data in Section ".$i;
+        }
+
+        if($total_hh[0]['count(b_carfrhh)']){
+          if($hh[0]['sum(b_carfrhh)']){
+            $send_hh = $hh[0]['sum(b_carfrhh)'];
+            $send_total_hh = $total_hh[0]['count(b_carfrhh)'];
+            $send_hh = $send_hh * 100;
+            $percent_carfree = $send_hh / $send_total_hh;
+
+            $toReturn['percent_carfree'.$i] = number_format($percent_carfree, 2, '.', '');
+          }
+        }
+        else{
+          $toReturn['percent_carfree'.$i] = "No data for Section ".$i;
+        }
+      break;
       default:
         $toReturn['default'] = "key is ".$key;
     }

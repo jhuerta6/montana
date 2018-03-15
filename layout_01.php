@@ -1713,6 +1713,31 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             ['2014', "No data for year","No data for year","No data for year"],
           ]);
           break;
+          case blocks.a.a22.key:
+          data_table.addColumn('string','Year');
+          data_table.addColumn('string','Bus Stops With Bicicycle Parking');
+          data_table.addColumn('string','Total Bus Stops In Section');
+          data_table.addColumn('string','% Bus Stops With Bicycle Parking');
+          data_table.addRows([
+            ['2018', "No data for year","No data for year","No data for year"],
+            ['2017', data["with"+i],data["total_bus"+i],data["percent_bus"+i]],
+            ['2015', "No data for year","No data for year","No data for year"],
+            ['2014', "No data for year","No data for year","No data for year"],
+          ]);
+          break;
+          case blocks.a.a23.key:
+          data_table.addColumn('string','Years');
+          data_table.addColumn('string','HHs Car-Free');
+          data_table.addColumn('string','Total HHs');
+          data_table.addColumn('string','% Car-Free');
+          data_table.addRows([
+            ['2013-2017', "No data for year","No data for year","No data for year"],
+            ['2012-2016', "No data for year","No data for year","No data for year"],
+            ['2011-2015', data["hh"+i],data["total_hh"+i],data["percent_carfree"+i]],
+            ['2010-2014', "No data for year","No data for year","No data for year"],
+            ['2009-2013', "No data for year","No data for year","No data for year"],
+          ]);
+          break;
           default:
           console.log('Sorry, no chart found for ' + k + ", loop " + i);
         }
