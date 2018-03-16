@@ -206,12 +206,10 @@ function getSectionLevelData(){ //we will send to seven sections
         }
       break;
       case "b_carfrhh":
-        //select count(b_carfrhh) from polygon where sectionnum = 1;
-        //select sum(b_carfrhh) from polygon where sectionnum = 1;
         $query = "select count(b_carfrhh) from polygon where sectionnum = $i";
         $total_hh = mysqli_query($conn, $query);
         $total_hh = fetchAll($total_hh);
-        if($total_hh[0]['count(b_carfrhh)']){ //count(b_carfrhh)
+        if($total_hh[0]['count(b_carfrhh)']){
           $send_total_hh = $total_hh[0]['count(b_carfrhh)'];
           $toReturn['total_hh'.$i] = number_format($send_total_hh, 0, '.', '');
         }
@@ -295,6 +293,76 @@ function getSectionLevelData(){ //we will send to seven sections
         }
         else{
           $toReturn['sum'.$i] = "No data for Section ".$i;
+        }
+      break;
+      case "b_jobphh":
+        $query = "select count(b_carfrhh) from polygon where sectionnum = $i";
+        $total_hh = mysqli_query($conn, $query);
+        $total_hh = fetchAll($total_hh);
+        if($total_hh[0]['count(b_carfrhh)']){
+          $send_total_hh = $total_hh[0]['count(b_carfrhh)'];
+          $toReturn['total_hh'.$i] = number_format($send_total_hh, 0, '.', '');
+        }
+        else{
+          $toReturn['total_hh'.$i] = "No data in Section ".$i;
+        }
+
+        $query = "select sum(b_carfrhh) from polygon where sectionnum = $i";
+        $hh = mysqli_query($conn, $query);
+        $hh = fetchAll($hh);
+        if($hh[0]['sum(b_carfrhh)']){
+          $send_hh = $hh[0]['sum(b_carfrhh)'];
+          $toReturn['hh'.$i] = number_format($send_hh, 2, '.', '');
+        }
+        else{
+          $toReturn['hh'.$i] = "No data in Section ".$i;
+        }
+
+        if($total_hh[0]['count(b_carfrhh)']){
+          if($hh[0]['sum(b_carfrhh)']){
+            $send_hh = $hh[0]['sum(b_carfrhh)'];
+            $send_total_hh = $total_hh[0]['count(b_carfrhh)'];
+            $send_hh = $send_hh * 100;
+            $percent_carfree = $send_hh / $send_total_hh;
+
+            $toReturn['percent_carfree'.$i] = number_format($percent_carfree, 2, '.', '');
+          }
+        }
+        else{
+          $toReturn['percent_carfree'.$i] = "No data for Section ".$i;
+        }
+      break;
+      case "non-moto":
+        for ($j=2012; $j <= 2016; $j++) {
+          $query_peds = "select count(pedestrian) from b22 where year = $j and section_number = $i and pedestrian = 1";
+          $peds = mysqli_query($conn, $query_peds);
+          $peds = fetchAll($peds);
+          $send_peds = $peds[0]['count(pedestrian)'];
+          $toReturn[$j.'_ped'.$i] = number_format($send_peds, 0, '.', '');
+
+          $query_cycs = "select count(pedalcyclist) from b22 where year = $j and section_number = $i and pedalcyclist = 1";
+          $cycs = mysqli_query($conn, $query_cycs);
+          $cycs = fetchAll($cycs);
+          $send_cycs = $cycs[0]['count(pedalcyclist)'];
+          $toReturn[$j.'_cyc'.$i] = number_format($send_cycs, 0, '.', '');
+
+          $query_tot = "select count(id) from b22 where year = $j and (pedestrian = 1 or pedalcyclist = 1)";
+          $tot = mysqli_query($conn, $query_tot);
+          $tot = fetchAll($tot);
+          $send_tot = $tot[0]['count(id)'];
+          $toReturn[$j.'_tot'.$i] = number_format($send_tot, 0, '.', '');
+
+          $query_inj = "select count(id) from b22 where year = $j and section_number = $i and incap = 1";
+          $inj = mysqli_query($conn, $query_inj);
+          $inj = fetchAll($inj);
+          $send_inj = $inj[0]['count(id)'];
+          $toReturn[$j.'_inj'.$i] = number_format($send_inj, 0, '.', '');
+
+          $query_fat = "select count(id) from b22 where year = $j and section_number = $i and fatal = 1";
+          $fat = mysqli_query($conn, $query_fat);
+          $fat = fetchAll($fat);
+          $send_fat = $fat[0]['count(id)'];
+          $toReturn[$j.'_fat'.$i] = number_format($send_fat, 0, '.', '');
         }
       break;
       default:

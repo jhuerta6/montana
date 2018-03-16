@@ -1727,8 +1727,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           break;
           case blocks.a.a23.key:
             data_table.addColumn('string','Years');
-            data_table.addColumn('string','HHs Car-Free');
-            data_table.addColumn('string','Total HHs');
+            data_table.addColumn('string','Households Car-Free');
+            data_table.addColumn('string','Total Households');
             data_table.addColumn('string','% Car-Free');
             data_table.addRows([
               ['2013-2017', "No data for year","No data for year","No data for year"],
@@ -1752,6 +1752,34 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               ['2011-2015', data["old"+i],data["sp"+i],data["lep"+i],data["bpl"+i],data["cf"+i],data["sum"+i]],
               ['2010-2014', "No data for year","No data for year","No data for year","No data for year","No data for year","No data for year"],
               ['2009-2013', "No data for year","No data for year","No data for year","No data for year","No data for year","No data for year"],
+            ]);
+          break;
+          case blocks.b.b14.key:
+            data_table.addColumn('string','Years');
+            data_table.addColumn('string','Total Households');
+            data_table.addColumn('string','Total Jobs');
+            data_table.addColumn('string','Job-Housing Ratio');
+            data_table.addRows([
+              ['2013-2017', "No data for year","No data for year","No data for year"],
+              ['2012-2016', "No data for year","No data for year","No data for year"],
+              ['2011-2015', data["t_hh"+i],data["t_job"+i],data["jh_ratio"+i]],
+              ['2010-2014', "No data for year","No data for year","No data for year"],
+              ['2009-2013', "No data for year","No data for year","No data for year"],
+            ]);
+          break;
+          case blocks.b.b22.key:
+            data_table.addColumn('string','Year');
+            data_table.addColumn('string','Pedestrian Crash');
+            data_table.addColumn('string','Cyclist Crash');
+            data_table.addColumn('string','Total Crashes Throughout Year');
+            data_table.addColumn('string','Serious Injuries');
+            data_table.addColumn('string','Fatalities');
+            data_table.addRows([
+              ['2016', data["2016_ped"+i],data["2016_cyc"+i],data["2016_tot"+i],data["2016_inj"+i],data["2016_fat"+i]],
+              ['2015', "No data for year","No data for year","No data for year","No data for year","No data for year"],
+              ['2014', data["2014_ped"+i],data["2014_cyc"+i],data["2014_tot"+i],data["2014_inj"+i],data["2014_fat"+i]],
+              ['2013', data["2013_ped"+i],data["2013_cyc"+i],data["2013_tot"+i],data["2013_inj"+i],data["2013_fat"+i]],
+              ['2012', data["2012_ped"+i],data["2012_cyc"+i],data["2012_tot"+i],data["2012_inj"+i],data["2012_fat"+i]]
             ]);
           break;
           default:
@@ -3314,35 +3342,6 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
                 newLegend.appendChild(div);
               }
               up_to_one++;
-
-              /*temp = wktFormatter(data["coords"+(z+1)][key]['POLYGON']);
-              for (var i = 0; i < temp.length; i++) {
-                polyCoordis.push(temp[i]);
-              }
-              var polygon = new google.maps.Polygon({
-                description: pm_mpo.name_pm,
-                description_value: data["coords"+(z+1)][key]['value'],
-                paths: polyCoordis,
-                strokeColor: shapeoutline[colorSelector],
-                strokeOpacity: 0.60,
-                strokeWeight: 0.70,
-                fillColor: shapecolor[colorSelector],
-                fillOpacity: 0.60,
-                zIndex: -1
-              });
-              polygon.setOptions({ zIndex: -1 });
-              polygon.addListener('click', polyInfo_tti);
-              if(z == 0){
-                app.polygons.push(polygon);
-              }
-              else if(z == 1){
-                app.polygons2.push(polygon);
-              }
-              else{
-                app.polygons3.push(polygon);
-              }
-              polygon.setMap(app.map);
-              */
             }
             else if (pm_mpo["pm"+(z+1)] =="a11"){
               temp = wktFormatter(data["coords"+(z+1)][key]['POLYGON']);
@@ -3829,7 +3828,8 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
             position: points[key],
             icon: image,
             title: 'Crash to Non-Motorized User',
-            value: data.coords[key]['value']
+            value: data.coords[key]['value'],
+            crash: data.coords[key]['crash']
           });
           point.setOptions({ zIndex: 2 });
           point.addListener('click', pointCrashNonInfo);
@@ -4907,144 +4907,6 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
 
 
   }
-
-        /*function drawChart() {
-          var nulls = nullChecker();
-          if(nulls.length == 4){
-            alert("No property selected to run statistics.");
-            return;
-          }
-          else{
-            $(document.body).css({'cursor': 'wait'});
-            var not_nulls = [];
-            for(var i = 1; i <= 4; i++){
-              if(nulls.includes(i) == false){not_nulls.push(i);}
-            }
-          }
-          var maxaoi, minaoi, medaoi, weightedaoi, previous1, previous2, previous3, previous4;
-          if(rec.type =='rectangle'){
-            pm_mpo.getMode = "AOI";
-            bounds = rec.getBounds();
-          }
-          else{
-            pm_mpo.runAOI = true;
-            pm_mpo.getMode = "line";
-            var bounds = app.map.getBounds();
-          }
-          getparams = app.payload;
-          getparams.NE = bounds.getNorthEast().toJSON();
-          getparams.SW = bounds.getSouthWest().toJSON();
-          pm_mpo.NE = getparams.NE;
-          pm_mpo.SW = getparams.SW;
-          var chart_divs = ['chart_area_1', 'chart_area_2','chart_area_3', 'chart_area_4'];
-          var histogram_divs = ['chart_histogram_1', 'chart_histogram_2', 'chart_histogram_3', 'chart_histogram_4'];
-          var chart_ns = ['chart1n', 'chart2n', 'chart3n', 'chart4n'];
-          var to_draws = ['chart1', 'chart2', 'chart3', 'chart4'];
-          var data_arr = ['maxAOIch','minAOIch','medAOIch','weightedAOIch'];
-          var charts = [chart, chart_2, chart_3, chart_4];
-          var chart_histos = [chart_histo, chart_histo_2, chart_histo_3, chart_histo_4];
-          for (var i = 0; i < nulls.length; i++) {
-            var position = nulls[i];
-            chart_divs.splice(position-1, 1);
-          }
-          previous1 = app.payload.chart1;
-          previous2 = app.payload.chart2;
-          previous3 = app.payload.chart3;
-          previous4 = app.payload.chart4;
-          for (var i = 0; i < not_nulls.length; i++) {
-            (function (i){
-              var name = 'pm_mpo.'+chart_ns[i];
-              name = eval(name);
-              var to_d = 'pm_mpo.'+to_draws[i];
-              to_d = eval(to_d);
-              pm_mpo.to_draw = to_d;
-              var datos_max = 'data.'+data_arr[0]+(i+1);
-              var datos_min = 'data.'+data_arr[1]+(i+1);
-              var datos_med = 'data.'+data_arr[2]+(i+1);
-              var datos_avg = 'data.'+data_arr[3]+(i+1);
-              var elem_chart = chart_divs[i];
-              var elem_histo = histogram_divs[i];
-              var bar_init = charts[i];
-              var histo_init = chart_histos[i];
-              //nullSelector(i);
-              pm_mpo.draw_charts = true;
-              $.get('mpo_handler.php', pm_mpo, function(data){
-                maxaoi = parseFloat(data.max);
-                minaoi = parseFloat(data.min);
-                medaoi = parseFloat(data.med);
-                weightedaoi = parseFloat(data.avg);
-                weightedaoi = parseFloat(weightedaoi).toFixed(2);
-                weightedaoi = parseFloat(weightedaoi);
-                var data = google.visualization.arrayToDataTable([
-                  ['Method', 'Value',],
-                  ['Maximum ', maxaoi],
-                  ['Minimum ', minaoi],
-                  ['Median ', medaoi],
-                  ['Average ', weightedaoi]
-                ]);
-                var options = {
-                  title: name,
-                  legend: { position: 'none'},
-                  animation:{ duration: 1000, easing: 'inAndOut', startup: true },
-                  chartArea: { width: '70%' },
-                  hAxis: { minValue: 0 },
-                  vAxis: {}
-                };
-                bar_init = new google.visualization.BarChart(document.getElementById(elem_chart));
-                bar_init.draw(data, options);
-              }).done(function(data){
-                $(document.body).css({'cursor': 'auto'});
-              });
-              /** This was the histogram **/
-              /*var histo_array;
-              app.payload.getMode = "histogram";
-              $.get('polygonHandler.php', app.payload, function(data){
-              histo_array = data.values;
-              histo_array = histo_array.filter(nums => nums != "");
-              var data = new google.visualization.DataTable();
-              data.addColumn('string', 'Property');
-              data.addColumn('number', 'Value');
-              data.addRows(histo_array.length);
-              var max = Math.max(...histo_array);
-              for (var i = 0; i < histo_array.length; i++) {
-              data.setCell(i, 1, parseFloat(histo_array[i]));
-            }
-            var size;
-            size = Math.sqrt(histo_array.length - 1) - 1;
-            if(size == 0){
-            size = 1;
-            size = max/size;
-          }else{
-          size = max/size;
-        }
-        size = parseFloat(size).toFixed(1);
-        var options = {
-        title: name,
-        legend: { position: 'none' },
-        histogram: { bucketSize: size },
-        hAxis: { type: 'category' }
-      };
-      histo_init = new google.visualization.Histogram(document.getElementById(elem_histo));
-      histo_init.draw(data, options);
-    }).done(function(data){
-    $(document.body).css({'cursor': 'auto'});
-  });****/
-  /*if(rec.type =='rectangle'){
-    app.payload.getMode = "AOI";
-  }
-  else{
-    app.payload.getMode = "line";
-  }
-  app.payload.chart1 = previous1;
-  app.payload.chart2 = previous2;
-  app.payload.chart3 = previous3;
-  app.payload.chart4 = previous4;
-})(i);
-}
-pm_mpo.draw_charts = false;
-pm_mpo.runAOI = false;
-}
-*/
 
   function nullChecker(){
     var nulls = [];

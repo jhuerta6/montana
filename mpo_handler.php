@@ -266,7 +266,7 @@ function getPolygons(){
 			$query = "SELECT lat as lat, `long` as lng, astext(SHAPE) AS POLYGON, fatal as value, incinj FROM c32 AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
 		}
 		elseif($data->pm == "non-moto"){
-			$query = "SELECT lat as lat, lng as lng, fatal, incap, pedestrian as value FROM b22";
+			$query = "SELECT crash, lat as lat, lng as lng, fatal, incap, pedestrian as value FROM b22";
 		}
 		elseif($data->pm == "parkride"){
 			$query = "SELECT lat as lat, lng as lng, fatal, incap, pedestrian as value FROM b22 LIMIT 1";
