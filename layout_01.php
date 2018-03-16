@@ -1663,67 +1663,67 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         var data_table = new google.visualization.DataTable();
         switch (k) {
           case blocks.a.a11.key:
-          data_table.addColumn('string','Year');
-          data_table.addColumn('string','Population Within 1/2 Mile');
-          data_table.addColumn('string','Total Population');
-          data_table.addColumn('string','% Population');
-          data_table.addRows([
-            ["2013-2017", "No data for year", "No data for year", "No data for year"],
-            ["2012-2016", data["half_pop"+i], data["total_pop"+i], data["feedback"+i]],
-            ["2011-2015", "No data for year", "No data for year", "No data for year"],
-            ["2010-2014", "No data for year", "No data for year", "No data for year"]
-          ]);
+            data_table.addColumn('string','Year');
+            data_table.addColumn('string','Population Within 1/2 Mile');
+            data_table.addColumn('string','Total Population');
+            data_table.addColumn('string','% Population');
+            data_table.addRows([
+              ["2013-2017", "No data for year", "No data for year", "No data for year"],
+              ["2012-2016", data["half_pop"+i], data["total_pop"+i], data["feedback"+i]],
+              ["2011-2015", "No data for year", "No data for year", "No data for year"],
+              ["2010-2014", "No data for year", "No data for year", "No data for year"]
+            ]);
           break;
           case blocks.a.a12.key:
-          data_table.addColumn('string','Year');
-          data_table.addColumn('string','Existing (miles)');
-          data_table.addColumn('string','Proposed in Bike Plan (miles)');
-          data_table.addColumn('string','% Build-out');
-          data_table.addRows([
-            ['2018', "No data for year","No data for year","No data for year"],
-            ['2017', "No data for year","No data for year","No data for year"],
-            ['2016', data["existing"+i],data["proposed"+i],data["percent"+i]],
-            ['2015', "No data for year","No data for year","No data for year"],
-            ['2014', "No data for year","No data for year","No data for year"],
-          ]);
+            data_table.addColumn('string','Year');
+            data_table.addColumn('string','Existing (miles)');
+            data_table.addColumn('string','Proposed in Bike Plan (miles)');
+            data_table.addColumn('string','% Build-out');
+            data_table.addRows([
+              ['2018', "No data for year","No data for year","No data for year"],
+              ['2017', "No data for year","No data for year","No data for year"],
+              ['2016', data["existing"+i],data["proposed"+i],data["percent"+i]],
+              ['2015', "No data for year","No data for year","No data for year"],
+              ['2014', "No data for year","No data for year","No data for year"],
+            ]);
           break;
           case blocks.a.a13.key:
-          data_table.addColumn('string','Years');
-          data_table.addColumn('string','Population Within 1/2 mile');
-          data_table.addColumn('string','Total Population');
-          data_table.addColumn('string','% Population');
-          data_table.addRows([
-            ['2013-2017', "No data for year","No data for year","No data for year"],
-            ['2012-2016', "No data for year","No data for year","No data for year"],
-            ['2011-2015', data["existing"+i],data["proposed"+i],data["percent"+i]],
-            ['2010-2014', "No data for year","No data for year","No data for year"],
-            ['2009-2013', "No data for year","No data for year","No data for year"],
-          ]);
+            data_table.addColumn('string','Years');
+            data_table.addColumn('string','Population Within 1/2 mile');
+            data_table.addColumn('string','Total Population');
+            data_table.addColumn('string','% Population');
+            data_table.addRows([
+              ['2013-2017', "No data for year","No data for year","No data for year"],
+              ['2012-2016', "No data for year","No data for year","No data for year"],
+              ['2011-2015', data["existing"+i],data["proposed"+i],data["percent"+i]],
+              ['2010-2014', "No data for year","No data for year","No data for year"],
+              ['2009-2013', "No data for year","No data for year","No data for year"],
+            ]);
           break;
           case blocks.a.a21.key:
-          data_table.addColumn('string','Year');
-          data_table.addColumn('string','Bus Stops Within');
-          data_table.addColumn('string','Total Bus Stops');
-          data_table.addColumn('string','% Bus Stops Within');
-          data_table.addRows([
-            ['2018', "No data for year","No data for year","No data for year"],
-            ['2017', "No data for year","No data for year","No data for year"],
-            ['2016', data["within"+i],data["total_bus"+i],data["percent_bus"+i]],
-            ['2015', "No data for year","No data for year","No data for year"],
-            ['2014', "No data for year","No data for year","No data for year"],
-          ]);
+            data_table.addColumn('string','Year');
+            data_table.addColumn('string','Bus Stops Within');
+            data_table.addColumn('string','Total Bus Stops');
+            data_table.addColumn('string','% Bus Stops Within');
+            data_table.addRows([
+              ['2018', "No data for year","No data for year","No data for year"],
+              ['2017', "No data for year","No data for year","No data for year"],
+              ['2016', data["within"+i],data["total_bus"+i],data["percent_bus"+i]],
+              ['2015', "No data for year","No data for year","No data for year"],
+              ['2014', "No data for year","No data for year","No data for year"],
+            ]);
           break;
           case blocks.a.a22.key:
-          data_table.addColumn('string','Year');
-          data_table.addColumn('string','Bus Stops With Bicicycle Parking');
-          data_table.addColumn('string','Total Bus Stops In Section');
-          data_table.addColumn('string','% Bus Stops With Bicycle Parking');
-          data_table.addRows([
-            ['2018', "No data for year","No data for year","No data for year"],
-            ['2017', data["with"+i],data["total_bus"+i],data["percent_bus"+i]],
-            ['2015', "No data for year","No data for year","No data for year"],
-            ['2014', "No data for year","No data for year","No data for year"],
-          ]);
+            data_table.addColumn('string','Year');
+            data_table.addColumn('string','Bus Stops With Bicicycle Parking');
+            data_table.addColumn('string','Total Bus Stops In Section');
+            data_table.addColumn('string','% Bus Stops With Bicycle Parking');
+            data_table.addRows([
+              ['2018', "No data for year","No data for year","No data for year"],
+              ['2017', data["with"+i],data["total_bus"+i],data["percent_bus"+i]],
+              ['2015', "No data for year","No data for year","No data for year"],
+              ['2014', "No data for year","No data for year","No data for year"],
+            ]);
           break;
           case blocks.a.a23.key:
             data_table.addColumn('string','Years');

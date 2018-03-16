@@ -296,41 +296,16 @@ function getSectionLevelData(){ //we will send to seven sections
         }
       break;
       case "b_jobphh":
-        $query = "select count(b_carfrhh) from polygon where sectionnum = $i";
-        $total_hh = mysqli_query($conn, $query);
-        $total_hh = fetchAll($total_hh);
-        if($total_hh[0]['count(b_carfrhh)']){
-          $send_total_hh = $total_hh[0]['count(b_carfrhh)'];
-          $toReturn['total_hh'.$i] = number_format($send_total_hh, 0, '.', '');
-        }
-        else{
-          $toReturn['total_hh'.$i] = "No data in Section ".$i;
-        }
-
-        $query = "select sum(b_carfrhh) from polygon where sectionnum = $i";
-        $hh = mysqli_query($conn, $query);
-        $hh = fetchAll($hh);
-        if($hh[0]['sum(b_carfrhh)']){
-          $send_hh = $hh[0]['sum(b_carfrhh)'];
-          $toReturn['hh'.$i] = number_format($send_hh, 2, '.', '');
-        }
-        else{
-          $toReturn['hh'.$i] = "No data in Section ".$i;
-        }
-
-        if($total_hh[0]['count(b_carfrhh)']){
-          if($hh[0]['sum(b_carfrhh)']){
-            $send_hh = $hh[0]['sum(b_carfrhh)'];
-            $send_total_hh = $total_hh[0]['count(b_carfrhh)'];
-            $send_hh = $send_hh * 100;
-            $percent_carfree = $send_hh / $send_total_hh;
-
-            $toReturn['percent_carfree'.$i] = number_format($percent_carfree, 2, '.', '');
-          }
-        }
-        else{
-          $toReturn['percent_carfree'.$i] = "No data for Section ".$i;
-        }
+        $query = "select sum(b_employ), sum(allblockhh), sum(coef1mbuff) from polygon where sectionnum = $i";
+        $data = mysqli_query($conn, $query);
+        $data = fetchAll($data);
+        $t_job = $data[0]['sum(b_employ)'];
+        $t_hh = $data[0]['sum(allblockhh)'];
+        $coef = $data[0]['sum(coef1mbuff)'];
+        $v = $t_job / ($t_hh*$coef);
+        $toReturn['t_job'.$i] = (string) floor($t_job);
+        $toReturn['t_hh'.$i] = $t_hh;
+        $toReturn['jh_ratio'.$i] = number_format($v, 2, '.', '');
       break;
       case "non-moto":
         for ($j=2012; $j <= 2016; $j++) {
