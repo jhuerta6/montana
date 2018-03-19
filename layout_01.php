@@ -1782,6 +1782,30 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               ['2012', data["2012_ped"+i],data["2012_cyc"+i],data["2012_tot"+i],data["2012_inj"+i],data["2012_fat"+i]]
             ]);
           break;
+          case blocks.b.b31a.key:
+            data_table.addColumn('string','Year');
+            data_table.addColumn('string','VMT');
+            data_table.addColumn('string','Emissions');
+            data_table.addRows([
+              ['2014', "No data for year", "No data for year"],
+              ['2013', "No data for year", "No data for year"],
+              ['2012', data["vmt"+i],data["emissions"+i]],
+              ['2011', "No data for year", "No data for year"],
+              ['2010', "No data for year", "No data for year"]
+            ]);
+          break;
+          case blocks.b.b31b.key:
+            data_table.addColumn('string','Year');
+            data_table.addColumn('string','VMT');
+            data_table.addColumn('string','Emissions');
+            data_table.addRows([
+              ['2014', "No data for year", "No data for year"],
+              ['2013', "No data for year", "No data for year"],
+              ['2012', data["vmt"+i],data["emissions"+i]],
+              ['2011', "No data for year", "No data for year"],
+              ['2010', "No data for year", "No data for year"]
+            ]);
+          break;
           default:
           console.log('Sorry, no chart found for ' + k + ", loop " + i);
         }

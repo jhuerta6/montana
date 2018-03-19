@@ -340,6 +340,20 @@ function getSectionLevelData(){ //we will send to seven sections
           $toReturn[$j.'_fat'.$i] = number_format($send_fat, 0, '.', '');
         }
       break;
+      case "coemisions":
+        $query_vmt = "select count(pedestrian) from b22 where year = $j and section_number = $i and pedestrian = 1";
+        $vmt = mysqli_query($conn, $query_vmt);
+        $vmt = fetchAll($vmt);
+        $send_vmt = $vmt[0]['count(pedestrian)'];
+        $toReturn[$j.'_vmt'.$i] = number_format($send_vmt, 0, '.', '');
+      break;
+      case "emar":
+        $query_vmt = "select count(pedestrian) from b22 where year = $j and section_number = $i and pedestrian = 1";
+        $vmt = mysqli_query($conn, $query_vmt);
+        $vmt = fetchAll($vmt);
+        $send_vmt = $vmt[0]['count(pedestrian)'];
+        $toReturn[$j.'_vmt'.$i] = number_format($send_vmt, 0, '.', '');
+      break;
       default:
         $toReturn['default'] = "key is ".$key;
     }
