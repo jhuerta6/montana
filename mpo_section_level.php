@@ -366,7 +366,7 @@ function getSectionLevelData(){ //we will send to seven sections
           $toReturn['within'.$i] = "No data in Section ".$i;
         }
 
-        $query = "select count(OGR_FID) from a21 where sect_num = $i";
+        $query = "select count(OGR_FID) from c22_bus_copy";
         $total_bus = mysqli_query($conn, $query);
         $total_bus = fetchAll($total_bus);
         if($total_bus[0]['count(OGR_FID)']){
