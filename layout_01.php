@@ -1475,6 +1475,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         drawChartTTI();
         $("#label_container").show();
         $("#labels").val(7);
+        pm_mpo.pm =  blocks.d.d31.key;
       }
       else if(this.value == blocks.c.c23.short){
         drawChartc23();
@@ -1852,6 +1853,28 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               ['2014',data["2014_tot"+i],data["2014_inj"+i],data["2014_fat"+i]],
               ['2013',data["2013_tot"+i],data["2013_inj"+i],data["2013_fat"+i]],
               ['2012',data["2012_tot"+i],data["2012_inj"+i],data["2012_fat"+i]]
+            ]);
+          break;
+          case blocks.d.d11.key:
+            data_table.addColumn('string','Year');
+            data_table.addColumn('string','Miles in Poor Condition');
+            data_table.addColumn('string','Total Miles');
+            data_table.addColumn('string','% in Poor Condition');
+            data_table.addRows([
+              ['2016', "No data for year","No data for year","No data for year"],
+              ['2015',data["miles_poor"+i],data["miles_total"+i],data["percent"+i]],
+              ['2014', "No data for year","No data for year","No data for year"],
+              ['2013', "No data for year","No data for year","No data for year"],
+              ['2012', "No data for year","No data for year","No data for year"]
+            ]);
+          break;
+          case blocks.d.d31.key:
+            data_table.addColumn('string','Year');
+            data_table.addColumn('string','Truck Travel Time Index');
+            data_table.addRows([
+              ['2018', "No data for year"],
+              ['2017', data["ttti"+i]],
+              ['2016', "No data for year"]
             ]);
           break;
           default:
@@ -3520,14 +3543,6 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
     espacios.push(from);
     var from = mean + 2*(deviation);
     espacios.push(from);
-    /*
-    -2 a -1
-    -1 a 0
-    0 a 1
-    1 a 2
-    >2
-    */
-    //console.log(espacios);
     return espacios;
   }
 
@@ -3555,11 +3570,15 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
       pm_mpo.SW = getparams.SW;
     }
 
+    console.log(pm_mpo);
+
     $.get('mpo_handler.php', pm_mpo, function(data){
       var isMulti = false;
       var loop_num = 0;
       chartMontanaAvg(pm_mpo.pm, isMulti, loop_num);
+      console.log(pm_mpo.pm);
       chartSectionLevel(pm_mpo.pm);
+      console.log(pm_mpo.pm);
       var points = [];
       shapecolor = ["#84857B", "#13FF00", "#FF0000", "#009BFF", "#EBF20D", "#fe9253", "#8C0909", "#0051FF", "#AB77FF", "#EBF20D", "#8C0909", "#07FDCA", "#008C35", "FFDBA5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
       shapeoutline = ["#000000", "#0b9b00", "#c10000", "#007fd1", "#aaaf0a", "#d18f0a", "#8c0909", "#0037ad", "#873dff", "#aaaf0a", "8c0909", "36c9bd", "#008c35", "#ffdba5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];

@@ -441,6 +441,37 @@ function getSectionLevelData(){ //we will send to seven sections
         }
         }
       break;
+      case "iri":
+        $query_miles_total = "select sum(newmleng) from d11 where sectionnum = $i";
+        $miles_total = mysqli_query($conn, $query_miles_total);
+        $miles_total = fetchAll($miles_total);
+        $send_miles_total = $miles_total[0]['sum(newmleng)'];
+        $toReturn["miles_total".$i] = number_format($send_miles_total,2,'.','');
+
+        $query_miles_poor = "select sum(newmleng) from d11 where iri > 170 and sectionnum = $i";
+        $miles_poor = mysqli_query($conn, $query_miles_poor);
+        $miles_poor = fetchAll($miles_poor);
+        $send_miles_poor = $miles_poor[0]['sum(newmleng)'];
+        $toReturn["miles_poor".$i] = number_format($send_miles_poor,2,'.','');
+
+        if($send_miles_total){
+          $toReturn["percent".$i] = "No miles in poor condition";
+          if($send_miles_poor){
+            $percent = $send_miles_poor * 100;
+            $percent = $percent / $send_miles_total;
+            $toReturn["percent".$i] = number_format($send_miles_poor,2,'.','');
+          }
+        }
+      break;
+      case "ttti":
+        $toReturn["ttti"."1"] = "Data not available";
+        $toReturn["ttti"."2"] = "2.3";
+        $toReturn["ttti"."3"] = "1.9";
+        $toReturn["ttti"."4"] = "1.8";
+        $toReturn["ttti"."5"] = "1.8";
+        $toReturn["ttti"."6"] = "1.4";
+        $toReturn["ttti"."7"] = "1.3";
+      break;
       default:
         $toReturn['default'] = "key is ".$key;
     }
