@@ -1785,26 +1785,24 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           break;
           case blocks.b.b31a.key:
             data_table.addColumn('string','Year');
-            data_table.addColumn('string','VMT');
             data_table.addColumn('string','Emissions');
             data_table.addRows([
-              ['2014', "No data for year", "No data for year"],
-              ['2013', "No data for year", "No data for year"],
-              ['2012', data["vmt"+i],data["emissions"+i]],
-              ['2011', "No data for year", "No data for year"],
-              ['2010', "No data for year", "No data for year"]
+              ['2014', "No data for year"],
+              ['2013', "No data for year"],
+              ['2012', data["emissions"+i]],
+              ['2011', "No data for year"],
+              ['2010', "No data for year"]
             ]);
           break;
           case blocks.b.b31b.key:
             data_table.addColumn('string','Year');
-            data_table.addColumn('string','VMT');
             data_table.addColumn('string','Emissions');
             data_table.addRows([
-              ['2014', "No data for year", "No data for year"],
-              ['2013', "No data for year", "No data for year"],
-              ['2012', data["vmt"+i],data["emissions"+i]],
-              ['2011', "No data for year", "No data for year"],
-              ['2010', "No data for year", "No data for year"]
+              ['2014', "No data for year"],
+              ['2013', "No data for year"],
+              ['2012', data["emissions"+i]],
+              ['2011', "No data for year"],
+              ['2010', "No data for year"]
             ]);
           break;
           case blocks.c.c22.key:
@@ -3570,15 +3568,11 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
       pm_mpo.SW = getparams.SW;
     }
 
-    console.log(pm_mpo);
-
     $.get('mpo_handler.php', pm_mpo, function(data){
       var isMulti = false;
       var loop_num = 0;
       chartMontanaAvg(pm_mpo.pm, isMulti, loop_num);
-      console.log(pm_mpo.pm);
       chartSectionLevel(pm_mpo.pm);
-      console.log(pm_mpo.pm);
       var points = [];
       shapecolor = ["#84857B", "#13FF00", "#FF0000", "#009BFF", "#EBF20D", "#fe9253", "#8C0909", "#0051FF", "#AB77FF", "#EBF20D", "#8C0909", "#07FDCA", "#008C35", "FFDBA5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
       shapeoutline = ["#000000", "#0b9b00", "#c10000", "#007fd1", "#aaaf0a", "#d18f0a", "#8c0909", "#0037ad", "#873dff", "#aaaf0a", "8c0909", "36c9bd", "#008c35", "#ffdba5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];

@@ -341,18 +341,18 @@ function getSectionLevelData(){ //we will send to seven sections
         }
       break;
       case "coemisions":
-        $query_vmt = "select count(pedestrian) from b22 where year = $j and section_number = $i and pedestrian = 1";
+        $query_vmt = "select sum(coemisions) from b31 where sectnum = $i";
         $vmt = mysqli_query($conn, $query_vmt);
         $vmt = fetchAll($vmt);
-        $send_vmt = $vmt[0]['count(pedestrian)'];
-        $toReturn[$j.'_vmt'.$i] = number_format($send_vmt, 0, '.', '');
+        $send_vmt = $vmt[0]['sum(coemisions)'];
+        $toReturn['emissions'.$i] = number_format($send_vmt, 2, '.', '');
       break;
       case "emar":
-        $query_vmt = "select count(pedestrian) from b22 where year = $j and section_number = $i and pedestrian = 1";
+        $query_vmt = "select sum(emar) from b31 where sectnum = $i";
         $vmt = mysqli_query($conn, $query_vmt);
         $vmt = fetchAll($vmt);
-        $send_vmt = $vmt[0]['count(pedestrian)'];
-        $toReturn[$j.'_vmt'.$i] = number_format($send_vmt, 0, '.', '');
+        $send_vmt = $vmt[0]['sum(emar)'];
+        $toReturn['emissions'.$i] = number_format($send_vmt, 2, '.', '');
       break;
       case "c22":
         $query = "select count(OGR_FID) from c22_bus_copy where sectionnum = $i";
@@ -366,7 +366,7 @@ function getSectionLevelData(){ //we will send to seven sections
           $toReturn['within'.$i] = "No data in Section ".$i;
         }
 
-        $query = "select count(OGR_FID) from a21 where sect_num = $i";
+        $query = "select count(OGR_FID) from all_bus_stops where sectnum = $i";
         $total_bus = mysqli_query($conn, $query);
         $total_bus = fetchAll($total_bus);
         if($total_bus[0]['count(OGR_FID)']){
