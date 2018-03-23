@@ -463,14 +463,14 @@ function getSectionLevelData(){ //we will send to seven sections
           }
         }
       break;
-      case "ttti":
-        $toReturn["ttti"."1"] = "Data not available";
-        $toReturn["ttti"."2"] = "2.3";
-        $toReturn["ttti"."3"] = "1.9";
-        $toReturn["ttti"."4"] = "1.8";
-        $toReturn["ttti"."5"] = "1.8";
-        $toReturn["ttti"."6"] = "1.4";
-        $toReturn["ttti"."7"] = "1.3";
+      case "tttia":
+        $toReturn["tttia"."1"] = "Data not available";
+        $toReturn["tttia"."2"] = "2.3";
+        $toReturn["tttia"."3"] = "1.9";
+        $toReturn["tttia"."4"] = "1.8";
+        $toReturn["tttia"."5"] = "1.8";
+        $toReturn["tttia"."6"] = "1.4";
+        $toReturn["tttia"."7"] = "1.3";
       break;
       default:
         $toReturn['default'] = "key is ".$key;

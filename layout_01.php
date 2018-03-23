@@ -782,7 +782,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         overall: false,
         name: "D.3.1. Truck Travel Time",
         mode: ["F"],
-        key: "ttti"
+        key: "tttia"
       },
     },
     z:{
@@ -1873,7 +1873,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             data_table.addColumn('string','Truck Travel Time Index');
             data_table.addRows([
               ['2018', "No data for year"],
-              ['2017', data["ttti"+i]],
+              ['2017', data["tttia"+i]],
               ['2016', "No data for year"]
             ]);
           break;

@@ -373,7 +373,7 @@ function getPolygons(){
 		elseif($data->pm == "a11"){
 			$query = "SELECT astext(SHAPE) AS POLYGON FROM polygon_a11 AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 		}
-		elseif($data->pm == "tti"){
+		elseif($data->pm == "tti" || $data->pm == "tttia"){
 			$query = "SELECT astext(SHAPE) AS POLYGON, sectionnum as value FROM polygon AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 		}
 		elseif($data->pm == "sections"){
