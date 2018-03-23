@@ -366,7 +366,7 @@ function getSectionLevelData(){ //we will send to seven sections
           $toReturn['within'.$i] = "No data in Section ".$i;
         }
 
-        $query = "select count(OGR_FID) from c22_bus_copy";
+        $query = "select count(OGR_FID) from a21 where sect_num = $i";
         $total_bus = mysqli_query($conn, $query);
         $total_bus = fetchAll($total_bus);
         if($total_bus[0]['count(OGR_FID)']){
@@ -389,6 +389,56 @@ function getSectionLevelData(){ //we will send to seven sections
         }
         else{
           $toReturn['percent_bus'.$i] = "No data for Section ".$i;
+        }
+      break;
+      case "parkride":
+        for ($i=1; $i < 8 ; $i++) {
+          $toReturn["total_locations".$i] = "0";
+          $toReturn["total_spaces".$i] = "0";
+        }
+        $toReturn["total_locations2"] = "1";
+        $toReturn["total_locations5"] = "1";
+        $toReturn["total_spaces2"] = "103";
+        $toReturn["total_spaces5"] = "50";
+      break;
+      case "2016_daily":
+        $i;
+      break;
+      case "tti":
+        $toReturn["tti"."1"] = "Data not available";
+        $toReturn["tti"."2"] = "1.9";
+        $toReturn["tti"."3"] = "1.7";
+        $toReturn["tti"."4"] = "1.6";
+        $toReturn["tti"."5"] = "1.6";
+        $toReturn["tti"."6"] = "1.4";
+        $toReturn["tti"."7"] = "1.3";
+      break;
+      case "crashes":
+        for ($j=2012; $j <= 2016; $j++) {
+          if($i == 1){
+            $toReturn[$j.'_tot'.$i] = "Data missing for Section 1";
+            $toReturn[$j.'_inj'.$i] = "Data missing for Section 1";
+            $toReturn[$j.'_fat'.$i] = "Data missing for Section 1";
+          }
+          else{
+          $query_tot = "select count(crashid) from crashes where date = $j and section_num = $i";
+          $tot = mysqli_query($conn, $query_tot);
+          $tot = fetchAll($tot);
+          $send_tot = $tot[0]['count(crashid)'];
+          $toReturn[$j.'_tot'.$i] = number_format($send_tot, 0, '.', '');
+
+          $query_inj = "select count(crashid) from crashes where date = $j and section_num = $i and incap = 1";
+          $inj = mysqli_query($conn, $query_inj);
+          $inj = fetchAll($inj);
+          $send_inj = $inj[0]['count(crashid)'];
+          $toReturn[$j.'_inj'.$i] = number_format($send_inj, 0, '.', '');
+
+          $query_fat = "select count(crashid) from crashes where date = $j and section_num = $i and fatal = 1";
+          $fat = mysqli_query($conn, $query_fat);
+          $fat = fetchAll($fat);
+          $send_fat = $fat[0]['count(crashid)'];
+          $toReturn[$j.'_fat'.$i] = number_format($send_fat, 0, '.', '');
+        }
         }
       break;
       default:

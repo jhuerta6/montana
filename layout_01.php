@@ -1816,7 +1816,42 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               ['2017', "No data for year","No data for year","No data for year"],
               ['2016', data["within"+i],data["total_bus"+i],data["percent_bus"+i]],
               ['2015', "No data for year","No data for year","No data for year"],
-              ['2014', "No data for year","No data for year","No data for year"],
+              ['2014', "No data for year","No data for year","No data for year"]
+            ]);
+          break;
+          case blocks.c.c23.key:
+            data_table.addColumn('string','Year');
+            data_table.addColumn('string','Total of Park and Ride Spaces');
+            data_table.addColumn('string','Total of Park and Ride Locations');
+            data_table.addRows([
+              ['2018', "No data for year","No data for year"],
+              ['2017', data["total_spaces"+i],data["total_locations"+i]],
+              ['2016', "No data for year","No data for year"]
+            ]);
+          break;
+          case blocks.c.c24.key:
+            var i;
+          break;
+          case blocks.c.c31.key:
+            data_table.addColumn('string','Year');
+            data_table.addColumn('string','Travel Time Index');
+            data_table.addRows([
+              ['2018', "No data for year"],
+              ['2017', data["tti"+i]],
+              ['2016', "No data for year"]
+            ]);
+          break;
+          case blocks.c.c32.key:
+            data_table.addColumn('string','Year');
+            data_table.addColumn('string','Total Crashes Throughout Year');
+            data_table.addColumn('string','Serious Injuries');
+            data_table.addColumn('string','Fatalities');
+            data_table.addRows([
+              ['2016',data["2016_tot"+i],data["2016_inj"+i],data["2016_fat"+i]],
+              ['2015',data["2015_tot"+i],data["2015_inj"+i],data["2015_fat"+i]],
+              ['2014',data["2014_tot"+i],data["2014_inj"+i],data["2014_fat"+i]],
+              ['2013',data["2013_tot"+i],data["2013_inj"+i],data["2013_fat"+i]],
+              ['2012',data["2012_tot"+i],data["2012_inj"+i],data["2012_fat"+i]]
             ]);
           break;
           default:
@@ -1856,7 +1891,7 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
       "c22": {s1:0,s2:17,s3:54,s4:70,s5:52,s6:0,s7:0,avg:23},
       "parkride": {s1:0,s2:103,s3:0,s4:0,s5:50,s6:0,s7:0,avg:153},
       "2016_daily": {s1:null,s2:null,s3:null,s4:null,s5:null,s6:null,s7:null,avg:20928},
-      //"tti": {s1:null,s2:1.9,s3:1.7,s4:1.6,s5:1.6,s6:1.4,s7:1.3,avg:1.6},
+      "tti": {s1:null,s2:1.9,s3:1.7,s4:1.6,s5:1.6,s6:1.4,s7:1.3,avg:1.6},
       "crashes": {s1:null,s2:17,s3:14,s4:14,s5:7,s6:9,s7:3,avg:64},
       "iri": {s1:19,s2:9,s3:6,s4:1,s5:2,s6:1,s7:0,avg:38},
       "ttti": {s1:null,s2:null,s3:null,s4:null,s5:null,s6:null,s7:null,avg:null},
