@@ -127,13 +127,19 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         </div>
       </div>
       </div>
+      <div id="intro" class="panel">
+        <div class="panel-body text-center" >
+          <h1> Welcome to the PMMC Web Application<br><br><h2>To start, please <span class="element">select a singular Planning Block from its dropdown list, or choose "Multiple"</span> to display various performances measures at a time.</h2><br><br><br><br></h1>
+        </div>
+      </div>
       <div class="col-sm-3"><br>
         <div class="row">
           <div class="card">
             <div id="modes"></div>
           </div>
           <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#default,#defaultbtn" data-target="#default, #defaultbtn">Tools</a></li>
+            <!-- tabs for main functions -->
+            <li class="active"><a data-toggle="tab" href="#default,#defaultbtn" data-target="#default, #defaultbtn">Display</a></li>
             <li><a data-toggle="tab" href="#filters,#filtersbtn" data-target="#filters, #filtersbtn">Filter</a></li>
             <li data-toggle="tooltip" data-placement="top" title="Click your drawn Area Of Interest to display statistics">
               <a data-toggle="tab" href="#statistics,#statisticsbtn" data-target="#statistics, #statisticsbtn">Statistics</a>
@@ -143,11 +149,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           <div class="col-sm-12">
             <div class="tab-content"><br>
               <div id="default" class="tab-pane fade in active">
-                <div id="intro" class="panel">
-                  <div class="panel-body text-center" >
-                    <h1> Welcome to the PMMC Web Application<br><br><h2>To start, please <span class="element">select a singular Planning Block from its dropdown list, or choose "Multiple"</span> to display various performances measures at a time.</h2><br><br><br><br></h1>
-                  </div>
-                </div>
+
                 <div id="main_default">
                 <div class="input-group" id="muni_dropbox">
                   <span class="input-group-addon" id="add_on">Municipalities</span>
@@ -364,17 +366,17 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           </div>
           <div class="col-md-12"><br>
             <div class="tab-content">
+              <!-- tab for the buttons -->
               <div id="defaultbtn" class="tab-pane fade in active">
-                <button type="button" class="btn btn-success form-control" id="mpo_draw" onclick="runMPO();">Display</button><br><br>
+                <button type="button" class="btn btn-success form-control" id="mpo_draw" onclick="runMPO();">Display Performance Measure</button><br><br>
                 <button type="button" class="btn btn-success form-control" id="mpo_draw_multiple" onclick="runMPOMulti();">Display Multiple</button><br><br>
-                <button data-toggle="tooltip" data-placement="top" title="Only bring up the data touched by the Area Of Interest" class="btn btn-primary form-control" type="button" id="runAOI" onClick="runAOI()">Display w/ AOI</button> <br><br>
-                <button class="btn btn-warning form-control" type="button" id="clear" onClick="removePolygons()">Clear</button><br><br>
               </div>
               <div id="filtersbtn" class="tab-pane fade">
-                <button class="btn btn-success form-control" type="button" id="runFilters" onClick="runFilters()">Run Filter</button>
+                <button class="btn btn-success form-control" type="button" id="runFilters" onClick="runFilters()">Display W/ Filters</button>
               </div>
               <br>
               <div id="statisticsbtn" class="tab-pane fade">
+                <button data-toggle="tooltip" data-placement="top" title="Only bring up the data touched by the Area Of Interest" class="btn btn-primary form-control" type="button" id="runAOI" onClick="runAOI()">Display w/ AOI</button> <br><br>
                 <button type="button" class="btn btn-default form-control" id="draw" onclick="drawAnotherRectangle();">Clear AOI</button><br><br>
                 <button type="button" class="btn btn-default form-control" id="clearCharts" onclick="clearCharts();">Clear Charts</button><br><br>
               </div>
@@ -388,6 +390,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             </div>
           </div>
           <div class="row">
+            <!-- testing button for universal clear -->
+            <button class="btn btn-warning form-control" type="button" id="clear" onClick="removePolygons()">Clear</button><br><br>
             <div class="col-sm-12">
 
               <div id="legend_panel" class="panel panel-default" style='visibility: visible;'> <!-- TESTING -->
@@ -506,17 +510,16 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   var pm_mpo = {pm1:null, pm2:null, pm3:null,name_pm:null, pm:null, NE:null, SW:null, label:"no filter", getMode:"polygons", to_draw:null, draw_charts: false, runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0};
   var multi = {pm1:null, pm2:null, pm3:null};
   var hecho = false;
-  var modes = {"D":"<div class=\"bg-primary text-white\">Driving</div>", "T":"<div class=\"bg-warning text-white\">Transit</div>", "W":"<div class=\"bg-danger text-white\">Walking</div>", "B":"<div class=\"bg-success text-white\">Biking</div>", "F":"<div class=\"bg-orange text-white\">Freight</div>",}
+  var modes = {"D":"<div class=\"bg-primary text-white\">Driving</div>", "T":"<div class=\"bg-warning text-white\">Transit</div>", "W":"<div class=\"bg-danger text-white\">Walking</div>", "B":"<div class=\"bg-success text-white\">Biking</div>", "F":"<div class=\"bg-orange text-white\">Freight</div>"}
   var blocks = {
-    //elements:["a", "d"],
     elements:["a", "b","c", "d", "z"],
     a:{
       id: "a",
       name: "A. Within Community",
-      //pms:["a11", "a12", "a13", "a21", "a23", "a24"],
       pms: ["a11","a12","a13","a21","a22","a23","a24"],
       a11:{
         name: "A.1.1. Population Within 1/2 Mile of Frequent Transit Service",
+        chart_name: "A.1.1. Percent of Population Within 1/2 Mile of Frequent Transit Service",
         short: "A.1.1. Population nearby transit",
         mode: ["T"],
         description: "",
@@ -532,6 +535,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       a12:{
         short: "A.1.2. Bikeways build-out",
         name: "A.1.2. Percentage of bikeways build-out",
+        chart_name: "A.1.2. Percentage of bikeways build-out",
         mode: ["B"],
         description: "",
         content: "This performance measure compares the mileage of existing bikeways with the mileage suggested in the 2016 COEP Bike Plan. \n"+
@@ -546,6 +550,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       a13:{
         short: "A.1.3. Population nearby bikeways",
         name: "A.1.3. Percentage of population within 1/2 Mile of Existing Bikeways",
+        chart_name: "A.1.3. Percentage of population within 1/2 Mile of Existing Bikeways",
         mode: ["B"],
         description: "",
         content: "More than 60% of population has access to bikeways in Sections 2, 3, 4. \n" +
@@ -560,6 +565,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       a21:{
         short: "A.2.1. Bus stops with crosswalks",
         name: "A.2.1. Bus Stops Along Busy Roadways With No Marked Crosswalk Within 150 ft.",
+        chart_name: "A.2.1. Number of Bus Stops Along Busy Roadways With No Marked Crosswalk Within 150 ft.",
         mode: ["T", "W"],
         description: "",
         content: "Majority of Sunmetro bus stops on highly trafficked roadways are not located in proximity of crosswalks, therefore safe access to transit may be compromised. \n" +
@@ -573,6 +579,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       a22:{
         short: "A.2.2. Bus stops with bicycle parking",
         name: "A.2.2. Bus Stops with Bicycle Parking",
+        chart_name: "A.2.2. Number of Bus Stops with Bicycle Parking",
         mode: ["T", "B"],
         description: "",
         content: "Currently only the Five Points Transfer Center and Eastside Transfer Center offer bicycle parking. \n" +
@@ -586,6 +593,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       a23:{
         short: "A.2.3. Car-free households",
         name: "A.2.3. Car-Free Households",
+        chart_name: "A.2.3. Percentage of Car-Free Households",
         mode: ["D","T","W","B"],
         description: "",
         content: "12% of households within the Montana Corridor do not own a car. \n" +
@@ -600,6 +608,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       a24:{
         short: "A.2.4. Transportation disadvantaged households",
         name: "A.2.4. Transportation Disadvantaged Households",
+        chart_name: "A.2.4. Percentage of Transportation Disadvantaged Households",
         mode: ["D","T","W","B"],
         description: "",
         content: "In the map, a block group is considered disadvantaged when more than 1/3 of population is disadvantaged. \n" +
@@ -626,6 +635,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         overall: false,
         periods: "5-year average 2011-2015",
         name: "B.1.4. Jobs-Housing Ratio",
+        chart_name: "B.1.4. Jobs-Housing Ratio",
         mode: ["D","T","W","B"],
         key: "b_jobphh"
       },
@@ -639,6 +649,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         overall: false,
         periods: "2012-2016",
         name: "B.2.2. Crashes Involving Non-Motorized Users",
+        chart_name: "B.2.2. Number of Crashes Involving Non-Motorized Users",
         mode: ["W","B"],
         key: "non-moto"
       },
@@ -650,6 +661,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         sources: "EPMPO Travel Demand Model (TDM), Air Quality Sketch Planning Tool",
         overall: false,
         name: "B.3.1.A. Estimated Emissions CO",
+        chart_name: "B.3.1.A. Estimated Emissions CO",
         periods: "Network year 2012",
         mode: ["D"],
         key: "coemisions"
@@ -662,6 +674,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         sources: "EPMPO Travel Demand Model (TDM), Air Quality Sketch Planning Tool",
         overall: false,
         name: "B.3.1.B. Estimated Emissions PM",
+        chart_name: "B.3.1.B. Estimated Emissions PM",
         periods: "Network year 2012",
         mode: ["D"],
         key: "emar"
@@ -681,6 +694,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         overall: false,
         periods: null,
         name: "C.2.2. Bus Stops Within 600ft. of Bikeways",
+        chart_name: "C.2.2. Number of Bus Stops Within 600ft. of Bikeways",
         mode: ["T","B"],
         key: "c22"
       },
@@ -695,6 +709,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         overall: false,
         periods: "As of August 2017",
         name: "C.2.3. Number of Park and Ride parking spaces",
+        chart_name: "C.2.3. Number of Park and Ride parking spaces",
         mode: ["D","T"],
         key: "parkride"
       },
@@ -711,6 +726,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         overall: false,
         periods: "2016",
         name: "C.2.4. Transit Daily Ridership",
+        chart_name: "C.2.4. Transit Daily Ridership",
         mode: ["T"],
         key: "2016_daily"
       },
@@ -724,6 +740,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         overall: false,
         periods: "February 2017 - July 2017",
         name: "C.3.1. Travel Time Index",
+        chart_name: "C.3.1. Travel Time Index",
         mode: ["D",],
         key: "tti"
       },
@@ -738,6 +755,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         overall: false,
         periods: "2012-2016",
         name: "C.3.2. Crashes",
+        chart_name: "C.3.2. Number of Crashes",
         mode: ["D", "F"],
         key: "crashes"
       },
@@ -757,6 +775,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         description: null,
         overall: false,
         name: "D.1.1. Pavements in Poor Condition",
+        chart_name: "D.1.1. Percentage of Pavements in Poor Condition",
         mode: ["D"],
         key: "iri"
       },
@@ -768,6 +787,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         description: null,
         overall: false,
         name: "D.2.1. Vehicle Miles Travelled",
+        chart_name: "D.2.1. Vehicle Miles Travelled",
         mode: ["D","T","B","F"],
         key: "x"
       },
@@ -781,6 +801,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         description: null,
         overall: false,
         name: "D.3.1. Truck Travel Time",
+        chart_name: "D.3.1. Truck Travel Time Index",
         mode: ["F"],
         key: "tttia"
       },
@@ -893,13 +914,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       }
     });
     $("#slide_depth").on("slide", function(e) {
-      //console.log("sliding");
-      //console.log(e.value[1]);
-      //console.log(e.value[0]);
       from_year_slide = e.value[0];
-      //console.log("from "+from_year_slide);
       to_year_slide = e.value[1];
-      //console.log("to "+to_year_slide);
     });
     $("#slide_depth").on("change", function(e) {
       to_year_slide = e.value.newValue[1];
@@ -1880,7 +1896,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         }
 
         var table = new google.visualization.Table(document.getElementById('table_selected'+'_'+i));
-        table.draw(data_table, {showRowNumber: true, width: '100%', height: '100%'});
+        table.draw(data_table, {showRowNumber: false, width: '100%', height: '100%'});
       }
     });
   }
@@ -1915,7 +1931,7 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
       "tti": {s1:null,s2:1.9,s3:1.7,s4:1.6,s5:1.6,s6:1.4,s7:1.3,avg:1.6},
       "crashes": {s1:null,s2:17,s3:14,s4:14,s5:7,s6:9,s7:3,avg:64},
       "iri": {s1:19,s2:9,s3:6,s4:1,s5:2,s6:1,s7:0,avg:38},
-      "ttti": {s1:null,s2:null,s3:null,s4:null,s5:null,s6:null,s7:null,avg:null},
+      "tttia": {s1:0,s2:2.3,s3:1.9,s4:1.8,s5:1.8,s6:1.4,s7:1.3,avg:1.8},
       "b12": {s1:null,s2:null,s3:null,s4:null,s5:null,s6:null,s7:null,avg:null},
       "c26": {s1:10,s2:9,s3:1,s4:3,s5:0,s6:1,s7:3,avg:9}
     }
@@ -1927,7 +1943,7 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
         for (var j = 0; j < blocks[level].pms.length; j++) {
           var pm = blocks[level].pms[j];
           if(blocks[level][pm].key == key){
-            name = blocks[level][pm].name;
+            name = blocks[level][pm].chart_name;
           }
         }
       }
