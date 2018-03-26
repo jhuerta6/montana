@@ -519,7 +519,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       pms: ["a11","a12","a13","a21","a22","a23","a24"],
       a11:{
         name: "A.1.1. Population Within 1/2 Mile of Frequent Transit Service",
-        chart_name: "A.1.1. Percent of Population Within 1/2 Mile of Frequent Transit Service",
+        chart_name: "Percent of Population Within 1/2 Mile of Frequent Transit Service",
         short: "A.1.1. Population nearby transit",
         mode: ["T"],
         description: "",
@@ -535,7 +535,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       a12:{
         short: "A.1.2. Bikeways build-out",
         name: "A.1.2. Percentage of bikeways build-out",
-        chart_name: "A.1.2. Percentage of bikeways build-out",
+        chart_name: "Percentage of bikeways build-out",
         mode: ["B"],
         description: "",
         content: "This performance measure compares the mileage of existing bikeways with the mileage suggested in the 2016 COEP Bike Plan. \n"+
@@ -550,7 +550,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       a13:{
         short: "A.1.3. Population nearby bikeways",
         name: "A.1.3. Percentage of population within 1/2 Mile of Existing Bikeways",
-        chart_name: "A.1.3. Percentage of population within 1/2 Mile of Existing Bikeways",
+        chart_name: "Percentage of population within 1/2 Mile of Existing Bikeways",
         mode: ["B"],
         description: "",
         content: "More than 60% of population has access to bikeways in Sections 2, 3, 4. \n" +
@@ -565,7 +565,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       a21:{
         short: "A.2.1. Bus stops with crosswalks",
         name: "A.2.1. Bus Stops Along Busy Roadways With No Marked Crosswalk Within 150 ft.",
-        chart_name: "A.2.1. Number of Bus Stops Along Busy Roadways With No Marked Crosswalk Within 150 ft.",
+        chart_name: "Number of Bus Stops Along Busy Roadways With No Marked Crosswalk Within 150 ft.",
         mode: ["T", "W"],
         description: "",
         content: "Majority of Sunmetro bus stops on highly trafficked roadways are not located in proximity of crosswalks, therefore safe access to transit may be compromised. \n" +
@@ -579,7 +579,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       a22:{
         short: "A.2.2. Bus stops with bicycle parking",
         name: "A.2.2. Bus Stops with Bicycle Parking",
-        chart_name: "A.2.2. Number of Bus Stops with Bicycle Parking",
+        chart_name: "Number of Bus Stops with Bicycle Parking",
         mode: ["T", "B"],
         description: "",
         content: "Currently only the Five Points Transfer Center and Eastside Transfer Center offer bicycle parking. \n" +
@@ -593,7 +593,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       a23:{
         short: "A.2.3. Car-free households",
         name: "A.2.3. Car-Free Households",
-        chart_name: "A.2.3. Percentage of Car-Free Households",
+        chart_name: "Percentage of Car-Free Households",
         mode: ["D","T","W","B"],
         description: "",
         content: "12% of households within the Montana Corridor do not own a car. \n" +
@@ -608,7 +608,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       a24:{
         short: "A.2.4. Transportation disadvantaged households",
         name: "A.2.4. Transportation Disadvantaged Households",
-        chart_name: "A.2.4. Percentage of Transportation Disadvantaged Households",
+        chart_name: "Percentage of Transportation Disadvantaged Households",
         mode: ["D","T","W","B"],
         description: "",
         content: "In the map, a block group is considered disadvantaged when more than 1/3 of population is disadvantaged. \n" +
@@ -635,7 +635,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         overall: false,
         periods: "5-year average 2011-2015",
         name: "B.1.4. Jobs-Housing Ratio",
-        chart_name: "B.1.4. Jobs-Housing Ratio",
+        chart_name: "Jobs-Housing Ratio",
         mode: ["D","T","W","B"],
         key: "b_jobphh"
       },
@@ -649,7 +649,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         overall: false,
         periods: "2012-2016",
         name: "B.2.2. Crashes Involving Non-Motorized Users",
-        chart_name: "B.2.2. Number of Crashes Involving Non-Motorized Users",
+        chart_name: "Number of Crashes Involving Non-Motorized Users",
         mode: ["W","B"],
         key: "non-moto"
       },
@@ -661,7 +661,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         sources: "EPMPO Travel Demand Model (TDM), Air Quality Sketch Planning Tool",
         overall: false,
         name: "B.3.1.A. Estimated Emissions CO",
-        chart_name: "B.3.1.A. Estimated Emissions CO",
+        chart_name: "Estimated Emissions CO",
         periods: "Network year 2012",
         mode: ["D"],
         key: "coemisions"
@@ -674,7 +674,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         sources: "EPMPO Travel Demand Model (TDM), Air Quality Sketch Planning Tool",
         overall: false,
         name: "B.3.1.B. Estimated Emissions PM",
-        chart_name: "B.3.1.B. Estimated Emissions PM",
+        chart_name: "Estimated Emissions PM",
         periods: "Network year 2012",
         mode: ["D"],
         key: "emar"
@@ -694,7 +694,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         overall: false,
         periods: null,
         name: "C.2.2. Bus Stops Within 600ft. of Bikeways",
-        chart_name: "C.2.2. Number of Bus Stops Within 600ft. of Bikeways",
+        chart_name: "Number of Bus Stops Within 600ft. of Bikeways",
         mode: ["T","B"],
         key: "c22"
       },
@@ -709,7 +709,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         overall: false,
         periods: "As of August 2017",
         name: "C.2.3. Number of Park and Ride parking spaces",
-        chart_name: "C.2.3. Number of Park and Ride parking spaces",
+        chart_name: "Number of Park and Ride parking spaces",
         mode: ["D","T"],
         key: "parkride"
       },
@@ -726,7 +726,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         overall: false,
         periods: "2016",
         name: "C.2.4. Transit Daily Ridership",
-        chart_name: "C.2.4. Transit Daily Ridership",
+        chart_name: "Transit Daily Ridership",
         mode: ["T"],
         key: "2016_daily"
       },
@@ -740,7 +740,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         overall: false,
         periods: "February 2017 - July 2017",
         name: "C.3.1. Travel Time Index",
-        chart_name: "C.3.1. Travel Time Index",
+        chart_name: "Travel Time Index",
         mode: ["D",],
         key: "tti"
       },
@@ -755,7 +755,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         overall: false,
         periods: "2012-2016",
         name: "C.3.2. Crashes",
-        chart_name: "C.3.2. Number of Crashes",
+        chart_name: "Number of Crashes",
         mode: ["D", "F"],
         key: "crashes"
       },
@@ -775,7 +775,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         description: null,
         overall: false,
         name: "D.1.1. Pavements in Poor Condition",
-        chart_name: "D.1.1. Percentage of Pavements in Poor Condition",
+        chart_name: "Percentage of Pavements in Poor Condition",
         mode: ["D"],
         key: "iri"
       },
@@ -787,7 +787,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         description: null,
         overall: false,
         name: "D.2.1. Vehicle Miles Travelled",
-        chart_name: "D.2.1. Vehicle Miles Travelled",
+        chart_name: "Vehicle Miles Travelled",
         mode: ["D","T","B","F"],
         key: "x"
       },
@@ -801,7 +801,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         description: null,
         overall: false,
         name: "D.3.1. Truck Travel Time",
-        chart_name: "D.3.1. Truck Travel Time Index",
+        chart_name: "Truck Travel Time Index",
         mode: ["F"],
         key: "tttia"
       },
@@ -826,6 +826,20 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     $("#intro").show('slow');
     //$("#intro").show();
     /** End -  As the user enters, dissappear the tools **/
+
+    /** Dropdown for sections **/
+
+
+
+    /** END - dropdown for sections **/
+
+    /** Dropdown for EL PASO MPO BOUNDARY **/
+
+
+
+    /** END - dropdown for EL PASO MPO BOUNDARY **/
+
+
     $.get('getMunicipality.php', function(data){
       var blck = "NONE";
       var elem_blck = document.createElement("option");
