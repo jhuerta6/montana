@@ -1443,6 +1443,9 @@ a.text-danger:hover {
 .bg-orange {
   background-color: #ffdbb5;
 }
+.bg-mute {
+  background-color: #ebebeb;
+}
 a.bg-primary:hover {
   background-color: #286090;
 }

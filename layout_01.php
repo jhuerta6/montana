@@ -132,11 +132,17 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           <h1> Welcome to the PMMC Web Application<br><br><h2>To start, please <span class="element">select a singular Planning Block from its dropdown list, or choose "Multiple"</span> to display various performances measures at a time.</h2><br><br><br><br></h1>
         </div>
       </div>
+      <div id="intro_2" class="panel">
+        <div class="panel-body text-center" >
+          <h1> <br><br><h2>Now, please select a Performance Measure</h2><br><br><br><br></h1>
+        </div>
+      </div>
       <div class="col-sm-3"><br>
         <div class="row">
           <div class="card">
             <div id="modes"></div>
           </div>
+          <div id="individual_tabs">
           <ul class="nav nav-tabs">
             <!-- tabs for main functions -->
             <li class="active"><a data-toggle="tab" href="#default,#defaultbtn" data-target="#default, #defaultbtn">Display</a></li>
@@ -146,6 +152,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             </li>
             <li><a data-toggle="tab" href="#timeline,#timelinebtn" data-target="#timeline, #timelinebtn">Timeline</a></li>
           </ul>
+        </div>
           <div class="col-sm-12">
             <div class="tab-content"><br>
               <div id="default" class="tab-pane fade in active">
@@ -365,6 +372,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             </div>
           </div>
           <div class="col-md-12"><br>
+            <div id="individual_buttons">
             <div class="tab-content">
               <!-- tab for the buttons -->
               <div id="defaultbtn" class="tab-pane fade in active">
@@ -388,6 +396,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 <br><br>
               </div>
             </div>
+          </div>
           </div>
           <div class="row">
             <!-- testing button for universal clear -->
@@ -510,7 +519,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   var pm_mpo = {pm1:null, pm2:null, pm3:null,name_pm:null, pm:null, NE:null, SW:null, label:"no filter", getMode:"polygons", to_draw:null, draw_charts: false, runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0};
   var multi = {pm1:null, pm2:null, pm3:null};
   var hecho = false;
-  var modes = {"D":"<div class=\"bg-primary text-white\">Driving</div>", "T":"<div class=\"bg-warning text-white\">Transit</div>", "W":"<div class=\"bg-danger text-white\">Walking</div>", "B":"<div class=\"bg-success text-white\">Biking</div>", "F":"<div class=\"bg-orange text-white\">Freight</div>"}
+  var modes_full = {"D":"<div class=\"bg-primary text-white\">Driving</div>", "T":"<div class=\"bg-warning text-white\">Transit</div>", "W":"<div class=\"bg-danger text-white\">Walking</div>", "B":"<div class=\"bg-success text-white\">Biking</div>", "F":"<div class=\"bg-orange text-white\">Freight</div>"};
+  var modes = {"D":"<div class=\"bg-mute text-white\">Driving</div>", "T":"<div class=\"bg-mute text-white\">Transit</div>", "W":"<div class=\"bg-mute text-white\">Walking</div>", "B":"<div class=\"bg-mute text-white\">Biking</div>", "F":"<div class=\"bg-mute text-white\">Freight</div>"};
   var blocks = {
     elements:["a", "b","c", "d", "z"],
     a:{
@@ -824,6 +834,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     //$("#statistics, #statisticsbtn").hide();
     //$("#timeline, #timelinebtn").hide();
     $("#intro").show('slow');
+    $("#intro_2").hide();
+    $("#corridor_individual_panel").hide();
+    $("#section_individual_panel").hide();
+    $("#main_default").hide();
+    $("#individual_tabs").hide();
+    $("#individual_buttons").hide();
+    $("#clear").hide();
     //$("#intro").show();
     /** End -  As the user enters, dissappear the tools **/
 
@@ -1308,6 +1325,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
     $("#select_blocks").change(function(){
       $("#intro").remove();
+
       //$("#main_default, #defaultbtn").show();
       $("#add_on").removeClass('element');
       //$("#main_default, #defaultbtn").show();
@@ -1324,8 +1342,15 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       if(this.value == "z"){ //aqui vamos colorear uno por uno, uno sobre otro, quitar modes y quitar legend en un nuevo mpo_multiple();
         if(pm_mpo.pm1 != null || pm_mpo.pm2 != null || pm_mpo.pm3 != null ){
           $("#data-holder-multiple").show();
+
         }
 
+        $("#corridor_individual_panel").hide();
+        $("#section_individual_panel").hide();
+        $("#main_default").show();
+        $("#individual_tabs").show();
+        $("#individual_buttons").show();
+        $("#clear").show();
         onMultiple =  true;
         $("#mpo_draw").hide();
         $("#legend_panel").hide();
@@ -1356,6 +1381,16 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
       }
       else{
+        $("#intro_2").show();
+        if(onMultiple = true){
+          //$("#individual_buttons").hide();
+          $("#corridor_individual_panel").hide();
+          $("#section_individual_panel").hide();
+          $("#main_default").hide();
+          $("#individual_tabs").hide();
+          $("#individual_buttons").hide();
+          $("#clear").hide();
+        }
         onMultiple = false;
         $("#mpo_draw").show();
         $("#legend").text("Select a PM");
@@ -1490,6 +1525,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     $("#select_pm").change(function(){
       $("#modes").empty();
       $("#data-holder").hide();
+      $("#corridor_individual_panel").show();
+      $("#intro_2").remove();
+      //$("#section_individual_panel").show();
+      $("#main_default").show();
+      $("#individual_tabs").show();
+      $("#individual_buttons").show();
+      $("#clear").show();
       if(onMultiple == false){
         clearCharts();
         removePolygons();
@@ -1534,6 +1576,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       panel_body.appendChild(p_mode);
       pm_mpo.name_pm = this.value;
       var block = $(this).children(":selected").attr("id");
+      var inmode = [];
+
       for(var i = 0; i < blocks[block].pms.length; i++){
         var block_pm = blocks[block].pms[i];
         if(blocks[block][block_pm].short == this.value){
@@ -1544,9 +1588,19 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           for(var j = 0; j < blocks[block][block_pm].mode.length; j++){
             var p_mode = document.createElement("span");
             var mode = blocks[block][block_pm].mode[j];
-            p_mode.innerHTML = modes[mode] + " ";
+            p_mode.innerHTML = modes_full[mode] + " ";
+            inmode.push(mode);
             panel_body.appendChild(p_mode);
           }
+        }
+      }
+
+      var mode_arr = ["D","T","W","B","F"];
+      for(var i = 0; i < mode_arr.length; i++){
+        if(!inmode.includes(mode_arr[i])){
+          var p_mode = document.createElement("span");
+          p_mode.innerHTML = modes[mode_arr[i]] + " ";
+          panel_body.appendChild(p_mode);
         }
       }
 
@@ -2019,6 +2073,7 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
   }
 
   function runMPO(){
+    $("#section_individual_panel").show();
     pm_mpo.runFilters = false;
     pm_mpo.runAOI = false;
     mpo();
