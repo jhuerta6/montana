@@ -161,21 +161,23 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 <div class="input-group" id="muni_dropbox">
                   <span class="input-group-addon" id="add_on">Municipalities</span>
                   <select type="text" class="form-control" placeholder="Municipality" aria-describedby="add_on" id="select_muni">
-                    <option value="" disabled selected>Select a municipality</option>
+                    <option value="" disabled selected>Select a Municipality</option>
                   </select>
                 </div>
                 <br>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                  <label class="form-check-label" for="defaultCheck1">
-                    Display Sections
-                  </label>
-                </div><br>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="boundary">
-                  <label class="form-check-label" for="boundary">
-                    Display El Paso MPO Boundary
-                  </label>
+                <div class="input-group" id="section_dropbox">
+                  <span class="input-group-addon" id="add_on">Sections</span>
+                  <select type="text" class="form-control" placeholder="Section" aria-describedby="add_on" id="select_section">
+                    <option value="" disabled selected>Select a Section</option>
+                  </select>
+                </div>
+                <br>
+
+                <div class="input-group" id="boundary_dropbox">
+                  <span class="input-group-addon" id="add_on">Boundary</span>
+                  <select type="text" class="form-control" placeholder="Boundary" aria-describedby="add_on" id="select_bound">
+                    <option value="" disabled selected>Select a Boundary</option>
+                  </select>
                 </div>
               <br>
                 <div id="default_multiple">
@@ -376,7 +378,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             <div class="tab-content">
               <!-- tab for the buttons -->
               <div id="defaultbtn" class="tab-pane fade in active">
-                <button type="button" class="btn btn-success form-control" id="mpo_draw" onclick="runMPO();">Display Performance Measure</button><br><br>
+                <!-- <button type="button" class="btn btn-success form-control" id="mpo_draw" onclick="runMPO();">Display Performance Measure</button><br><br> -->
                 <button type="button" class="btn btn-success form-control" id="mpo_draw_multiple" onclick="runMPOMulti();">Display Multiple</button><br><br>
               </div>
               <div id="filtersbtn" class="tab-pane fade">
@@ -846,16 +848,216 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
     /** Dropdown for sections **/
 
+    var blck = "NONE";
+    var elem_blck = document.createElement("option");
+    elem_blck.innerHTML = blck;
+    elem_blck.id = blck;
+    elem_blck.value = blck;
+    var select_blocks = document.getElementById("select_section");
+    select_blocks.appendChild(elem_blck);
+    var blck = "ALL";
+    var elem_blck = document.createElement("option");
+    elem_blck.innerHTML = blck;
+    elem_blck.id = blck;
+    elem_blck.value = blck;
+    var select_blocks = document.getElementById("select_section");
+    select_blocks.appendChild(elem_blck);
+    var blck = "THIS CORRIDOR";
+    var elem_blck = document.createElement("option");
+    elem_blck.innerHTML = blck;
+    elem_blck.id = blck;
+    elem_blck.value = blck;
+    var select_blocks = document.getElementById("select_section");
+    select_blocks.appendChild(elem_blck);
 
+    $("#select_section").change(function(){
+       var sec_name = $(this).children(":selected").attr("id");
+       if(sec_name == "ALL" || sec_name == "THIS CORRIDOR"){
+         var checked = true;
+       }
+       else{
+         var checked = false;
+       }
+
+       $('#legend_section').find('*').not('h3').remove();
+       $('#legend_section_multi').find('*').not('h3').remove();
+
+       if(checked == true && onMultiple == false){
+         $('#legend_panel').show();
+       }
+       else if(checked == true && onMultiple == true){
+         $("#legend_multi_panel").show();
+       }
+       $("#legend_section").text("");
+       $("#legend_section_multi").text("");
+
+       var squareboxes = ["<img src='img/section1.png' height='10px'/>",
+       "<img src='img/section2.png' height='10px'/>",
+       "<img src='img/section3.png' height='10px'/>",
+       "<img src='img/section4.png' height='10px'/>",
+       "<img src='img/section5.png' height='10px'/>",
+       "<img src='img/section6.png' height='10px'/>",
+       "<img src='img/section7.png' height='10px'/>"];
+
+       for(var i = 0; i < squareboxes.length; i++){
+         var div = document.createElement('div');
+         div.innerHTML = squareboxes[i] +" Section " + (i+1);
+         var nl = document.createElement('div');
+         nl = document.getElementById('legend_section');
+         nl.appendChild(div);
+         var div = document.createElement('div');
+         div.innerHTML = squareboxes[i] +" Section " + (i+1);
+         var newLegend_multi = document.createElement('div');
+         newLegend_multi = document.getElementById('legend_section_multi');
+         newLegend_multi.appendChild(div);
+       }
+
+       if(checked == true){ //sections
+         if(pm_mpo.pm != null){
+           var previous = pm_mpo.pm;
+         }
+         pm_mpo.pm = "sections";
+         pm_mpo.getMode = "polygons";
+
+           var getparams = app.payload;
+           var bounds = app.map.getBounds();
+           getparams.NE = bounds.getNorthEast().toJSON(); //north east corner
+           getparams.SW = bounds.getSouthWest().toJSON(); //south-west corner
+           pm_mpo.NE = getparams.NE;
+           pm_mpo.SW = getparams.SW;
+
+         $.get('mpo_handler.php', pm_mpo, function(data){
+           var colorArr = ['#bebebe','#959595','#6b6b6b','#555555','#303030','#131313','#000000'];
+           for(key in data.coords){
+             var polyCoordis = [];
+             temp = wktFormatter(data.coords[key]['POLYGON']);
+             for (var i = 0; i < temp.length; i++) {
+               polyCoordis.push(temp[i]);
+             }
+             var color;
+             var polygon = new google.maps.Polygon({
+               description: pm_mpo.name_pm,
+               description_value: data.coords[key]['value'],
+               paths: polyCoordis,
+               strokeColor: "black",
+               strokeOpacity: 0.60,
+               strokeWeight: 0.70,
+               fillColor: colorArr[data.coords[key]['value']-1],
+               fillOpacity: 0.80, //0.60
+               zIndex: -97
+             });
+             polygon.setOptions({ zIndex: -97 });
+             polygon.addListener('click', polyInfo_tti);
+             app.sections.push(polygon);
+             polygon.setMap(app.map);
+           }
+         });
+         if(pm_mpo.pm != null){
+           pm_mpo.pm = previous;
+         }
+       }else{ //no section
+         removeSections();
+       }
+    });
 
     /** END - dropdown for sections **/
 
     /** Dropdown for EL PASO MPO BOUNDARY **/
 
+    var blck = "NONE";
+    var elem_blck = document.createElement("option");
+    elem_blck.innerHTML = blck;
+    elem_blck.id = blck;
+    elem_blck.value = blck;
+    var select_blocks = document.getElementById("select_bound");
+    select_blocks.appendChild(elem_blck);
+    var blck = "ALL";
+    var elem_blck = document.createElement("option");
+    elem_blck.innerHTML = blck;
+    elem_blck.id = blck;
+    elem_blck.value = blck;
+    var select_blocks = document.getElementById("select_bound");
+    select_blocks.appendChild(elem_blck);
+    var blck = "THIS CORRIDOR";
+    var elem_blck = document.createElement("option");
+    elem_blck.innerHTML = blck;
+    elem_blck.id = blck;
+    elem_blck.value = blck;
+    var select_blocks = document.getElementById("select_bound");
+    select_blocks.appendChild(elem_blck);
 
+    $("#select_bound").change(function(){
+       var sec_name = $(this).children(":selected").attr("id");
+       if(sec_name == "ALL" || sec_name == "THIS CORRIDOR"){
+         var checked = true;
+       }
+       else{
+         var checked = false;
+       }
+
+       $('#legend_section').find('*').not('h3').remove();
+       $('#legend_section_multi').find('*').not('h3').remove();
+
+       if(checked == true && onMultiple == false){
+         $('#legend_panel').show();
+       }
+       else if(checked == true && onMultiple == true){
+         $("#legend_multi_panel").show();
+       }
+       $("#legend_section").text("");
+       $("#legend_section_multi").text("");
+
+       if(checked == true){ //sections
+         if(pm_mpo.pm != null){
+           var previous = pm_mpo.pm;
+         }
+         pm_mpo.pm = "boundary";
+         pm_mpo.getMode = "polygons";
+
+           var getparams = app.payload;
+           var bounds = app.map.getBounds();
+           getparams.NE = bounds.getNorthEast().toJSON(); //north east corner
+           getparams.SW = bounds.getSouthWest().toJSON(); //south-west corner
+           pm_mpo.NE = getparams.NE;
+           pm_mpo.SW = getparams.SW;
+
+           $.get('mpo_handler.php', pm_mpo, function(data){
+             //var colorArr = ['#bebebe','#959595','#6b6b6b','#555555','#303030','#131313','#000000'];
+             for(key in data.coords){
+               var polyCoordis = [];
+               temp = wktFormatter(data.coords[key]['POLYGON']);
+               for (var i = 0; i < temp.length; i++) {
+                 polyCoordis.push(temp[i]);
+               }
+               var color;
+               var polygon = new google.maps.Polygon({
+                 description: "Boundary",
+                 description_value: data.coords[key]['value'],
+                 paths: polyCoordis,
+                 strokeColor: "black",
+                 strokeOpacity: 1,
+                 strokeWeight: 3,
+                 fillColor: 'white',
+                 fillOpacity: 0.05, //0.60
+                 zIndex: -99
+               });
+               polygon.setOptions({ zIndex: -99 });
+               polygon.addListener('mouseover', bound);
+               app.boundary.push(polygon);
+               polygon.setMap(app.map);
+             }
+           });
+           if(pm_mpo.pm != null){
+             pm_mpo.pm = previous;
+           }
+         }else{ //no section
+           removeBoundary();
+         }
+
+
+     });
 
     /** END - dropdown for EL PASO MPO BOUNDARY **/
-
 
     $.get('getMunicipality.php', function(data){
       var blck = "NONE";
@@ -1086,241 +1288,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         removeMunicipality();
       }
 
-    });
-
-    $("#boundary").change(function(){
-      $('#legend_section').find('*').not('h3').remove();
-      $('#legend_section_multi').find('*').not('h3').remove();
-
-      if(this.checked == true && onMultiple == false){
-        $('#legend_panel').show();
-      }
-      else if(this.checked == true && onMultiple == true){
-        $("#legend_multi_panel").show();
-      }
-      $("#legend_section").text("");
-      $("#legend_section_multi").text("");
-
-      if(this.checked == true){ //sections
-        if(pm_mpo.pm != null){
-          var previous = pm_mpo.pm;
-        }
-        pm_mpo.pm = "boundary";
-        pm_mpo.getMode = "polygons";
-
-          var getparams = app.payload;
-          var bounds = app.map.getBounds();
-          getparams.NE = bounds.getNorthEast().toJSON(); //north east corner
-          getparams.SW = bounds.getSouthWest().toJSON(); //south-west corner
-          pm_mpo.NE = getparams.NE;
-          pm_mpo.SW = getparams.SW;
-
-          $.get('mpo_handler.php', pm_mpo, function(data){
-            //var colorArr = ['#bebebe','#959595','#6b6b6b','#555555','#303030','#131313','#000000'];
-            for(key in data.coords){
-              var polyCoordis = [];
-              temp = wktFormatter(data.coords[key]['POLYGON']);
-              for (var i = 0; i < temp.length; i++) {
-                polyCoordis.push(temp[i]);
-              }
-              var color;
-              var polygon = new google.maps.Polygon({
-                description: "Boundary",
-                description_value: data.coords[key]['value'],
-                paths: polyCoordis,
-                strokeColor: "black",
-                strokeOpacity: 1,
-                strokeWeight: 3,
-                fillColor: 'white',
-                fillOpacity: 0.05, //0.60
-                zIndex: -99
-              });
-              polygon.setOptions({ zIndex: -99 });
-              polygon.addListener('mouseover', bound);
-              app.boundary.push(polygon);
-              polygon.setMap(app.map);
-            }
-          });
-          if(pm_mpo.pm != null){
-            pm_mpo.pm = previous;
-          }
-        }else{ //no section
-          removeBoundary();
-        }
-
-    });
-
-    $("#defaultCheck1").change(function(){ //sections checkbox
-      $('#legend_section').find('*').not('h3').remove();
-      $('#legend_section_multi').find('*').not('h3').remove();
-
-      if(this.checked == true && onMultiple == false){
-        $('#legend_panel').show();
-      }
-      else if(this.checked == true && onMultiple == true){
-        $("#legend_multi_panel").show();
-      }
-      $("#legend_section").text("");
-      $("#legend_section_multi").text("");
-
-      var squareboxes = ["<img src='img/section1.png' height='10px'/>",
-      "<img src='img/section2.png' height='10px'/>",
-      "<img src='img/section3.png' height='10px'/>",
-      "<img src='img/section4.png' height='10px'/>",
-      "<img src='img/section5.png' height='10px'/>",
-      "<img src='img/section6.png' height='10px'/>",
-      "<img src='img/section7.png' height='10px'/>"];
-
-      for(var i = 0; i < squareboxes.length; i++){
-        var div = document.createElement('div');
-        div.innerHTML = squareboxes[i] +" Section " + (i+1);
-        var nl = document.createElement('div');
-        nl = document.getElementById('legend_section');
-        nl.appendChild(div);
-        var div = document.createElement('div');
-        div.innerHTML = squareboxes[i] +" Section " + (i+1);
-        var newLegend_multi = document.createElement('div');
-        newLegend_multi = document.getElementById('legend_section_multi');
-        newLegend_multi.appendChild(div);
-      }
-
-      if(this.checked == true){ //sections
-        if(pm_mpo.pm != null){
-          var previous = pm_mpo.pm;
-        }
-        pm_mpo.pm = "sections";
-        pm_mpo.getMode = "polygons";
-
-          var getparams = app.payload;
-          var bounds = app.map.getBounds();
-          getparams.NE = bounds.getNorthEast().toJSON(); //north east corner
-          getparams.SW = bounds.getSouthWest().toJSON(); //south-west corner
-          pm_mpo.NE = getparams.NE;
-          pm_mpo.SW = getparams.SW;
-
-        $.get('mpo_handler.php', pm_mpo, function(data){
-          var colorArr = ['#bebebe','#959595','#6b6b6b','#555555','#303030','#131313','#000000'];
-          for(key in data.coords){
-            var polyCoordis = [];
-            temp = wktFormatter(data.coords[key]['POLYGON']);
-            for (var i = 0; i < temp.length; i++) {
-              polyCoordis.push(temp[i]);
-            }
-            var color;
-            var polygon = new google.maps.Polygon({
-              description: pm_mpo.name_pm,
-              description_value: data.coords[key]['value'],
-              paths: polyCoordis,
-              strokeColor: "black",
-              strokeOpacity: 0.60,
-              strokeWeight: 0.70,
-              fillColor: colorArr[data.coords[key]['value']-1],
-              fillOpacity: 0.80, //0.60
-              zIndex: -97
-            });
-            polygon.setOptions({ zIndex: -97 });
-            polygon.addListener('click', polyInfo_tti);
-            app.sections.push(polygon);
-            polygon.setMap(app.map);
-          }
-        });
-        if(pm_mpo.pm != null){
-          pm_mpo.pm = previous;
-        }
-      }else{ //no section
-        removeSections();
-      }
-
-    });
-
-    $("#sections").change(function(){
-      $('#legend_section').find('*').not('h3').remove();
-      $('#legend_section_multi').find('*').not('h3').remove();
-      if(this.value == "on" && onMultiple == false){
-        $('#legend_panel').show();
-      }
-      else if(this.value == "on" && onMultiple == true){
-        //console.log("multi paneal appears");
-        $("#legend_multi_panel").show();
-      }
-      $("#legend_section").text("");
-      $("#legend_section_multi").text("");
-
-      var squareboxes = ["<img src='img/section1.png' height='10px'/>",
-      "<img src='img/section2.png' height='10px'/>",
-      "<img src='img/section3.png' height='10px'/>",
-      "<img src='img/section4.png' height='10px'/>",
-      "<img src='img/section5.png' height='10px'/>",
-      "<img src='img/section6.png' height='10px'/>",
-      "<img src='img/section7.png' height='10px'/>"];
-
-      for(var i = 0; i < squareboxes.length; i++){
-        var div = document.createElement('div');
-        div.innerHTML = squareboxes[i] +" Section " + (i+1);
-        var nl = document.createElement('div');
-        nl = document.getElementById('legend_section');
-        nl.appendChild(div);
-        var div = document.createElement('div');
-        div.innerHTML = squareboxes[i] +" Section " + (i+1);
-        var newLegend_multi = document.createElement('div');
-        newLegend_multi = document.getElementById('legend_section_multi');
-        newLegend_multi.appendChild(div);
-      }
-
-      if(this.value == "on"){ //sections
-        if(pm_mpo.pm != null){
-          var previous = pm_mpo.pm;
-        }
-        pm_mpo.pm = "sections";
-        pm_mpo.getMode = "polygons";
-        if(pm_mpo.runAOI == true && typeof rec != 'undefined' && rec.type == 'rectangle'){
-          var getparams = app.payload;
-          var bounds = rec.getBounds();
-          getparams.NE = bounds.getNorthEast().toJSON();
-          getparams.SW = bounds.getSouthWest().toJSON();
-          pm_mpo.NE = getparams.NE;
-          pm_mpo.SW = getparams.SW;
-        }
-        else{
-          var getparams = app.payload;
-          var bounds = app.map.getBounds();
-          getparams.NE = bounds.getNorthEast().toJSON(); //north east corner
-          getparams.SW = bounds.getSouthWest().toJSON(); //south-west corner
-          pm_mpo.NE = getparams.NE;
-          pm_mpo.SW = getparams.SW;
-        }
-        $.get('mpo_handler.php', pm_mpo, function(data){
-          var colorArr = ['#bebebe','#959595','#6b6b6b','#555555','#303030','#131313','#000000'];
-          for(key in data.coords){
-            var polyCoordis = [];
-            temp = wktFormatter(data.coords[key]['POLYGON']);
-            for (var i = 0; i < temp.length; i++) {
-              polyCoordis.push(temp[i]);
-            }
-            var color;
-            var polygon = new google.maps.Polygon({
-              description: pm_mpo.name_pm,
-              description_value: data.coords[key]['value'],
-              paths: polyCoordis,
-              strokeColor: "black",
-              strokeOpacity: 0.60,
-              strokeWeight: 0.70,
-              fillColor: colorArr[data.coords[key]['value']-1],
-              fillOpacity: 0.80, //0.60
-              zIndex: 9
-            });
-            polygon.setOptions({ zIndex: -1 });
-            polygon.addListener('click', polyInfo_tti);
-            app.sections.push(polygon);
-            polygon.setMap(app.map);
-          }
-        });
-        if(pm_mpo.pm != null){
-          pm_mpo.pm = previous;
-        }
-      }else{ //no section
-        removeSections();
-      }
     });
 
     $("#select_blocks").change(function(){
@@ -1641,7 +1608,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         }
       }
       /** Fin - Reportes individuales **/
-
+      runMPO();
     });
 
     $('[data-toggle="tooltip"]').tooltip();
@@ -4718,7 +4685,8 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
         s1 = s2 = s3 = s4 = s5 = s6 = s7 = 0;
         s1_fatal = s2_fatal = s3_fatal = s4_fatal = s5_fatal = s6_fatal = s7_fatal = 0;
         if(i <= delta){
-          removePolygons();
+          //removePolygons();
+          //re-color polygons
         }
         for (var j = 0; j < d.notcoords.length; j++) {
           if(i<=delta){
