@@ -1720,10 +1720,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             data_table.addColumn('string','Total Population');
             data_table.addColumn('string','% Population');
             data_table.addRows([
-              ["2013-2017", "No data for year", "No data for year", "No data for year"],
-              ["2012-2016", data["half_pop"+i], data["total_pop"+i], data["feedback"+i]],
-              ["2011-2015", "No data for year", "No data for year", "No data for year"],
-              ["2010-2014", "No data for year", "No data for year", "No data for year"]
+              ["2016-2020", "No data for year", "No data for year", "No data for year"],
+              ["2011-2015", data["half_pop"+i], data["total_pop"+i], data["feedback"+i]],
+              ["2006-2010", "No data for year", "No data for year", "No data for year"]
             ]);
           break;
           case blocks.a.a12.key:
@@ -1959,7 +1958,7 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
       "b_jobphh": {s1:1.76,s2:3.48,s3:0.19,s4:0.28,s5:0.25,s6:0.14,s7:0.01,avg:1.28},
       "non-moto": {s1:null,s2:1,s3:3,s4:1,s5:1,s6:1,s7:0,avg:7},
       "coemisions": {s1:7118,s2:7012,s3:946,s4:917,s5:377,s6:73,s7:3,avg:16447},
-      "emar": {s1:7118,s2:7012,s3:946,s4:917,s5:377,s6:73,s7:3,avg:16447},
+      "emar": {s1:7118,s2:7012,s3:946,s4:917,s5:377,s6:73,s7:3,avg:16447}, //not the same
       "c22": {s1:0,s2:17,s3:54,s4:70,s5:52,s6:0,s7:0,avg:23},
       "parkride": {s1:0,s2:103,s3:0,s4:0,s5:50,s6:0,s7:0,avg:153},
       "2016_daily": {s1:null,s2:null,s3:null,s4:null,s5:null,s6:null,s7:null,avg:20928},
