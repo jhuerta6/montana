@@ -402,7 +402,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           </div>
           <div class="row">
             <!-- testing button for universal clear -->
-            <button class="btn btn-warning form-control" type="button" id="clear" onClick="removePolygons()">Clear</button><br><br>
+            <button class="btn btn-warning form-control" type="button" id="clear" onClick="removePolygons()">Clear</button><br><br><br>
             <div class="col-sm-12">
 
               <div id="legend_panel" class="panel panel-default" style='visibility: visible;'> <!-- TESTING -->

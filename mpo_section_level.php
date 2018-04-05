@@ -459,7 +459,7 @@ function getSectionLevelData(){ //we will send to seven sections
           if($send_miles_poor){
             $percent = $send_miles_poor * 100;
             $percent = $percent / $send_miles_total;
-            $toReturn["percent".$i] = number_format($send_miles_poor,2,'.','');
+            $toReturn["percent".$i] = number_format($percent,2,'.','');
           }
         }
       break;
