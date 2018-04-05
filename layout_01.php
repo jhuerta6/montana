@@ -531,7 +531,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       pms: ["a11","a12","a13","a21","a22","a23","a24"],
       a11:{
         name: "A.1.1. Population Within 1/2 Mile of Frequent Transit Service",
-        chart_name: "Percent of Population Within 1/2 Mile of Frequent Transit Service",
+        chart_name: "Percentage of Population Within 1/2 Mile of Frequent Transit Service",
         short: "A.1.1. Population nearby transit",
         mode: ["T"],
         description: "",
