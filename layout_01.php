@@ -684,30 +684,30 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         key: "non-moto"
       },
       b31a:{
-        short: "B.3.1.A. Estimated emissions: carbon monoxide",
+        short: "B.3.1.A. Estimated emissions: carbon monoxide (CO)",
         description: null,
-        content: "Congestion in Section 1 and 2 produces 86% of all PM emissions in the Montana Ave. corridor.",
+        content: "Congestion in Section 1 and 2 produces 86% of all PM<sub>CO</sub> emissions in the Montana Ave. corridor.",
         note: null,
         sources: "EPMPO Travel Demand Model (TDM), Air Quality Sketch Planning Tool",
         overall: false,
         name: "B.3.1.A. Estimated Emissions CO",
-        chart_name: "Estimated Emissions CO",
-        chart_format: "percent",
+        chart_name: "Estimated Emissions CO (lbs)",
+        chart_format: "lbs",
         chart_display: true,
         periods: "Network year 2012",
         mode: ["D"],
         key: "coemisions"
       },
       b31b:{
-        short: "B.3.1.B. Estimated emissions: particle matter",
-        content: "Congestion in Section 1 and 2 produces 86% of all PM emissions in the Montana Ave. corridor.",
+        short: "B.3.1.B. Estimated emissions: particulate matter (PM10)",
+        content: "Congestion in Section 1 and 2 produces 86% of all PM<sub>10</sub> emissions in the Montana Ave. corridor.",
         description: null,
         note: null,
         sources: "EPMPO Travel Demand Model (TDM), Air Quality Sketch Planning Tool",
         overall: false,
-        name: "B.3.1.B. Estimated Emissions PM",
-        chart_name: "Estimated Emissions PM",
-        chart_format: "percent",
+        name: "B.3.1.B. Estimated Emissions PM10",
+        chart_name: "Estimated Emissions PM10 (lbs)",
+        chart_format: "lbs",
         chart_display: true,
         periods: "Network year 2012",
         mode: ["D"],
@@ -1865,7 +1865,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           break;
           case blocks.b.b31a.key:
             data_table.addColumn('string','Year');
-            data_table.addColumn('string','Emissions');
+            data_table.addColumn('string','CO Emissions (lbs)');
             data_table.addRows([
               ['2014', "No data for year"],
               ['2013', "No data for year"],
@@ -1876,7 +1876,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           break;
           case blocks.b.b31b.key:
             data_table.addColumn('string','Year');
-            data_table.addColumn('string','Emissions');
+            data_table.addColumn('string','PM10 Emissions (lbs)');
             data_table.addRows([
               ['2014', "No data for year"],
               ['2013', "No data for year"],
@@ -2030,7 +2030,9 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
         var inData = "Avg Montana Corridor";
         var max = 0;
       }else{
+        var max = 0;
         var in_hAxis = 'decimal'; //lbs
+        var inData = "Total Montana Corridor";
       }
 
       var data = new google.visualization.DataTable(

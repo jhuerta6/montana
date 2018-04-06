@@ -341,14 +341,14 @@ function getSectionLevelData(){ //we will send to seven sections
         $vmt = mysqli_query($conn, $query_vmt);
         $vmt = fetchAll($vmt);
         $send_vmt = $vmt[0]['sum(coemisions)'];
-        $toReturn['emissions'.$i] = number_format($send_vmt, 2, '.', '');
+        $toReturn['emissions'.$i] = number_format($send_vmt, 0, ',', ',');
       break;
       case "emar":
         $query_vmt = "select sum(emar) from b31 where sectnum = $i";
         $vmt = mysqli_query($conn, $query_vmt);
         $vmt = fetchAll($vmt);
         $send_vmt = $vmt[0]['sum(emar)'];
-        $toReturn['emissions'.$i] = number_format($send_vmt, 2, '.', '');
+        $toReturn['emissions'.$i] = number_format($send_vmt, 0, ',', ',');
       break;
       case "c22":
         $query = "select count(OGR_FID) from c22_bus_copy where sectionnum = $i";
