@@ -721,8 +721,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       c22:{
         short: "C.2.2. Bus stops nearby bikeways",
         description: null,
-        content: "Overall 23% of transit stops are located within 1 block of existing bikeways. \n" +
-        "Sections 3, 4, and 5 have more than 50% of bus stops located within 1 block of existing bikeways.",
+        content: "Overall 23% of transit stops are located within 600 ft. of existing bikeways. \n" +
+        "Sections 3, 4, and 5 have more than 50% of bus stops located within 600 ft. of existing bikeways.",
         note: null,
         sources: "Sunmetro, City of El Paso",
         overall: false,
@@ -746,7 +746,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         periods: "As of August 2017",
         name: "C.2.3. Number of Park and Ride parking spaces",
         chart_name: "Number of Park and Ride parking spaces",
-        chart_format: "percent",
+        chart_format: "total",
         chart_display: true,
         mode: ["D","T"],
         key: "parkride"
@@ -766,7 +766,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         name: "C.2.4. Transit Daily Ridership",
         chart_name: "Transit Daily Ridership",
         chart_format: "percent",
-        chart_display: true,
+        chart_display: false,
         mode: ["T"],
         key: "2016_daily"
       },
@@ -781,7 +781,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         periods: "February 2017 - July 2017",
         name: "C.3.1. Travel Time Index",
         chart_name: "Travel Time Index",
-        chart_format: "percent",
+        chart_format: "tti",
         chart_display: true,
         mode: ["D",],
         key: "tti"
@@ -798,7 +798,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         periods: "2012-2016",
         name: "C.3.2. Crashes",
         chart_name: "Number of Crashes",
-        chart_format: "percent",
+        chart_format: "total",
         chart_display: true,
         mode: ["D", "F"],
         key: "crashes"
@@ -850,7 +850,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         overall: false,
         name: "D.3.1. Truck Travel Time",
         chart_name: "Truck Travel Time Index",
-        chart_format: "percent",
+        chart_format: "tti",
         chart_display: true,
         mode: ["F"],
         key: "tttia"
@@ -1900,38 +1900,40 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           break;
           case blocks.c.c23.key:
             data_table.addColumn('string','Year');
-            data_table.addColumn('string','Total of Park and Ride Spaces');
-            data_table.addColumn('string','Total of Park and Ride Locations');
+            data_table.addColumn('string','Park and Ride Spaces');
+            data_table.addColumn('string','Park and Ride Locations');
             data_table.addRows([
-              ['2018', "No data for year","No data for year"],
+              ['2022', "No data for year","No data for year"],
               ['2017', data["total_spaces"+i],data["total_locations"+i]],
-              ['2016', "No data for year","No data for year"]
+              ['2012', "No data for year","No data for year"]
             ]);
           break;
           case blocks.c.c24.key:
-            var i;
+            $("#section_individual_panel").hide();
+            $("#corridor_individual_panel").hide();
           break;
           case blocks.c.c31.key:
             data_table.addColumn('string','Year');
             data_table.addColumn('string','Travel Time Index');
             data_table.addRows([
-              ['2018', "No data for year"],
+              ['2022', "No data for year"],
               ['2017', data["tti"+i]],
-              ['2016', "No data for year"]
+              ['2012', "No data for year"]
             ]);
           break;
           case blocks.c.c32.key:
             data_table.addColumn('string','Year');
-            data_table.addColumn('string','Total Crashes Throughout Year');
+            //data_table.addColumn('string','Total Crashes Throughout Year');
             data_table.addColumn('string','Serious Injuries');
             data_table.addColumn('string','Fatalities');
             data_table.addRows([
-              ['2016',data["2016_tot"+i],data["2016_inj"+i],data["2016_fat"+i]],
-              ['2015',data["2015_tot"+i],data["2015_inj"+i],data["2015_fat"+i]],
-              ['2014',data["2014_tot"+i],data["2014_inj"+i],data["2014_fat"+i]],
-              ['2013',data["2013_tot"+i],data["2013_inj"+i],data["2013_fat"+i]],
-              ['2012',data["2012_tot"+i],data["2012_inj"+i],data["2012_fat"+i]]
+              ['2016',data["2016_inj"+i],data["2016_fat"+i]],
+              ['2015',data["2015_inj"+i],data["2015_fat"+i]],
+              ['2014',data["2014_inj"+i],data["2014_fat"+i]],
+              ['2013',data["2013_inj"+i],data["2013_fat"+i]],
+              ['2012',data["2012_inj"+i],data["2012_fat"+i]]
             ]);
+            $("#corridor_individual_panel").hide();
           break;
           case blocks.d.d11.key:
             data_table.addColumn('string','Year');
@@ -1987,9 +1989,9 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
       "B_TpDisadv": {s1:null,s2:null,s3:null,s4:null,s5:null,s6:null,s7:null,avg:null},
       "b_jobphh": {s1:1.76,s2:3.48,s3:0.19,s4:0.28,s5:0.25,s6:0.14,s7:0.01,avg:1.28},
       "non-moto": {s1:null,s2:1,s3:3,s4:1,s5:1,s6:1,s7:0,avg:7},
-      "coemisions": {s1:7118,s2:7012,s3:946,s4:917,s5:377,s6:73,s7:3,avg:16447},
+      "coemisions": {s1:174689,s2:115510,s3:11108,s4:11104,s5:4557,s6:738,s7:31,avg:317917},
       "emar": {s1:7118,s2:7012,s3:946,s4:917,s5:377,s6:73,s7:3,avg:16447}, //not the same
-      "c22": {s1:0,s2:17,s3:54,s4:70,s5:52,s6:0,s7:0,avg:23},
+      "c22": {s1:0,s2:18,s3:45,s4:78,s5:52,s6:0,s7:0,avg:23},
       "parkride": {s1:0,s2:103,s3:0,s4:0,s5:50,s6:0,s7:0,avg:153},
       "2016_daily": {s1:null,s2:null,s3:null,s4:null,s5:null,s6:null,s7:null,avg:20928},
       "tti": {s1:null,s2:1.9,s3:1.7,s4:1.6,s5:1.6,s6:1.4,s7:1.3,avg:1.6},
@@ -2029,6 +2031,11 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
         var in_hAxis = 'decimal';
         var inData = "Avg Montana Corridor";
         var max = 0;
+      }
+      else if(format == "tti"){
+        var in_hAxis = 'decimal';
+        var inData = "Avg Montana Corridor";
+        var max = 2.5;
       }else{
         var max = 0;
         var in_hAxis = 'decimal'; //lbs
@@ -2061,7 +2068,23 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
   }else{
     var in_hAxis = 'decimal'; //lbs
   }
-
+if(format == "tti"){
+  var options = {
+    title: name,
+    legend: { position: 'none'},
+    animation:{ duration: 1000, easing: 'inAndOut', startup: true },
+    "width":1000,
+    "height":400,
+    hAxis: { minValue: 0, maxValue: max,
+      viewWindow: {
+          min: 0,
+          max: 2.5
+      },
+      ticks: [0.5, 1.00, 1.50, 2, 2.5], format: in_hAxis },
+    vAxis: {}
+  };
+}
+else{
   var options = {
     title: name,
     legend: { position: 'none'},
@@ -2071,6 +2094,7 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
     hAxis: { minValue: 0, maxValue: max, format: in_hAxis },
     vAxis: {}
   };
+}
     //options['hAxis']['format'] = 'percent';
     bar_init = new google.visualization.BarChart(document.getElementById(whatChart));
     if(display){
@@ -3546,7 +3570,7 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
                 l.appendChild(div);
 
                 var div = document.createElement('div');
-                div.innerHTML = "Check the checkbox next to 'Display Sections' and look at the 'Section' tab";
+                div.innerHTML = "Note: Only charts are available for this performance measure, no data on map. Check the checkbox next to 'Display Sections' and look at the 'Section' tab";
                 var newLegend = document.createElement('div');
                 newLegend = document.getElementById('legend_content_multi_'+(z+1));
                 document.getElementById('legend').style.visibility = "visible";
@@ -4661,7 +4685,7 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
             $('#legendSpawner').find('*').not('h3').remove();
             var spawner = document.getElementById('legendSpawner');
             var div = document.createElement('div');
-            div.innerHTML = "Check the checkbox next to 'Display Sections' and look at the 'Section' tab";
+            div.innerHTML = "Only charts are available for this performance measure, no data on map. Check the checkbox next to 'Display Sections' and look at the 'Section' tab";
             var newLegend = document.createElement('div');
             newLegend = document.getElementById('legend');
             document.getElementById('legend').style.visibility = "visible";

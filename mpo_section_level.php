@@ -356,10 +356,10 @@ function getSectionLevelData(){ //we will send to seven sections
         $within = fetchAll($within);
         if($within[0]['count(OGR_FID)']){ //count(OGR_FID)
           $send_within = $within[0]['count(OGR_FID)'];
-          $toReturn['within'.$i] = number_format($send_within, 0, '.', '');
+          $toReturn['within'.$i] = number_format($send_within, 0, ',', ',');
         }
         else{
-          $toReturn['within'.$i] = "No data in Section ".$i;
+          $toReturn['within'.$i] = "0";
         }
 
         $query = "select count(OGR_FID) from all_bus_stops where sectnum = $i";
@@ -367,10 +367,10 @@ function getSectionLevelData(){ //we will send to seven sections
         $total_bus = fetchAll($total_bus);
         if($total_bus[0]['count(OGR_FID)']){
           $send_total_bus = $total_bus[0]['count(OGR_FID)'];
-          $toReturn['total_bus'.$i] = number_format($send_total_bus, 0, '.', '');
+          $toReturn['total_bus'.$i] = number_format($send_total_bus, 0, ',', ',');
         }
         else{
-          $toReturn['total_bus'.$i] = "No data in Section ".$i;
+          $toReturn['total_bus'.$i] = "0";
         }
 
         if($within[0]['count(OGR_FID)']){
@@ -380,11 +380,11 @@ function getSectionLevelData(){ //we will send to seven sections
             $send_within = $send_within * 100;
             $percent_bus = $send_within / $send_total_bus;
 
-            $toReturn['percent_bus'.$i] = number_format($percent_bus, 2, '.', '');
+            $toReturn['percent_bus'.$i] = number_format($percent_bus, 0, ',', ',');
           }
         }
         else{
-          $toReturn['percent_bus'.$i] = "No data for Section ".$i;
+          $toReturn['percent_bus'.$i] = "0";
         }
       break;
       case "parkride":
