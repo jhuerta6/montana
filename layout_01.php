@@ -1769,11 +1769,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             data_table.addColumn('string','Proposed in Bike Plan (miles)');
             data_table.addColumn('string','% Build-out');
             data_table.addRows([
-              ['2018', "No data for year","No data for year","No data for year"],
-              ['2017', "No data for year","No data for year","No data for year"],
+              ['2021', "No data for year","No data for year","No data for year"],
               ['2016', data["existing"+i],data["proposed"+i],data["percent"+i]],
-              ['2015', "No data for year","No data for year","No data for year"],
-              ['2014', "No data for year","No data for year","No data for year"],
+              ['2011', "No data for year","No data for year","No data for year"]
             ]);
           break;
           case blocks.a.a13.key:
@@ -2055,7 +2053,7 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
     animation:{ duration: 1000, easing: 'inAndOut', startup: true },
     "width":1000,
     "height":400,
-    hAxis: { minValue: 0, format: "#.#'%'" },
+    hAxis: { minValue: 0, maxValue: 100, format: "#.#'%'" },
     vAxis: {}
   };
     //options['hAxis']['format'] = 'percent';

@@ -62,36 +62,38 @@ function getSectionLevelData(){ //we will send to seven sections
         $existing = mysqli_query($conn, $query);
         $existing = fetchAll($existing);
         if($existing[0]['sum(shleng_buf)']){
-          $send_existing = $existing[0]['sum(shleng_buf)'];
-          $toReturn['existing'.$i] = number_format($send_existing, 2, '.', '');
+          $send_existing = ($existing[0]['sum(shleng_buf)']) * 0.000189394;
+          $toReturn['existing'.$i] = number_format($send_existing, 0, ',', ',');
         }
         else{
-          $toReturn['existing'.$i] = "No data in Section ".$i;
+          $toReturn['existing'.$i] = "0";
         }
 
         $query = "select sum(shleng_buf) from a12_proposed_new where sectionnum = $i";
         $proposed = mysqli_query($conn, $query);
         $proposed = fetchAll($proposed);
         if($proposed[0]['sum(shleng_buf)']){
-          $send_proposed = $proposed[0]['sum(shleng_buf)'];
-          $toReturn['proposed'.$i] = number_format($send_proposed, 2, '.', '');
+          $send_proposed = ($proposed[0]['sum(shleng_buf)']) * 0.000189394;
+          $toReturn['proposed'.$i] = number_format($send_proposed, 0, ',', ',');
         }
         else{
-          $toReturn['proposed'.$i] = "No data in Section ".$i;
+          $toReturn['proposed'.$i] = "0";
         }
 
         if($existing[0]['sum(shleng_buf)']){
           if($proposed[0]['sum(shleng_buf)']){
-            $send_existing = $existing[0]['sum(shleng_buf)'];
-            $send_proposed = $proposed[0]['sum(shleng_buf)'];
-            $send_existing = $send_existing * 100;
-            $percent = $send_existing / $send_proposed;
+            $send_existing = $existing[0]['sum(shleng_buf)'] * 0.000189394;
+            $send_proposed = $proposed[0]['sum(shleng_buf)'] * 0.000189394;
+            //$send_existing = $send_existing * 100;
+            //$percent = $send_existing / $send_proposed;
 
-            $toReturn['percent'.$i] = number_format($percent, 2, '.', '');
+            $percent = ($send_existing / ($send_existing+$send_proposed)) * 100;
+
+            $toReturn['percent'.$i] = number_format($percent, 0, ',', ',');
           }
         }
         else{
-          $toReturn['percent'.$i] = "No data for Section ".$i;
+          $toReturn['percent'.$i] = "0";
         }
       break;
       case "b_workers":
