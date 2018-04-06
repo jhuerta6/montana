@@ -1972,12 +1972,16 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
     //clearCharts();
     if(contenedor_charts[key]){
       var name;
+      var format;
+      var display;
       for (var i = 0; i < blocks.elements.length; i++) {
         var level = blocks.elements[i];
         for (var j = 0; j < blocks[level].pms.length; j++) {
           var pm = blocks[level].pms[j];
           if(blocks[level][pm].key == key){
             name = blocks[level][pm].chart_name;
+            //format = blocks[level][pm].chart_format;
+            //display = blocks[level][pm].chart_display;
           }
         }
       }
@@ -1998,6 +2002,15 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
       ]
     }
   );
+  /*
+  if(format == "percent"){
+    var in_hAxis = "#.#'%'";
+  }else if(total){
+    var in_hAxis = 'decimal';
+  }else{
+    var in_hAxis = 'decimal';
+  }*/
+
   var options = {
     title: name,
     legend: { position: 'none'},
@@ -2009,7 +2022,9 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
   };
     //options['hAxis']['format'] = 'percent';
     bar_init = new google.visualization.BarChart(document.getElementById(whatChart));
-    bar_init.draw(data, options);
+    //if(display){
+      bar_init.draw(data, options);
+    //}
   }
 }
 
