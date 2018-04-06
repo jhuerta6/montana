@@ -556,7 +556,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         description: "",
         content: "This performance measure compares the mileage of existing bikeways with the mileage suggested in the 2016 COEP Bike Plan. \n"+
         "Existing bikeways within 1 mile of Montana corridor are 16.36 miles. The goal in the 2016 COEP BIke Plan is 132.66 miles. \n" +
-        "Section 1 and 6 do not have any bicicycle infrastructure, in other sections the build-out is between 11% and 18%.",
+        "Section 1 and 6 do not have any bicycle infrastructure, in other sections the build-out is between 11% and 18%.",
         note: null,
         sources: "City of El Paso",
         overall: true,
@@ -584,12 +584,12 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         short: "A.2.1. Bus stops with crosswalks",
         name: "A.2.1. Bus Stops Along Busy Roadways With No Marked Crosswalk Within 150 ft.",
         chart_name: "Number of Bus Stops Along Busy Roadways With No Marked Crosswalk Within 150 ft.",
-        chart_format: "percent",
+        chart_format: "total",
         chart_display: true,
         mode: ["T", "W"],
         description: "",
         content: "Majority of Sunmetro bus stops on highly trafficked roadways are not located in proximity of crosswalks, therefore safe access to transit may be compromised. \n" +
-        "Along the corridor only 72 out of 309 bus stops on high-traffic roads (ADT > 9,000) were located within 150 ft. from a makrked crosswalk.",
+        "Along the corridor only 72 out of 309 bus stops on high-traffic roads (ADT > 9,000) were located within 150 ft. from a marked crosswalk.",
         note: null,
         sources: "Sunmetro, City of El Paso",
         overall: false,
@@ -601,7 +601,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         name: "A.2.2. Bus Stops with Bicycle Parking",
         chart_name: "Number of Bus Stops with Bicycle Parking",
         chart_format: "percent",
-        chart_display: true,
+        chart_display: false,
         mode: ["T", "B"],
         description: "",
         content: "Currently only the Five Points Transfer Center and Eastside Transfer Center offer bicycle parking. \n" +
@@ -1809,6 +1809,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               ['2015', "No data for year","No data for year","No data for year"],
               ['2014', "No data for year","No data for year","No data for year"],
             ]);
+            $("#section_individual_panel").hide();
+            $("#corridor_individual_panel").hide();
           break;
           case blocks.a.a23.key:
             data_table.addColumn('string','Years');
@@ -1985,7 +1987,7 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
       "freqtran": {s1:9,s2:12,s3:0,s4:0,s5:0,s6:0,s7:0,avg:4},
       "sectionnum": {s1:0,s2:14,s3:17,s4:18,s5:15,s6:0,s7:0,avg:11},
       "b_workers": {s1:1,s2:62,s3:75,s4:94,s5:34,s6:0,s7:0,avg:47},
-      "crows150ft": {s1:70,s2:88,s3:71,s4:77,s5:97,s6:null,s7:null,avg:79},
+      "crosw150ft": {s1:39,s2:9,s3:10,s4:13,s5:1,s6:null,s7:null,avg:72},
       "a22_new": {s1:1,s2:1,s3:null,s4:null,s5:null,s6:null,s7:null,avg:2},
       "b_carfrhh": {s1:18,s2:11,s3:10,s4:4,s5:1,s6:9,s7:16,avg:12},
       "B_TpDisadv": {s1:null,s2:null,s3:null,s4:null,s5:null,s6:null,s7:null,avg:null},
@@ -2020,12 +2022,24 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
         }
       }
 
+      if(format == "percent"){
+        var in_hAxis = "#.#'%'";
+        var max = 100;
+        var inData = "Avg Montana Corridor";
+      }else if(format == "total"){
+        var in_hAxis = 'decimal';
+        var inData = "Total Montana Corridor";
+        var max = 0;
+      }else{
+        var in_hAxis = 'decimal'; //lbs
+      }
+
       var data = new google.visualization.DataTable(
         {"cols":
         [{"id":"","label":"Section","type":"string"},
         {"id":"","label":"Value","type":"number"}],
         "rows":
-        [{"c":[{"v":"Avg Montana Corridor"},{"v":contenedor_charts[key]["avg"]}]},
+        [{"c":[{"v":inData},{"v":contenedor_charts[key]["avg"]}]},
         {"c":[{"v":" S1: Piedras St."},{"v":contenedor_charts[key]["s1"],}]},
         {"c":[{"v":"S2: Paisano Dr."},{"v":contenedor_charts[key]["s2"]}]},
         {"c":[{"v":"S3: Hawkins Blvd."},{"v":contenedor_charts[key]["s3"]}]},
@@ -2042,6 +2056,7 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
     var max = 100;
   }else if(format == "total"){
     var in_hAxis = 'decimal';
+    var max = 0;
   }else{
     var in_hAxis = 'decimal'; //lbs
   }
