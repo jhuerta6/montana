@@ -605,7 +605,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         mode: ["T", "B"],
         description: "",
         content: "Currently only the Five Points Transfer Center and Eastside Transfer Center offer bicycle parking. \n" +
-        "In the future, Brio Montana stations will also have bicicycle racks.",
+        "In the future, Brio Montana stations will also have bicycle racks.",
         note: null,
         sources: "Observation",
         overall: false,
@@ -1818,28 +1818,24 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             data_table.addColumn('string','Total Households');
             data_table.addColumn('string','% Car-Free');
             data_table.addRows([
-              ['2013-2017', "No data for year","No data for year","No data for year"],
-              ['2012-2016', "No data for year","No data for year","No data for year"],
+              ['2016-2020`', "No data for year","No data for year","No data for year"],
               ['2011-2015', data["hh"+i],data["total_hh"+i],data["percent_carfree"+i]],
-              ['2010-2014', "No data for year","No data for year","No data for year"],
-              ['2009-2013', "No data for year","No data for year","No data for year"],
+              ['2006-2010', "No data for year","No data for year","No data for year"]
             ]);
           break;
           case blocks.a.a24.key:
             data_table.addColumn('string','Years');
-            data_table.addColumn('string','Older Than 65 Years');
-            data_table.addColumn('string','Single Parent');
-            data_table.addColumn('string','Limited English Proficiency');
-            data_table.addColumn('string','Below Poverty Level');
-            data_table.addColumn('string','Car-free');
-            data_table.addColumn('string','Sum of Indicators of Potential Disadvantage');
+            data_table.addColumn('string','1. Single Parent Households');
+            data_table.addColumn('string','2. Limited English Proficiency Households');
+            data_table.addColumn('string','3. Elderly Population');
+            data_table.addColumn('string','4. Low Income Population');
+            data_table.addColumn('string','5. Minority Population');
             data_table.addRows([
-              ['2013-2017', "No data for year","No data for year","No data for year","No data for year","No data for year","No data for year"],
-              ['2012-2016', "No data for year","No data for year","No data for year","No data for year","No data for year","No data for year"],
-              ['2011-2015', data["old"+i],data["sp"+i],data["lep"+i],data["bpl"+i],data["cf"+i],data["sum"+i]],
-              ['2010-2014', "No data for year","No data for year","No data for year","No data for year","No data for year","No data for year"],
-              ['2009-2013', "No data for year","No data for year","No data for year","No data for year","No data for year","No data for year"],
+              ['2016-2020', "No data for year","No data for year","No data for year","No data for year","No data for year"],
+              ['2011-2015', data["sp"+i],data["lep"+i],data["old"+i],data["bpl"+i],data["cf"+i]],
+              ['2006-2010', "No data for year","No data for year","No data for year","No data for year","No data for year"]
             ]);
+            $("#corridor_individual_panel").hide(); //Research how to implement multiple barcharts
           break;
           case blocks.b.b14.key:
             data_table.addColumn('string','Years');
@@ -2413,8 +2409,8 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
               colores_a_usar = 5;
               if(up_to_one == 0){
 
-                var legend = [" 0%"," 0.01% - 0.05%"," 0.051% - 0.1%",
-                " 0.11% - 0.15%"," 0.151% - 0.61%"];
+                var legend = [" 0%"," 0.1% - 5%"," 5.1% - 10%",
+                " 10.1% - 15%"," 15.1% - 61%"];
 
                 var innerhtml = "";
                 for (var i = 0; i < colores_a_usar; i++) {
@@ -2495,10 +2491,10 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
               colores_a_usar = 4;
               if(up_to_one == 0){
 
-                var legend = [" 0%",
-                  " 1%",
-                  " 2%- 3%",
-                  " 4% - 5%"
+                var legend = [" 0",
+                  " 1",
+                  " 2 - 3",
+                  " 4 - 5"
                 ];
 
                 var innerhtml = "";
@@ -3861,10 +3857,10 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
             var spawner = document.getElementById('legendSpawner');
             var div = document.createElement('div');
             div.innerHTML = "<img src='img/brightgreensquare.png' height='10px'/> 0%"+
-            "<br><img src='img/redsquare.png' height='10px'/> 0.01% - 0.05%" +
-            "<br><img src='img/skybluesquare.png' height='10px'/> 0.051% - 0.1%" +
-            "<br><img src='img/yellowsquare.png' height='10px'/> 0.11% - 0.15%" +
-            "<br><img src='img/orangesquare.png' height='10px'/> 0.151% - 0.61%";
+            "<br><img src='img/redsquare.png' height='10px'/> 0.1% - 5%" +
+            "<br><img src='img/skybluesquare.png' height='10px'/> 5.1% - 10%" +
+            "<br><img src='img/yellowsquare.png' height='10px'/> 10.1% - 15%" +
+            "<br><img src='img/orangesquare.png' height='10px'/> 15.1% - 61%";
             var newLegend = document.createElement('div');
             newLegend = document.getElementById('legend');
             document.getElementById('legend').style.visibility = "visible";
@@ -3917,10 +3913,10 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
             var spawner = document.getElementById('legendSpawner');
             var div = document.createElement('div');
             div.innerHTML =  "Indicator of potential disadvantage by block group" +
-            "<br><img src='img/brightgreensquare.png' height='10px'/> 0%"+
-            "<br><img src='img/redsquare.png' height='10px'/> 1%" +
-            "<br><img src='img/skybluesquare.png' height='10px'/> 2% - 3%" +
-            "<br><img src='img/yellowsquare.png' height='10px'/> 4% - 5%";
+            "<br><img src='img/brightgreensquare.png' height='10px'/> 0"+
+            "<br><img src='img/redsquare.png' height='10px'/> 1" +
+            "<br><img src='img/skybluesquare.png' height='10px'/> 2 - 3" +
+            "<br><img src='img/yellowsquare.png' height='10px'/> 4 - 5";
             var newLegend = document.createElement('div');
             newLegend = document.getElementById('legend');
             document.getElementById('legend').style.visibility = "visible";

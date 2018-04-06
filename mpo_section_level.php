@@ -213,10 +213,10 @@ function getSectionLevelData(){ //we will send to seven sections
         $total_hh = fetchAll($total_hh);
         if($total_hh[0]['count(b_carfrhh)']){
           $send_total_hh = $total_hh[0]['count(b_carfrhh)'];
-          $toReturn['total_hh'.$i] = number_format($send_total_hh, 0, '.', '');
+          $toReturn['total_hh'.$i] = number_format($send_total_hh, 0, ',', ',');
         }
         else{
-          $toReturn['total_hh'.$i] = "No data in Section ".$i;
+          $toReturn['total_hh'.$i] = "0";
         }
 
         $query = "select sum(b_carfrhh) from polygon where sectionnum = $i";
@@ -224,10 +224,10 @@ function getSectionLevelData(){ //we will send to seven sections
         $hh = fetchAll($hh);
         if($hh[0]['sum(b_carfrhh)']){
           $send_hh = $hh[0]['sum(b_carfrhh)'];
-          $toReturn['hh'.$i] = number_format($send_hh, 2, '.', '');
+          $toReturn['hh'.$i] = number_format($send_hh, 0, ',', ',');
         }
         else{
-          $toReturn['hh'.$i] = "No data in Section ".$i;
+          $toReturn['hh'.$i] = "0";
         }
 
         if($total_hh[0]['count(b_carfrhh)']){
@@ -237,64 +237,56 @@ function getSectionLevelData(){ //we will send to seven sections
             $send_hh = $send_hh * 100;
             $percent_carfree = $send_hh / $send_total_hh;
 
-            $toReturn['percent_carfree'.$i] = number_format($percent_carfree, 2, '.', '');
+            $toReturn['percent_carfree'.$i] = number_format($percent_carfree, 0, ',', ',');
           }
         }
         else{
-          $toReturn['percent_carfree'.$i] = "No data for Section ".$i;
+          $toReturn['percent_carfree'.$i] = "0";
         }
       break;
       case "B_TpDisadv":
-        $query = "select sum(t_popovr65), sum(t_1parenhh), sum(t_lep), sum(t_pov), sum(t_carfrehh), sum(b_tpdisadv) from polygon where sectionnum = $i";
+        $query = "select sum(bnpopovr65), sum(bn1parenhh), sum(bnlep), sum(bnminority), sum(bnpov) from polygon where sectionnum = $i";
         $values = mysqli_query($conn, $query);
         $values = fetchAll($values);
-        $old = $values[0]['sum(t_popovr65)'];
-        $sp = $values[0]['sum(t_1parenhh)'];
-        $lep = $values[0]['sum(t_lep)'];
-        $bpl = $values[0]['sum(t_pov)'];
-        $cf = $values[0]['sum(t_carfrehh)'];
-        $sum = $values[0]['sum(b_tpdisadv)'];
+        $old = number_format($values[0]['sum(bnpopovr65)'], 0, ',', ',');
+        $sp = number_format($values[0]['sum(bn1parenhh)'], 0, ',', ',');
+        $lep = number_format($values[0]['sum(bnlep)'], 0, ',', ',');
+        $bpl = number_format($values[0]['sum(bnpov)'], 0, ',', ',');
+        $cf = number_format($values[0]['sum(bnminority)'], 0, ',', ',');
 
         if($old >= 0){
           $toReturn['old'.$i] = $old;
         }
         else{
-          $toReturn['old'.$i] = "No data for Section ".$i;
+          $toReturn['old'.$i] = "0";
         }
 
         if($sp >= 0){
           $toReturn['sp'.$i] = $sp;
         }
         else{
-          $toReturn['sp'.$i] = "No data for Section ".$i;
+          $toReturn['sp'.$i] = "0";
         }
 
         if($lep >= 0){
           $toReturn['lep'.$i] = $lep;
         }
         else{
-          $toReturn['lep'.$i] = "No data for Section ".$i;
+          $toReturn['lep'.$i] = "0";
         }
 
         if($bpl >= 0){
           $toReturn['bpl'.$i] = $bpl;
         }
         else{
-          $toReturn['bpl'.$i] = "No data for Section ".$i;
+          $toReturn['bpl'.$i] = "0";
         }
 
         if($cf >= 0){
           $toReturn['cf'.$i] = $cf;
         }
         else{
-          $toReturn['cf'.$i] = "No data for Section ".$i;
-        }
-
-        if($sum >= 0){
-          $toReturn['sum'.$i] = $sum;
-        }
-        else{
-          $toReturn['sum'.$i] = "No data for Section ".$i;
+          $toReturn['cf'.$i] = "0";
         }
       break;
       case "b_jobphh":
