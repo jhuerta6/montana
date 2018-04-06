@@ -2004,9 +2004,10 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
     animation:{ duration: 1000, easing: 'inAndOut', startup: true },
     "width":1000,
     "height":400,
-    hAxis: { minValue: 0 },
+    hAxis: { minValue: 0, format: "#.#'%'" },
     vAxis: {}
   };
+    //options['hAxis']['format'] = 'percent';
     bar_init = new google.visualization.BarChart(document.getElementById(whatChart));
     bar_init.draw(data, options);
   }

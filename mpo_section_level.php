@@ -42,19 +42,19 @@ function getSectionLevelData(){ //we will send to seven sections
           $query = "select sum(b_popul) from polygon where sectionnum = $i";
           $result = mysqli_query($conn, $query);
         	$result = fetchAll($result);
-          $toReturn['total_pop'.$i] = number_format($result[0]["sum(b_popul)"], 2, '.', '');
+          $toReturn['total_pop'.$i] = number_format($result[0]["sum(b_popul)"], 0, ',', ',');
           $query = "select sum(trans_pop) from a11_new where sectionnum = $i";
           $result_1 = mysqli_query($conn, $query);
         	$result_1 = fetchAll($result_1);
-          $toReturn['half_pop'.$i] = number_format($result_1[0]["sum(trans_pop)"], 2, '.', '');
+          $toReturn['half_pop'.$i] = number_format($result_1[0]["sum(trans_pop)"], 0, ',', ',');
           $result_1 = 100 * $result_1[0]["sum(trans_pop)"];
           $result_1 /= $result[0]["sum(b_popul)"];
-          $result = (String)number_format($result_1, 2, '.', '');
+          $result = (String)number_format($result_1, 0, ',', ',');
           $toReturn['feedback'.$i] = $result;
         }else{
-          $toReturn['feedback'.$i] = "No data in Section ".$i;
-          $toReturn['total_pop'.$i] = "No data in Section ".$i;
-          $toReturn['half_pop'.$i] = "No data in Section ".$i;
+          $toReturn['feedback'.$i] = "0";
+          $toReturn['total_pop'.$i] = "0";
+          $toReturn['half_pop'.$i] = "0";
         }
       break;
       case "sectionnum":
