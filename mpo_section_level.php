@@ -297,41 +297,43 @@ function getSectionLevelData(){ //we will send to seven sections
         $t_hh = $data[0]['sum(allblockhh)'];
         $coef = $data[0]['sum(coef1mbuff)'];
         $v = $t_job / ($t_hh*$coef);
-        $toReturn['t_job'.$i] = (string) floor($t_job);
-        $toReturn['t_hh'.$i] = $t_hh;
+        $toReturn['t_job'.$i] = number_format((string) floor($t_job), 0, ',', ',');
+        $toReturn['t_hh'.$i] =  number_format((string) ($t_hh * $coef), 0, ',', ',');
         $toReturn['jh_ratio'.$i] = number_format($v, 2, '.', '');
       break;
       case "non-moto":
         for ($j=2012; $j <= 2016; $j++) {
-          $query_peds = "select count(pedestrian) from b22 where year = $j and section_number = $i and pedestrian = 1";
-          $peds = mysqli_query($conn, $query_peds);
-          $peds = fetchAll($peds);
-          $send_peds = $peds[0]['count(pedestrian)'];
-          $toReturn[$j.'_ped'.$i] = number_format($send_peds, 0, '.', '');
+          if($i == 1){
+            $toReturn[$j.'_ped_fat'.$i] = "No data in Section 1";
+            $toReturn[$j.'_ped_inj'.$i] = "No data in Section 1";
+            $toReturn[$j.'_cyc_fat'.$i] = "No data in Section 1";
+            $toReturn[$j.'_cyc_inj'.$i] = "No data in Section 1";
+          }
+          else{
+            $query_peds = "select count(pedestrian) from b22 where year = $j and section_number = $i and pedestrian = 1 and fatal = 1";
+            $peds = mysqli_query($conn, $query_peds);
+            $peds = fetchAll($peds);
+            $send_peds = $peds[0]['count(pedestrian)'];
+            $toReturn[$j.'_ped_fat'.$i] = number_format($send_peds, 0, '.', '');
 
-          $query_cycs = "select count(pedalcyclist) from b22 where year = $j and section_number = $i and pedalcyclist = 1";
-          $cycs = mysqli_query($conn, $query_cycs);
-          $cycs = fetchAll($cycs);
-          $send_cycs = $cycs[0]['count(pedalcyclist)'];
-          $toReturn[$j.'_cyc'.$i] = number_format($send_cycs, 0, '.', '');
+            $query_peds_inj = "select count(pedestrian) from b22 where year = $j and section_number = $i and pedestrian = 1 and incap = 1";
+            $peds_inj = mysqli_query($conn, $query_peds_inj);
+            $peds_inj = fetchAll($peds_inj);
+            $send_peds_inj = $peds_inj[0]['count(pedestrian)'];
+            $toReturn[$j.'_ped_inj'.$i] = number_format($send_peds_inj, 0, '.', '');
 
-          $query_tot = "select count(id) from b22 where year = $j and (pedestrian = 1 or pedalcyclist = 1)";
-          $tot = mysqli_query($conn, $query_tot);
-          $tot = fetchAll($tot);
-          $send_tot = $tot[0]['count(id)'];
-          $toReturn[$j.'_tot'.$i] = number_format($send_tot, 0, '.', '');
+            $query_cyc_fat = "select count(id) from b22 where year = $j and section_number = $i and pedestrian = 0 and fatal = 1";
+            $cyc_fat = mysqli_query($conn, $query_cyc_fat);
+            $cyc_fat = fetchAll($cyc_fat);
+            $send_cyc_fat = $cyc_fat[0]['count(id)'];
+            $toReturn[$j.'_cyc_fat'.$i] = number_format($send_cyc_fat, 0, '.', '');
 
-          $query_inj = "select count(id) from b22 where year = $j and section_number = $i and incap = 1";
-          $inj = mysqli_query($conn, $query_inj);
-          $inj = fetchAll($inj);
-          $send_inj = $inj[0]['count(id)'];
-          $toReturn[$j.'_inj'.$i] = number_format($send_inj, 0, '.', '');
-
-          $query_fat = "select count(id) from b22 where year = $j and section_number = $i and fatal = 1";
-          $fat = mysqli_query($conn, $query_fat);
-          $fat = fetchAll($fat);
-          $send_fat = $fat[0]['count(id)'];
-          $toReturn[$j.'_fat'.$i] = number_format($send_fat, 0, '.', '');
+            $query_cyc_inj = "select count(id) from b22 where year = $j and section_number = $i and pedestrian = 0 and incap = 1";
+            $cyc_inj = mysqli_query($conn, $query_cyc_inj);
+            $cyc_inj = fetchAll($cyc_inj);
+            $send_cyc_inj = $cyc_inj[0]['count(id)'];
+            $toReturn[$j.'_cyc_inj'.$i] = number_format($send_cyc_inj, 0, '.', '');
+          }
         }
       break;
       case "coemisions":

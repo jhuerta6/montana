@@ -662,7 +662,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         periods: "5-year average 2011-2015",
         name: "B.1.4. Jobs-Housing Ratio",
         chart_name: "Jobs-Housing Ratio",
-        chart_format: "percent",
+        chart_format: "ratio",
         chart_display: true,
         mode: ["D","T","W","B"],
         key: "b_jobphh"
@@ -670,7 +670,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       b22:{
         short: "B.2.2. Crashes involving non-motorized users",
         description: null,
-        content: "There was a total of 7 crashes that resulted in an incapacitating injury of a vulnerable road user along Montana Ave. between 2012 and 2016. \n" +
+        content: "There was a total of 7 crashes that resulted in an incapacitating injury of non-motorized user along Montana Ave. there were no crashes resulting in a fatality of a pedestrian or a cyclist between 2012 and 2016. \n" +
         "3 of the 7 crashes occurred in Section 3 , at Montana Ave. and Mattox St. which is a signalized intersection with a pedestrian signal with a marked crosswalk.",
         note: "Missing data for Section 1, because that section is not owned byTxDOT and data is not collected there.",
         sources: "Texas Department of Transportation CRIS database",
@@ -678,7 +678,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         periods: "2012-2016",
         name: "B.2.2. Crashes Involving Non-Motorized Users",
         chart_name: "Number of Crashes Involving Non-Motorized Users",
-        chart_format: "percent",
+        chart_format: "total",
         chart_display: true,
         mode: ["W","B"],
         key: "non-moto"
@@ -1843,27 +1843,25 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             data_table.addColumn('string','Total Jobs');
             data_table.addColumn('string','Job-Housing Ratio');
             data_table.addRows([
-              ['2013-2017', "No data for year","No data for year","No data for year"],
-              ['2012-2016', "No data for year","No data for year","No data for year"],
+              ['2016-2020', "No data for year","No data for year","No data for year"],
               ['2011-2015', data["t_hh"+i],data["t_job"+i],data["jh_ratio"+i]],
-              ['2010-2014', "No data for year","No data for year","No data for year"],
-              ['2009-2013', "No data for year","No data for year","No data for year"],
+              ['2006-2010', "No data for year","No data for year","No data for year"]
             ]);
           break;
           case blocks.b.b22.key:
             data_table.addColumn('string','Year');
-            data_table.addColumn('string','Pedestrian Crash');
-            data_table.addColumn('string','Cyclist Crash');
-            data_table.addColumn('string','Total Crashes Throughout Year');
-            data_table.addColumn('string','Serious Injuries');
-            data_table.addColumn('string','Fatalities');
+            data_table.addColumn('string','Pedestrian Crash - Fatality');
+            data_table.addColumn('string','Pedestrian Crash - Serious Injury');
+            data_table.addColumn('string','Cyclist Crash - Fatality');
+            data_table.addColumn('string','Cyclist Crash - Serious Injury');
             data_table.addRows([
-              ['2016', data["2016_ped"+i],data["2016_cyc"+i],data["2016_tot"+i],data["2016_inj"+i],data["2016_fat"+i]],
-              ['2015', "No data for year","No data for year","No data for year","No data for year","No data for year"],
-              ['2014', data["2014_ped"+i],data["2014_cyc"+i],data["2014_tot"+i],data["2014_inj"+i],data["2014_fat"+i]],
-              ['2013', data["2013_ped"+i],data["2013_cyc"+i],data["2013_tot"+i],data["2013_inj"+i],data["2013_fat"+i]],
-              ['2012', data["2012_ped"+i],data["2012_cyc"+i],data["2012_tot"+i],data["2012_inj"+i],data["2012_fat"+i]]
+              ['2016', data["2016_ped_fat"+i],data["2016_ped_inj"+i],data["2016_cyc_fat"+i],data["2016_cyc_inj"+i]],
+              ['2015', "No data for year","No data for year","No data for year","No data for year"],
+              ['2014', data["2014_ped_fat"+i],data["2014_ped_inj"+i],data["2014_cyc_fat"+i],data["2014_cyc_inj"+i]],
+              ['2013', data["2013_ped_fat"+i],data["2013_ped_inj"+i],data["2013_cyc_fat"+i],data["2013_cyc_inj"+i]],
+              ['2012', data["2012_ped_fat"+i],data["2012_ped_inj"+i],data["2012_cyc_fat"+i],data["2012_cyc_inj"+i]]
             ]);
+            $("#corridor_individual_panel").hide(); //Research how to implement multiple barcharts
           break;
           case blocks.b.b31a.key:
             data_table.addColumn('string','Year');
@@ -2025,6 +2023,11 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
       }else if(format == "total"){
         var in_hAxis = 'decimal';
         var inData = "Total Montana Corridor";
+        var max = 0;
+      }
+      else if(format == "ratio"){
+        var in_hAxis = 'decimal';
+        var inData = "Avg Montana Corridor";
         var max = 0;
       }else{
         var in_hAxis = 'decimal'; //lbs
