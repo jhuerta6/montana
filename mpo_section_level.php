@@ -102,10 +102,10 @@ function getSectionLevelData(){ //we will send to seven sections
         $existing = fetchAll($existing);
         if($existing[0]['sum(bikhalf_po)']){
           $send_existing = $existing[0]['sum(bikhalf_po)'];
-          $toReturn['existing'.$i] = number_format($send_existing, 2, '.', '');
+          $toReturn['existing'.$i] = number_format($send_existing, 0, ',', ',');
         }
         else{
-          $toReturn['existing'.$i] = "No data in Section ".$i;
+          $toReturn['existing'.$i] = "0";
         }
 
         $query = "select sum(b_popul) from polygon where sectionnum = $i";
@@ -113,10 +113,10 @@ function getSectionLevelData(){ //we will send to seven sections
         $proposed = fetchAll($proposed);
         if($proposed[0]['sum(b_popul)']){
           $send_proposed = $proposed[0]['sum(b_popul)'];
-          $toReturn['proposed'.$i] = number_format($send_proposed, 2, '.', '');
+          $toReturn['proposed'.$i] = number_format($send_proposed, 0, ',', ',');
         }
         else{
-          $toReturn['proposed'.$i] = "No data in Section ".$i;
+          $toReturn['proposed'.$i] = "0";
         }
 
         if($existing[0]['sum(bikhalf_po)']){
@@ -126,11 +126,11 @@ function getSectionLevelData(){ //we will send to seven sections
             $send_existing = $send_existing * 100;
             $percent = $send_existing / $send_proposed;
 
-            $toReturn['percent'.$i] = number_format($percent, 2, '.', '');
+            $toReturn['percent'.$i] = number_format($percent, 0, ',', ',');
           }
         }
         else{
-          $toReturn['percent'.$i] = "No data for Section ".$i;
+          $toReturn['percent'.$i] = "0";
         }
       break;
       case "crosw150ft":

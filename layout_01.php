@@ -1776,15 +1776,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           break;
           case blocks.a.a13.key:
             data_table.addColumn('string','Years');
-            data_table.addColumn('string','Population Within 1/2 mile');
+            data_table.addColumn('string','Population Within 1/2 Mile');
             data_table.addColumn('string','Total Population');
-            data_table.addColumn('string','% Population');
+            data_table.addColumn('string','% Population Within 1/2 Mile');
             data_table.addRows([
-              ['2013-2017', "No data for year","No data for year","No data for year"],
-              ['2012-2016', "No data for year","No data for year","No data for year"],
+              ['2016-2020', "No data for year","No data for year","No data for year"],
               ['2011-2015', data["existing"+i],data["proposed"+i],data["percent"+i]],
-              ['2010-2014', "No data for year","No data for year","No data for year"],
-              ['2009-2013', "No data for year","No data for year","No data for year"],
+              ['2006-2010', "No data for year","No data for year","No data for year"]
             ]);
           break;
           case blocks.a.a21.key:
@@ -1986,7 +1984,7 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
     var contenedor_charts = {
       "freqtran": {s1:9,s2:12,s3:0,s4:0,s5:0,s6:0,s7:0,avg:4},
       "sectionnum": {s1:0,s2:14,s3:17,s4:18,s5:15,s6:0,s7:0,avg:11},
-      "b_workers": {s1:1,s2:62,s3:75,s4:94,s5:34,s6:0,s7:0,avg:72},
+      "b_workers": {s1:1,s2:62,s3:75,s4:94,s5:34,s6:0,s7:0,avg:47},
       "crows150ft": {s1:70,s2:88,s3:71,s4:77,s5:97,s6:null,s7:null,avg:79},
       "a22_new": {s1:1,s2:1,s3:null,s4:null,s5:null,s6:null,s7:null,avg:2},
       "b_carfrhh": {s1:18,s2:11,s3:10,s4:4,s5:1,s6:9,s7:16,avg:12},
@@ -2041,6 +2039,7 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
 
   if(format == "percent"){
     var in_hAxis = "#.#'%'";
+    var max = 100;
   }else if(format == "total"){
     var in_hAxis = 'decimal';
   }else{
@@ -2053,7 +2052,7 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
     animation:{ duration: 1000, easing: 'inAndOut', startup: true },
     "width":1000,
     "height":400,
-    hAxis: { minValue: 0, maxValue: 100, format: "#.#'%'" },
+    hAxis: { minValue: 0, maxValue: max, format: in_hAxis },
     vAxis: {}
   };
     //options['hAxis']['format'] = 'percent';
