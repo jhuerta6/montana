@@ -522,7 +522,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   var multi = {pm1:null, pm2:null, pm3:null};
   var hecho = false;
   var modes_full = {"D":"<div class=\"bg-primary text-white\">Driving</div>", "T":"<div class=\"bg-warning text-white\">Transit</div>", "W":"<div class=\"bg-danger text-white\">Walking</div>", "B":"<div class=\"bg-success text-white\">Biking</div>", "F":"<div class=\"bg-orange text-white\">Freight</div>"};
-  var modes = {"D":"<div class=\"bg-mute text-white\">Driving</div>", "T":"<div class=\"bg-mute text-white\">Transit</div>", "W":"<div class=\"bg-mute text-white\">Walking</div>", "B":"<div class=\"bg-mute text-white\">Biking</div>", "F":"<div class=\"bg-mute text-white\">Freight</div>"};
+  var modes = {"D":"<div class=\"bg-mute text-muted\">Driving</div>", "T":"<div class=\"bg-mute text-muted\">Transit</div>", "W":"<div class=\"bg-mute text-muted\">Walking</div>", "B":"<div class=\"bg-mute text-muted\">Biking</div>", "F":"<div class=\"bg-mute text-muted\">Freight</div>"};
   var blocks = {
     elements:["a", "b","c", "d", "z"],
     a:{
@@ -1333,6 +1333,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
       //$("#main_default, #defaultbtn").show();
       $("#add_on").removeClass('element');
+      $("#modes").hide();
       //$("#main_default, #defaultbtn").show();
       //$("#filters, #filtersbtn").show();
       //$("#statistics, #statisticsbtn").show();
@@ -1529,6 +1530,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
     $("#select_pm").change(function(){
       $("#modes").empty();
+      $("#modes").show();
       $("#data-holder").hide();
       $("#corridor_individual_panel").show();
       $("#intro_2").remove();
