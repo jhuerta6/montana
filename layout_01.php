@@ -2178,6 +2178,7 @@ else{
           var loop_num = (z+1);
           var multi_key = pm_mpo["pm"+(z+1)];
           chartMontanaAvg(pm_mpo.pm, isMulti, loop_num, multi_key);
+
           var c = data["coords"+(z+1)].length;
           var points = [];
           //gris, verde, rojo -- testing colors
