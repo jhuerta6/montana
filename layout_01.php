@@ -1927,11 +1927,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             data_table.addColumn('string','Serious Injuries');
             data_table.addColumn('string','Fatalities');
             data_table.addRows([
-              ['2016',data["2016_inj"+i],data["2016_fat"+i]],
-              ['2015',data["2015_inj"+i],data["2015_fat"+i]],
-              ['2014',data["2014_inj"+i],data["2014_fat"+i]],
-              ['2013',data["2013_inj"+i],data["2013_fat"+i]],
-              ['2012',data["2012_inj"+i],data["2012_fat"+i]]
+              ['2017-2021', "No data for years", "No data for years"],
+              ['2012-2016',data["inj"+i],data["fat"+i]],
+              ['2007-2011', "No data for years", "No data for years"]
             ]);
             $("#corridor_individual_panel").hide();
           break;
