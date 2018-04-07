@@ -467,6 +467,12 @@ function getSectionLevelData(){ //we will send to seven sections
         $send_miles_poor = $miles_poor[0]['sum(newmleng)'];
         $toReturn["miles_poor".$i] = number_format($send_miles_poor,2,'.','');
 
+        $query_miles_good = "select sum(newmleng) from d11 where iri <= 170 and sectionnum = $i";
+        $miles_good = mysqli_query($conn, $query_miles_good);
+        $miles_good = fetchAll($miles_good);
+        $send_miles_good = $miles_good[0]['sum(newmleng)'];
+        $toReturn["miles_good".$i] = number_format($send_miles_good,2,'.','');
+
         if($send_miles_total){
           $toReturn["percent".$i] = "No miles in poor condition";
           if($send_miles_poor){

@@ -1936,23 +1936,22 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           case blocks.d.d11.key:
             data_table.addColumn('string','Year');
             data_table.addColumn('string','Miles in Poor Condition');
+            data_table.addColumn('string','Miles in Good and Fair Condition');
             data_table.addColumn('string','Total Miles');
-            data_table.addColumn('string','% in Poor Condition');
             data_table.addRows([
-              ['2016', "No data for year","No data for year","No data for year"],
-              ['2015',data["miles_poor"+i],data["miles_total"+i],data["percent"+i]],
-              ['2014', "No data for year","No data for year","No data for year"],
-              ['2013', "No data for year","No data for year","No data for year"],
-              ['2012', "No data for year","No data for year","No data for year"]
+              ['2020', "No data for year","No data for year","No data for year"],
+              ['2015',data["miles_poor"+i],data["miles_good"+i],data["miles_total"+i]],
+              ['2010', "No data for year","No data for year","No data for year"]
             ]);
+            $("#corridor_individual_panel").hide();
           break;
           case blocks.d.d31.key:
             data_table.addColumn('string','Year');
             data_table.addColumn('string','Truck Travel Time Index');
             data_table.addRows([
-              ['2018', "No data for year"],
+              ['2022', "No data for year"],
               ['2017', data["tttia"+i]],
-              ['2016', "No data for year"]
+              ['2012', "No data for year"]
             ]);
           break;
           default:
@@ -2714,8 +2713,8 @@ else{
 
                 var div = document.createElement('div');
                 div.innerHTML =
-                "<img src='img/redsquare.png' height='10px'/> Poor (IRI > 170)" +
-                "<br> <img src='img/brightgreensquare.png' height='10px'/> Good & Fair (IRI < 170)";
+                "<img src='img/redsquare.png' height='10px'/> Pavement in Poor Condition (IRI >= 170)" +
+                "<br> <img src='img/brightgreensquare.png' height='10px'/> Pavement in Good & Fair Condition (IRI < 170)";
                 var newLegend = document.createElement('div');
                 newLegend = document.getElementById('legend_content_multi_'+(z+1));
                 document.getElementById('legend').style.visibility = "visible";
@@ -3556,7 +3555,7 @@ else{
               }
               polygon.setMap(app.map);
             }
-            else if(pm_mpo["pm"+(z+1)] == "tti"){
+            else if(pm_mpo["pm"+(z+1)] == "tti" || pm_mpo["pm"+(z+1)] == "tttia"){
               if(up_to_one == 0){
                 $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
                 var div = document.createElement('div');
@@ -4067,8 +4066,8 @@ else{
             var spawner = document.getElementById('legendSpawner');
             var div = document.createElement('div');
             div.innerHTML =
-            "<img src='img/redsquare.png' height='10px'/> Poor (IRI > 170)" +
-            "<br> <img src='img/brightgreensquare.png' height='10px'/> Good & Fair (IRI < 170)";
+            "<img src='img/redsquare.png' height='10px'/> Pavement in Poor Condition (IRI >= 170)" +
+            "<br> <img src='img/brightgreensquare.png' height='10px'/> Pavement in Good & Fair Condition (IRI < 170)";
             var newLegend = document.createElement('div');
             newLegend = document.getElementById('legend');
             document.getElementById('legend').style.visibility = "visible";
@@ -4678,7 +4677,7 @@ else{
           app.polygons.push(polygon);
           polygon.setMap(app.map);
         }
-        else if(pm_mpo.pm == "tti"){
+        else if(pm_mpo.pm == "tti" || pm_mpo.pm == "tttia"){
           if(up_to_one == 0){
             $('#legendSpawner').find('*').not('h3').remove();
             var spawner = document.getElementById('legendSpawner');
