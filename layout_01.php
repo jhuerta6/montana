@@ -1865,7 +1865,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
   function chartSectionLevel(k, isMulti, loop_num, multikey){
     if(loop_num == 1 || loop_num == 0){
-      clearCharts();
+      //clearCharts();
     }
     var whatChart = "table_selected";
     if(isMulti){
@@ -2296,6 +2296,7 @@ else{
           chartSectionLevel(pm_mpo.pm, isMulti, loop_num, multi_key);
           var c = data["coords"+(z+1)].length;
           var points = [];
+          //chartSectionLevel(pm_mpo.pm, isMulti, loop_num, multi_key);
           //gris, verde, rojo -- testing colors
           //shapecolor = ["#84857B", "#13FF00", "#FF0000", "#009BFF", "#EBF20D", "#fe9253", "#8C0909", "#0051FF", "#AB77FF", "#EBF20D", "#8C0909", "#07FDCA", "#008C35", "FFDBA5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
           //shapeoutline = ["#000000", "#0b9b00", "#c10000", "#007fd1", "#aaaf0a", "#d18f0a", "#8c0909", "#0037ad", "#873dff", "#aaaf0a", "8c0909", "36c9bd", "#008c35", "#ffdba5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
