@@ -108,19 +108,137 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   <h3 id="report1_text" class="text-center">Summary for PM 1</h3><br>
                   <div id="pm_description_mul_1" class="container panel panel-default"></div>
                   <div id="pm_data_mul_1" class="container panel panel-default"></div>
-                  <div class="chart" style="padding-left: 35px;" id="chart_selected1"> </div>
+                  <br>
+                  <div id="corridor_multi_panel_1" class="panel panel-default" style="visibility: visible;">
+                    <h3 class="text-center">Corridor Level Analysis</h3><br>
+                    <div class="chart" style="padding-left: 35px;" id="chart_selected1"> </div>
+                  </div>
+                <div id="section_multi_panel_1" class="panel panel-default" style="visibility: visible;">
+                    <h3 class="text-center">Section Level Analysis</h3><br>
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#sections_multi_1_1" data-target="#sections_multi_1_1">Section #1</a></li>
+                    <li><a data-toggle="tab" href="#sections_multi_1_2" data-target="#sections_multi_1_2">Section #2</a></li>
+                    <li><a data-toggle="tab" href="#sections_multi_1_3" data-target="#sections_multi_1_3">Section #3</a></li>
+                    <li><a data-toggle="tab" href="#sections_multi_1_4" data-target="#sections_multi_1_4">Section #4</a></li>
+                    <li><a data-toggle="tab" href="#sections_multi_1_5" data-target="#sections_multi_1_5">Section #5</a></li>
+                    <li><a data-toggle="tab" href="#sections_multi_1_6" data-target="#sections_multi_1_6">Section #6</a></li>
+                    <li><a data-toggle="tab" href="#sections_multi_1_7" data-target="#sections_multi_1_7">Section #7</a></li>
+                  </ul>
+                  <div class="tab-content" >
+                    <div id="sections_multi_1_1" class="tab-pane fade in active"><br>
+                      <div class="chart" id="table_selected_1_1"> </div><br>
+                    </div>
+                    <div id="sections_multi_1_2" class="tab-pane fade"><br>
+                      <div class="chart" id="table_selected_1_2"> </div><br>
+                    </div>
+                    <div id="sections_multi_1_3" class="tab-pane fade"><br>
+                      <div class="chart" id="table_selected_1_3"> </div><br>
+                    </div>
+                    <div id="sections_multi_1_4" class="tab-pane fade"><br>
+                      <div class="chart" id="table_selected_1_4"> </div><br>
+                    </div>
+                    <div id="sections_multi_1_5" class="tab-pane fade"><br>
+                      <div class="chart" id="table_selected_1_5"> </div><br>
+                    </div>
+                    <div id="sections_multi_1_6" class="tab-pane fade"><br>
+                      <div class="chart" id="table_selected_1_6"> </div><br>
+                    </div>
+                    <div id="sections_multi_1_7" class="tab-pane fade"><br>
+                      <div class="chart" id="table_selected_1_7"> </div><br>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div id="report2" class="tab-pane fade">
-                  <h3 id="report2_text" class="text-center">Summary for PM 2</h3><br>
-                  <div id="pm_description_mul_2" class="container panel panel-default"></div>
-                  <div id="pm_data_mul_2" class="container panel panel-default"></div>
+                <h3 id="report2_text" class="text-center">Summary for PM 2</h3><br>
+                <div id="pm_description_mul_2" class="container panel panel-default"></div>
+                <div id="pm_data_mul_2" class="container panel panel-default"></div>
+                <br>
+                <div id="corridor_multi_panel_2" class="panel panel-default" style="visibility: visible;">
+                  <h3 class="text-center">Corridor Level Analysis</h3><br>
                   <div class="chart" style="padding-left: 35px;" id="chart_selected2"> </div>
+                </div>
+                <div id="section_multi_panel_2" class="panel panel-default" style="visibility: visible;">
+                  <h3 class="text-center">Section Level Analysis</h3><br>
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#sections_multi_2_1" data-target="#sections_multi_2_1">Section #1</a></li>
+                    <li><a data-toggle="tab" href="#sections_multi_2_2" data-target="#sections_multi_2_2">Section #2</a></li>
+                    <li><a data-toggle="tab" href="#sections_multi_2_3" data-target="#sections_multi_2_3">Section #3</a></li>
+                    <li><a data-toggle="tab" href="#sections_multi_2_4" data-target="#sections_multi_2_4">Section #4</a></li>
+                    <li><a data-toggle="tab" href="#sections_multi_2_5" data-target="#sections_multi_2_5">Section #5</a></li>
+                    <li><a data-toggle="tab" href="#sections_multi_2_6" data-target="#sections_multi_2_6">Section #6</a></li>
+                    <li><a data-toggle="tab" href="#sections_multi_2_7" data-target="#sections_multi_2_7">Section #7</a></li>
+                  </ul>
+                  <div class="tab-content" >
+                    <div id="sections_multi_2_1" class="tab-pane fade in active"><br>
+                      <div class="chart" id="table_selected_2_1"> </div><br>
+                    </div>
+                    <div id="sections_multi_2_2" class="tab-pane fade"><br>
+                      <div class="chart" id="table_selected_2_2"> </div><br>
+                    </div>
+                    <div id="sections_multi_2_3" class="tab-pane fade"><br>
+                      <div class="chart" id="table_selected_2_3"> </div><br>
+                    </div>
+                    <div id="sections_multi_2_4" class="tab-pane fade"><br>
+                      <div class="chart" id="table_selected_2_4"> </div><br>
+                    </div>
+                    <div id="sections_multi_2_5" class="tab-pane fade"><br>
+                      <div class="chart" id="table_selected_2_5"> </div><br>
+                    </div>
+                    <div id="sections_multi_2_6" class="tab-pane fade"><br>
+                      <div class="chart" id="table_selected_2_6"> </div><br>
+                    </div>
+                    <div id="sections_multi_2_7" class="tab-pane fade"><br>
+                      <div class="chart" id="table_selected_2_7"> </div><br>
+                    </div>
+                  </div>
+                </div>
+
               </div>
               <div id="report3" class="tab-pane fade">
                   <h3 id="report3_text" class="text-center">Summary for PM 3</h3><br>
                   <div id="pm_description_mul_3" class="container panel panel-default"></div>
                   <div id="pm_data_mul_3" class="container panel panel-default"></div>
-                  <div class="chart" style="padding-left: 35px;" id="chart_selected3"> </div>
+                  <br>
+                  <div id="corridor_multi_panel_2" class="panel panel-default" style="visibility: visible;">
+                    <h3 class="text-center">Corridor Level Analysis</h3><br>
+                    <div class="chart" style="padding-left: 35px;" id="chart_selected3"> </div>
+                  </div>
+                  <div id="section_multi_panel_3" class="panel panel-default" style="visibility: visible;">
+                    <h3 class="text-center">Section Level Analysis</h3><br>
+                    <ul class="nav nav-tabs">
+                      <li class="active"><a data-toggle="tab" href="#sections_multi_3_1" data-target="#sections_multi_3_1">Section #1</a></li>
+                      <li><a data-toggle="tab" href="#sections_multi_3_2" data-target="#sections_multi_3_2">Section #2</a></li>
+                      <li><a data-toggle="tab" href="#sections_multi_3_3" data-target="#sections_multi_3_3">Section #3</a></li>
+                      <li><a data-toggle="tab" href="#sections_multi_3_4" data-target="#sections_multi_3_4">Section #4</a></li>
+                      <li><a data-toggle="tab" href="#sections_multi_3_5" data-target="#sections_multi_3_5">Section #5</a></li>
+                      <li><a data-toggle="tab" href="#sections_multi_3_6" data-target="#sections_multi_3_6">Section #6</a></li>
+                      <li><a data-toggle="tab" href="#sections_multi_3_7" data-target="#sections_multi_3_7">Section #7</a></li>
+                    </ul>
+                    <div class="tab-content" >
+                      <div id="sections_multi_3_1" class="tab-pane fade in active"><br>
+                        <div class="chart" id="table_selected_3_1"> </div><br>
+                      </div>
+                      <div id="sections_multi_3_2" class="tab-pane fade"><br>
+                        <div class="chart" id="table_selected_3_2"> </div><br>
+                      </div>
+                      <div id="sections_multi_3_3" class="tab-pane fade"><br>
+                        <div class="chart" id="table_selected_3_3"> </div><br>
+                      </div>
+                      <div id="sections_multi_3_4" class="tab-pane fade"><br>
+                        <div class="chart" id="table_selected_3_4"> </div><br>
+                      </div>
+                      <div id="sections_multi_3_5" class="tab-pane fade"><br>
+                        <div class="chart" id="table_selected_3_5"> </div><br>
+                      </div>
+                      <div id="sections_multi_3_6" class="tab-pane fade"><br>
+                        <div class="chart" id="table_selected_3_6"> </div><br>
+                      </div>
+                      <div id="sections_multi_3_7" class="tab-pane fade"><br>
+                        <div class="chart" id="table_selected_3_7"> </div><br>
+                      </div>
+                    </div>
+                  </div>
               </div>
             </div>
           </div>
@@ -1745,9 +1863,15 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
   }); //end document.ready
 
-  function chartSectionLevel(k, isMulti, loop_num){
+  function chartSectionLevel(k, isMulti, loop_num, multikey){
+    if(loop_num == 1 || loop_num == 0){
+      clearCharts();
+    }
+    var whatChart = "table_selected";
     if(isMulti){
-
+      whatChart = "table_selected_"+loop_num;
+      key = multikey;
+      k = key;
     }
     var to_send = {key:k};
     $.get('mpo_section_level.php', to_send, function(data){
@@ -1960,7 +2084,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           console.log('Sorry, no chart found for ' + k + ", loop " + i);
         }
 
-        var table = new google.visualization.Table(document.getElementById('table_selected'+'_'+i));
+        var table = new google.visualization.Table(document.getElementById(whatChart+'_'+i));
         table.draw(data_table, {showRowNumber: false, width: '100%', height: '100%'});
       }
     });
@@ -1976,7 +2100,6 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
     if(isMulti){
       whatChart = "chart_selected"+loop_num;
       key = multikey;
-      //console.log(whatChart);
     }
     var contenedor_charts = {
       "freqtran": {s1:9,s2:12,s3:0,s4:0,s5:0,s6:0,s7:0,avg:4},
@@ -2000,7 +2123,7 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
       "b12": {s1:null,s2:null,s3:null,s4:null,s5:null,s6:null,s7:null,avg:null},
       "c26": {s1:10,s2:9,s3:1,s4:3,s5:0,s6:1,s7:3,avg:9}
     }
-    //clearCharts();
+
     if(contenedor_charts[key]){
       var name;
       var format;
@@ -2058,15 +2181,6 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
     }
   );
 
-  if(format == "percent"){
-    var in_hAxis = "#.#'%'";
-    var max = 100;
-  }else if(format == "total"){
-    var in_hAxis = 'decimal';
-    var max = 0;
-  }else{
-    var in_hAxis = 'decimal'; //lbs
-  }
 if(format == "tti"){
   var options = {
     title: name,
@@ -2094,9 +2208,10 @@ else{
     vAxis: {}
   };
 }
-    //options['hAxis']['format'] = 'percent';
+
     bar_init = new google.visualization.BarChart(document.getElementById(whatChart));
     if(display){
+      //console.log("in "+loop_num);
       bar_init.draw(data, options);
     }
   }
@@ -2178,7 +2293,7 @@ else{
           var loop_num = (z+1);
           var multi_key = pm_mpo["pm"+(z+1)];
           chartMontanaAvg(pm_mpo.pm, isMulti, loop_num, multi_key);
-
+          chartSectionLevel(pm_mpo.pm, isMulti, loop_num, multi_key);
           var c = data["coords"+(z+1)].length;
           var points = [];
           //gris, verde, rojo -- testing colors
@@ -3714,7 +3829,7 @@ else{
       var isMulti = false;
       var loop_num = 0;
       chartMontanaAvg(pm_mpo.pm, isMulti, loop_num);
-      chartSectionLevel(pm_mpo.pm);
+      chartSectionLevel(pm_mpo.pm, isMulti);
       var points = [];
       shapecolor = ["#84857B", "#13FF00", "#FF0000", "#009BFF", "#EBF20D", "#fe9253", "#8C0909", "#0051FF", "#AB77FF", "#EBF20D", "#8C0909", "#07FDCA", "#008C35", "FFDBA5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
       shapeoutline = ["#000000", "#0b9b00", "#c10000", "#007fd1", "#aaaf0a", "#d18f0a", "#8c0909", "#0037ad", "#873dff", "#aaaf0a", "8c0909", "36c9bd", "#008c35", "#ffdba5", "#B57777", "#6D3300", "#D0FF00", "#5900FF"];
