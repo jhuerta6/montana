@@ -13,7 +13,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>PMMC</title>
+  <title>PMEPC</title>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link href="css/bootstrap.css" rel="stylesheet">
   <link href="css/custom.css" rel="stylesheet" type="text/css">
@@ -58,29 +58,56 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 <body>
 
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <h3 class="text-center" style="color:#FF8000;"> Performance Measures for Montana Corridor</h3>
+    <h3 class="text-center" style="color:#FF8000;"> Performance Measures for El Paso Corridors</h3>
     <h6 class="hidden-xs text-center"><i style="color: white;">"</i><strong><i style="color:#FF8000;" class="text-center">CTIS </i></strong><i class="text-center" style="color:white;">is designated as a Member of National, Regional, and Tier 1 University Transportation Center."</i></h6>
-    <p class="hidden-xs text-right" style="color: white"> Version 1.4.9 (02/28/2018)</p>
+    <p class="hidden-xs text-right" style="color: white"> Version 1.5.0 (04/9/2018)</p>
   </nav>
 
   <div class="container panel panel-default">
     <div class="row"><br>
       <div class="col-sm-9">
-        <div class="input-group element">
-          <span class="input-group-addon element" id="add_on">Planning Block</span>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="input-group">
+              <span class="input-group-addon" id="add_on_corridor">Corridor</span>
+              <select type="text" class="form-control" placeholder="Corridor" aria-describedby="add_on_corridor" id="select_corridor">
+                <option value="" disabled selected>Select a Corridor</option>
+                <option value="montana_corridor">Montana Corridor</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="input-group">
+          <span class="input-group-addon" id="add_on">Planning Block</span>
           <select type="text" class="form-control" placeholder="Block Level" aria-describedby="add_on" id="select_blocks">
             <option value="" disabled selected>Select a Planning Block</option>
           </select>
         </div>
       </div>
-      <div class="col-sm-3">
+        <div "col-sm-4">
+          <div class="input-group" id="singular_pm_select">
+            <span class="input-group-addon" id="add_on">Performance Measure</span>
+            <select type="text" class="form-control" placeholder="Performance Measure" aria-describedby="add_on" id="select_pm">
+              <option value="" disabled selected>Select a Performance Measure</option>
+            </select>
+        </div>
+        </div>
+        <!-- <div class="input-group element">
+          <span class="input-group-addon element" id="add_on">Planning Block</span>
+          <select type="text" class="form-control" placeholder="Block Level" aria-describedby="add_on" id="select_blocks">
+            <option value="" disabled selected>Select a Planning Block</option>
+          </select>
+        </div> -->
+      </div>
+    </div>
+      <!-- <div class="col-sm-3">
         <div class="input-group" id="main_pm">
           <span class="input-group-addon" id="add_on">PM</span>
           <select type="text" class="form-control" placeholder="Performance Measure" aria-describedby="add_on" id="select_pm">
             <option value="" disabled selected>Select a Performance Measure</option>
           </select>
         </div>
-      </div>
+      </div> -->
     </div>
     <div class="row">
       <div class="col-sm-9"><br>
@@ -247,7 +274,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       </div>
       <div id="intro" class="panel">
         <div class="panel-body text-center" >
-          <h1> Welcome to the PMMC Web Application<br><br><h2>To start, please <span class="element">select a singular Planning Block from its dropdown list, or choose "Multiple"</span> to display various performances measures at a time.</h2><br><br><br><br></h1>
+          <h1> Welcome to the PMEPC Web Application<br><br><h2>To start, please <span class="">select a Corridor, then a singular Planning Block from its dropdown list, or choose "Multiple"</span> to display various performances measures at a time.</h2><br><br><br><br></h1>
         </div>
       </div>
       <div id="intro_2" class="panel">
@@ -274,7 +301,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           <div class="col-sm-12">
             <div class="tab-content"><br>
               <div id="default" class="tab-pane fade in active">
-
                 <div id="main_default">
                 <div class="input-group" id="muni_dropbox">
                   <span class="input-group-addon" id="add_on">Municipalities</span>
@@ -302,6 +328,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   <!--<div class="checkbox disabled">
                     <label><input type="checkbox" value="" disabled>Option 3</label>
                   </div> -->
+                  <hr>
+                  <h4 class="text-center"> Select Multiple Performance Measures </h4>
                   <div class="input-group">
                     <span class="input-group-addon" id="add_on_multiple_1">
                       <input class="form-check-input" type="checkbox" value="" id="check_multi_1" disabled>
@@ -536,7 +564,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   </div>
                   <div id="sections_one" class="tab-pane fade"><br>
                     <!--<h3 id="sections_one_text" class="text-center">Legend para Sections</h3><br>-->
-                    <div id="legend_section" class="container panel panel-default">Click the checkbox next to 'Display Sections'</div>
+                    <div id="legend_section" class="container panel panel-default">Click the Sections dropdown box and select 'Montana Corridor' to display sections</div>
                   </div>
                 </div>
               </div>
@@ -544,9 +572,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               <div id="legend_multi_panel" class="panel panel-default" style="visibility: visible;">
                 <h3 class="text-center">Legend</h3><br>
                 <ul class="nav nav-tabs">
-                  <li class="active"><a data-toggle="tab" href="#legend_multi_1" data-target="#legend_multi_1">#1</a></li>
-                  <li><a data-toggle="tab" href="#legend_multi_2" data-target="#legend_multi_2">#2</a></li>
-                  <li><a data-toggle="tab" href="#legend_multi_3" data-target="#legend_multi_3">#3</a></li>
+                  <li class="active"><a data-toggle="tab" href="#legend_multi_1" data-target="#legend_multi_1">PM #1</a></li>
+                  <li><a data-toggle="tab" href="#legend_multi_2" data-target="#legend_multi_2">PM #2</a></li>
+                  <li><a data-toggle="tab" href="#legend_multi_3" data-target="#legend_multi_3">PM #3</a></li>
                   <li><a data-toggle="tab" href="#sections_multi" data-target="#sections_multi">Section</a></li>
                 </ul>
                 <div class="tab-content" >
@@ -564,7 +592,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   </div>
                   <div id="sections_multi" class="tab-pane fade"><br>
                     <!--<h3 id="sections_multi_text" class="text-center">Legend para Sections multi</h3><br>-->
-                    <div id="legend_section_multi" class="container panel panel-default">Click the checkbox next to 'Display Sections'</div>
+                    <div id="legend_section_multi" class="container panel panel-default">Click the Sections dropdown box and select 'Montana Corridor' to display sections</div>
                   </div>
                 </div>
               </div>
@@ -846,7 +874,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         overall: false,
         periods: null,
         name: "C.2.2. Bus Stops Within 600ft. of Bikeways",
-        chart_name: "Number of Bus Stops Within 600ft. of Bikeways",
+        chart_name: "Percentage of Bus Stops Within 600ft. of Bikeways",
         chart_format: "percent",
         chart_display: true,
         mode: ["T","B"],
@@ -1018,7 +1046,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     elem_blck.value = blck;
     var select_blocks = document.getElementById("select_section");
     select_blocks.appendChild(elem_blck);
-    var blck = "THIS CORRIDOR";
+    var blck = "MONTANA CORRIDOR";
     var elem_blck = document.createElement("option");
     elem_blck.innerHTML = blck;
     elem_blck.id = blck;
@@ -1028,7 +1056,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
     $("#select_section").change(function(){
        var sec_name = $(this).children(":selected").attr("id");
-       if(sec_name == "ALL" || sec_name == "THIS CORRIDOR"){
+       if(sec_name == "ALL" || sec_name == "MONTANA CORRIDOR"){
          var checked = true;
        }
        else{
@@ -1127,14 +1155,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     elem_blck.value = blck;
     var select_blocks = document.getElementById("select_bound");
     select_blocks.appendChild(elem_blck);
-    var blck = "ALL";
-    var elem_blck = document.createElement("option");
-    elem_blck.innerHTML = blck;
-    elem_blck.id = blck;
-    elem_blck.value = blck;
-    var select_blocks = document.getElementById("select_bound");
-    select_blocks.appendChild(elem_blck);
-    var blck = "THIS CORRIDOR";
+    var blck = "EL PASO MPO BOUNDARY";
     var elem_blck = document.createElement("option");
     elem_blck.innerHTML = blck;
     elem_blck.id = blck;
@@ -1144,7 +1165,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
     $("#select_bound").change(function(){
        var sec_name = $(this).children(":selected").attr("id");
-       if(sec_name == "ALL" || sec_name == "THIS CORRIDOR"){
+       if(sec_name == "EL PASO MPO BOUNDARY"){
          var checked = true;
        }
        else{
@@ -1468,7 +1489,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           $("#data-holder-multiple").show();
 
         }
-
+        $("#singular_pm_select").hide();
         $("#corridor_individual_panel").hide();
         $("#section_individual_panel").hide();
         $("#main_default").show();
@@ -1506,6 +1527,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       }
       else{
         $("#intro_2").show();
+        $("#singular_pm_select").show();
         if(onMultiple = true){
           //$("#individual_buttons").hide();
           $("#corridor_individual_panel").hide();
@@ -3686,7 +3708,7 @@ else{
                 l.appendChild(div);
 
                 var div = document.createElement('div');
-                div.innerHTML = "Note: Only charts are available for this performance measure, no data on map. Check the checkbox next to 'Display Sections' and look at the 'Section' tab";
+                div.innerHTML = "Note: Only charts are available for this performance measure, no data on map. Click the Sections dropdown box and select 'Montana Corridor' to display sections, and look at Section tab in the legend";
                 var newLegend = document.createElement('div');
                 newLegend = document.getElementById('legend_content_multi_'+(z+1));
                 document.getElementById('legend').style.visibility = "visible";
@@ -4801,7 +4823,7 @@ else{
             $('#legendSpawner').find('*').not('h3').remove();
             var spawner = document.getElementById('legendSpawner');
             var div = document.createElement('div');
-            div.innerHTML = "Only charts are available for this performance measure, no data on map. Check the checkbox next to 'Display Sections' and look at the 'Section' tab";
+            div.innerHTML = "Only charts are available for this performance measure, no data on map. Click the Sections dropdown box and select 'Montana Corridor' to display sections and look at the 'Section' tab in legend";
             var newLegend = document.createElement('div');
             newLegend = document.getElementById('legend');
             document.getElementById('legend').style.visibility = "visible";
