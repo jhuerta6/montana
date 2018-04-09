@@ -28,7 +28,7 @@ function fetchAll($result){
 function getTest(){
 	global $conn, $toReturn;
 
-	$query = "SELECT * from crashes";
+	$query = "SELECT * from crashes"; //should I use c32?
 
 	$toReturn['query2'] = $query;
 	$result = mysqli_query($conn, $query);

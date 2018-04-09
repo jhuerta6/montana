@@ -426,33 +426,6 @@ function getSectionLevelData(){ //we will send to seven sections
             $toReturn['inj'.$i] = "Data missing for Section 1";
             $toReturn['fat'.$i] = "Data missing for Section 1";
         }
-
-        // for ($j=2012; $j <= 2016; $j++) {
-        //   if($i == 1){
-        //     $toReturn[$j.'_tot'.$i] = "Data missing for Section 1";
-        //     $toReturn[$j.'_inj'.$i] = "Data missing for Section 1";
-        //     $toReturn[$j.'_fat'.$i] = "Data missing for Section 1";
-        //   }
-        //   else{
-        //   $query_tot = "select count(crashid) from crashes where date = $j and section_num = $i";
-        //   $tot = mysqli_query($conn, $query_tot);
-        //   $tot = fetchAll($tot);
-        //   $send_tot = $tot[0]['count(crashid)'];
-        //   $toReturn[$j.'_tot'.$i] = number_format($send_tot, 0, '.', '');
-        //
-        //   $query_inj = "select count(crashid) from crashes where date = $j and section_num = $i and incap = 1";
-        //   $inj = mysqli_query($conn, $query_inj);
-        //   $inj = fetchAll($inj);
-        //   $send_inj = $inj[0]['count(crashid)'];
-        //   $toReturn[$j.'_inj'.$i] = number_format($send_inj, 0, '.', '');
-        //
-        //   $query_fat = "select count(crashid) from crashes where date = $j and section_num = $i and fatal = 1";
-        //   $fat = mysqli_query($conn, $query_fat);
-        //   $fat = fetchAll($fat);
-        //   $send_fat = $fat[0]['count(crashid)'];
-        //   $toReturn[$j.'_fat'.$i] = number_format($send_fat, 0, '.', '');
-        // }
-
       break;
       case "iri":
         $query_miles_total = "select sum(newmleng) from d11 where sectionnum = $i";

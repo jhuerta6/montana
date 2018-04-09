@@ -293,7 +293,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             <li class="active"><a data-toggle="tab" href="#default,#defaultbtn" data-target="#default, #defaultbtn">Display</a></li>
             <li><a data-toggle="tab" href="#filters,#filtersbtn" data-target="#filters, #filtersbtn">Filter</a></li>
             <li data-toggle="tooltip" data-placement="top" title="Click your drawn Area Of Interest to display statistics">
-              <a data-toggle="tab" href="#statistics,#statisticsbtn" data-target="#statistics, #statisticsbtn">Statistics</a>
+              <a data-toggle="tab" href="#statistics,#statisticsbtn" data-target="#statistics, #statisticsbtn">Area of Interest</a>
             </li>
             <li><a data-toggle="tab" href="#timeline,#timelinebtn" data-target="#timeline, #timelinebtn">Timeline</a></li>
           </ul>
@@ -357,7 +357,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 </div>
               </div>
               </div>
-              <div id="filters" class="tab-pane fade"><br>
+              <div id="filters" class="tab-pane fade">
+                <div id="single_filters_to">
+                <br>
                 <div class="form-check">
                   <p class="form-check-label">
                     <input class="form-check-input" type="radio" name="radios" id="biggerThan" value="bigger">
@@ -381,141 +383,149 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                   <input type="number" class="form-control" value="1" min="0"placeholder="...units" id="filter_units" aria-describedby="basic-addon3">
                 </div><br>
               </div>
-              <div id="statistics" class="tab-pane fade"><br>
+            </div>
+              <div id="statistics" class="tab-pane fade">
               </div>
               <div id="timeline" class="tab-pane fade">
-                <p> As of right now, you can only select data from <strong>Crashes</strong>. </p>
-                <div class="row">
-                  <div class="col-lg-6">
-                  <span> Delay in seconds</span>
+                <div id="not_display_timeline" class="text-center">
+                  <h4> Select Performance Measure "C.3.2 Crashes Involving All Users" to see this tool's implementation. </h4>
                 </div>
-                  <div class="col-lg-6">
-                  <input id="timegen_seconds" class="form-control" min="1" max="10" value="1" type="number" placeholder="How many seconds long?"><br>
-                </div>
-                </div>
-                <div class="form-group">
-                  <label for="bit">Select the years</label>
+                <div id="display_timeline">
+                  <p> As of right now, you can only select data from <strong>Crashes</strong>. </p>
                   <div class="row">
-                    <input id="slide_depth" type="text" class="span2" value="" data-slider-min="2012" data-slider-max="2016" data-slider-step="1" data-slider-value="[0,0]"/><br><br>
+                    <div class="col-lg-6">
+                      <span> Delay in seconds</span>
+                    </div>
+                    <div class="col-lg-6">
+                      <input id="timegen_seconds" class="form-control" min="1" max="10" value="1" type="number" placeholder="How many seconds long?"><br>
+                    </div>
                   </div>
-                </div>
-                <div class="text-center" id="update_time_text"></div>
-                <div id="timeline_dialog_panel" class="panel panel-default">
-                  <div class="panel-body" id="timeline_dialog">
+                  <div class="form-group">
+                    <label for="bit">Select the years</label>
+                    <div class="row">
+                      <input id="slide_depth" type="text" class="span2" value="" data-slider-min="2012" data-slider-max="2016" data-slider-step="1" data-slider-value="[0,0]"/><br><br>
+                    </div>
                   </div>
-                  <div class="table-responsive">
-                  <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th scope="col">Section number</th>
-                        <th scope="col">2012 fatal crash</th>
-                        <th scope="col">2012 serious injury crash</th>
-                        <th scope="col">2013 fatal crash</th>
-                        <th scope="col">2013 serious injury crash</th>
-                        <th scope="col">2014 fatal crash</th>
-                        <th scope="col">2014 serious injury crash</th>
-                        <th scope="col">2015 fatal crash</th>
-                        <th scope="col">2015 serious injury crash</th>
-                        <th scope="col">2016 fatal crash</th>
-                        <th scope="col">2016 serious injury crash</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td id="1_2012_fatal">0</td>
-                        <td id="1_2012_not">0</td>
-                        <td id="1_2013_fatal">0</td>
-                        <td id="1_2013_not">0</td>
-                        <td id="1_2014_fatal">0</td>
-                        <td id="1_2014_not">0</td>
-                        <td id="1_2015_fatal">0</td>
-                        <td id="1_2015_not">0</td>
-                        <td id="1_2016_fatal">0</td>
-                        <td id="1_2016_not">0</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td id="2_2012_fatal">0</td>
-                        <td id="2_2012_not">0</td>
-                        <td id="2_2013_fatal">0</td>
-                        <td id="2_2013_not">0</td>
-                        <td id="2_2014_fatal">0</td>
-                        <td id="2_2014_not">0</td>
-                        <td id="2_2015_fatal">0</td>
-                        <td id="2_2015_not">0</td>
-                        <td id="2_2016_fatal">0</td>
-                        <td id="2_2016_not">0</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td id="3_2012_fatal">0</td>
-                        <td id="3_2012_not">0</td>
-                        <td id="3_2013_fatal">0</td>
-                        <td id="3_2013_not">0</td>
-                        <td id="3_2014_fatal">0</td>
-                        <td id="3_2014_not">0</td>
-                        <td id="3_2015_fatal">0</td>
-                        <td id="3_2015_not">0</td>
-                        <td id="3_2016_fatal">0</td>
-                        <td id="3_2016_not">0</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">4</th>
-                        <td id="4_2012_fatal">0</td>
-                        <td id="4_2012_not">0</td>
-                        <td id="4_2013_fatal">0</td>
-                        <td id="4_2013_not">0</td>
-                        <td id="4_2014_fatal">0</td>
-                        <td id="4_2014_not">0</td>
-                        <td id="4_2015_fatal">0</td>
-                        <td id="4_2015_not">0</td>
-                        <td id="4_2016_fatal">0</td>
-                        <td id="4_2016_not">0</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">5</th>
-                        <td id="5_2012_fatal">0</td>
-                        <td id="5_2012_not">0</td>
-                        <td id="5_2013_fatal">0</td>
-                        <td id="5_2013_not">0</td>
-                        <td id="5_2014_fatal">0</td>
-                        <td id="5_2014_not">0</td>
-                        <td id="5_2015_fatal">0</td>
-                        <td id="5_2015_not">0</td>
-                        <td id="5_2016_fatal">0</td>
-                        <td id="5_2016_not">0</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">6</th>
-                        <td id="6_2012_fatal">0</td>
-                        <td id="6_2012_not">0</td>
-                        <td id="6_2013_fatal">0</td>
-                        <td id="6_2013_not">0</td>
-                        <td id="6_2014_fatal">0</td>
-                        <td id="6_2014_not">0</td>
-                        <td id="6_2015_fatal">0</td>
-                        <td id="6_2015_not">0</td>
-                        <td id="6_2016_fatal">0</td>
-                        <td id="6_2016_not">0</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">7</th>
-                        <td id="7_2012_fatal">0</td>
-                        <td id="7_2012_not">0</td>
-                        <td id="7_2013_fatal">0</td>
-                        <td id="7_2013_not">0</td>
-                        <td id="7_2014_fatal">0</td>
-                        <td id="7_2014_not">0</td>
-                        <td id="7_2015_fatal">0</td>
-                        <td id="7_2015_not">0</td>
-                        <td id="7_2016_fatal">0</td>
-                        <td id="7_2016_not">0</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <div class="text-center" id="update_time_text"></div>
+                  <div id="timeline_dialog_panel" class="panel panel-default">
+                    <div class="panel-body" id="timeline_dialog">
+                    </div>
+                    <div class="table-responsive">
+                      <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">Section number</th>
+                            <th scope="col">2012 fatal crash</th>
+                            <th scope="col">2012 serious injury crash</th>
+                            <th scope="col">2013 fatal crash</th>
+                            <th scope="col">2013 serious injury crash</th>
+                            <th scope="col">2014 fatal crash</th>
+                            <th scope="col">2014 serious injury crash</th>
+                            <th scope="col">2015 fatal crash</th>
+                            <th scope="col">2015 serious injury crash</th>
+                            <th scope="col">2016 fatal crash</th>
+                            <th scope="col">2016 serious injury crash</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">1</th>
+                            <td id="1_2012_fatal">0</td>
+                            <td id="1_2012_not">0</td>
+                            <td id="1_2013_fatal">0</td>
+                            <td id="1_2013_not">0</td>
+                            <td id="1_2014_fatal">0</td>
+                            <td id="1_2014_not">0</td>
+                            <td id="1_2015_fatal">0</td>
+                            <td id="1_2015_not">0</td>
+                            <td id="1_2016_fatal">0</td>
+                            <td id="1_2016_not">0</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">2</th>
+                            <td id="2_2012_fatal">0</td>
+                            <td id="2_2012_not">0</td>
+                            <td id="2_2013_fatal">0</td>
+                            <td id="2_2013_not">0</td>
+                            <td id="2_2014_fatal">0</td>
+                            <td id="2_2014_not">0</td>
+                            <td id="2_2015_fatal">0</td>
+                            <td id="2_2015_not">0</td>
+                            <td id="2_2016_fatal">0</td>
+                            <td id="2_2016_not">0</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td id="3_2012_fatal">0</td>
+                            <td id="3_2012_not">0</td>
+                            <td id="3_2013_fatal">0</td>
+                            <td id="3_2013_not">0</td>
+                            <td id="3_2014_fatal">0</td>
+                            <td id="3_2014_not">0</td>
+                            <td id="3_2015_fatal">0</td>
+                            <td id="3_2015_not">0</td>
+                            <td id="3_2016_fatal">0</td>
+                            <td id="3_2016_not">0</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">4</th>
+                            <td id="4_2012_fatal">0</td>
+                            <td id="4_2012_not">0</td>
+                            <td id="4_2013_fatal">0</td>
+                            <td id="4_2013_not">0</td>
+                            <td id="4_2014_fatal">0</td>
+                            <td id="4_2014_not">0</td>
+                            <td id="4_2015_fatal">0</td>
+                            <td id="4_2015_not">0</td>
+                            <td id="4_2016_fatal">0</td>
+                            <td id="4_2016_not">0</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">5</th>
+                            <td id="5_2012_fatal">0</td>
+                            <td id="5_2012_not">0</td>
+                            <td id="5_2013_fatal">0</td>
+                            <td id="5_2013_not">0</td>
+                            <td id="5_2014_fatal">0</td>
+                            <td id="5_2014_not">0</td>
+                            <td id="5_2015_fatal">0</td>
+                            <td id="5_2015_not">0</td>
+                            <td id="5_2016_fatal">0</td>
+                            <td id="5_2016_not">0</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">6</th>
+                            <td id="6_2012_fatal">0</td>
+                            <td id="6_2012_not">0</td>
+                            <td id="6_2013_fatal">0</td>
+                            <td id="6_2013_not">0</td>
+                            <td id="6_2014_fatal">0</td>
+                            <td id="6_2014_not">0</td>
+                            <td id="6_2015_fatal">0</td>
+                            <td id="6_2015_not">0</td>
+                            <td id="6_2016_fatal">0</td>
+                            <td id="6_2016_not">0</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">7</th>
+                            <td id="7_2012_fatal">0</td>
+                            <td id="7_2012_not">0</td>
+                            <td id="7_2013_fatal">0</td>
+                            <td id="7_2013_not">0</td>
+                            <td id="7_2014_fatal">0</td>
+                            <td id="7_2014_not">0</td>
+                            <td id="7_2015_fatal">0</td>
+                            <td id="7_2015_not">0</td>
+                            <td id="7_2016_fatal">0</td>
+                            <td id="7_2016_not">0</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <button type="button" class="btn btn-default form-control" id="time_btn" onclick="timegen();">Generate Timeline</button>
                 </div>
-                </div>
+
               </div>
             </div>
           </div>
@@ -532,15 +542,17 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               </div>
               <br>
               <div id="statisticsbtn" class="tab-pane fade">
+                <div id="single_statistics_button">
                 <button data-toggle="tooltip" data-placement="top" title="Only bring up the data touched by the Area Of Interest" class="btn btn-primary form-control" type="button" id="runAOI" onClick="runAOI()">Display w/ AOI</button> <br><br>
                 <button type="button" class="btn btn-default form-control" id="draw" onclick="drawAnotherRectangle();">Clear AOI</button><br><br>
-                <button type="button" class="btn btn-default form-control" id="clearCharts" onclick="clearCharts();">Clear Charts</button><br><br>
+                <!-- <button type="button" class="btn btn-default form-control" id="clearCharts" onclick="clearCharts();">Clear Charts</button><br><br> -->
               </div>
+            </div>
               <div id="mpobtn" class="tab-pane fade">
                 <button type="button" class="btn btn-default form-control" id="mpo_draw" onclick="mpo();">Draw</button>
               </div>
               <div id="timelinebtn" class="tab-pane fade">
-                <button type="button" class="btn btn-default form-control" id="time_btn" onclick="timegen();">Generate Timeline</button>
+
                 <br><br>
               </div>
             </div>
@@ -1469,16 +1481,22 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
     $("#select_blocks").change(function(){
       $("#intro").remove();
-
       //$("#main_default, #defaultbtn").show();
       $("#add_on").removeClass('element');
       $("#modes").hide();
+      $("#single_statistics_button").hide();
+      $("#single_filters_to").hide();
+      $("#display_timeline").hide();
+      $("#not_display_timeline").hide();
+      // $("#single_filters_to").hide();
       //$("#main_default, #defaultbtn").show();
       //$("#filters, #filtersbtn").show();
       //$("#statistics, #statisticsbtn").show();
       //$("#timeline, #timelinebtn").show();
 
       $("#select_pm").empty();
+      $("#single_statistics_button").show();
+      $("#single_filters").show();
       var disabled = document.createElement("option");
       disabled.innerHTML = "Select a Performance Measure";
       disabled.id = "disabled"
@@ -1489,6 +1507,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           $("#data-holder-multiple").show();
 
         }
+        $("#display_timeline").hide();
+        $("#not_display_timeline").show();
+        $("#single_filters_to").show();
         $("#singular_pm_select").hide();
         $("#corridor_individual_panel").hide();
         $("#section_individual_panel").hide();
@@ -1526,6 +1547,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
       }
       else{
+
         $("#intro_2").show();
         $("#singular_pm_select").show();
         if(onMultiple = true){
@@ -1669,6 +1691,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     });
 
     $("#select_pm").change(function(){
+      $("#single_filters_to").show();
+      $("#display_timeline").hide();
+      $("#not_display_timeline").show();
       $("#modes").empty();
       $("#modes").show();
       $("#data-holder").hide();
@@ -1684,6 +1709,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         removePolygons();
       }
       else{
+
         //$("#legend").empty();
       }
       $("#pm_description,#pm_data").empty();
@@ -1707,6 +1733,11 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       else if(this.value == blocks.a.a11.short){
         drawChart_a11();
       }
+      else if(this.value == blocks.c.c32.short){
+        $("#display_timeline").show();
+        $("#not_display_timeline").hide();
+      }
+
 
       else if(
         this.value == "A-2-3) Car-Free Households" || this.value == "A-2-4) Transportation Disadvantaged Households" ||
@@ -4885,6 +4916,7 @@ else{
   var s1 = s2 = s3 = s4 = s5 = s6 = s7 = 0;
   var s1_fatal = s2_fatal = s3_fatal = s4_fatal = s5_fatal = s6_fatal = s7_fatal = 0;
   function timegen(){
+    //have to delete previous map layer, restore when not using this button
     var from = from_year_slide;
     from = parseInt(from);
     var to = to_year_slide;
