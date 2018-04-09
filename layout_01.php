@@ -5519,9 +5519,10 @@ var options =
   }
 
   function polyInfo(event){
-    var val = parseFloat(this.description_value).toFixed(3);
+    var val = parseFloat(this.description_value).toFixed(2);
     //text = this.description + " : " + val;
-    text = val + "%";
+    //text = val + "%";
+    text = val;
     app.infoWindow.setContent(text);
     app.infoWindow.setPosition(event.latLng);
     app.infoWindow.open(app.map);
