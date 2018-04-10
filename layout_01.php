@@ -1737,8 +1737,6 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         $("#display_timeline").show();
         $("#not_display_timeline").hide();
       }
-
-
       else if(
         this.value == "A-2-3) Car-Free Households" || this.value == "A-2-4) Transportation Disadvantaged Households" ||
         this.value == "B-1-4) Jobs-Housing Ratio" || this.value == "B-3-1-A) Estimated Emissions CO" ||
@@ -1750,7 +1748,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       var panel_body = document.getElementById("modes");
       panel_body.className = "panel panel-body text-center";
       var p_mode = document.createElement("p");
-      p_mode.innerHTML ="<h4 class=\"text-center\"> Modes: </h4>";
+      p_mode.innerHTML ="<h4 class=\"text-center\"> Modes of Transportation: </h4>";
       panel_body.appendChild(p_mode);
       pm_mpo.name_pm = this.value;
       var block = $(this).children(":selected").attr("id");
