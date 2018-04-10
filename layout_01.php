@@ -4913,10 +4913,14 @@ else{
     });
   }
 
+  function recolor(){
+    console.log(app.polygons);
+  }
+
   var s1 = s2 = s3 = s4 = s5 = s6 = s7 = 0;
   var s1_fatal = s2_fatal = s3_fatal = s4_fatal = s5_fatal = s6_fatal = s7_fatal = 0;
   function timegen(){
-    //have to delete previous map layer, restore when not using this button
+    removePolygons();
     var from = from_year_slide;
     from = parseInt(from);
     var to = to_year_slide;
@@ -4947,6 +4951,7 @@ else{
         if(i <= delta){
           //removePolygons();
           //re-color polygons
+          recolor();
         }
         for (var j = 0; j < d.notcoords.length; j++) {
           if(i<=delta){
@@ -4962,7 +4967,7 @@ else{
           }
         }
         }
-        $("#update_time_text").html("Displaying crashes ocurred in the year <strong>"+(from+i)+"</strong>...");
+        $("#update_time_text").html("Displaying crashes ocurred in the year <strong>"+(from+i)+"</strong>...<br>");
         count++;
         i++;
 
@@ -4972,7 +4977,7 @@ else{
         if(i == delta+2){
           dialog += "Total crashes: " + total_crashes + ".\n";
           $("#timeline_dialog").html(dialog);
-          $("#timeline_dialog_panel").show('slow');
+          //$("#timeline_dialog_panel").show('slow');
           $("#update_time_text").text("All done!");
           $(document.body).css({'cursor': 'default'});
         }
