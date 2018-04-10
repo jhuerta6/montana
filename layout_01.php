@@ -675,7 +675,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   <script src="https://cdn.rawgit.com/bjornharrtell/jsts/gh-pages/1.4.0/jsts.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.8.1/css/bootstrap-slider.css" />
   <script>
-  var app = {map:null, municipality:[], boundary:[], sections:[], polygons:[], polygons2:[], polygons3:[], label:"no filter", payload:{getMode:"polygons", runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, property:null, district:null, depth:0, from_depth:0, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0}};
+  var app = {map:null, municipality:[], boundary:[], sections:[], crashes_used:[], polygons:[], polygons2:[], polygons3:[], label:"no filter", payload:{getMode:"polygons", runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, property:null, district:null, depth:0, from_depth:0, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0}};
   var pm_mpo = {pm1:null, pm2:null, pm3:null,name_pm:null, pm:null, NE:null, SW:null, label:"no filter", getMode:"polygons", to_draw:null, draw_charts: false, runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0};
   var multi = {pm1:null, pm2:null, pm3:null};
   var hecho = false;
@@ -4914,7 +4914,13 @@ else{
   }
 
   function recolor(){
-    console.log(app.polygons);
+    for (var i = 0; i < app.polygons.length; i++) {
+      app.polygons[i].setMap(null);
+    }
+
+    for (var i = 0; i < app.crashes_used.length; i++) {
+      app.crashes_used[i].setMap(app.map);
+    }
   }
 
   var s1 = s2 = s3 = s4 = s5 = s6 = s7 = 0;
@@ -4964,6 +4970,7 @@ else{
               not_fatal_crashes++;
             }
             drawCrashesFromTimegen(d.notcoords[j], i);
+            drawCrashesFromTimegenUsed(d.notcoords[j], i);
           }
         }
         }
@@ -5109,6 +5116,36 @@ else{
     //point.addListener('click', tempGetIdCrashes);
     app.polygons.push(point);
     point.setMap(app.map);
+  }
+
+  function drawCrashesFromTimegenUsed(dataCrashes, isFirst){
+    var getparams = app.payload;
+    var bounds = app.map.getBounds();
+    getparams.NE = bounds.getNorthEast().toJSON(); //north east corner
+    getparams.SW = bounds.getSouthWest().toJSON(); //south-west corner
+    pm_mpo.NE = getparams.NE;
+    pm_mpo.SW = getparams.SW;
+
+    var points = [];
+
+    var image = {
+      url: "./icons/crash_gray.png"
+    };
+
+    var point_obj = {lat: parseFloat(dataCrashes.lat), lng: parseFloat(dataCrashes.lon)};
+    points.push(point_obj);
+
+    var point  = new google.maps.Marker({
+      position: points[0],
+      icon: image,
+      title: 'Crash',
+      id: dataCrashes.crashid
+    });
+
+    point.setOptions({ zIndex: -1 });
+    //point.addListener('click', tempGetIdCrashes);
+    app.crashes_used.push(point);
+    //point.setMap(app.map);
   }
 
   /******************************************************************************/
