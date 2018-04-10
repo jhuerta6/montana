@@ -5521,36 +5521,45 @@ var options =
   function clearCharts(){
     $(".chart").empty();
   }
+
   function removePolygons(){
-    if(app.polygons){
-      for(var i = 0; i < app.polygons.length; i++){
-        app.polygons[i].setMap(null);
+      if(app.polygons){
+          for(var i = 0; i < app.polygons.length; i++){
+              app.polygons[i].setMap(null);
+          }
       }
-    }
 
-    if(app.polygons2){
-      for(var i = 0; i < app.polygons2.length; i++){
-        app.polygons2[i].setMap(null);
+      if(app.polygons2){
+          for(var i = 0; i < app.polygons2.length; i++){
+              app.polygons2[i].setMap(null);
+          }
       }
-    }
 
-    if(app.polygons3){
-      for(var i = 0; i < app.polygons3.length; i++){
-        app.polygons3[i].setMap(null);
+      if(app.polygons3){
+          for(var i = 0; i < app.polygons3.length; i++){
+              app.polygons3[i].setMap(null);
+          }
       }
-    }
 
-    app.polygons = [];
-    app.polygons2 = [];
-    app.polygons3 = [];
-    app.infoWindow.close();
-    app.payload.runAOI = false;
-    //document.getElementById('legend').style.visibility = "hidden";
-    $('#legend, #legend_content_multi_1, #legend_content_multi_2, #legend_content_multi_3').find('*').not('h3').remove(); //eventualmente tambien aplicara para legend content multi n
-    $("#legend_panel").hide();
-    $("#legend_multi_panel").hide();
-    $('#description').find('*').not('h3').remove();
+      if(app.crashes_used){
+          for(var j = 0; j < app.crashes_used.length; j++){
+              app.crashes_used[j].setMap(null);
+          }
+      }
+
+      app.polygons = [];
+      app.polygons2 = [];
+      app.polygons3 = [];
+      app.crashes_used = [];
+      app.infoWindow.close();
+      app.payload.runAOI = false;
+      //document.getElementById('legend').style.visibility = "hidden";
+      $('#legend, #legend_content_multi_1, #legend_content_multi_2, #legend_content_multi_3').find('*').not('h3').remove(); //eventualmente tambien aplicara para legend content multi n
+      $("#legend_panel").hide();
+      $("#legend_multi_panel").hide();
+      $('#description').find('*').not('h3').remove();
   }
+
   function removeSections(){
     if(app.sections){
       for(var i = 0; i < app.sections.length; i++){
