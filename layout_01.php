@@ -388,7 +388,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               </div>
               <div id="timeline" class="tab-pane fade">
                 <div id="not_display_timeline" class="text-center">
-                  <h4> Select Performance Measure "C.3.2 Crashes Involving All Users" to see this tool's implementation. </h4>
+                  <h4> Select individual Performance Measure "C.3.2 Crashes Involving All Users" to see this tool's implementation. </h4>
                 </div>
                 <div id="display_timeline">
                   <p> As of right now, you can only select data from <strong>Crashes</strong>. </p>
