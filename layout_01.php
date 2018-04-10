@@ -5542,7 +5542,7 @@ var options =
       }
 
       if(app.crashes_used){
-          for(var j = 0; j < app.crashes_used.length; j++){
+          for(let j = 0; j < app.crashes_used.length; j++){
               app.crashes_used[j].setMap(null);
           }
       }
