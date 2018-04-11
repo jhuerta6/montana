@@ -5564,11 +5564,14 @@ var options =
       app.crashes_used = [];
       app.infoWindow.close();
       app.payload.runAOI = false;
-      //document.getElementById('legend').style.visibility = "hidden";
-      $('#legend, #legend_content_multi_1, #legend_content_multi_2, #legend_content_multi_3').find('*').not('h3').remove(); //eventualmente tambien aplicara para legend content multi n
+
+      $('#legend, #legend_content_multi_1, #legend_content_multi_2, #legend_content_multi_3').find('*').not('h3').remove();
       $("#legend_panel").hide();
       $("#legend_multi_panel").hide();
       $('#description').find('*').not('h3').remove();
+      $("#check_multi_1").prop("checked", true);
+      $("#check_multi_2").prop("checked", true);
+      $("#check_multi_3").prop("checked", true);
   }
 
   function removeSections(){
