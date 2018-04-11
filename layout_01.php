@@ -560,7 +560,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           </div>
           <div class="row">
             <!-- testing button for universal clear -->
-            <button class="btn btn-warning form-control" type="button" id="clear" onClick="removePolygons()">Clear</button><br><br><br>
+            <button class="btn btn-warning form-control" type="button" id="clear" onClick="clearMeta()">Clear</button><br><br><br>
             <div class="col-sm-12">
 
               <div id="legend_panel" class="panel panel-default" style='visibility: visible;'> <!-- TESTING -->
@@ -1481,18 +1481,12 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
 
     $("#select_blocks").change(function(){
       $("#intro").remove();
-      //$("#main_default, #defaultbtn").show();
       $("#add_on").removeClass('element');
       $("#modes").hide();
       $("#single_statistics_button").hide();
       $("#single_filters_to").hide();
       $("#display_timeline").hide();
       $("#not_display_timeline").hide();
-      // $("#single_filters_to").hide();
-      //$("#main_default, #defaultbtn").show();
-      //$("#filters, #filtersbtn").show();
-      //$("#statistics, #statisticsbtn").show();
-      //$("#timeline, #timelinebtn").show();
 
       $("#select_pm").empty();
       $("#single_statistics_button").show();
@@ -5572,6 +5566,74 @@ var options =
       $("#check_multi_1").prop("checked", true);
       $("#check_multi_2").prop("checked", true);
       $("#check_multi_3").prop("checked", true);
+  }
+
+  function clearMeta(){
+      if(app.polygons){
+          for(var i = 0; i < app.polygons.length; i++){
+              app.polygons[i].setMap(null);
+          }
+      }
+
+      if(app.polygons2){
+          for(var i = 0; i < app.polygons2.length; i++){
+              app.polygons2[i].setMap(null);
+          }
+      }
+
+      if(app.polygons3){
+          for(var i = 0; i < app.polygons3.length; i++){
+              app.polygons3[i].setMap(null);
+          }
+      }
+
+      if(app.crashes_used){
+          for(let j = 0; j < app.crashes_used.length; j++){
+              app.crashes_used[j].setMap(null);
+          }
+      }
+
+      app.polygons = [];
+      app.polygons2 = [];
+      app.polygons3 = [];
+      app.crashes_used = [];
+      app.infoWindow.close();
+      app.payload.runAOI = false;
+
+      $('#legend, #legend_content_multi_1, #legend_content_multi_2, #legend_content_multi_3').find('*').not('h3').remove();
+      $("#legend_panel").hide();
+      $("#legend_multi_panel").hide();
+      $('#description').find('*').not('h3').remove();
+      $("#check_multi_1").prop("checked", true);
+      $("#check_multi_2").prop("checked", true);
+      $("#check_multi_3").prop("checked", true);
+
+      $("#data-holder-multiple").hide();
+      $("#data-holder").hide();
+      $("#corridor_individual_panel").hide();
+      $("#section_individual_panel").hide();
+      $("#label_container").hide();
+      $("#main_pm").hide();
+      $("#modes").hide();
+      $("#single_statistics_button").hide();
+      $("#single_filters_to").hide();
+      $("#display_timeline").hide();
+      $("#not_display_timeline").hide();
+      $("#individual_tabs").hide();
+      $("#individual_buttons").hide();
+      $("#default").hide();
+      $("#clear").hide();
+
+      $("#select_pm").empty();
+      var disabled = document.createElement("option");
+      disabled.innerHTML = "Select a Performance Measure";
+      disabled.id = "disabled"
+      var select_pm = document.getElementById("select_pm");
+      select_pm.appendChild(disabled);
+      removePolygons();
+      //area of interest buttons missing
+      //filter everything missing
+      //display default missing
   }
 
   function removeSections(){
