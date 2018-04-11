@@ -1496,7 +1496,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       disabled.id = "disabled"
       var select_pm = document.getElementById("select_pm");
       select_pm.appendChild(disabled);
-      if(this.value == "z"){ //aqui vamos colorear uno por uno, uno sobre otro, quitar modes y quitar legend en un nuevo mpo_multiple();
+      if(this.value == "z"){
+        pm_mpo.pm = "multi";
         if(pm_mpo.pm1 != null || pm_mpo.pm2 != null || pm_mpo.pm3 != null ){
           $("#data-holder-multiple").show();
 
@@ -5616,18 +5617,20 @@ var options =
       $("#label_container").hide();
       $("#main_pm").hide();
       $("#modes").hide();
-      //$("#single_statistics_button").hide();
-      $("#single_filters_to").hide();
-      $("#display_timeline").hide();
-      $("#not_display_timeline").hide();
-      $("#individual_tabs").hide();
-      $("#individual_buttons").hide();
-      $("#main_default").hide();
-      $("#clear").hide();
+      if(pm_mpo.pm != "multi"){
+          $("#single_filters_to").hide();
+          $("#display_timeline").hide();
+          $("#not_display_timeline").hide();
+          $("#individual_tabs").hide();
+          $("#individual_buttons").hide();
+          $("#main_default").hide();
+          $("#clear").hide();
+      }
+
+      console.log(pm_mpo.pm);
 
       removePolygons();
-      //area of interest buttons missing
-
+      //have to fix for multiple
   }
 
   function removeSections(){
