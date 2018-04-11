@@ -560,7 +560,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           </div>
           <div class="row">
             <!-- testing button for universal clear -->
-            <button class="btn btn-warning form-control" type="button" id="clear" onClick="clearMeta()">Clear</button><br><br><br>
+            <button class="btn btn-warning form-control" type="button" id="clear" onClick="clearMeta()">Clear</button><br><br>
+            <button class="btn btn-default form-control" type="button" id="print" onClick="window.print();">Print</button><br><br>
             <div class="col-sm-12">
 
               <div id="legend_panel" class="panel panel-default" style='visibility: visible;'> <!-- TESTING -->
@@ -1039,6 +1040,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     $("#individual_tabs").hide();
     $("#individual_buttons").hide();
     $("#clear").hide();
+    $("#print").hide();
     //$("#intro").show();
     /** End -  As the user enters, dissappear the tools **/
 
@@ -1512,6 +1514,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         $("#individual_tabs").show();
         $("#individual_buttons").show();
         $("#clear").show();
+        $("#print").show();
         onMultiple =  true;
         $("#mpo_draw").hide();
         $("#legend_panel").hide();
@@ -1553,6 +1556,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           $("#individual_tabs").hide();
           $("#individual_buttons").hide();
           $("#clear").hide();
+          $("#print").hide();
         }
         onMultiple = false;
         $("#mpo_draw").show();
@@ -1699,6 +1703,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       $("#individual_tabs").show();
       $("#individual_buttons").show();
       $("#clear").show();
+      $("#print").show();
 
       if(onMultiple == false){
         clearCharts();
@@ -5625,9 +5630,10 @@ var options =
           $("#individual_buttons").hide();
           $("#main_default").hide();
           $("#clear").hide();
+          $("#print").hide();
       }
 
-      console.log(pm_mpo.pm);
+      //console.log(pm_mpo.pm);
 
       removePolygons();
       //have to fix for multiple
