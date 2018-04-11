@@ -1698,6 +1698,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       $("#individual_tabs").show();
       $("#individual_buttons").show();
       $("#clear").show();
+
       if(onMultiple == false){
         clearCharts();
         removePolygons();
@@ -5615,25 +5616,18 @@ var options =
       $("#label_container").hide();
       $("#main_pm").hide();
       $("#modes").hide();
-      $("#single_statistics_button").hide();
+      //$("#single_statistics_button").hide();
       $("#single_filters_to").hide();
       $("#display_timeline").hide();
       $("#not_display_timeline").hide();
       $("#individual_tabs").hide();
       $("#individual_buttons").hide();
-      $("#default").hide();
+      $("#main_default").hide();
       $("#clear").hide();
 
-      $("#select_pm").empty();
-      var disabled = document.createElement("option");
-      disabled.innerHTML = "Select a Performance Measure";
-      disabled.id = "disabled"
-      var select_pm = document.getElementById("select_pm");
-      select_pm.appendChild(disabled);
       removePolygons();
       //area of interest buttons missing
-      //filter everything missing
-      //display default missing
+
   }
 
   function removeSections(){
