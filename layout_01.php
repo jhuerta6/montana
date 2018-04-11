@@ -2281,6 +2281,17 @@ else{
     pm_mpo.runAOI = false;
     pm_mpo.filter_prop = pm_mpo.filter_prop;
     pm_mpo.name_pm = pm_mpo.filter_prop_n;
+    if(pm_mpo.pm1){
+        pm_mpo.filter_prop = pm_mpo.pm1;
+        if(isNaN(units) == true || units < 0){
+            alert("Unit for filter has to be a non negative number");
+        }
+        else {
+            pm_mpo.filter_units = units;
+            mpo_multi();
+            return;
+        }
+    }
     pm_mpo.pm = pm_mpo.filter_prop;
     if(pm_mpo.filter_value ==  null || pm_mpo.filter_prop == null){
       alert("Select criteria for filtering the result and select your performance measure");

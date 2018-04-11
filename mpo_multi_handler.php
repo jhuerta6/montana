@@ -73,6 +73,7 @@ function getPolygons(){
 	for($z = 0; $z < $count; $z++){
 		//echo $z;
 		$val = "pm".($z+1);
+		//echo $data->$val;
 		if($data->runAOI == "true" && $data->runLine == "true"){ $query = "SET @geom1 = 'LineString($data->lineString)'"; }
 		elseif($data->runAOI == "true" && $data->runPoly == "true"){ $query = "SET @geom1 = 'POLYGON(($data->lineString))'"; }
 		else{
@@ -84,10 +85,12 @@ function getPolygons(){
 
 		if($data->runFilters == "true" && $data->filter_value == "bigger"){
 			$units = (int)$data->filter_units;
-			if($data->pm == "iri"){
-				$query = "SELECT astext(SHAPE) AS POLYGON, iri as value FROM d11 AS p WHERE $data->pm > $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE) AND iri_year > 0";
+			if($data->$val == "iri"){
+				//echo $data->$val;
+				$x = $data->$val;
+				$query = "SELECT astext(SHAPE) AS POLYGON, iri as value FROM d11 AS p WHERE $x > $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE) AND iri_year > 0";
 			}
-			else if($data->pm == "b_workers"){
+			else if($data->$val == "b_workers"){
 				$query = "SELECT astext(SHAPE) AS LINE, objectid as value FROM a13_existing_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 
 				$toReturn['query2'] = $query;
@@ -126,19 +129,22 @@ function getPolygons(){
 
 				$query = "SELECT astext(SHAPE) AS POLYGON, bikhalf_po as value FROM a13_poly_new AS p WHERE bikhalf_po >= $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 			}
-			else if ($data->pm == "coemisions" || $data->pm == "emar") {
-				$query = "SELECT OGR_FID, astext(SHAPE) AS POLYGON, $data->pm as value FROM b31 AS p WHERE $data->pm >= $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 3), p.SHAPE)";
+			else if ($data->$val == "coemisions" || $data->$val == "emar") {
+			    $x = $data->$val;
+				$query = "SELECT OGR_FID, astext(SHAPE) AS POLYGON, $x as value FROM b31 AS p WHERE $x >= $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 3), p.SHAPE)";
 			}
 			else{
-				$query= "SELECT objectid, astext(SHAPE) AS POLYGON, $data->pm as value FROM polygon AS p WHERE $data->pm >= $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
+			    $x = $data->$val;
+				$query= "SELECT objectid, astext(SHAPE) AS POLYGON, $x as value FROM polygon AS p WHERE $x >= $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 			}
 		}
 		else if($data->runFilters == "true" && $data->filter_value == "smaller"){
 			$units = (int)$data->filter_units;
-			if($data->pm == "iri"){
-				$query = "SELECT astext(SHAPE) AS POLYGON, iri as value FROM d11 AS p WHERE $data->pm < $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE) AND iri_year > 0";
+			if($data->$val == "iri"){
+                $x = $data->$val;
+				$query = "SELECT astext(SHAPE) AS POLYGON, iri as value FROM d11 AS p WHERE $x < $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE) AND iri_year > 0";
 			}
-			else if($data->pm == "b_workers"){
+			else if($data->$val == "b_workers"){
 				$query = "SELECT astext(SHAPE) AS LINE, objectid as value FROM a13_existing_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 
 				$toReturn['query2'] = $query;
@@ -177,19 +183,22 @@ function getPolygons(){
 
 				$query = "SELECT astext(SHAPE) AS POLYGON, bikhalf_po as value FROM a13_poly_new AS p WHERE bikhalf_po < $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 			}
-			else if ($data->pm == "coemisions" || $data->pm == "emar") {
-				$query = "SELECT OGR_FID, astext(SHAPE) AS POLYGON, $data->pm as value FROM b31 AS p WHERE $data->pm < $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 3), p.SHAPE)";
+			else if ($data->$val == "coemisions" || $data->$val == "emar") {
+				$x = $data->$val;
+			    $query = "SELECT OGR_FID, astext(SHAPE) AS POLYGON, $x as value FROM b31 AS p WHERE $x < $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 3), p.SHAPE)";
 			}
 			else{
-				$query= "SELECT objectid, astext(SHAPE) AS POLYGON, $data->pm as value FROM polygon AS p WHERE $data->pm <= $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
+				$x = $data->$val;
+			    $query= "SELECT objectid, astext(SHAPE) AS POLYGON, $x as value FROM polygon AS p WHERE $x <= $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 			}
 		}
 		else if($data->runFilters == "true" && $data->filter_value == "equal"){
 			$units = (int)$data->filter_units;
-			if($data->pm1 == "iri"){
-				$query = "SELECT astext(SHAPE) AS POLYGON, iri as value FROM d11 AS p WHERE $data->pm = $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE) AND iri_year > 0";
+			if($data->$val == "iri"){
+                $x = $data->$val;
+				$query = "SELECT astext(SHAPE) AS POLYGON, iri as value FROM d11 AS p WHERE $x = $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE) AND iri_year > 0";
 			}
-			else if($data->pm == "b_workers"){
+			else if($data->$val == "b_workers"){
 				$query = "SELECT astext(SHAPE) AS LINE, objectid as value FROM a13_existing_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 
 				$toReturn['query2'] = $query;
@@ -228,11 +237,13 @@ function getPolygons(){
 
 				$query = "SELECT astext(SHAPE) AS POLYGON, bikhalf_po as value FROM a13_poly_new AS p WHERE bikhalf_po = $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 			}
-			else if ($data->pm == "coemisions" || $data->pm == "emar") {
-				$query = "SELECT OGR_FID, astext(SHAPE) AS POLYGON, $data->pm as value FROM b31 AS p WHERE $data->pm = $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 3), p.SHAPE)";
+			else if ($data->$val == "coemisions" || $data->$val == "emar") {
+				$x = $data->$val;
+			    $query = "SELECT OGR_FID, astext(SHAPE) AS POLYGON, $x as value FROM b31 AS p WHERE $x = $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 3), p.SHAPE)";
 			}
 			else{
-				$query= "SELECT objectid, astext(SHAPE) AS POLYGON, $data->pm as value FROM polygon AS p WHERE $data->pm = $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
+				$x = $data->$val;
+			    $query= "SELECT objectid, astext(SHAPE) AS POLYGON, $x as value FROM polygon AS p WHERE $x = $units AND ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 			}
 		}
 		else{
