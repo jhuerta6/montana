@@ -41,7 +41,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     <div class="row">
         <div class="col">
             <div class="panel panel-default">
-                <h4 class="text-center">Glossary</h4><br>
+                <h4 class="text-center"><b>Glossary</b></h4><br>
                 <ul><b>Planning Block:</b> The System Planning Blocks were adopted by the Transportation Policy Board in 2016 and consist of four planning scales. They provide guidance for metropolitan planning through 24 objectives.</ul>
                 <ul><b>Modes of Transportation:</b> In order to ensure that the selected performance measures assess transportation across multiple modes, each performance measure was associated with a mode of transportation, such as driving (D), transit (T), walking (W), biking (B), and freight (F). Table below shows the unique code for each performance measure along with the associated transportation mode.</ul>
                 <ul><b></b></ul>
