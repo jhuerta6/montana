@@ -60,7 +60,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <h3 class="text-center" style="color:#FF8000;"> Performance Measures for El Paso Corridors</h3>
     <h6 class="hidden-xs text-center"><i style="color: white;">"</i><strong><i style="color:#FF8000;" class="text-center">CTIS </i></strong><i class="text-center" style="color:white;">is designated as a Member of National, Regional, and Tier 1 University Transportation Center."</i></h6>
-    <p class="hidden-xs text-right" style="color: white"> Version 1.5.0 (04/9/2018)</p>
+    <p class="hidden-xs text-right" style="color: white"> Version 1.5.1 (04/11/2018)</p>
   </nav>
 
   <div class="container panel panel-default">
@@ -292,8 +292,9 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             <!-- tabs for main functions -->
             <li class="active"><a data-toggle="tab" href="#default,#defaultbtn" data-target="#default, #defaultbtn">Display</a></li>
             <li><a data-toggle="tab" href="#filters,#filtersbtn" data-target="#filters, #filtersbtn">Filter</a></li>
-            <li data-toggle="tooltip" data-placement="top" title="Click your drawn Area Of Interest to display statistics">
-              <a data-toggle="tab" href="#statistics,#statisticsbtn" data-target="#statistics, #statisticsbtn">Area of Interest</a>
+<!--            <li data-toggle="tooltip" data-placement="top" title="Click your drawn Area Of Interest to display statistics">-->
+              <li>
+              <a data-toggle="tab" href="#statistics,#statisticsbtn" data-target="#statistics, #statisticsbtn">AOI</a>
             </li>
             <li><a data-toggle="tab" href="#timeline,#timelinebtn" data-target="#timeline, #timelinebtn">Timeline</a></li>
           </ul>
@@ -543,6 +544,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               <br>
               <div id="statisticsbtn" class="tab-pane fade">
                 <div id="single_statistics_button">
+                    <h4>Area of Interest</h4>
                 <button data-toggle="tooltip" data-placement="top" title="Only bring up the data touched by the Area Of Interest" class="btn btn-primary form-control" type="button" id="runAOI" onClick="runAOI()">Display w/ AOI</button> <br><br>
                 <button type="button" class="btn btn-default form-control" id="draw" onclick="drawAnotherRectangle();">Clear AOI</button><br><br>
                 <!-- <button type="button" class="btn btn-default form-control" id="clearCharts" onclick="clearCharts();">Clear Charts</button><br><br> -->
@@ -558,14 +560,15 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             </div>
           </div>
           </div>
-          <div class="row">
-            <!-- testing button for universal clear -->
-            <button class="btn btn-warning form-control" type="button" id="clear" onClick="clearMeta()">Clear</button><br><br>
-            <button class="btn btn-default form-control" type="button" id="print" onClick="window.print();">Print</button><br><br>
-            <div class="col-sm-12">
+            <div class="row">
+                <!-- testing button for universal clear -->
+                <button class="btn btn-warning form-control" type="button" id="clear" onClick="clearMeta()">Clear</button><br><br>
+                <button class="btn btn-default form-control" type="button" id="print" onClick="window.print();">Print</button><br><br>
+                <a href="tutorial.php" class="btn btn-info form-control" id="tutorial" role="button">Tutorial</a><br><br>
+                <div class="col-sm-12">
 
-              <div id="legend_panel" class="panel panel-default" style='visibility: visible;'> <!-- TESTING -->
-                <h3 class="text-center">Legend</h3><br>
+                    <div id="legend_panel" class="panel panel-default" style='visibility: visible;'> <!-- TESTING -->
+                        <h3 class="text-center">Legend</h3><br>
                 <ul class="nav nav-tabs">
                   <li class="active"><a data-toggle="tab" href="#legend_one" data-target="#legend_one">PM</a></li>
                   <li><a data-toggle="tab" href="#sections_one" data-target="#sections_one">Section</a></li>
@@ -1041,6 +1044,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     $("#individual_buttons").hide();
     $("#clear").hide();
     $("#print").hide();
+    $("#tutorial").hide();
     //$("#intro").show();
     /** End -  As the user enters, dissappear the tools **/
 
@@ -1515,6 +1519,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         $("#individual_buttons").show();
         $("#clear").show();
         $("#print").show();
+        $("#tutorial").show();
         onMultiple =  true;
         $("#mpo_draw").hide();
         $("#legend_panel").hide();
@@ -1557,6 +1562,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
           $("#individual_buttons").hide();
           $("#clear").hide();
           $("#print").hide();
+          $("#tutorial").hide();
         }
         onMultiple = false;
         $("#mpo_draw").show();
@@ -1704,6 +1710,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
       $("#individual_buttons").show();
       $("#clear").show();
       $("#print").show();
+      $("#tutorial").show();
 
       if(onMultiple == false){
         clearCharts();
@@ -5631,6 +5638,7 @@ var options =
           $("#main_default").hide();
           $("#clear").hide();
           $("#print").hide();
+          $("#tutorial").hide();
       }
 
       //console.log(pm_mpo.pm);
