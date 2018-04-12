@@ -544,7 +544,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
               <br>
               <div id="statisticsbtn" class="tab-pane fade">
                 <div id="single_statistics_button">
-                    <h4>Area of Interest</h4>
+                    <h4 class="text-center">Area of Interest</h4>
                 <button data-toggle="tooltip" data-placement="top" title="Only bring up the data touched by the Area Of Interest" class="btn btn-primary form-control" type="button" id="runAOI" onClick="runAOI()">Display w/ AOI</button> <br><br>
                 <button type="button" class="btn btn-default form-control" id="draw" onclick="drawAnotherRectangle();">Clear AOI</button><br><br>
                 <!-- <button type="button" class="btn btn-default form-control" id="clearCharts" onclick="clearCharts();">Clear Charts</button><br><br> -->
