@@ -564,7 +564,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 <!-- testing button for universal clear -->
                 <button class="btn btn-warning form-control" type="button" id="clear" onClick="clearMeta()">Clear</button><br><br>
                 <button class="btn btn-default form-control" type="button" id="print" onClick="window.print();">Print</button><br><br>
-                <a href="tutorial.php" class="btn btn-info form-control" id="tutorial" role="button">Tutorial</a><br><br>
+                <a href="tutorial.php" class="btn btn-default form-control" id="tutorial" role="button">Tutorial</a><br><br>
                 <div class="col-sm-12">
 
                     <div id="legend_panel" class="panel panel-default" style='visibility: visible;'> <!-- TESTING -->
@@ -2172,7 +2172,7 @@ function chartMontanaAvg(key, isMulti, loop_num, multikey){
       "non-moto": {s1:null,s2:1,s3:3,s4:1,s5:1,s6:1,s7:0,avg:7},
       "coemisions": {s1:174689,s2:115510,s3:11108,s4:11104,s5:4557,s6:738,s7:31,avg:317917},
       "emar": {s1:7118,s2:7012,s3:946,s4:917,s5:377,s6:73,s7:3,avg:16447}, //not the same
-      "c22": {s1:0,s2:18,s3:45,s4:78,s5:52,s6:0,s7:0,avg:23},
+      "c22": {s1:0,s2:18,s3:55,s4:71,s5:52,s6:0,s7:0,avg:23},
       "parkride": {s1:0,s2:103,s3:0,s4:0,s5:50,s6:0,s7:0,avg:153},
       "2016_daily": {s1:null,s2:null,s3:null,s4:null,s5:null,s6:null,s7:null,avg:20928},
       "tti": {s1:null,s2:1.9,s3:1.7,s4:1.6,s5:1.6,s6:1.4,s7:1.3,avg:1.6},

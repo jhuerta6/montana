@@ -345,7 +345,7 @@ function getPolygons(){
 
 				$toReturn['proposed'] = $ordered;
 
-				$query = "SELECT gis_lat as lat, gis_lon as lng, OGR_FID as value FROM c22_bus_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
+				$query = "SELECT gis_lat as lat, gis_lon as lng, OGR_FID as value FROM c22_600_new AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
 			}
 			elseif($data->$val == "coemisions" || $data->$val == "emar"){
 				$val = $data->$val;

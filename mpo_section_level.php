@@ -352,7 +352,7 @@ function getSectionLevelData(){ //we will send to seven sections
                 $toReturn['emissions'.$i] = number_format($send_vmt, 0, ',', ',');
                 break;
             case "c22":
-                $query = "select count(OGR_FID) from c22_bus_copy where sectionnum = $i";
+                $query = "select count(OGR_FID) from c22_600_new where sectnum = $i";
                 $within = mysqli_query($conn, $query);
                 $within = fetchAll($within);
                 if($within[0]['count(OGR_FID)']){ //count(OGR_FID)
@@ -363,7 +363,7 @@ function getSectionLevelData(){ //we will send to seven sections
                     $toReturn['within'.$i] = "0";
                 }
 
-                $query = "select count(OGR_FID) from all_bus_stops where sectnum = $i";
+                $query = "select count(OGR_FID) from c22_total_new where sectnum = $i";
                 $total_bus = mysqli_query($conn, $query);
                 $total_bus = fetchAll($total_bus);
                 if($total_bus[0]['count(OGR_FID)']){
