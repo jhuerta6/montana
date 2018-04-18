@@ -114,7 +114,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
         <div class="row">
             <div id="map"></div><br>
         </div>
-        <div class="row">
+        <div class="row toPDF">
             <div class="col">
                 <div id="data-holder" class="panel panel-default">
                     <h3 class="text-center">Summary</h3><br>
@@ -122,7 +122,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                     <div id="pm_data" class="container panel panel-default"></div>
                 </div>
 
-                <div id="data-holder-multiple" class="panel panel-default">
+                <div id="data-holder-multiple" class="panel panel-default toPDF">
                     <h3 class="text-center">Summaries</h3>
                     <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#report1" data-target="#report1">PM #1</a></li>
@@ -130,7 +130,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                         <li><a data-toggle="tab" href="#report3" data-target="#report3">PM #3</a></li>
                     </ul>
 
-                    <div class="tab-content" >
+                    <div class="tab-content toPDF" >
                         <div id="report1" class="tab-pane fade in active">
                             <h3 id="report1_text" class="text-center">Summary for PM 1</h3><br>
                             <div id="pm_description_mul_1" class="container panel panel-default"></div>
@@ -185,7 +185,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                                 <h3 class="text-center">Corridor Level Analysis</h3><br>
                                 <div class="chart" style="padding-left: 35px;" id="chart_selected2"> </div>
                             </div>
-                            <div id="section_multi_panel_2" class="panel panel-default" style="visibility: visible;">
+                            <div id="section_multi_panel_2" class="panel panel-default toPDF" style="visibility: visible;">
                                 <h3 class="text-center">Section Level Analysis</h3><br>
                                 <ul class="nav nav-tabs">
                                     <li class="active"><a data-toggle="tab" href="#sections_multi_2_1" data-target="#sections_multi_2_1">Section #1</a></li>
@@ -358,7 +358,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                             </div>
                         </div>
                     </div>
-                    <div id="filters" class="tab-pane fade">
+                    <div id="filters" class="tab-pane fade toPDF">
                         <div id="single_filters_to">
                             <br>
                             <div class="form-check">
@@ -379,13 +379,13 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                                     Data equal to the unit value
                                 </p>
                             </div>
-                            <div class="input-group">
+                            <div class="input-group toPDF">
                                 <span data-toggle="tooltip" data-placement="top" title="The unit value used to compare the data values" class="input-group-addon" id="basic-addon3">unit</span>
                                 <input type="number" class="form-control" value="1" min="0"placeholder="...units" id="filter_units" aria-describedby="basic-addon3">
                             </div><br>
                         </div>
                     </div>
-                    <div id="statistics" class="tab-pane fade">
+                    <div id="statistics" class="tab-pane fade toPDF">
                     </div>
                     <div id="timeline" class="tab-pane fade">
                         <div id="not_display_timeline" class="text-center">
@@ -411,7 +411,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                             <div id="timeline_dialog_panel" class="panel panel-default">
                                 <div class="panel-body" id="timeline_dialog">
                                 </div>
-                                <div class="table-responsive">
+                                <div class="table-responsive toPDF">
                                     <table class="table table-hover">
                                         <thead>
                                         <tr>
@@ -563,11 +563,11 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             <div class="row">
                 <!-- testing button for universal clear -->
                 <button class="btn btn-warning form-control" type="button" id="clear" onClick="clearMeta()">Clear</button><br><br>
-                <button class="btn btn-default form-control" type="button" id="print" onClick="window.print();">Print</button><br><br>
+                <button class="btn btn-default form-control" type="button" id="print" onClick="pdf()">Print</button><br><br>
                 <a href="tutorial.php" class="btn btn-default form-control" id="tutorial" role="button">Tutorial</a><br><br>
                 <div class="col-sm-12">
 
-                    <div id="legend_panel" class="panel panel-default" style='visibility: visible;'> <!-- TESTING -->
+                    <div id="legend_panel" class="panel panel-default toPDF" style='visibility: visible;'> <!-- TESTING -->
                         <h3 class="text-center">Legend</h3><br>
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#legend_one" data-target="#legend_one">PM</a></li>
@@ -617,7 +617,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row toPDF">
         <div class="col-sm-9">
             <div id="corridor_individual_panel" class="panel panel-default" style="visibility: visible;">
                 <h3 class="text-center">Corridor Level Analysis</h3><br>
@@ -669,7 +669,34 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     </div>
 </div>
 </div>
+<!--PDF BUTTON SCRIPTS AND LIBRARIES-->
+<script src="https://kendo.cdn.telerik.com/2017.2.621/js/jquery.min.js"></script>
+<script src="https://kendo.cdn.telerik.com/2017.2.621/js/jszip.min.js"></script>
+<script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.all.min.js"></script>
+<script src="https://kendo.cdn.telerik.com/2017.3.913/js/pako_deflate.min.js"></script>
+<script type="text/javascript">
+    function pdf(){
+                // Convert the DOM element to a drawing using kendo.drawing.drawDOM
+                kendo.drawing.drawDOM($(".toPDF"))// #tag_name or .class_name
+                    .then(function (group) {
+                        // Render the result as a PDF file
+                        return kendo.drawing.exportPDF(group, {
+                            paperSize: "auto",
+                            margin: {left: "1cm", top: "1cm", right: "1cm", bottom: "1cm"}
+                        });
+                    })
+                    .done(function (data) {
+                        // Save the PDF file
+                        kendo.saveAs({
+                            dataURI: data,
+                            fileName: "myPDF.pdf",
+                        });
+                    });
 
+    }
+</script>
+
+<!--END OF PDF BUTTON SCRIPTS AND LIBRARIES-->
 <script src="js/jquery.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="js/bootstrap.js"></script>
