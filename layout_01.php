@@ -785,6 +785,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                 content: "12% of households within the Montana Corridor do not own a car. \n" +
                 "Sections 1 & 7 have the highest number of households without a car. \n" +
                 "Only 1% of households in Section 5 does not own any vehicle.",
+                //note: "Disclaimer for Section Level Analysis: * for which data is available.",
                 note: null,
                 sources: "ACS 2011-2015",
                 overall: false,
@@ -1999,8 +2000,8 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                         break;
                     case blocks.a.a23.key:
                         data_table.addColumn('string','Years');
-                        data_table.addColumn('string','Households Car-Free');
-                        data_table.addColumn('string','Total Households');
+                        data_table.addColumn('string','Households Car-Free* (for which data is available)');
+                        data_table.addColumn('string','Total Households* (for which data is available)');
                         data_table.addColumn('string','% Car-Free');
                         data_table.addRows([
                             ['2016-2020`', "No data for year","No data for year","No data for year"],
@@ -2024,7 +2025,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                         break;
                     case blocks.b.b14.key:
                         data_table.addColumn('string','Years');
-                        data_table.addColumn('string','Total Households');
+                        data_table.addColumn('string','Total Households* (for which data is available)');
                         data_table.addColumn('string','Total Jobs');
                         data_table.addColumn('string','Job-Housing Ratio');
                         data_table.addRows([

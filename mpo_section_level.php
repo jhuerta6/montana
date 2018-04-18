@@ -208,41 +208,53 @@ function getSectionLevelData(){ //we will send to seven sections
                 }
                 break;
             case "b_carfrhh":
-                $query = "select count(b_carfrhh) from polygon where sectionnum = $i";
+                $query = "select sum(b_hh_rente), sum(b_hh_owner) from a23_new_census where sectionnum = $i";
                 $total_hh = mysqli_query($conn, $query);
                 $total_hh = fetchAll($total_hh);
-                if($total_hh[0]['count(b_carfrhh)']){
-                    $send_total_hh = $total_hh[0]['count(b_carfrhh)'];
-                    $toReturn['total_hh'.$i] = number_format($send_total_hh, 0, ',', ',');
+                if($total_hh[0]['sum(b_hh_rente)']){
+                    $send_total_hh = $total_hh[0]['sum(b_hh_rente)'];
+                    $send_2_hh = $total_hh[0]['sum(b_hh_owner)'];
+                    $sum = $send_total_hh + $send_2_hh;
+                    $toReturn['total_hh'.$i] = number_format($sum, 0, ',', ',');
                 }
                 else{
                     $toReturn['total_hh'.$i] = "0";
                 }
 
-                $query = "select sum(b_carfrhh) from polygon where sectionnum = $i";
+                $query = "select sum(b_hh_recar), sum(b_hh_owcar) from a23_new_census where sectionnum = $i";
                 $hh = mysqli_query($conn, $query);
                 $hh = fetchAll($hh);
-                if($hh[0]['sum(b_carfrhh)']){
-                    $send_hh = $hh[0]['sum(b_carfrhh)'];
-                    $toReturn['hh'.$i] = number_format($send_hh, 0, ',', ',');
+                if($hh[0]['sum(b_hh_owcar)']){
+                    $send_hh = $hh[0]['sum(b_hh_recar)'];
+                    $send_hh_2 = $hh[0]['sum(b_hh_owcar)'];
+                    $sum = $send_hh + $send_hh_2;
+                    $toReturn['hh'.$i] = number_format($sum, 0, ',', ',');
                 }
                 else{
                     $toReturn['hh'.$i] = "0";
                 }
 
-                if($total_hh[0]['count(b_carfrhh)']){
-                    if($hh[0]['sum(b_carfrhh)']){
-                        $send_hh = $hh[0]['sum(b_carfrhh)'];
-                        $send_total_hh = $total_hh[0]['count(b_carfrhh)'];
-                        $send_hh = $send_hh * 100;
-                        $percent_carfree = $send_hh / $send_total_hh;
-
-                        $toReturn['percent_carfree'.$i] = number_format($percent_carfree, 0, ',', ',');
-                    }
-                }
-                else{
-                    $toReturn['percent_carfree'.$i] = "0";
-                }
+                $query = "select count(b_carfrhh), sum(b_carfrh2) from a23_new_census where sectionnum = $i"; /* divide: sum / count */
+                $percent_hh = mysqli_query($conn, $query);
+                $percent_hh = fetchAll($percent_hh);
+                $sum_hh = $percent_hh[0]['sum(b_carfrh2)'];
+                $count_hh = $percent_hh[0]['count(b_carfrhh)'];
+                $division = ($sum_hh / $count_hh) * 100;
+                $percent_hh = number_format($division, 0, ',', ',');
+                $toReturn['percent_carfree'.$i] = $percent_hh;
+//                if($total_hh[0]['count(b_carfrhh)']){
+//                    if($hh[0]['sum(b_carfrhh)']){
+//                        $send_hh = $hh[0]['sum(b_carfrhh)'];
+//                        $send_total_hh = $total_hh[0]['count(b_carfrhh)'];
+//                        $send_hh = $send_hh * 100;
+//                        $percent_carfree = $send_hh / $send_total_hh;
+//
+//                        $toReturn['percent_carfree'.$i] = number_format($percent_carfree, 0, ',', ',');
+//                    }
+//                }
+//                else{
+//                    $toReturn['percent_carfree'.$i] = "0";
+//                }
                 break;
             case "B_TpDisadv":
                 $query = "select sum(bnpopovr65), sum(bn1parenhh), sum(bnlep), sum(bnminority), sum(bnpov) from polygon where sectionnum = $i";
