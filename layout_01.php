@@ -63,7 +63,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     <p class="hidden-xs text-right" style="color: white"> Version 1.5.1 (04/11/2018)</p>
 </nav>
 
-<div class="container panel panel-default">
+<div class="container panel panel-default toPDF">
     <div class="row"><br>
         <div class="col-sm-9">
             <div class="row">
@@ -176,7 +176,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                                 </div>
                             </div>
                         </div>
-                        <div id="report2" class="tab-pane fade">
+                        <div id="report2" class="tab-pane fade toPDF">
                             <h3 id="report2_text" class="text-center">Summary for PM 2</h3><br>
                             <div id="pm_description_mul_2" class="container panel panel-default"></div>
                             <div id="pm_data_mul_2" class="container panel panel-default"></div>
@@ -196,7 +196,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                                     <li><a data-toggle="tab" href="#sections_multi_2_6" data-target="#sections_multi_2_6">Section #6</a></li>
                                     <li><a data-toggle="tab" href="#sections_multi_2_7" data-target="#sections_multi_2_7">Section #7</a></li>
                                 </ul>
-                                <div class="tab-content" >
+                                <div class="tab-content toPDF" >
                                     <div id="sections_multi_2_1" class="tab-pane fade in active"><br>
                                         <div class="chart" id="table_selected_2_1"> </div><br>
                                     </div>
@@ -222,7 +222,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                             </div>
 
                         </div>
-                        <div id="report3" class="tab-pane fade">
+                        <div id="report3" class="tab-pane fade toPDF">
                             <h3 id="report3_text" class="text-center">Summary for PM 3</h3><br>
                             <div id="pm_description_mul_3" class="container panel panel-default"></div>
                             <div id="pm_data_mul_3" class="container panel panel-default"></div>
@@ -242,7 +242,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
                                     <li><a data-toggle="tab" href="#sections_multi_3_6" data-target="#sections_multi_3_6">Section #6</a></li>
                                     <li><a data-toggle="tab" href="#sections_multi_3_7" data-target="#sections_multi_3_7">Section #7</a></li>
                                 </ul>
-                                <div class="tab-content" >
+                                <div class="tab-content toPDF" >
                                     <div id="sections_multi_3_1" class="tab-pane fade in active"><br>
                                         <div class="chart" id="table_selected_3_1"> </div><br>
                                     </div>
@@ -282,7 +282,7 @@ if(!isset($_SESSION['in']) OR !$_SESSION['in']){
             <h1> <br><br><h2>Now, please select a Performance Measure</h2><br><br><br><br></h1>
         </div>
     </div>
-    <div class="col-sm-3"><br>
+    <div class="col-sm-3 toPDF"><br>
         <div class="row">
             <div class="card">
                 <div id="modes"></div>
