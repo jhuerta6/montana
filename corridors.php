@@ -819,7 +819,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 note: null,
                 sources: "ACS 2011-2015",
                 overall: false,
-                periods: "5 year average 2011-2015",
+                periods: "5-year average 2011-2015",
                 key: "b_carfrhh"
             },
             a24:{
@@ -835,7 +835,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 note: null,
                 sources: "ACS 2011-2015",
                 overall: false,
-                periods: "5 year average 2011-2015",
+                periods: "5-year average 2011-2015",
                 key: "B_TpDisadv"
             },
         },
@@ -866,7 +866,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 "Balanced (1 to 1.29) is one block group in Section 1. \n" +
                 "Job Rich ( > 1.29) are majority of block groups in Section 2, as well as many block groups in Section 1.",
                 note: null,
-                sources: "ACS 2011-2015, U.S. Census",
+                sources: "ACS 2011-2015, U.S. Census Longitudinal Employer-Household Dynamics 2015",
                 overall: false,
                 periods: "5-year average 2011-2015",
                 name: "B.1.4. Jobs-Housing Ratio",
@@ -950,7 +950,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 "Section 2 has a 103-space park and ride lot at the Eastside Transfer Center. \n" +
                 "Section 5 has a 50-space park and ride lot at Edgemere/RC Poe.",
                 note: null,
-                sources: "Sunmetro website",
+                sources: "Observations",
                 overall: false,
                 periods: "As of August 2017",
                 name: "C.2.3. Number of Park and Ride parking spaces",
@@ -2219,7 +2219,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
             "freqtran": {s1:9,s2:12,s3:0,s4:0,s5:0,s6:0,s7:0,avg:4},
             "sectionnum": {s1:0,s2:14,s3:17,s4:18,s5:15,s6:0,s7:0,avg:11},
             "b_workers": {s1:1,s2:62,s3:75,s4:94,s5:34,s6:0,s7:0,avg:47},
-            "crosw150ft": {s1:39,s2:9,s3:10,s4:13,s5:1,s6:null,s7:null,avg:72},
+            "crosw150ft": {s1:39,s2:9,s3:10,s4:13,s5:1,s6:null,s7:null,avg:309},
             "a22_new": {s1:1,s2:1,s3:null,s4:null,s5:null,s6:null,s7:null,avg:2},
             "b_carfrhh": {s1:18,s2:11,s3:10,s4:4,s5:1,s6:9,s7:16,avg:12},
             "B_TpDisadv": {s1:null,s2:null,s3:null,s4:null,s5:null,s6:null,s7:null,avg:null},
@@ -2242,6 +2242,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
             var name;
             var format;
             var display;
+            let total_buses = 0;
             for (var i = 0; i < blocks.elements.length; i++) {
                 var level = blocks.elements[i];
                 for (var j = 0; j < blocks[level].pms.length; j++) {
@@ -2250,6 +2251,9 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                         name = blocks[level][pm].chart_name;
                         format = blocks[level][pm].chart_format;
                         display = blocks[level][pm].chart_display;
+                        if(blocks[level][pm].key == blocks.a.a21.key){
+                            total_buses = 309;
+                        }
                     }
                 }
             }
@@ -2312,6 +2316,22 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 };
             }
             else{
+                if(total_buses > 0){
+                    var options = {
+                        title: name,
+                        legend: { position: 'none'},
+                        animation:{ duration: 1000, easing: 'inAndOut', startup: true },
+                        "width":1000,
+                        "height":400,
+                        hAxis: { minValue: 0, maxValue: max,
+                            viewWindow: {
+                                min: 0,
+                                max: 2.5
+                            },
+                            ticks: [0, 75, 150, 225, 300], format: in_hAxis },
+                        vAxis: {}
+                    };
+                }
                 var options = {
                     title: name,
                     legend: { position: 'none'},
@@ -2325,7 +2345,6 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
 
             bar_init = new google.visualization.BarChart(document.getElementById(whatChart));
             if(display){
-                //console.log("in "+loop_num);
                 bar_init.draw(data, options);
             }
         }
