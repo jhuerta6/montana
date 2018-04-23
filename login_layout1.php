@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
 
-    <title>CTIS - ISC</title>
+    <title>CTIS - PMEPC</title>
 
     <!-- css for the form -->
     <link rel="stylesheet" href="css/reset.css">

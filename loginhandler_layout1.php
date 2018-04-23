@@ -22,10 +22,10 @@
                 $password = $password . $salt;
                 $hash = md5($password);
                 if($hash == $row['password'] AND $row['approved'] == 1){
-                		$_SESSION['in'] = true;
+                		$_SESSION['in_mpo'] = true;
                     $_SESSION['username'] = $username;
                     $_SESSION['id'] = $row['id'];
-										header('Location: layout_01.php');
+										header('Location: corridors.php');
                 }
                 else{
                     echo "Username or password incorrect";
