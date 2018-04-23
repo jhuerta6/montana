@@ -75,7 +75,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                         <span class="input-group-addon" id="add_on_corridor">Corridor</span>
                         <select type="text" class="form-control" placeholder="Corridor" aria-describedby="add_on_corridor" id="select_corridor">
                             <option value="" disabled selected>Select a Corridor</option>
-                            <option value="montana_corridor">Montana Corridor</option>
+                            <option id="montana_corridor" value="montana_corridor">Montana Corridor</option>
                         </select>
                     </div>
                 </div>
@@ -679,22 +679,22 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
 <script src="https://kendo.cdn.telerik.com/2017.3.913/js/pako_deflate.min.js"></script>
 <script type="text/javascript">
     function pdf(){
-                // Convert the DOM element to a drawing using kendo.drawing.drawDOM
-                kendo.drawing.drawDOM($(".toPDF"))// #tag_name or .class_name
-                    .then(function (group) {
-                        // Render the result as a PDF file
-                        return kendo.drawing.exportPDF(group, {
-                            paperSize: "auto",
-                            margin: {left: "1cm", top: "1cm", right: "1cm", bottom: "1cm"}
-                        });
-                    })
-                    .done(function (data) {
-                        // Save the PDF file
-                        kendo.saveAs({
-                            dataURI: data,
-                            fileName: "myPDF.pdf",
-                        });
-                    });
+        // Convert the DOM element to a drawing using kendo.drawing.drawDOM
+        kendo.drawing.drawDOM($(".toPDF"))// #tag_name or .class_name
+            .then(function (group) {
+                // Render the result as a PDF file
+                return kendo.drawing.exportPDF(group, {
+                    paperSize: "auto",
+                    margin: {left: "1cm", top: "1cm", right: "1cm", bottom: "1cm"}
+                });
+            })
+            .done(function (data) {
+                // Save the PDF file
+                kendo.saveAs({
+                    dataURI: data,
+                    fileName: "myPDF.pdf",
+                });
+            });
 
     }
 </script>
@@ -1074,8 +1074,6 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
     var temp_poly_1 = [];
     var temp_map_1;
     var onMultiple = false;
-    var from_year_slide = 2012;
-    var to_year_slide = 2012;
     $(document).ready(function(){
         /**AS the user enters, disappear the tools **/
         //$("#main_default, #defaultbtn").hide();
@@ -1098,13 +1096,6 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         /** Dropdown for sections **/
 
         var blck = "NONE";
-        var elem_blck = document.createElement("option");
-        elem_blck.innerHTML = blck;
-        elem_blck.id = blck;
-        elem_blck.value = blck;
-        var select_blocks = document.getElementById("select_section");
-        select_blocks.appendChild(elem_blck);
-        var blck = "ALL";
         var elem_blck = document.createElement("option");
         elem_blck.innerHTML = blck;
         elem_blck.id = blck;
@@ -1220,7 +1211,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         elem_blck.value = blck;
         var select_blocks = document.getElementById("select_bound");
         select_blocks.appendChild(elem_blck);
-        var blck = "EL PASO MPO BOUNDARY";
+        var blck = "EL PASO MPO BOUNDARY"; //feedback question
         var elem_blck = document.createElement("option");
         elem_blck.innerHTML = blck;
         elem_blck.id = blck;
@@ -1457,15 +1448,21 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         $("#legend_panel").hide();
         $("#legend_multi_panel").hide();
         $("#section_multi_panel").hide();
-        for (var i = 0; i < blocks.elements.length; i++) {
-            var blck = blocks.elements[i];
-            var elem_blck = document.createElement("option");
-            elem_blck.innerHTML = blocks[blck].name;
-            elem_blck.id = blocks[blck].id;
-            elem_blck.value = blocks[blck].id;
-            var select_blocks = document.getElementById("select_blocks");
-            select_blocks.appendChild(elem_blck);
-        }
+        /** Select a corridor, otherwise the blocks will not become available **/
+        $("#select_corridor").change(function(){
+            let c = $(this).children(":selected").attr("id");
+            if(c){
+                for (var i = 0; i < blocks.elements.length; i++) {
+                    var blck = blocks.elements[i];
+                    var elem_blck = document.createElement("option");
+                    elem_blck.innerHTML = blocks[blck].name;
+                    elem_blck.id = blocks[blck].id;
+                    elem_blck.value = blocks[blck].id;
+                    var select_blocks = document.getElementById("select_blocks");
+                    select_blocks.appendChild(elem_blck);
+                }
+            }
+        });
 
         $("#municipality").change(function(){
             $('#legend_section').find('*').not('h3').remove();
@@ -1597,7 +1594,6 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
 
             }
             else{
-
                 $("#intro_2").show();
                 $("#singular_pm_select").show();
                 if(onMultiple = true){
@@ -1720,7 +1716,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                     if(blocks[block][block_pm].periods == null){}
                     else{
                         var p_periods = document.createElement('p');
-                        p_periods.innerHTML = "<strong> Analysis periods: </strong>" + blocks[block][block_pm].periods;
+                        p_periods.innerHTML = "<strong> Analysis period: </strong>" + blocks[block][block_pm].periods;
                         pm_data.appendChild(p_periods);
                     }
 
@@ -1734,7 +1730,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                     if(blocks[block][block_pm].sources == null){}
                     else{
                         var p_sources = document.createElement('p');
-                        p_sources.innerHTML = "<strong> Sources: </strong>" + blocks[block][block_pm].sources;
+                        p_sources.innerHTML = "<strong> Data source: </strong>" + blocks[block][block_pm].sources;
                         pm_data.appendChild(p_sources);
                     }
                 }
@@ -1851,7 +1847,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                     if(blocks[block][block_pm].periods == null){}
                     else{
                         var p_periods = document.createElement('p');
-                        p_periods.innerHTML = "<strong> Analysis periods: </strong>" + blocks[block][block_pm].periods;
+                        p_periods.innerHTML = "<strong> Analysis period: </strong>" + blocks[block][block_pm].periods;
                         pm_data.appendChild(p_periods);
                     }
 
@@ -1865,7 +1861,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                     if(blocks[block][block_pm].sources == null){}
                     else{
                         var p_sources = document.createElement('p');
-                        p_sources.innerHTML = "<strong> Sources: </strong>" + blocks[block][block_pm].sources;
+                        p_sources.innerHTML = "<strong>Data sources: </strong>" + blocks[block][block_pm].sources;
                         pm_data.appendChild(p_sources);
                     }
 
@@ -1968,6 +1964,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         });
 
     }); //end document.ready
+    var from_year_slide = 2012;
+    var to_year_slide = 2012;
 
     function chartSectionLevel(k, isMulti, loop_num, multikey){
         if(loop_num == 1 || loop_num == 0){
