@@ -842,7 +842,23 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         b:{
             id: "b", //falta el b12
             name: "B. Community to Community",
-            pms: ["b14","b22","b31a","b31b"],
+            pms: ["b12","b14","b22","b31a","b31b"],
+            b12:{
+                short: "B.1.2. Street Density",
+                description: null,
+                content: "The most dense network of roadways and sidewalks can be found in Section 1\n" +
+                "Bikeway density is highest in Section 4",
+                note: "Missing data for sidewalks and bikeways east of Zaragoza Rd.",
+                sources: "EPMPO roadways, City of El Paso sidewalks and bikeways",
+                overall: false,
+                periods: "Undated",
+                name: "B.1.2. Street Density",
+                chart_name: "Street Density",
+                chart_format: "ratio",
+                chart_display: false,
+                mode: ["D","W","B"],
+                key: "b12_stcent"
+            },
             b14:{
                 short: "B.1.4. Jobs/Housing balance ratio",
                 description: null,
@@ -2052,6 +2068,16 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                             ['2006-2010', "No data for year","No data for year","No data for year","No data for year","No data for year"]
                         ]);
                         $("#corridor_individual_panel").hide(); //Research how to implement multiple barcharts
+                        break;
+                    case blocks.b.b12.key:
+                        $("#section_individual_panel").hide();
+                        $("#corridor_individual_panel").hide();
+                        // $("#corridor_multi_panel_1").hide();
+                        // $("#corridor_multi_panel_2").hide();
+                        // $("#corridor_multi_panel_3").hide();
+                        // $("#section_multi_panel_1").hide();
+                        // $("#section_multi_panel_2").hide();
+                        // $("#section_multi_panel_3").hide();
                         break;
                     case blocks.b.b14.key:
                         data_table.addColumn('string','Years');
@@ -3399,6 +3425,130 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                                 }
                             }
                         }
+                        else if (pm_mpo["pm"+(z+1)] == "b12_stcent") {
+                            colores_a_usar = 2;
+                            if(up_to_one == 0){
+
+                                var legend = ["Roadways",
+                                    " Existing bikeways"
+                                ];
+
+                                var innerhtml = "";
+                                for (var i = 0; i < colores_a_usar; i++) {
+                                    if (i == 0) {
+                                        innerhtml += squareboxes[iterator] + legend[i];
+                                    }
+                                    else{
+                                        innerhtml += "<br>" + squareboxes[iterator] + legend[i];
+                                    }
+                                    iterator++;
+                                }
+
+                                $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
+                                var div = document.createElement('div');
+                                div.innerHTML = "<strong>"+$("#select_pm_multiple_"+(z+1)).prop("value")+"</strong>";
+                                //console.log(pm_mpo.pm1);
+                                div.className = "center-text";
+                                var l = document.createElement('div');
+                                l = document.getElementById('legend_content_multi_'+(z+1));
+                                l.appendChild(div);
+
+                                var div = document.createElement('div');
+                                div.innerHTML = innerhtml;
+                                var newLegend = document.createElement('div');
+                                newLegend = document.getElementById('legend_content_multi_'+(z+1));
+                                document.getElementById('legend').style.visibility = "visible";
+                                newLegend.appendChild(div);
+                            }
+                            up_to_one++;
+
+                            var temp = []; //gets created after each line/data
+                            var to_color = [];
+                            x = data["coords"+(z+1)][key]['LINE'];
+                            temp.push(x);
+                            var reader = new jsts.io.WKTReader();
+                            var a = reader.read(x);
+                            if(a.getGeometryType() == "LineString"){
+                                var coord;
+                                var ln = a.getCoordinates();
+                                for (var i = 0; i < ln.length; i++) {
+                                    coord = {lat: ln[i]['y'], lng: ln[i]['x']};
+                                    to_color.push(coord);
+                                }
+                            }
+                            var proceed = true;
+                            var color = shapecolor[iterator-(colores_a_usar-0)];
+                            if(proceed){
+                                var line = new google.maps.Polyline({
+                                    path: to_color,
+                                    //path: flightPlanCoordinates,
+                                    value: data["coords"+(z+1)][key]['value'],
+                                    strokeColor: color,
+                                    strokeOpacity: 1.0,
+                                    strokeWeight: 2,
+                                    zIndex: -1
+                                });
+                                line.setMap(app.map);
+                                line.setOptions({ zIndex: 1 });
+                                //line.addListener('click', lineInfo_pavement);
+                                if(z == 0){
+                                    app.polygons.push(line);
+                                }
+                                else if(z == 1){
+                                    app.polygons2.push(line);
+                                }
+                                else{
+                                    app.polygons3.push(line);
+                                }
+                            }
+                            if(key < data.existing.length){
+                                var to_color = [];
+                                var reader = new jsts.io.WKTReader();
+                                y = data.existing[key]['LINE'];
+                                temp.push(y);
+                                var a = reader.read(y);
+
+                                if(a.getGeometryType() == "LineString"){
+                                    var coord;
+                                    var ln = a.getCoordinates();
+                                    for (var i = 0; i < ln.length; i++) {
+                                        coord = {lat: ln[i]['y'], lng: ln[i]['x']};
+                                        to_color.push(coord);
+                                    }
+                                }
+                                else{
+                                    var coord;
+                                    var multi = a.getCoordinates();
+                                    for (var i = 0; i < multi.length; i++) {
+                                        coord = {lat: multi[i]['y'], lng: multi[i]['x']};
+                                        to_color.push(coord);
+                                    }
+                                }
+
+                                var line = new google.maps.Polyline({
+                                    path: to_color,
+                                    //value: data.coords[key]['value'],
+                                    strokeColor: shapecolor[iterator-(colores_a_usar-1)],
+                                    strokeOpacity: 1.0,
+                                    strokeWeight: 4,
+                                    zIndex: 1
+                                });
+
+                                line.setMap(app.map);
+                                line.setOptions({ zIndex: 1 });
+                                //line.addListener('click', lineInfo_pavement);
+
+                                if(z == 0){
+                                    app.polygons.push(line);
+                                }
+                                else if(z == 1){
+                                    app.polygons2.push(line);
+                                }
+                                else{
+                                    app.polygons3.push(line);
+                                }
+                            }
+                        }
                         else if (pm_mpo["pm"+(z+1)] == "c22") { //done
                             if(up_to_one == 0){
                                 $('#legend_content_multi_'+(z+1)).find('*').not('h3').remove();
@@ -4639,7 +4789,98 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                         app.polygons.push(line);
                     }
                 }
+                else if (pm_mpo.pm == "b12_stcent") {
+                    if(up_to_one == 0){
+                        $('#legendSpawner').find('*').not('h3').remove();
+                        var spawner = document.getElementById('legendSpawner');
+                        var div = document.createElement('div');
+                        div.innerHTML =
+                            "<img src='img/skybluesquare.PNG' height='10px'/> Roadways <br>"+
+                            "<img src='img/brightgreensquare.png' height='10px'/> Existing Bikeways";
+                        var newLegend = document.createElement('div');
+                        newLegend = document.getElementById('legend');
+                        document.getElementById('legend').style.visibility = "visible";
+                        newLegend.appendChild(div);
+                    }
+                    up_to_one++;
 
+                    var temp = []; //gets created after each line/data
+                    var to_color = [];
+                    x = data.coords[key]['LINE'];
+                    temp.push(x);
+                    var reader = new jsts.io.WKTReader();
+                    var a = reader.read(x);
+                    if(a.getGeometryType() == "LineString"){
+                        var coord;
+                        var ln = a.getCoordinates();
+                        for (var i = 0; i < ln.length; i++) {
+                            coord = {lat: ln[i]['y'], lng: ln[i]['x']};
+                            to_color.push(coord);
+                        }
+                    }/*else{
+                        var coord;
+                        var multi = a.getCoordinates();
+                        for (var i = 0; i < multi.length; i++) {
+                            coord = {lat: multi[i]['y'], lng: multi[i]['x']};
+                            to_color.push(coord);
+                        }
+                    }*/
+                    var proceed = true;
+                    var color = '#00d8f0';
+                    if(proceed){
+                        var line = new google.maps.Polyline({
+                            path: to_color,
+                            //path: flightPlanCoordinates,
+                            value: data.coords[key]['value'],
+                            strokeColor: color,
+                            strokeOpacity: 1.0,
+                            strokeWeight: 2,
+                            zIndex: -1
+                        });
+                        line.setMap(app.map);
+                        line.setOptions({ zIndex: 1 });
+                        //line.addListener('click', lineInfo_pavement);
+                        app.polygons.push(line);
+                    }
+                    if(key < data.existing.length){
+                        var to_color = [];
+                        var reader = new jsts.io.WKTReader();
+                        y = data.existing[key]['LINE'];
+                        temp.push(y);
+                        var a = reader.read(y);
+
+                        if(a.getGeometryType() == "LineString"){
+                            var coord;
+                            var ln = a.getCoordinates();
+                            for (var i = 0; i < ln.length; i++) {
+                                coord = {lat: ln[i]['y'], lng: ln[i]['x']};
+                                to_color.push(coord);
+                            }
+                        }
+                        else{
+                            var coord;
+                            var multi = a.getCoordinates();
+                            for (var i = 0; i < multi.length; i++) {
+                                coord = {lat: multi[i]['y'], lng: multi[i]['x']};
+                                to_color.push(coord);
+                            }
+                        }
+
+                        var line = new google.maps.Polyline({
+                            path: to_color,
+                            //value: data.coords[key]['value'],
+                            strokeColor: "#13FF00",
+                            strokeOpacity: 1.0,
+                            strokeWeight: 4,
+                            zIndex: 1
+                        });
+
+                        line.setMap(app.map);
+                        line.setOptions({ zIndex: 1 });
+                        //line.addListener('click', lineInfo_pavement);
+                        app.polygons.push(line);
+                    }
+                }
                 else if (pm_mpo.pm == "c22") {
                     if(up_to_one == 0){
                         $('#legendSpawner').find('*').not('h3').remove();
