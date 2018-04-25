@@ -4441,9 +4441,9 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                         $('#legendSpawner').find('*').not('h3').remove();
                         var spawner = document.getElementById('legendSpawner');
                         var div = document.createElement('div');
+                        var newLegend = document.createElement('div');
                         div.innerHTML = "<img src='img/redsquare.png' height='10px'/> Crash resulting in <strong>fatal</strong> injuries" +
                             "<br> <img src='img/brightgreensquare.png' height='10px'/> Crash resulting in <strong>serious</strong> injuries";
-                        var newLegend = document.createElement('div');
                         newLegend = document.getElementById('legend');
                         document.getElementById('legend').style.visibility = "visible";
                         newLegend.appendChild(div);
@@ -5450,7 +5450,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         }
         var div = document.createElement('div');
         div.innerHTML = "<img src='img/redsquare.png' height='10px'/> Crash resulting in <strong>fatal</strong> injuries" +
-            "<br> <img src='img/brightgreensquare.png' height='10px'/> Crash resulting in <strong>serious</strong> injuries";
+            "<br> <img src='img/brightgreensquare.png' height='10px'/> Crash resulting in <strong>serious</strong> injuries" +
+            "<br><hr> Legend for timeline: <br> <img src='img/graysquare.png' height='10px'/> Crash occurred in a previous year."
         var newLegend = document.createElement('div');
         newLegend = document.getElementById('legend');
         document.getElementById('legend').style.visibility = "visible";
