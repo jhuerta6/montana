@@ -1235,7 +1235,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
 
         $("#select_bound").change(function(){
             var sec_name = $(this).children(":selected").attr("id");
-            if(sec_name == "EL PASO MPO BOUNDARY"){
+            //if(sec_name == "EL PASO MPO BOUNDARY"){
+            if(sec_name == "MONTANA CORRIDOR BOUNDARY"){
                 var checked = true;
             }
             else{
