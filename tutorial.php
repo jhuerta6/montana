@@ -19,7 +19,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
     <link href="css/custom.css" rel="stylesheet" type="text/css">
     <link href="css/modern-business.css" rel="stylesheet">
     <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
-<!--    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css" />-->
+    <!--    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css" />-->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <style>
 
@@ -40,11 +40,37 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
     <br><br>
     <div class="row">
         <div class="col">
-            <div class="panel panel-default">
-                <h4 class="text-center"><b>Glossary</b></h4><br>
-                <ul><b>Planning Block:</b> The System Planning Blocks were adopted by the Transportation Policy Board in 2016 and consist of four planning scales. They provide guidance for metropolitan planning through 24 objectives.</ul>
-                <ul><b>Modes of Transportation:</b> In order to ensure that the selected performance measures assess transportation across multiple modes, each performance measure was associated with a mode of transportation, such as driving (D), transit (T), walking (W), biking (B), and freight (F). Table below shows the unique code for each performance measure along with the associated transportation mode.</ul>
-                <ul><b></b></ul>
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                Glossary
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            <ul><b>Planning Block:</b> The System Planning Blocks were adopted by the Transportation Policy Board in 2016 and consist of four planning scales. They provide guidance for metropolitan planning through 24 objectives.</ul>
+                            <ul><b>Modes of Transportation:</b> In order to ensure that the selected performance measures assess transportation across multiple modes, each performance measure was associated with a mode of transportation, such as driving (D), transit (T), walking (W), biking (B), and freight (F). Table below shows the unique code for each performance measure along with the associated transportation mode.</ul>
+                            <ul><b></b></ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                FAQ
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -52,6 +78,10 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
 
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.js"></script>
-
+<script>
+    $(document).ready(function() {
+        $('.collapse').collapse();
+    });
+</script>
 </body>
 </html>
