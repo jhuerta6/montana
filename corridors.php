@@ -74,7 +74,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                     <div class="input-group">
                         <span class="input-group-addon" id="add_on_corridor">Corridor</span>
                         <select type="text" class="form-control" placeholder="Corridor" aria-describedby="add_on_corridor" id="select_corridor">
-                            <option value="" disabled selected>Select a Corridor</option>
+                            <option value="no" selected>Select a Corridor</option>
                             <option id="montana_corridor" value="montana_corridor">Montana Corridor</option>
                         </select>
                     </div>
@@ -1480,10 +1480,11 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         $("#legend_panel").hide();
         $("#legend_multi_panel").hide();
         $("#section_multi_panel").hide();
+
         /** Select a corridor, otherwise the blocks will not become available **/
         $("#select_corridor").change(function(){
             let c = $(this).children(":selected").attr("id");
-            if(c){
+            if(c == "montana_corridor"){
                 for (var i = 0; i < blocks.elements.length; i++) {
                     var blck = blocks.elements[i];
                     var elem_blck = document.createElement("option");
@@ -1493,6 +1494,20 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                     var select_blocks = document.getElementById("select_blocks");
                     select_blocks.appendChild(elem_blck);
                 }
+            }
+            else{
+                $("#select_blocks").empty();
+                var elem_blck = document.createElement("option");
+                elem_blck.innerHTML = "Select a Planning Block";
+                var select_blocks = document.getElementById("select_blocks");
+                select_blocks.appendChild(elem_blck);
+
+                $("#select_pm").empty();
+                var elem_blck = document.createElement("option");
+                elem_blck.innerHTML = "Select a Performance Measure";
+                var select_pm = document.getElementById("select_pm");
+                select_pm.appendChild(elem_blck);
+                clearMeta();
             }
         });
 
