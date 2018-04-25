@@ -176,6 +176,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                                     <div id="sections_multi_1_7" class="tab-pane fade"><br>
                                         <div class="chart" id="table_selected_1_7"> </div><br>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -270,6 +271,9 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                                 </div>
                             </div>
                         </div>
+                        <div id="hh_multi_disclaimer">
+                            <h5 class="bold">*Based on American Community Survey 2011-2015, statistics for households where data was available.</h5>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -328,10 +332,14 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                                 </select>
                             </div>
                             <br>
+
+                            <div id="default_singular">
+                                <span class="input-group-addon" id="add_on_single">
+                                    <input class="form-check-input" type="checkbox" value="" id="check_singular"checked> Show Performance Measure
+                                </span>
+                            </div>
+
                             <div id="default_multiple">
-                                <!--<div class="checkbox disabled">
-                    <label><input type="checkbox" value="" disabled>Option 3</label>
-                  </div> -->
                                 <hr>
                                 <h4 class="text-center"> Select Multiple Performance Measures </h4>
                                 <div class="input-group">
@@ -663,6 +671,10 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
             </div>
 
             <div class="chart" id="chart_overall"> </div>
+
+            <div id="hh_disclaimer">
+                <h5 class="bold">*Based on American Community Survey 2011-2015, statistics for households where data was available.</h5>
+            </div>
         </div>
         <div class="col-sm-3">
             <div class="row">
@@ -1090,6 +1102,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         $("#clear").hide();
         $("#print").hide();
         $("#tutorial").hide();
+        $("#hh_disclaimer").hide();
+        $("#hh_multi_disclaimer").hide();
         //$("#intro").show();
         /** End -  As the user enters, dissappear the tools **/
 
@@ -1211,7 +1225,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         elem_blck.value = blck;
         var select_blocks = document.getElementById("select_bound");
         select_blocks.appendChild(elem_blck);
-        var blck = "EL PASO MPO BOUNDARY"; //feedback question
+        var blck = "MONTANA CORRIDOR BOUNDARY"; //feedback question
         var elem_blck = document.createElement("option");
         elem_blck.innerHTML = blck;
         elem_blck.id = blck;
@@ -1389,6 +1403,24 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         });
 
         $("#timeline_dialog_panel").hide();
+
+        $("#check_singular").click(function(){ //HAVE TO GENERALIZE for all 3 SELECTORS
+            if(this.checked){
+                if(this.id == "check_singular"){
+                    for(var i = 0; i < app.polygons.length; i++){
+                        app.polygons[i].setMap(app.map);
+                    }
+                }
+            }
+            else{
+                if(this.id == "check_singular"){
+                    for(var i = 0; i < app.polygons.length; i++){
+                        app.polygons[i].setMap(null);
+                    }
+                }
+            }
+        });
+
         $("#check_multi_1").click(function(){ //HAVE TO GENERALIZE for all 3 SELECTORS
             if(this.checked){
                 if(this.id == "check_multi_1"){
@@ -1577,6 +1609,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 $("#label_container").hide();
                 $("#main_pm").hide();
                 $("#default_multiple").show();
+                $("#default_singular").hide();
 
                 var selects = ["select_pm_multiple_1","select_pm_multiple_2","select_pm_multiple_3"];
                 for (var z = 0; z < selects.length; z++) {
@@ -1613,6 +1646,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 $("#mpo_draw_multiple").hide();
                 $("#main_pm").show();
                 $("#default_multiple").hide();
+                $("#default_singular").show();
                 $("#data-holder-multiple").hide();
                 $("#legend_multi_panel").hide();
 
@@ -2044,14 +2078,19 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                         break;
                     case blocks.a.a23.key:
                         data_table.addColumn('string','Years');
-                        data_table.addColumn('string','Households Car-Free* (for which data is available)');
-                        data_table.addColumn('string','Total Households* (for which data is available)');
+                        data_table.addColumn('string','Households Car-Free*');
+                        data_table.addColumn('string','Total Households*');
                         data_table.addColumn('string','% Car-Free');
                         data_table.addRows([
                             ['2016-2020`', "No data for year","No data for year","No data for year"],
                             ['2011-2015', data["hh"+i],data["total_hh"+i],data["percent_carfree"+i]],
                             ['2006-2010', "No data for year","No data for year","No data for year"]
                         ]);
+                        if(isMulti){
+                            $("#hh_multi_disclaimer").show();
+                        }else{
+                            $("#hh_disclaimer").show();
+                        }
                         break;
                     case blocks.a.a24.key:
                         data_table.addColumn('string','Years');
@@ -2079,7 +2118,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                         break;
                     case blocks.b.b14.key:
                         data_table.addColumn('string','Years');
-                        data_table.addColumn('string','Total Households* (for which data is available)');
+                        data_table.addColumn('string','Total Households*');
                         data_table.addColumn('string','Total Jobs');
                         data_table.addColumn('string','Job-Housing Ratio');
                         data_table.addRows([
@@ -2087,11 +2126,16 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                             ['2011-2015', data["t_hh"+i],data["t_job"+i],data["jh_ratio"+i]],
                             ['2006-2010', "No data for year","No data for year","No data for year"]
                         ]);
+                        if(isMulti){
+                            $("#hh_multi_disclaimer").show();
+                        }else{
+                            $("#hh_disclaimer").show();
+                        }
                         break;
                     case blocks.b.b22.key:
                         //let a = "0";
                         //if(data["2015_ped_fat1"]){
-                           // a = data["2015_ped_fat1"];
+                        // a = data["2015_ped_fat1"];
                         //}
                         data_table.addColumn('string','Year');
                         data_table.addColumn('string','Pedestrian Crash - Fatality');
@@ -5943,6 +5987,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         $("#label_container").hide();
         $("#main_pm").hide();
         $("#modes").hide();
+        $("#hh_disclaimer").hide();
+        $("#hh_multi_disclaimer").hide();
         if(pm_mpo.pm != "multi"){
             $("#single_filters_to").hide();
             $("#display_timeline").hide();
