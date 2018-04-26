@@ -2027,9 +2027,17 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
     var from_year_slide = 2012;
     var to_year_slide = 2012;
 
+    function removeDisclaimers(){
+        $("#hh_disclaimer").hide();
+        $("#hh_multi_disclaimer_1").hide();
+        $("#hh_multi_disclaimer_2").hide();
+        $("#hh_multi_disclaimer_3").hide();
+    }
+
     function chartSectionLevel(k, isMulti, loop_num, multikey){
         if(loop_num == 1 || loop_num == 0){
-            //clearCharts();
+            clearCharts();
+            removeDisclaimers();
         }
         var whatChart = "table_selected";
         if(isMulti){
@@ -6039,8 +6047,6 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
             $("#print").hide();
             $("#tutorial").hide();
         }
-
-        //console.log(pm_mpo.pm);
 
         removePolygons();
         //have to fix for multiple
