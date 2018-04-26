@@ -237,7 +237,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                             <div id="pm_description_mul_3" class="container panel panel-default"></div>
                             <div id="pm_data_mul_3" class="container panel panel-default"></div>
                             <br>
-                            <div id="corridor_multi_panel_2" class="panel panel-default" style="visibility: visible;">
+                            <div id="corridor_multi_panel_3" class="panel panel-default" style="visibility: visible;">
                                 <h3 class="text-center">Corridor Level Analysis</h3><br>
                                 <div class="chart" style="padding-left: 35px;" id="chart_selected3"> </div>
                             </div>
@@ -2109,6 +2109,23 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                         ]);
                         $("#section_individual_panel").hide();
                         $("#corridor_individual_panel").hide();
+
+                        //need to reset once it has hidden
+                        /*if(isMulti){
+                            if(loop_num == 1){
+                                $("#section_multi_panel_1").hide();
+                                $("#corridor_multi_panel_1").hide();
+                            }
+                            else if(loop_num == 2){
+                                $("#section_multi_panel_2").hide();
+                                $("#corridor_multi_panel_2").hide();
+                            }
+                            else{
+                                $("#section_multi_panel_3").hide();
+                                $("#corridor_multi_panel_3").hide();
+                            }
+                        }*/
+
                         break;
                     case blocks.a.a23.key:
                         data_table.addColumn('string','Years');
