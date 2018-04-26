@@ -98,7 +98,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
             <!-- <div class="input-group element">
           <span class="input-group-addon element" id="add_on">Planning Block</span>
           <select type="text" class="form-control" placeholder="Block Level" aria-describedby="add_on" id="select_blocks">
-            <option value="" disabled selected>Select a Planning Block</option>
+            <option value="" disabled selected>Select a Planning Block </option>
           </select>
         </div> -->
         </div>
