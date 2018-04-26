@@ -2036,7 +2036,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
 
     function chartSectionLevel(k, isMulti, loop_num, multikey){
         if(loop_num == 1 || loop_num == 0){
-            clearCharts();
+            //clearCharts();
             removeDisclaimers();
         }
         var whatChart = "table_selected";
