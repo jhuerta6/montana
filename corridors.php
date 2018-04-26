@@ -178,6 +178,9 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                                     </div>
 
                                 </div>
+                                <div id="hh_multi_disclaimer_1">
+                                    <h5 class="bold">*Based on American Community Survey 2011-2015, statistics for households where data was available.</h5>
+                                </div>
                             </div>
                         </div>
                         <div id="report2" class="tab-pane fade toPDF">
@@ -222,6 +225,9 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                                     <div id="sections_multi_2_7" class="tab-pane fade"><br>
                                         <div class="chart" id="table_selected_2_7"> </div><br>
                                     </div>
+                                </div>
+                                <div id="hh_multi_disclaimer_2">
+                                    <h5 class="bold">*Based on American Community Survey 2011-2015, statistics for households where data was available.</h5>
                                 </div>
                             </div>
 
@@ -269,11 +275,12 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                                         <div class="chart" id="table_selected_3_7"> </div><br>
                                     </div>
                                 </div>
+                                <div id="hh_multi_disclaimer_3">
+                                    <h5 class="bold">*Based on American Community Survey 2011-2015, statistics for households where data was available.</h5>
+                                </div>
                             </div>
                         </div>
-                        <div id="hh_multi_disclaimer">
-                            <h5 class="bold">*Based on American Community Survey 2011-2015, statistics for households where data was available.</h5>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -727,6 +734,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
     var hecho = false;
     var modes_full = {"D":"<div class=\"bg-primary text-white\">Driving</div>", "T":"<div class=\"bg-warning text-white\">Transit</div>", "W":"<div class=\"bg-danger text-white\">Walking</div>", "B":"<div class=\"bg-success text-white\">Biking</div>", "F":"<div class=\"bg-orange text-white\">Freight</div>"};
     var modes = {"D":"<div class=\"bg-mute text-muted\">Driving</div>", "T":"<div class=\"bg-mute text-muted\">Transit</div>", "W":"<div class=\"bg-mute text-muted\">Walking</div>", "B":"<div class=\"bg-mute text-muted\">Biking</div>", "F":"<div class=\"bg-mute text-muted\">Freight</div>"};
+    /** Blocks: An object that holds data and values for every performance measure. **/
     var blocks = {
         elements:["a", "b","c", "d", "z"],
         a:{
@@ -1103,7 +1111,9 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         $("#print").hide();
         $("#tutorial").hide();
         $("#hh_disclaimer").hide();
-        $("#hh_multi_disclaimer").hide();
+        $("#hh_multi_disclaimer_1").hide();
+        $("#hh_multi_disclaimer_2").hide();
+        $("#hh_multi_disclaimer_3").hide();
         //$("#intro").show();
         /** End -  As the user enters, dissappear the tools **/
 
@@ -2103,7 +2113,15 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                             ['2006-2010', "No data for year","No data for year","No data for year"]
                         ]);
                         if(isMulti){
-                            $("#hh_multi_disclaimer").show();
+                            if(loop_num == 1){
+                                $("#hh_multi_disclaimer_1").show();
+                            }
+                            else if(loop_num == 2){
+                                $("#hh_multi_disclaimer_2").show();
+                            }
+                            else{
+                                $("#hh_multi_disclaimer_3").show();
+                            }
                         }else{
                             $("#hh_disclaimer").show();
                         }
@@ -2125,12 +2143,6 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                     case blocks.b.b12.key:
                         $("#section_individual_panel").hide();
                         $("#corridor_individual_panel").hide();
-                        // $("#corridor_multi_panel_1").hide();
-                        // $("#corridor_multi_panel_2").hide();
-                        // $("#corridor_multi_panel_3").hide();
-                        // $("#section_multi_panel_1").hide();
-                        // $("#section_multi_panel_2").hide();
-                        // $("#section_multi_panel_3").hide();
                         break;
                     case blocks.b.b14.key:
                         data_table.addColumn('string','Years');
@@ -2143,7 +2155,15 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                             ['2006-2010', "No data for year","No data for year","No data for year"]
                         ]);
                         if(isMulti){
-                            $("#hh_multi_disclaimer").show();
+                            if(loop_num == 1){
+                                $("#hh_multi_disclaimer_1").show();
+                            }
+                            else if(loop_num == 2){
+                                $("#hh_multi_disclaimer_2").show();
+                            }
+                            else{
+                                $("#hh_multi_disclaimer_3").show();
+                            }
                         }else{
                             $("#hh_disclaimer").show();
                         }
@@ -6005,7 +6025,9 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         $("#main_pm").hide();
         $("#modes").hide();
         $("#hh_disclaimer").hide();
-        $("#hh_multi_disclaimer").hide();
+        $("#hh_multi_disclaimer_1").hide();
+        $("#hh_multi_disclaimer_2").hide();
+        $("#hh_multi_disclaimer_3").hide();
         if(pm_mpo.pm != "multi"){
             $("#single_filters_to").hide();
             $("#display_timeline").hide();
