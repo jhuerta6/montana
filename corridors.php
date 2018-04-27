@@ -2034,10 +2034,20 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         $("#hh_multi_disclaimer_3").hide();
     }
 
+    function resetCharts(){
+        $("#section_multi_panel_1").show();
+        $("#corridor_multi_panel_1").show();
+        $("#section_multi_panel_2").show();
+        $("#corridor_multi_panel_2").show();
+        $("#section_multi_panel_3").show();
+        $("#corridor_multi_panel_3").show();
+    }
+
     function chartSectionLevel(k, isMulti, loop_num, multikey){
         if(loop_num == 1 || loop_num == 0){
             //clearCharts();
             removeDisclaimers();
+            resetCharts();
         }
         var whatChart = "table_selected";
         if(isMulti){
@@ -2111,7 +2121,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                         $("#corridor_individual_panel").hide();
 
                         //need to reset once it has hidden
-                        /*if(isMulti){
+                        if(isMulti){
                             if(loop_num == 1){
                                 $("#section_multi_panel_1").hide();
                                 $("#corridor_multi_panel_1").hide();
@@ -2124,7 +2134,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                                 $("#section_multi_panel_3").hide();
                                 $("#corridor_multi_panel_3").hide();
                             }
-                        }*/
+                        }
 
                         break;
                     case blocks.a.a23.key:
@@ -2164,10 +2174,35 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                             ['2006-2010', "No data for year","No data for year","No data for year","No data for year","No data for year"]
                         ]);
                         $("#corridor_individual_panel").hide(); //Research how to implement multiple barcharts
+                        if(isMulti){
+                            if(loop_num == 1){
+                                $("#corridor_multi_panel_1").hide();
+                            }
+                            else if(loop_num == 2){
+                                $("#corridor_multi_panel_2").hide();
+                            }
+                            else{
+                                $("#corridor_multi_panel_3").hide();
+                            }
+                        }
                         break;
                     case blocks.b.b12.key:
                         $("#section_individual_panel").hide();
                         $("#corridor_individual_panel").hide();
+                        if(isMulti){
+                            if(loop_num == 1){
+                                $("#section_multi_panel_1").hide();
+                                $("#corridor_multi_panel_1").hide();
+                            }
+                            else if(loop_num == 2){
+                                $("#section_multi_panel_2").hide();
+                                $("#corridor_multi_panel_2").hide();
+                            }
+                            else{
+                                $("#section_multi_panel_3").hide();
+                                $("#corridor_multi_panel_3").hide();
+                            }
+                        }
                         break;
                     case blocks.b.b14.key:
                         data_table.addColumn('string','Years');
@@ -2258,6 +2293,20 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                     case blocks.c.c24.key:
                         $("#section_individual_panel").hide();
                         $("#corridor_individual_panel").hide();
+                        if(isMulti){
+                            if(loop_num == 1){
+                                $("#section_multi_panel_1").hide();
+                                $("#corridor_multi_panel_1").hide();
+                            }
+                            else if(loop_num == 2){
+                                $("#section_multi_panel_2").hide();
+                                $("#corridor_multi_panel_2").hide();
+                            }
+                            else{
+                                $("#section_multi_panel_3").hide();
+                                $("#corridor_multi_panel_3").hide();
+                            }
+                        }
                         break;
                     case blocks.c.c31.key:
                         data_table.addColumn('string','Year');
@@ -2279,6 +2328,17 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                             ['2007-2011', "No data for years", "No data for years"]
                         ]);
                         $("#corridor_individual_panel").hide();
+                        if(isMulti){
+                            if(loop_num == 1){
+                                $("#corridor_multi_panel_1").hide();
+                            }
+                            else if(loop_num == 2){
+                                $("#corridor_multi_panel_2").hide();
+                            }
+                            else{
+                                $("#corridor_multi_panel_3").hide();
+                            }
+                        }
                         break;
                     case blocks.d.d11.key:
                         data_table.addColumn('string','Year');
@@ -2291,6 +2351,17 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                             ['2010', "No data for year","No data for year","No data for year"]
                         ]);
                         $("#corridor_individual_panel").hide();
+                        if(isMulti){
+                            if(loop_num == 1){
+                                $("#corridor_multi_panel_1").hide();
+                            }
+                            else if(loop_num == 2){
+                                $("#corridor_multi_panel_2").hide();
+                            }
+                            else{
+                                $("#corridor_multi_panel_3").hide();
+                            }
+                        }
                         break;
                     case blocks.d.d31.key:
                         data_table.addColumn('string','Year');
