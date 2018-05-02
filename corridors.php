@@ -1235,6 +1235,13 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         elem_blck.value = blck;
         var select_blocks = document.getElementById("select_bound");
         select_blocks.appendChild(elem_blck);
+        var blck = "EL PASO MPO BOUNDARY"; //feedback question
+        var elem_blck = document.createElement("option");
+        elem_blck.innerHTML = blck;
+        elem_blck.id = blck;
+        elem_blck.value = blck;
+        var select_blocks = document.getElementById("select_bound");
+        select_blocks.appendChild(elem_blck);
         var blck = "MONTANA CORRIDOR BOUNDARY"; //feedback question
         var elem_blck = document.createElement("option");
         elem_blck.innerHTML = blck;
@@ -1244,10 +1251,16 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         select_blocks.appendChild(elem_blck);
 
         $("#select_bound").change(function(){
+            removeBoundary();
             var sec_name = $(this).children(":selected").attr("id");
-            //if(sec_name == "EL PASO MPO BOUNDARY"){
-            if(sec_name == "MONTANA CORRIDOR BOUNDARY"){
+            if(sec_name == "MONTANA CORRIDOR BOUNDARY" || sec_name == "EL PASO MPO BOUNDARY"){
                 var checked = true;
+                if(sec_name == "MONTANA CORRIDOR BOUNDARY"){
+                    pm_mpo.pm = "montana_boundary";
+                }
+                else{
+                    pm_mpo.pm = "boundary";
+                }
             }
             else{
                 var checked = false;
@@ -1269,7 +1282,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 if(pm_mpo.pm != null){
                     var previous = pm_mpo.pm;
                 }
-                pm_mpo.pm = "boundary";
+
                 pm_mpo.getMode = "polygons";
 
                 var getparams = app.payload;
@@ -1311,8 +1324,6 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
             }else{ //no section
                 removeBoundary();
             }
-
-
         });
 
         /** END - dropdown for EL PASO MPO BOUNDARY **/
@@ -2044,8 +2055,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
     }
 
     function chartSectionLevel(k, isMulti, loop_num, multikey){
-        if(loop_num == 1 || loop_num == 0){
-            //clearCharts();
+        if(loop_num == 1 || loop_num == 0 || typeof loop_num == "undefined"){
             removeDisclaimers();
             resetCharts();
         }
@@ -2143,7 +2153,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                         data_table.addColumn('string','Total Households*');
                         data_table.addColumn('string','% Car-Free');
                         data_table.addRows([
-                            ['2016-2020`', "No data for year","No data for year","No data for year"],
+                            ['2016-2020', "No data for year","No data for year","No data for year"],
                             ['2011-2015', data["hh"+i],data["total_hh"+i],data["percent_carfree"+i]],
                             ['2006-2010', "No data for year","No data for year","No data for year"]
                         ]);
@@ -2506,7 +2516,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                         "width":1000,
                         "height":400,
                         hAxis: {
-                            ticks: [0, 75, 150, 225, 300], format: in_hAxis },
+                            ticks: [0, 75, 150, 225, 310], format: in_hAxis },
                         vAxis: {}
                     };
                 }
@@ -3920,23 +3930,28 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                                 var proceed = true;
                                 var color = shapecolor[iterator-(colores_a_usar-0)];
                                 var weight = 4;
+                                var index = 1;
                             }else if(data["coords"+(z+1)][key]['value'] >= 500 && data["coords"+(z+1)][key]['value'] <= 1000){ //good
                                 var proceed = true;
                                 var color = shapecolor[iterator-(colores_a_usar-1)];
                                 var weight = 3;
+                                var index = 2;
                             }else if(data["coords"+(z+1)][key]['value'] >= 1000 && data["coords"+(z+1)][key]['value'] <= 2000){ //fair
                                 var proceed = true;
                                 var color = shapecolor[iterator-(colores_a_usar-2)];
                                 var weight = 2;
+                                var index = 3;
                             }else if(data["coords"+(z+1)][key]['value'] >= 2000 && data["coords"+(z+1)][key]['value'] <= 3150){ //poor
                                 var proceed = true;
                                 var color = shapecolor[iterator-(colores_a_usar-3)];
                                 var weight = 1;
+                                var index = 4;
                             }
                             else{
                                 var proceed = false;
                                 var color = "#000000";
                                 var weight = 0;
+                                var index = 0;
                             }
 
                             if(proceed){
@@ -3947,7 +3962,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                                     strokeColor: color,
                                     strokeOpacity: 1.0,
                                     strokeWeight: weight,
-                                    zIndex: 1
+                                    zIndex: index
                                 });
                                 line.setMap(app.map);
                                 line.setOptions({ zIndex: 1 });
@@ -5101,7 +5116,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                         var div = document.createElement('div');
                         div.innerHTML =
                             "<img src='img/brightgreensquare.png' height='10px'/> Existing bikeways" +
-                            "<br><img src='img/navybluesquare.PNG.png' height='10px'/> Bus stops located within 600 ft. of existing bikeways";
+                            "<br><img src='img/navybluesquare.png' height='10px'/> Bus stops located within 600 ft. of existing bikeways";
                         var newLegend = document.createElement('div');
                         newLegend = document.getElementById('legend');
                         document.getElementById('legend').style.visibility = "visible";
@@ -5212,24 +5227,29 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                     if(data.coords[key]['value'] >= 20 && data.coords[key]['value'] <= 500){ //very good
                         var proceed = true;
                         var color = '#00FF00';
-                        var weight = 4;
+                        var weight = 6;
+                        var index = 1;
                     }else if(data.coords[key]['value'] >= 500 && data.coords[key]['value'] <= 1000){ //good
                         var proceed = true;
                         var color = '#009BFF';
-                        var weight = 3;
+                        var weight = 4;
+                        var index = 2;
                     }else if(data.coords[key]['value'] >= 1000 && data.coords[key]['value'] <= 2000){ //fair
                         var proceed = true;
                         var color = '#FFFF00';
-                        var weight = 2;
+                        var weight = 3;
+                        var index = 3;
                     }else if(data.coords[key]['value'] >= 2000 && data.coords[key]['value'] <= 3150){ //poor
                         var proceed = true;
                         var color = '#FFAA00';
-                        var weight = 1;
+                        var weight = 2;
+                        var index = 4;
                     }
                     else{
                         var proceed = false;
                         var color = '#000000';
                         var weight = 0;
+                        var index = 0;
                     }
 
                     if(proceed){
@@ -5240,7 +5260,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                             strokeColor: color,
                             strokeOpacity: 1.0,
                             strokeWeight: weight,
-                            zIndex: 1
+                            zIndex: index
                         });
                         line.setMap(app.map);
                         line.setOptions({ zIndex: 1 });
