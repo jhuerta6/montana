@@ -128,9 +128,9 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 <div id="data-holder-multiple" class="panel panel-default toPDF">
                     <h3 class="text-center">Summaries</h3>
                     <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#report1" data-target="#report1">PM #1</a></li>
-                        <li><a data-toggle="tab" href="#report2" data-target="#report2">PM #2</a></li>
-                        <li><a data-toggle="tab" href="#report3" data-target="#report3">PM #3</a></li>
+                        <li class="active"><a id="summary_1" data-toggle="tab" href="#report1" data-target="#report1">PM #1</a></li>
+                        <li><a id="summary_2" data-toggle="tab" href="#report2" data-target="#report2">PM #2</a></li>
+                        <li><a id="summary_3" data-toggle="tab" href="#report3" data-target="#report3">PM #3</a></li>
                     </ul>
 
                     <div class="tab-content toPDF" >
@@ -624,9 +624,9 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                     <div id="legend_multi_panel" class="panel panel-default" style="visibility: visible;">
                         <h3 class="text-center">Legend</h3><br>
                         <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#legend_multi_1" data-target="#legend_multi_1">PM #1</a></li>
-                            <li><a data-toggle="tab" href="#legend_multi_2" data-target="#legend_multi_2">PM #2</a></li>
-                            <li><a data-toggle="tab" href="#legend_multi_3" data-target="#legend_multi_3">PM #3</a></li>
+                            <li class="active"><a id="legend_tab_1" data-toggle="tab" href="#legend_multi_1" data-target="#legend_multi_1">PM #1</a></li>
+                            <li><a id="legend_tab_2" data-toggle="tab" href="#legend_multi_2" data-target="#legend_multi_2">PM #2</a></li>
+                            <li><a id="legend_tab_3" data-toggle="tab" href="#legend_multi_3" data-target="#legend_multi_3">PM #3</a></li>
                             <li><a data-toggle="tab" href="#sections_multi" data-target="#sections_multi">Section</a></li>
                         </ul>
                         <div class="tab-content" >
@@ -779,7 +779,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 note: null,
                 sources: "Sunmetro, ACS 2011-2015",
                 periods: "Bikeways as of August 2016, bus stops as of November 2016.",
-                key: "freqtran"
+                key: "freqtran",
+                super_short: "A.1.1."
             },
             a12:{
                 short: "A.1.2. Bikeways build-out",
@@ -796,7 +797,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 sources: "City of El Paso",
                 overall: true,
                 periods: "Bikeways as of August 2016",
-                key: "sectionnum"
+                key: "sectionnum",
+                super_short: "A.1.2."
             },
             a13:{
                 short: "A.1.3. Population nearby bikeways",
@@ -813,7 +815,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 sources: "City of El Paso, ACS 2011-2015",
                 overall: false,
                 periods: "Bikeways as of August 2016",
-                key: "b_workers"
+                key: "b_workers",
+                super_short: "A.1.3."
             },
             a21:{
                 short: "A.2.1. Bus stops with crosswalks",
@@ -829,7 +832,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 sources: "Sunmetro, City of El Paso",
                 overall: false,
                 periods: "Bus stops as of November 2016, crosswalks undated",
-                key: "crosw150ft"
+                key: "crosw150ft",
+                super_short: "A.2.1."
             },
             a22:{
                 short: "A.2.2. Bus stops with bicycle parking",
@@ -845,7 +849,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 sources: "Observation",
                 overall: false,
                 periods: "As of August 2017",
-                key: "a22_new"
+                key: "a22_new",
+                super_short: "A.2.2."
             },
             a23:{
                 short: "A.2.3. Car-free households",
@@ -863,7 +868,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 sources: "ACS 2011-2015",
                 overall: false,
                 periods: "5-year average 2011-2015",
-                key: "b_carfrhh"
+                key: "b_carfrhh",
+                super_short: "A.2.3."
             },
             a24:{
                 short: "A.2.4. Transportation disadvantaged households",
@@ -879,7 +885,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 sources: "ACS 2011-2015",
                 overall: false,
                 periods: "5-year average 2011-2015",
-                key: "B_TpDisadv"
+                key: "B_TpDisadv",
+                super_short: "A.2.4."
             },
         },
         b:{
@@ -900,7 +907,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 chart_format: "ratio",
                 chart_display: false,
                 mode: ["D","W","B"],
-                key: "b12_stcent"
+                key: "b12_stcent",
+                super_short: "B.1.2."
             },
             b14:{
                 short: "B.1.4. Jobs/Housing balance ratio",
@@ -917,7 +925,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 chart_format: "ratio",
                 chart_display: true,
                 mode: ["D","T","W","B"],
-                key: "b_jobphh"
+                key: "b_jobphh",
+                super_short: "B.1.4."
             },
             b22:{
                 short: "B.2.2. Crashes involving non-motorized users",
@@ -933,7 +942,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 chart_format: "total",
                 chart_display: true,
                 mode: ["W","B"],
-                key: "non-moto"
+                key: "non-moto",
+                super_short: "B.2.2."
             },
             b31a:{
                 short: "B.3.1.A. Estimated emissions: carbon monoxide (CO)",
@@ -948,7 +958,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 chart_display: true,
                 periods: "Network year 2012",
                 mode: ["D"],
-                key: "coemisions"
+                key: "coemisions",
+                super_short: "B.3.1.a"
             },
             b31b:{
                 short: "B.3.1.B. Estimated emissions: particulate matter (PM10)",
@@ -963,7 +974,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 chart_display: true,
                 periods: "Network year 2012",
                 mode: ["D"],
-                key: "emar"
+                key: "emar",
+                super_short: "B.3.1.b"
             },
         },
         c:{ //falta c.2.6 = non-sov travel
@@ -984,7 +996,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 chart_format: "percent",
                 chart_display: true,
                 mode: ["T","B"],
-                key: "c22"
+                key: "c22",
+                super_short: "C.2.2."
             },
             c23:{
                 short: "C.2.3. Park & ride parking spaces",
@@ -1001,7 +1014,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 chart_format: "total",
                 chart_display: true,
                 mode: ["D","T"],
-                key: "parkride"
+                key: "parkride",
+                super_short: "C.2.3."
             },
             c24:{
                 short: "C.2.4. Transit daily ridership",
@@ -1020,7 +1034,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 chart_format: "percent",
                 chart_display: false,
                 mode: ["T"],
-                key: "2016_daily"
+                key: "2016_daily",
+                super_short: "C.2.4."
             },
             c31:{
                 short: "C.3.1. Travel time index",
@@ -1036,7 +1051,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 chart_format: "tti",
                 chart_display: true,
                 mode: ["D",],
-                key: "tti"
+                key: "tti",
+                super_short: "C.3.1."
             },
             c32:{
                 short: "C.3.2 Crashes involving all users",
@@ -1053,7 +1069,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 chart_format: "total",
                 chart_display: true,
                 mode: ["D", "F"],
-                key: "crashes"
+                key: "crashes",
+                super_short: "C.3.2."
             },
         },
         d:{
@@ -1075,7 +1092,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 chart_format: "percent",
                 chart_display: true,
                 mode: ["D"],
-                key: "iri"
+                key: "iri",
+                super_short: "D.1.1."
             },
             d21:{
                 content: "D.2.3 . Data was not available at the time of the analysis.",
@@ -1105,7 +1123,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 chart_format: "tti",
                 chart_display: true,
                 mode: ["F"],
-                key: "tttia"
+                key: "tttia",
+                super_short: "D.3.1."
             },
         },
         z:{
@@ -1765,44 +1784,60 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 $("#check_multi_1").removeProp("disabled");
                 $("#check_multi_1").prop("checked", true);
                 var proper;
+                let short;
                 for (var i = 0; i < blocks.elements.length; i++) {
                     for (var j = 0; j < blocks[blocks.elements[i]].pms.length; j++) {
                         var pm = blocks[blocks.elements[i]].pms[j];
                         if(this.value == blocks[blocks.elements[i]][pm].short){
                             proper = blocks[blocks.elements[i]][pm].name;
+                            short = blocks[blocks.elements[i]][pm].super_short;
                         }
                     }
                 }
                 $("#report1_text").text(proper);
+                $("#add_on_multiple_1").text(short);
+                $("#legend_tab_1").text(short);
+                $("#summary_1").text(short);
+
                 var pm_content = document.getElementById("pm_description_mul_1");
                 var pm_data = document.getElementById("pm_data_mul_1");
             }else if(this.id == "select_pm_multiple_2"){
                 $("#pm_description_mul_2, #pm_data_mul_2").empty();
                 var proper;
+                let short;
                 for (var i = 0; i < blocks.elements.length; i++) {
                     for (var j = 0; j < blocks[blocks.elements[i]].pms.length; j++) {
                         var pm = blocks[blocks.elements[i]].pms[j];
                         if(this.value == blocks[blocks.elements[i]][pm].short){
                             proper = blocks[blocks.elements[i]][pm].name;
+                            short = blocks[blocks.elements[i]][pm].super_short;
                         }
                     }
                 }
                 $("#report2_text").text(proper);
                 $("#check_multi_2").removeProp("disabled");
                 $("#check_multi_2").prop("checked", true);
+                $("#add_on_multiple_2").text(short);
+                $("#legend_tab_2").text(short);
+                $("#summary_2").text(short);
                 var pm_content = document.getElementById("pm_description_mul_2");
                 var pm_data = document.getElementById("pm_data_mul_2");
             }else{
                 $("#pm_description_mul_3, #pm_data_mul_3").empty();
                 var proper;
+                let short;
                 for (var i = 0; i < blocks.elements.length; i++) {
                     for (var j = 0; j < blocks[blocks.elements[i]].pms.length; j++) {
                         var pm = blocks[blocks.elements[i]].pms[j];
                         if(this.value == blocks[blocks.elements[i]][pm].short){
                             proper = blocks[blocks.elements[i]][pm].name;
+                            short = blocks[blocks.elements[i]][pm].super_short;
                         }
                     }
                 }
+                $("#add_on_multiple_3").text(short);
+                $("#legend_tab_3").text(short);
+                $("#summary_3").text(short);
                 $("#report3_text").text(proper);
                 $("#check_multi_3").removeProp("disabled");
                 $("#check_multi_3").prop("checked", true);
