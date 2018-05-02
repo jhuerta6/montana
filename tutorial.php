@@ -81,6 +81,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                     </div>
                     <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                         <div class="panel-body">
+                            <ul> Skip to these times to watch an specific topic covered by the video tutorial.</ul>
                             <ul><b>00:00 - </b> Start </ul>
                             <ul><b>07:50 - </b> Finish </ul>
                             <ul><b></b></ul>
