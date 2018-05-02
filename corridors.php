@@ -142,6 +142,9 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                             <div id="corridor_multi_panel_1" class="panel panel-default" style="visibility: visible;">
                                 <h3 class="text-center">Corridor Level Analysis</h3><br>
                                 <div class="chart" style="padding-left: 35px;" id="chart_selected1"> </div>
+                                <div id="logScale1">
+                                    <h5>Note: Logarithmic Scaling was used for this graph.</h5>
+                                </div>
                             </div>
                             <div id="section_multi_panel_1" class="panel panel-default" style="visibility: visible;">
                                 <h3 class="text-center">Section Level Analysis</h3><br>
@@ -178,6 +181,9 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                                     </div>
 
                                 </div>
+                                <div id="census_multi_disclaimer_1">
+                                    <h5 class="bold">Note: The percentage was calculated as an average of individual Census Blocks within a section.</h5>
+                                </div>
                                 <div id="hh_multi_disclaimer_1">
                                     <h5 class="bold">*Based on American Community Survey 2011-2015, statistics for households where data was available.</h5>
                                 </div>
@@ -191,6 +197,9 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                             <div id="corridor_multi_panel_2" class="panel panel-default" style="visibility: visible;">
                                 <h3 class="text-center">Corridor Level Analysis</h3><br>
                                 <div class="chart" style="padding-left: 35px;" id="chart_selected2"> </div>
+                                <div id="logScale2">
+                                    <h5>Note: Logarithmic Scaling was used for this graph.</h5>
+                                </div>
                             </div>
                             <div id="section_multi_panel_2" class="panel panel-default toPDF" style="visibility: visible;">
                                 <h3 class="text-center">Section Level Analysis</h3><br>
@@ -226,6 +235,9 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                                         <div class="chart" id="table_selected_2_7"> </div><br>
                                     </div>
                                 </div>
+                                <div id="census_multi_disclaimer_2">
+                                    <h5 class="bold">Note: The percentage was calculated as an average of individual Census Blocks within a section.</h5>
+                                </div>
                                 <div id="hh_multi_disclaimer_2">
                                     <h5 class="bold">*Based on American Community Survey 2011-2015, statistics for households where data was available.</h5>
                                 </div>
@@ -240,6 +252,9 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                             <div id="corridor_multi_panel_3" class="panel panel-default" style="visibility: visible;">
                                 <h3 class="text-center">Corridor Level Analysis</h3><br>
                                 <div class="chart" style="padding-left: 35px;" id="chart_selected3"> </div>
+                                <div id="logScale3">
+                                    <h5>Note: Logarithmic Scaling was used for this graph.</h5>
+                                </div>
                             </div>
                             <div id="section_multi_panel_3" class="panel panel-default" style="visibility: visible;">
                                 <h3 class="text-center">Section Level Analysis</h3><br>
@@ -274,6 +289,9 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                                     <div id="sections_multi_3_7" class="tab-pane fade"><br>
                                         <div class="chart" id="table_selected_3_7"> </div><br>
                                     </div>
+                                </div>
+                                <div id="census_multi_disclaimer_3">
+                                    <h5 class="bold">Note: The percentage was calculated as an average of individual Census Blocks within a section.</h5>
                                 </div>
                                 <div id="hh_multi_disclaimer_3">
                                     <h5 class="bold">*Based on American Community Survey 2011-2015, statistics for households where data was available.</h5>
@@ -640,6 +658,9 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
             <div id="corridor_individual_panel" class="panel panel-default" style="visibility: visible;">
                 <h3 class="text-center">Corridor Level Analysis</h3><br>
                 <div class="chart" id="chart_selected"> </div>
+                <div id="logScale0">
+                    <h5>Note: Logarithmic Scaling was used for this graph.</h5>
+                </div>
             </div>
             <div id="section_individual_panel" class="panel panel-default" style="visibility: visible;">
                 <h3 class="text-center">Section Level Analysis</h3><br>
@@ -678,7 +699,9 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
             </div>
 
             <div class="chart" id="chart_overall"> </div>
-
+            <div id="census_disclaimer">
+                <h5 class="bold">Note: The percentage was calculated as an average of individual Census Blocks within a section.</h5>
+            </div>
             <div id="hh_disclaimer">
                 <h5 class="bold">*Based on American Community Survey 2011-2015, statistics for households where data was available.</h5>
             </div>
@@ -1114,6 +1137,15 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         $("#hh_multi_disclaimer_1").hide();
         $("#hh_multi_disclaimer_2").hide();
         $("#hh_multi_disclaimer_3").hide();
+        $("#logScale0").hide();
+        $("#logScale1").hide();
+        $("#logScale2").hide();
+        $("#logScale3").hide();
+        $("#census_disclaimer").hide();
+        $("#census_multi_disclaimer_1").hide();
+        $("#census_multi_disclaimer_2").hide();
+        $("#census_multi_disclaimer_3").hide();
+
         //$("#intro").show();
         /** End -  As the user enters, dissappear the tools **/
 
@@ -1616,6 +1648,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
             var select_pm = document.getElementById("select_pm");
             select_pm.appendChild(disabled);
             if(this.value == "z"){
+                removeDisclaimers();
                 pm_mpo.pm = "multi";
                 if(pm_mpo.pm1 != null || pm_mpo.pm2 != null || pm_mpo.pm3 != null ){
                     $("#data-holder-multiple").show();
@@ -2043,6 +2076,14 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         $("#hh_multi_disclaimer_1").hide();
         $("#hh_multi_disclaimer_2").hide();
         $("#hh_multi_disclaimer_3").hide();
+        $("#logScale0").hide();
+        $("#logScale1").hide();
+        $("#logScale2").hide();
+        $("#logScale3").hide();
+        $("#census_disclaimer").hide();
+        $("#census_multi_disclaimer_1").hide();
+        $("#census_multi_disclaimer_2").hide();
+        $("#census_multi_disclaimer_3").hide();
     }
 
     function resetCharts(){
@@ -2080,6 +2121,19 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                             ["2011-2015", data["half_pop"+i], data["total_pop"+i], data["feedback"+i]],
                             ["2006-2010", "No data for year", "No data for year", "No data for year"]
                         ]);
+                        if(isMulti){
+                            if(loop_num == 1){
+                                $("#census_multi_disclaimer_1").show();
+                            }
+                            else if(loop_num == 2){
+                                $("#census_multi_disclaimer_2").show();
+                            }
+                            else{
+                                $("#census_multi_disclaimer_3").show();
+                            }
+                        }else{
+                            $("#census_disclaimer").show();
+                        }
                         break;
                     case blocks.a.a12.key:
                         data_table.addColumn('string','Year');
@@ -2102,6 +2156,19 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                             ['2011-2015', data["existing"+i],data["proposed"+i],data["percent"+i]],
                             ['2006-2010', "No data for year","No data for year","No data for year"]
                         ]);
+                        if(isMulti){
+                            if(loop_num == 1){
+                                $("#census_multi_disclaimer_1").show();
+                            }
+                            else if(loop_num == 2){
+                                $("#census_multi_disclaimer_2").show();
+                            }
+                            else{
+                                $("#census_multi_disclaimer_3").show();
+                            }
+                        }else{
+                            $("#census_disclaimer").show();
+                        }
                         break;
                     case blocks.a.a21.key:
                         data_table.addColumn('string','Year');
@@ -2170,6 +2237,20 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                         }else{
                             $("#hh_disclaimer").show();
                         }
+
+                        if(isMulti){
+                            if(loop_num == 1){
+                                $("#census_multi_disclaimer_1").show();
+                            }
+                            else if(loop_num == 2){
+                                $("#census_multi_disclaimer_2").show();
+                            }
+                            else{
+                                $("#census_multi_disclaimer_3").show();
+                            }
+                        }else{
+                            $("#census_disclaimer").show();
+                        }
                         break;
                     case blocks.a.a24.key:
                         data_table.addColumn('string','Years');
@@ -2194,6 +2275,20 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                             else{
                                 $("#corridor_multi_panel_3").hide();
                             }
+                        }
+
+                        if(isMulti){
+                            if(loop_num == 1){
+                                $("#census_multi_disclaimer_1").show();
+                            }
+                            else if(loop_num == 2){
+                                $("#census_multi_disclaimer_2").show();
+                            }
+                            else{
+                                $("#census_multi_disclaimer_3").show();
+                            }
+                        }else{
+                            $("#census_disclaimer").show();
                         }
                         break;
                     case blocks.b.b12.key:
@@ -2237,6 +2332,20 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                         }else{
                             $("#hh_disclaimer").show();
                         }
+
+                        if(isMulti){
+                            if(loop_num == 1){
+                                $("#census_multi_disclaimer_1").show();
+                            }
+                            else if(loop_num == 2){
+                                $("#census_multi_disclaimer_2").show();
+                            }
+                            else{
+                                $("#census_multi_disclaimer_3").show();
+                            }
+                        }else{
+                            $("#census_disclaimer").show();
+                        }
                         break;
                     case blocks.b.b22.key:
                         //let a = "0";
@@ -2267,6 +2376,19 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                             ['2011', "No data for year"],
                             ['2010', "No data for year"]
                         ]);
+                        if(isMulti){
+                            if(loop_num == 1){
+                                $("#logScale1").show();
+                            }
+                            else if(loop_num == 2){
+                                $("#logScale2").show();
+                            }
+                            else{
+                                $("#logScale3").show();
+                            }
+                        }else{
+                            $("#logScale0").show();
+                        }
                         break;
                     case blocks.b.b31b.key:
                         data_table.addColumn('string','Year');
@@ -2278,6 +2400,19 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                             ['2011', "No data for year"],
                             ['2010', "No data for year"]
                         ]);
+                        if(isMulti){
+                            if(loop_num == 1){
+                                $("#logScale1").show();
+                            }
+                            else if(loop_num == 2){
+                                $("#logScale2").show();
+                            }
+                            else{
+                                $("#logScale3").show();
+                            }
+                        }else{
+                            $("#logScale0").show();
+                        }
                         break;
                     case blocks.c.c22.key:
                         data_table.addColumn('string','Year');
@@ -6144,6 +6279,14 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         $("#hh_multi_disclaimer_1").hide();
         $("#hh_multi_disclaimer_2").hide();
         $("#hh_multi_disclaimer_3").hide();
+        $("#logScale0").hide();
+        $("#logScale1").hide();
+        $("#logScale2").hide();
+        $("#logScale3").hide();
+        $("#census_disclaimer").hide();
+        $("#census_multi_disclaimer_1").hide();
+        $("#census_multi_disclaimer_2").hide();
+        $("#census_multi_disclaimer_3").hide();
         if(pm_mpo.pm != "multi"){
             $("#single_filters_to").hide();
             $("#display_timeline").hide();
