@@ -63,7 +63,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         <img src="img/ctis_transparent_white_2017.png" style="width: 50px; height: 50px; float: right;">
     </h3>
     <h6 class="hidden-xs text-center" style="padding-left:35px;"><i style="color: white;">"</i><strong><i style="color:#FF8000;" class="text-center">CTIS </i></strong><i class="text-center" style="color:white;">is designated as a Member of National, Regional, and Tier 1 University Transportation Center."</i></h6>
-    <p class="hidden-xs text-right" style="color: white"> Version 1.5.2 (04/25/2018)</p>
+    <p class="hidden-xs text-right" style="color: white"> Version 1.5.3 (05/2/2018)</p>
 </nav>
 
 <div class="container panel panel-default toPDF">
