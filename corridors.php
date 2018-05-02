@@ -370,7 +370,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                                 <div class="input-group">
                     <span class="input-group-addon" id="add_on_multiple_1">
                       <input class="form-check-input" type="checkbox" value="" id="check_multi_1" disabled>
-                      PM</span>
+                      PM 1</span>
                                     <select type="text" class="form-control" placeholder="Performance Measure" aria-describedby="add_on" id="select_pm_multiple_1">
                                         <option value="" disabled selected>Select a Performance Measure</option>
                                     </select>

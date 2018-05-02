@@ -83,7 +83,15 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                         <div class="panel-body">
                             <ul> Skip to these times to watch an specific topic covered by the video tutorial.</ul>
                             <ul><b>00:00 - </b> Start </ul>
-                            <ul><b>07:50 - </b> Finish </ul>
+                            <ul><b>00:07 - </b> Explanation for Corridor, Planning Block, Performance Measure dropdown boxes. </ul>
+                            <ul><b>01:00 - </b> Display Tool (Municipalities, Sections, Boundary dropdown boxes inside the Display tab). </ul>
+                            <ul><b>02:40 - </b> Explanation for Summary, Corridor Level Analysis, Section Level Analysis </ul>
+                            <ul><b>03:14 - </b> Timeline Tool </ul>
+                            <ul><b>04:00 - </b> Filter Tool </ul>
+                            <ul><b>05:00 - </b> AOI Tool </ul>
+                            <ul><b>05:40 - </b> Print Utility </ul>
+                            <ul><b>06:20 - </b> Multiple Performance Measures </ul>
+                            <ul><b>07:40 - </b> Finish </ul>
                             <ul><b></b></ul>
                         </div>
                     </div>
