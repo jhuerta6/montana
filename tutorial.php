@@ -71,6 +71,22 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                         </div>
                     </div>
                 </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingThree">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                Video Time Codes
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                        <div class="panel-body">
+                            <ul><b>00:00 - </b> Start </ul>
+                            <ul><b>07:50 - </b> Finish </ul>
+                            <ul><b></b></ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
