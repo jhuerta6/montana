@@ -99,6 +99,25 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
             </div>
         </div>
     </div>
+    <div class="text-right" id="about">
+        <h4>
+            <a data-toggle="modal" data-target="#aboutmodal">About PMEPC</a>
+        </h4>
+    </div>
+    <div id="aboutmodal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4>MPO Performance Measures for El Paso Corridors</h4>
+                </div>
+                <div class="modal-header">
+                    <p>Interactive web application for visualizing the performance measures of El Paso corridors.</p>
+                    <p>Support and funding provided by El Paso Metropolitan Planning Organization.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="js/jquery.js"></script>
@@ -106,6 +125,9 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
 <script>
     $(document).ready(function() {
         $('.collapse').collapse();
+        $('#myModal').modal({
+            keyboard: true
+        })
     });
 </script>
 </body>
