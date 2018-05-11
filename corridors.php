@@ -63,7 +63,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         <img src="img/ctis_transparent_white_2017.png" style="width: 50px; height: 50px; float: right;">
     </h3>
     <h6 class="hidden-xs text-center" style="padding-left:35px;"><i style="color: white;">"</i><strong><i style="color:#FF8000;" class="text-center">CTIS </i></strong><i class="text-center" style="color:white;">is designated as a Member of National, Regional, and Tier 1 University Transportation Center."</i></h6>
-    <p class="hidden-xs text-right" style="color: white"> Version 1.5.3 (05/2/2018)</p>
+    <p class="hidden-xs text-right" style="color: white"> Version 1.5.4 (05/11/2018)</p>
 </nav>
 
 <div class="container panel panel-default toPDF">
@@ -950,9 +950,9 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
             b22:{
                 short: "B.2.2. Crashes involving non-motorized users",
                 description: null,
-                content: "There was a total of 7 crashes that resulted in an incapacitating injury of non-motorized user along Montana Ave. there were no crashes resulting in a fatality of a pedestrian or a cyclist between 2012 and 2016. \n" +
+                content: "There was a total of 7 crashes that resulted in an serious injury of non-motorized user along Montana Ave. there were no crashes resulting in a fatality of a pedestrian or a cyclist between 2012 and 2016. \n" +
                 "3 of the 7 crashes occurred in Section 3 , at Montana Ave. and Mattox St. which is a signalized intersection with a pedestrian signal with a marked crosswalk.",
-                note: "Missing data for Section 1, because that section is not owned byTxDOT and data is not collected there.",
+                note: "Data for Section 1 not available in the TXDOT CRIS database due to roadway ownership.",
                 sources: "Texas Department of Transportation CRIS database",
                 overall: false,
                 periods: "2012-2016",
@@ -1079,7 +1079,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 content: "There was a total of 7 fatal crashes and 57 serious injury crashes along Montana Ave. between 2012 and 2016. \n"+
                 "Majority of serious injuries occurred between Paisano Dr. and Joe Battle Blvd. (Sections 2, 3, 4).\n"+
                 "3 of the 7 fatal crashes occurred in Section 5, between Tierra Este Rd. and Tierra Dorada.",
-                note: "Missing data for Section 1, because that section is not owned by TxDOT and data is not collected there.",
+                note: "Data for Section 1 not available in the TXDOT CRIS database due to roadway ownership.",
                 sources: "Texas Department of Transportation CRIS database",
                 overall: false,
                 periods: "2012-2016",
@@ -1371,9 +1371,13 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                             polyCoordis.push(temp[i]);
                         }
                         var color;
+                        let des_val = data.coords[key]['value'];
+                        if(pm_mpo.pm == "montana_boundary"){
+                            des_val = "Montana Corridor";
+                        }
                         var polygon = new google.maps.Polygon({
                             description: "Boundary",
-                            description_value: data.coords[key]['value'],
+                            description_value: des_val,
                             paths: polyCoordis,
                             strokeColor: "black",
                             strokeOpacity: 1,
@@ -3262,7 +3266,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
 
                                 var div = document.createElement('div');
                                 div.innerHTML = "<img src='img/redsquare.png' height='10px'/> Crash resulting in <strong>fatal</strong> injuries" +
-                                    "<br> <img src='img/brightgreensquare.png' height='10px'/> Crash resulting in <strong>serious</strong> injuries";
+                                    "<br> <img src='img/orangesquare.PNG' height='10px'/> Crash resulting in <strong>serious</strong> injuries";
                                 var newLegend = document.createElement('div');
                                 newLegend = document.getElementById('legend_content_multi_'+(z+1));
                                 document.getElementById('legend').style.visibility = "visible";
@@ -3277,7 +3281,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                             }
                             else{
                                 var image = {
-                                    url: "./icons/crash_green.png"
+                                    url: "./icons/crash_orange.png"
                                 };
                             }
                             var point_obj = {lat: parseFloat(data["coords"+(z+1)][key]['lat']), lng: parseFloat(data["coords"+(z+1)][key]['lng'])};
@@ -4779,7 +4783,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                         var div = document.createElement('div');
                         var newLegend = document.createElement('div');
                         div.innerHTML = "<img src='img/redsquare.png' height='10px'/> Crash resulting in <strong>fatal</strong> injuries" +
-                            "<br> <img src='img/brightgreensquare.png' height='10px'/> Crash resulting in <strong>serious</strong> injuries";
+                            "<br> <img src='img/orangesquare.PNG' height='10px'/> Crash resulting in <strong>serious</strong> injuries";
                         newLegend = document.getElementById('legend');
                         document.getElementById('legend').style.visibility = "visible";
                         newLegend.appendChild(div);
@@ -4793,7 +4797,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                     }
                     else{
                         var image = {
-                            url: "./icons/crash_green.png"
+                            url: "./icons/crash_orange.png"
                         };
                     }
                     var point_obj = {lat: parseFloat(data.coords[key]['lat']), lng: parseFloat(data.coords[key]['lng'])};
@@ -5791,7 +5795,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         }
         var div = document.createElement('div');
         div.innerHTML = "<img src='img/redsquare.png' height='10px'/> Crash resulting in <strong>fatal</strong> injuries" +
-            "<br> <img src='img/brightgreensquare.png' height='10px'/> Crash resulting in <strong>serious</strong> injuries" +
+            "<br> <img src='img/orangesquare.PNG' height='10px'/> Crash resulting in <strong>serious</strong> injuries" +
             "<br><hr> Legend for timeline: <br> <img src='img/graysquare.png' height='10px'/> Crash occurred in a previous year."
         var newLegend = document.createElement('div');
         newLegend = document.getElementById('legend');
@@ -5807,7 +5811,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         else{
             var fatal = 0;
             var image = {
-                url: "./icons/crash_green.png"
+                url: "./icons/crash_orange" +
+                ".png"
             };
         }
         var point_obj = {lat: parseFloat(dataCrashes.lat), lng: parseFloat(dataCrashes.lon)};
@@ -5952,6 +5957,48 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         });
         google.maps.event.addDomListener(document.getElementById('draw'), 'click', drawAnotherRectangle);
         infoWindow = new google.maps.InfoWindow();
+    }
+
+    function lineParser(){
+        pm_mpo.getMode = "line";
+        var lineString = "";
+        paths = rec.getPath();
+        paths = paths.getArray();
+
+        for (var i = 0; i < paths.length; i++) {
+            if(paths.length > 1 && i < paths.length - 1){
+                lineString += paths[i].lng() + ' ' + paths[i].lat() + ',';
+            }
+            else{
+                lineString += paths[i].lng() + ' ' + paths[i].lat();
+            }
+        }
+        pm_mpo.lineString = lineString;
+        pm_mpo.runLine = true;
+    }
+    function polyParser(){
+        pm_mpo.getMode = "line";
+        var lineString = "";
+        var first = "";
+        var count = 0;
+        paths = rec.getPath();
+        paths = paths.getArray();
+
+        for (var i = 0; i < paths.length; i++) {
+            if(paths.length > 1 && i < paths.length - 1){
+                lineString += paths[i].lng() + ' ' + paths[i].lat() + ',';
+                if(count == 0){
+                    first = ',' + paths[i].lng() + ' ' + paths[i].lat();
+                    count++;
+                }
+            }
+            else{
+                lineString += paths[i].lng() + ' ' + paths[i].lat();
+            }
+        }
+        lineString += first;
+        pm_mpo.lineString = lineString;
+        pm_mpo.runPoly = true;
     }
 
     function drawAnotherRectangle(){
@@ -6476,7 +6523,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
             text = "Crash resulting in fatality";
         }
         else{
-            text = "Crash resulting in a incapacitating injury";
+            text = "Crash resulting in a serious injury";
         }
         app.infoWindow.setContent(text);
         app.infoWindow.setPosition(event.latLng);
