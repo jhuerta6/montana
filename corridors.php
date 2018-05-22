@@ -734,11 +734,11 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
     </div>
 
     <div id="slidesmodal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4>MPO Performance Measures for El Paso Corridors</h4>
+                    <h4 class="center-block text-center">Introduction</h4>
                 </div>
                 <div class="modal-header">
                     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
@@ -777,8 +777,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                             <span class="sr-only">Next</span>
                             <!--            <span class="icon-next"></span>-->
                         </a>
-                    </div>
-
+                    </div><br>
                     <p>Interactive web application for visualizing the performance measures of El Paso corridors.</p>
                     <p>Support and funding provided by El Paso Metropolitan Planning Organization.</p>
                 </div>
