@@ -712,6 +712,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
             </div>
         </div>
     </div>
+
     <div class="text-right" id="about">
         <h4>
             <a data-toggle="modal" data-target="#aboutmodal">About PMEPC</a>
@@ -731,8 +732,63 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
             </div>
         </div>
     </div>
+
+    <div id="slidesmodal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4>MPO Performance Measures for El Paso Corridors</h4>
+                </div>
+                <div class="modal-header">
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+                        </ol>
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner" width="100%" role="listbox">
+                            <div class="item active">
+                                <img class="center-block text-center" src="./img/pi_legend.PNG" alt="">
+                            </div>
+                            <div class="item">
+                                <img class="center-block text-center" src="./slides/slide1.png" alt="">
+                            </div>
+                            <div class="item">
+                                <img class="center-block text-center" src="./slides/slide1.png" alt="">
+                            </div>
+                            <div class="item">
+                                <img class="center-block text-center" src="./slides/slide1.png" alt="">
+                            </div>
+                        </div>
+
+                        <!-- Controls -->
+                        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                            <!--            <span class="icon-prev"></span>-->
+                        </a>
+                        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                            <!--            <span class="icon-next"></span>-->
+                        </a>
+                    </div>
+
+                    <p>Interactive web application for visualizing the performance measures of El Paso corridors.</p>
+                    <p>Support and funding provided by El Paso Metropolitan Planning Organization.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>
-</div>
+
 <!--PDF BUTTON SCRIPTS AND LIBRARIES-->
 <script src="https://kendo.cdn.telerik.com/2017.2.621/js/jquery.min.js"></script>
 <script src="https://kendo.cdn.telerik.com/2017.2.621/js/jszip.min.js"></script>
@@ -1156,6 +1212,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
     var temp_map_1;
     var onMultiple = false;
     $(document).ready(function(){
+        $('.carousel').carousel();
+        $('#slidesmodal').modal('show');
         /**AS the user enters, disappear the tools **/
         //$("#main_default, #defaultbtn").hide();
         //$("#filters, #filtersbtn").hide();
