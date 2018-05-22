@@ -778,8 +778,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                             <!--            <span class="icon-next"></span>-->
                         </a>
                     </div><br>
-                    <p>Interactive web application for visualizing the performance measures of El Paso corridors.</p>
-                    <p>Support and funding provided by El Paso Metropolitan Planning Organization.</p>
+<!--                    <p>Interactive web application for visualizing the performance measures of El Paso corridors.</p>-->
+<!--                    <p>Support and funding provided by El Paso Metropolitan Planning Organization.</p>-->
                 </div>
             </div>
         </div>
@@ -1211,7 +1211,9 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
     var temp_map_1;
     var onMultiple = false;
     $(document).ready(function(){
-        $('.carousel').carousel();
+        $('.carousel').carousel({
+            interval: 15000
+        })
         $('#slidesmodal').modal('show');
         /**AS the user enters, disappear the tools **/
         //$("#main_default, #defaultbtn").hide();
