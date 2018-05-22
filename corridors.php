@@ -753,16 +753,16 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner" width="100%" role="listbox">
                             <div class="item active">
-                                <img class="center-block text-center" src="./img/pi_legend.PNG" alt="">
+                                <img class="center-block text-center" src="./slides/Slide1.PNG" alt="">
                             </div>
                             <div class="item">
-                                <img class="center-block text-center" src="./slides/slide1.png" alt="">
+                                <img class="center-block text-center" src="./slides/Slide2.PNG" alt="">
                             </div>
                             <div class="item">
-                                <img class="center-block text-center" src="./slides/slide1.png" alt="">
+                                <img class="center-block text-center" src="./slides/Slide3.PNG" alt="">
                             </div>
                             <div class="item">
-                                <img class="center-block text-center" src="./slides/slide1.png" alt="">
+                                <img class="center-block text-center" src="./slides/Slide4.PNG" alt="">
                             </div>
                         </div>
 
