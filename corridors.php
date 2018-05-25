@@ -422,6 +422,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                         </div>
                     </div>
                     <div id="statistics" class="tab-pane fade toPDF">
+                        Your drawn rectangle will become the Area of Interest (AOI), and you can choose to display only the data that touches the AOI when you click "Display w/ AOI".
                     </div>
                     <div id="timeline" class="tab-pane fade">
                         <div id="not_display_timeline" class="text-center">
