@@ -68,6 +68,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                         <div class="panel-body">
                             <a href="documents/faq.docx">FAQ online app 2018-04-04</a>
+                            <a href="documents/final.pdf">Development of a Sustainable Performance-Based Methodology for Strategic Metropolitan Planning Based on MAP-21 - Final Report</a>
                         </div>
                     </div>
                 </div>
