@@ -28,7 +28,10 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
 <body>
 
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <h3 class="text-center" style="color:#FF8000;"> MPO Performance Measures for El Paso Corridors - Tutorial</h3>
+    <h3 class="text-center" style="color:#FF8000; padding-left:60px;"> MPO Performance Measures for El Paso Corridors - Tutorial
+        <img src="img/elpasompo_og.jpg" style="width: 200px; height: 50px; float: right; margin-left: 10px;">
+        <img src="img/ctis_transparent_white_2017.png" style="width: 50px; height: 50px; float: right;">
+    </h3>
     <h6 class="hidden-xs text-center"><i style="color: white;">"</i><strong><i style="color:#FF8000;" class="text-center">CTIS </i></strong><i class="text-center" style="color:white;">is designated as a Member of National, Regional, and Tier 1 University Transportation Center."</i></h6>
     <!--    <p class="hidden-xs text-right" style="color: white"> Version 1.5.0 (04/9/2018)</p>-->
 </nav>

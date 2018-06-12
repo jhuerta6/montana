@@ -422,7 +422,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                         </div>
                     </div>
                     <div id="statistics" class="tab-pane fade toPDF">
-                        Your drawn rectangle will become the Area of Interest (AOI), and you can choose to display only the data that touches the AOI when you click "Display w/ AOI".
+                        Your drawn rectangle will become the Area of Interest (AOI), and you can choose to display only the data that touches the AOI when you click "Display w/ AOI". <br>
+                        <strong>Note:</strong> The information presented in the Summary reflects all of the data available in the Performance Measure, not parts of the data.
                     </div>
                     <div id="timeline" class="tab-pane fade">
                         <div id="not_display_timeline" class="text-center">
@@ -583,7 +584,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                             <div id="single_statistics_button">
                                 <h4 class="text-center">Area of Interest</h4>
                                 <button data-toggle="tooltip" data-placement="top" title="Only bring up the data touched by the Area Of Interest" class="btn btn-primary form-control" type="button" id="runAOI" onClick="runAOI()">Display w/ AOI</button> <br><br>
-                                <button type="button" class="btn btn-default form-control" id="draw" onclick="drawAnotherRectangle();">Clear AOI</button><br><br>
+                                <button type="button" class="btn btn-default form-control" id="draw" onclick="drawAnotherRectangle();">Clear AOI</button><br><br><br>
                                 <!-- <button type="button" class="btn btn-default form-control" id="clearCharts" onclick="clearCharts();">Clear Charts</button><br><br> -->
                             </div>
                         </div>
