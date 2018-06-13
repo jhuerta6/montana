@@ -53,17 +53,23 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         #legend img {
             vertical-align: middle;
         }
+        @media (min-width: 768px) {
+            .modal-xl {
+                width: 90%;
+                max-width:1200px;
+            }
+        }
     </style>
 </head>
 <body>
 
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <h3 class="text-center" style="color:#FF8000; padding-left:35px;">MPO Performance Measures for El Paso Corridors
-        <img src="img/elpasompo_og.jpg" style="width: 200px; height: 50px; float: right; margin-left: 10px;">
-        <img src="img/ctis_transparent_white_2017.png" style="width: 50px; height: 50px; float: right;">
+        <a href="http://www.elpasompo.org/" target="_blank"><img src="img/elpasompo_og.jpg" style="width: 200px; height: 50px; float: right; margin-left: 10px;"></a>
+        <a href="http://ctis.utep.edu/" target="_blank"> <img src="img/ctis_transparent_white_2017.png" style="width: 50px; height: 50px; float: right;"></a>
     </h3>
     <h6 class="hidden-xs text-center" style="padding-left:35px;"><i style="color: white;">"</i><strong><i style="color:#FF8000;" class="text-center">CTIS </i></strong><i class="text-center" style="color:white;">is designated as a Member of National, Regional, and Tier 1 University Transportation Center."</i></h6>
-    <p class="hidden-xs text-right" style="color: white"> Version 1.5.7 (06/12/2018)</p>
+    <p class="hidden-xs text-right" style="color: white"> Version 1.5.8 (06/13/2018)</p>
 </nav>
 
 <div class="container panel panel-default toPDF">
@@ -306,7 +312,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
     </div>
     <div id="intro" class="panel">
         <div class="panel-body text-center" >
-            <h1> Welcome to the PMEPC Web Application<br><br><h2>To start, please <span class="">select a Corridor, then a singular Planning Block from its dropdown list, or choose "Multiple"</span> to display various performances measures at a time.</h2><br><br><br><br></h1>
+            <h1> Welcome to the PMEPC Web Application<br><br><h2>To start, please <span class="">select a Corridor, then a Planning Block from the dropdown list</span>.</h2><br><br><br><br></h1>
         </div>
     </div>
     <div id="intro_2" class="panel">
@@ -427,7 +433,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                     </div>
                     <div id="timeline" class="tab-pane fade">
                         <div id="not_display_timeline" class="text-center">
-                            <h4> Select individual Performance Measure "C.3.2 Crashes Involving All Users" to see this tool's implementation. </h4>
+                            <h4> Select Planning Block "C. Community to Region", then select Performance Measure "C.3.2 Crashes Involving All Users" to see this tool's implementation. </h4>
                         </div>
                         <div id="display_timeline">
                             <p> As of right now, you can only select data from <strong>Crashes</strong>. </p>
@@ -600,6 +606,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
             </div>
             <div class="row">
                 <!-- testing button for universal clear -->
+                <hr>
                 <button class="btn btn-warning form-control" type="button" id="clear" onClick="clearMeta()">Clear</button><br><br>
                 <button class="btn btn-default form-control" type="button" id="print" onClick="pdf()">Print</button><br><br>
                 <a href="tutorial.php" class="btn btn-default form-control" id="tutorial" role="button">Tutorial</a><br><br>
@@ -740,13 +747,13 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
     </div>
 
     <div id="slidesmodal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="center-block text-center">Introduction</h4>
                 </div>
-                <div class="modal-header">
+                <div class="center-block text-center modal-header modal-xl">
                     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
                         <ol class="carousel-indicators">
