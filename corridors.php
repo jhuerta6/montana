@@ -321,6 +321,11 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         </div>
     </div>
     <div class="col-sm-3 toPDF"><br>
+        <div id="global_buttons">
+            <button class="btn btn-warning form-control" type="button" id="clear" onClick="clearMeta()">Clear</button><br><br>
+            <button class="btn btn-default form-control" type="button" id="print" onClick="pdf()">Print</button><br><br>
+            <a href="tutorial.php" class="btn btn-default form-control" id="tutorial" role="button">Tutorial</a><br><br>
+        </div>
         <div class="row">
             <div class="card">
                 <div id="modes"></div>
@@ -607,11 +612,10 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
             <div class="row">
                 <!-- testing button for universal clear -->
                 <hr>
-                <button class="btn btn-warning form-control" type="button" id="clear" onClick="clearMeta()">Clear</button><br><br>
-                <button class="btn btn-default form-control" type="button" id="print" onClick="pdf()">Print</button><br><br>
-                <a href="tutorial.php" class="btn btn-default form-control" id="tutorial" role="button">Tutorial</a><br><br>
+<!--                <button class="btn btn-warning form-control" type="button" id="clear" onClick="clearMeta()">Clear</button><br><br>-->
+<!--                <button class="btn btn-default form-control" type="button" id="print" onClick="pdf()">Print</button><br><br>-->
+<!--                <a href="tutorial.php" class="btn btn-default form-control" id="tutorial" role="button">Tutorial</a><br><br>-->
                 <div class="col-sm-12">
-
                     <div id="legend_panel" class="panel panel-default toPDF" style='visibility: visible;'> <!-- TESTING -->
                         <h3 class="text-center">Legend</h3><br>
                         <ul class="nav nav-tabs">
@@ -1235,6 +1239,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         //$("#timeline, #timelinebtn").hide();
         $("#intro").show('slow');
         $("#intro_2").hide();
+        $("#global_buttons").hide();
         $("#corridor_individual_panel").hide();
         $("#section_individual_panel").hide();
         $("#main_default").hide();
@@ -1988,6 +1993,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
             $("#clear").show();
             $("#print").show();
             $("#tutorial").show();
+            $("#global_buttons").show();
 
             if(onMultiple == false){
                 clearCharts();
@@ -6467,9 +6473,9 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
             $("#individual_tabs").hide();
             $("#individual_buttons").hide();
             $("#main_default").hide();
-            $("#clear").hide();
-            $("#print").hide();
-            $("#tutorial").hide();
+            // $("#clear").hide();
+            // $("#print").hide();
+            // $("#tutorial").hide();
         }
 
         removePolygons();
