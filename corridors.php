@@ -1229,8 +1229,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
     var onMultiple = false;
     $(document).ready(function(){
         $('.carousel').carousel({
-            interval: 15000
-        })
+            interval: 0
+        });
         $('#slidesmodal').modal('show');
         /**AS the user enters, disappear the tools **/
         //$("#main_default, #defaultbtn").hide();
