@@ -73,7 +73,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
 </nav>
 
 <div class="container panel panel-default toPDF">
-    <div class="row"><br>
+    <div class="row"><br
         <div class="col-sm-9">
             <div class="row">
                 <div class="col-sm-4">
