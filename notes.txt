@@ -1,0 +1,21 @@
+- blocks: object that holds information might have to be moved to a table in a database. a block table per corridor.
+- blocks is consisted by:
+{
+		short: "D.3.1.Truck Travel Time Index",
+                content: "On average, trucks travelling along the corridor experienced up to a double travel time.\n"+
+                "The Travel Time Index Ranged between 1.3 (Section 7) and 2.3 (Section 2)",
+                sources: "National Performance Management Research Data Set (NPMRDS)",
+                periods: "February 2017 - July 2017",
+                note: "Data was not available for Section 1 (between Piedras St. and Paisano Dr.)",
+                description: null,
+                overall: false,
+                name: "D.3.1. Truck Travel Time",
+                chart_name: "Truck Travel Time Index",
+                chart_format: "tti",
+                chart_display: true,
+                mode: ["F"],
+                key: "tttia",
+                super_short: "D.3.1."
+};
+- the blocks will be manipulated by an admin page that has access/read/write permissions to the blocks table in the db
+
