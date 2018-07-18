@@ -1763,7 +1763,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
             $("#single_filters").show();
             var disabled = document.createElement("option");
             disabled.innerHTML = "Select a Performance Measure";
-            disabled.id = "disabled"
+            disabled.id = "disabled";
             var select_pm = document.getElementById("select_pm");
             select_pm.appendChild(disabled);
             if(this.value == "z"){
