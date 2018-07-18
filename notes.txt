@@ -14,8 +14,10 @@
                 chart_format: "tti",
                 chart_display: true,
                 mode: ["F"],
-                key: "tttia",
+                key: "tttia", //this could be replaced by an easier key: corridor and property e.g. montana_d31
                 super_short: "D.3.1."
 };
-- the blocks will be manipulated by an admin page that has access/read/write permissions to the blocks table in the db
+- the blocks will be manipulated by an admin page that has access/read/write permissions to the blocks table in the db.
+- how to deal with corridors? -- I might have giant chunks of code in a case statement that deal with the program behaviour depending on the currently selected corridor.
+- google maps might be a problem. think of other tools to switch to them.
 

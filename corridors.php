@@ -6694,24 +6694,25 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         return shape_s;
     }
 
+    const squareboxes = ["<img src='img/brightgreensquare.png' height='10px'/>",
+        "<img src='img/skybluesquare.png' height='10px'/>",
+        "<img src='img/yellowsquare.png' height='10px'/>",
+        "<img src='img/orangesquare.png' height='10px'/>",
+        "<img src='img/redsquare.png' height='10px'/>",
+        "<img src='img/maroonsquare.png' height='10px'/>",
+        "<img src='img/lilacsquare.png' height='10px'/>",
+        "<img src='img/yellowsquare.png' height='10px'/>",
+        "<img src='img/maroonsquare.png' height='10px'/>",
+        "<img src='img/cyansquare.png' height='10px'/>",
+        "<img src='img/navygreensquare.png' height='10px'/>",
+        "<img src='img/peachsquare.png' height='10px'/>",
+        "<img src='img/fleshsquare.png' height='10px'/>",
+        "<img src='img/brownsquare.png' height='10px'/>",
+        "<img src='img/neongreensquare.png' height='10px'/>",
+        "<img src='img/neonpurplesquare.png' height='10px'/>",
+        "<img src='img/graysquare.png' height='10px'/>"];
+
     function spawn(value){
-        var squareboxes = ["<img src='img/brightgreensquare.png' height='10px'/>",
-            "<img src='img/skybluesquare.png' height='10px'/>",
-            "<img src='img/yellowsquare.png' height='10px'/>",
-            "<img src='img/orangesquare.png' height='10px'/>",
-            "<img src='img/redsquare.png' height='10px'/>",
-            "<img src='img/maroonsquare.png' height='10px'/>",
-            "<img src='img/lilacsquare.png' height='10px'/>",
-            "<img src='img/yellowsquare.png' height='10px'/>",
-            "<img src='img/maroonsquare.png' height='10px'/>",
-            "<img src='img/cyansquare.png' height='10px'/>",
-            "<img src='img/navygreensquare.png' height='10px'/>",
-            "<img src='img/peachsquare.png' height='10px'/>",
-            "<img src='img/fleshsquare.png' height='10px'/>",
-            "<img src='img/brownsquare.png' height='10px'/>",
-            "<img src='img/neongreensquare.png' height='10px'/>",
-            "<img src='img/neonpurplesquare.png' height='10px'/>",
-            "<img src='img/graysquare.png' height='10px'/>"];
         $('#legendSpawner').find('*').not('h3').remove();
         for(var i = 0; i < value.length-1; i++){
             var div = document.createElement('div');
@@ -6729,23 +6730,6 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
     function spawn_multi(values, pos){
         //console.log(values);
         //console.log(pos);
-        var squareboxes = ["<img src='img/brightgreensquare.png' height='10px'/>",
-            "<img src='img/skybluesquare.png' height='10px'/>",
-            "<img src='img/yellowsquare.png' height='10px'/>",
-            "<img src='img/orangesquare.png' height='10px'/>",
-            "<img src='img/redsquare.png' height='10px'/>",
-            "<img src='img/maroonsquare.png' height='10px'/>",
-            "<img src='img/lilacsquare.png' height='10px'/>",
-            "<img src='img/yellowsquare.png' height='10px'/>",
-            "<img src='img/maroonsquare.png' height='10px'/>",
-            "<img src='img/cyansquare.png' height='10px'/>",
-            "<img src='img/navygreensquare.png' height='10px'/>",
-            "<img src='img/peachsquare.png' height='10px'/>",
-            "<img src='img/fleshsquare.png' height='10px'/>",
-            "<img src='img/brownsquare.png' height='10px'/>",
-            "<img src='img/neongreensquare.png' height='10px'/>",
-            "<img src='img/neonpurplesquare.png' height='10px'/>",
-            "<img src='img/graysquare.png' height='10px'/>"];
         $('#legendSpawner').find('*').not('h3').remove();
         for(var i = 0; i < values.length-1; i++){
             var div = document.createElement('div');
