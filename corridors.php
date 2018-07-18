@@ -6491,8 +6491,6 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         app.sections = [];
         app.infoWindow.close();
         app.payload.runAOI = false;
-        //document.getElementById('legend').style.visibility = "hidden";
-        //$('#legend').find('*').not('h3').remove();
         $('#description').find('*').not('h3').remove();
     }
 
@@ -6505,8 +6503,6 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         app.boundary = [];
         app.infoWindow.close();
         app.payload.runAOI = false;
-        //document.getElementById('legend').style.visibility = "hidden";
-        //$('#legend').find('*').not('h3').remove();
         $('#description').find('*').not('h3').remove();
     }
 
@@ -6519,8 +6515,6 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         app.municipality = [];
         app.infoWindow.close();
         app.payload.runAOI = false;
-        //document.getElementById('legend').style.visibility = "hidden";
-        //$('#legend').find('*').not('h3').remove();
         $('#description').find('*').not('h3').remove();
     }
 
