@@ -6543,6 +6543,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         patchedStyle.remove();
     }
 
+    /** Begin - Map Events **/
+
     function polyInfo(event){
         var val = parseFloat(this.description_value).toFixed(2);
         //text = this.description + " : " + val;
@@ -6657,6 +6659,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         app.infoWindow.setPosition(event.latLng);
         app.infoWindow.open(app.map);
     }
+
+    /** End - Map Events **/
 
     function wktFormatter(poly){
         new_poly = poly.slice(9,-2);
