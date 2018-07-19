@@ -21,3 +21,27 @@
 - how to deal with corridors? -- I might have giant chunks of code in a case statement that deal with the program behaviour depending on the currently selected corridor.
 - google maps might be a problem. think of other tools to switch to them.
 
+-The only pm's for the new corridors will be:
+     [a11] percentage of population within 1/2 mile of high frequency transit service
+     [a12] Percentage of bikeways build-out
+     [a13] Percentage of population within half-mile of existing bikeways
+     [a23] Car-free households
+     [a24] Transportation disadvantaged households
+     [b14] jobs/housing balance ratio
+     [b22] crashes involving non-motorized users
+     [b31] Estimated emissions
+     [c22] Percentage of bus stops within 600 ft. of bikeways
+     [c23] Number of parkNride parking spaces
+     [c24] Transit ridership
+     [c25] Percentage of active transportation system buildout
+     [c26] Percentage of non-SOV travel
+     [c32] Crashes
+     [d11] Percentage of pavements in poor condition
+     [d21] Vehicle miles travelled, passenger miles travelled
+     [etc] Local pm's provided by the corridor patrons
+
+- The program will use one schema per corridor... each table will represent one pm?
+- The system shall upload new data to each corridor. Figure out which pm's will be replaced,
+and which ones will be erased.
+- Maybe we can use new tables depending on the upload date
+- Upload date: yearly, monthly, etc.
