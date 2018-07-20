@@ -45,3 +45,7 @@
 and which ones will be erased.
 - Maybe we can use new tables depending on the upload date
 - Upload date: yearly, monthly, etc.
+- if it was a click of a button: the data must be provided in .shp in order to convert it
+- can you run a script from php to command line?
+- maybe we will use python or bash to do the conversion
+ogr2ogr -f "MySQL" MYSQL:"imsc,host=irpsrvgis35.utep.edu,user=ctis,password=19691963,port=3306" -nln "polygoni" -append soilmu_a_tx265.shp
