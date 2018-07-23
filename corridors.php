@@ -1228,6 +1228,18 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
     var temp_map_1;
     var onMultiple = false;
     $(document).ready(function(){
+
+        $.get("get_corridors.php", function(data){
+            //populate the dropdown for select_corridors
+            let dropdown = document.getElementById("select_corridor");
+            let option = document.createElement("option");
+            let test = data.results[0].corridor_name;
+            option.value = test;
+            option.innerHTML = test; //might need another column in the DB (to make a disctintion between name & id)
+            option.id = test;
+            dropdown.appendChild(option);
+        });
+
         $('.carousel').carousel({
             interval: 0
         });
@@ -1655,9 +1667,10 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         $("#section_multi_panel").hide();
 
         /** Select a corridor, otherwise the blocks will not become available **/
-        $("#select_corridor").change(function(){
+        $("#select_corridor").change(function(){ //logic for dropdown box
             let c = $(this).children(":selected").attr("id");
-            if(c == "montana_corridor"){
+            if(c == "montana_corridor" || c == "test_corridor_01"){ //all the same blocks
+                clearPlanningBlock();
                 for (var i = 0; i < blocks.elements.length; i++) {
                     var blck = blocks.elements[i];
                     var elem_blck = document.createElement("option");
@@ -1852,7 +1865,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                     elem_blck.innerHTML = blocks[this.value][temp].short;
                     elem_blck.id = this.value;
                     var select_pm = document.getElementById("select_pm");
-                    select_pm.appendChild(elem_blck);
+                    select_pm.appendChild(elem_blck); //populating the dropdown box for the performance measures.
+                    //let's put a global variable that determines if the pm's will be populated from internal/external
                 }
             }
         });
@@ -6405,6 +6419,14 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         $("#check_multi_1").prop("checked", true);
         $("#check_multi_2").prop("checked", true);
         $("#check_multi_3").prop("checked", true);
+    }
+
+    function clearPlanningBlock(){
+        $("#select_blocks").empty();
+        let elem_block = document.createElement("option");
+        elem_block.innerHTML = "Select a Planning Block";
+        let select_blocks = document.getElementById("select_blocks");
+        select_blocks.appendChild(elem_block);
     }
 
     function clearMeta(){

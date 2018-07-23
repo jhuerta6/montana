@@ -48,4 +48,21 @@ and which ones will be erased.
 - if it was a click of a button: the data must be provided in .shp in order to convert it
 - can you run a script from php to command line?
 - maybe we will use python or bash to do the conversion
-ogr2ogr -f "MySQL" MYSQL:"imsc,host=irpsrvgis35.utep.edu,user=ctis,password=19691963,port=3306" -nln "polygoni" -append soilmu_a_tx265.shp
+ogr2ogr -f "MySQL" MYSQL:"imsc,host=irpsrvgis35.utep.edu,user=ctis,password=<psswrd>,port=3306" -nln "polygoni" -append soilmu_a_tx265.shp
+
+create table a11_properties like mpo_new.a11_new;
+create table a12_properties like mpo_new.a11_new;
+create table a13_properties like mpo_new.a11_new;
+create table a23_properties like mpo_new.a11_new;
+create table a24_properties like mpo_new.a11_new;
+create table b14_properties like mpo_new.a11_new;
+create table b22_properties like mpo_new.a11_new;
+create table b31_properties like mpo_new.a11_new;
+create table c22_properties like mpo_new.a11_new;
+create table c23_properties like mpo_new.a11_new;
+create table c24_properties like mpo_new.a11_new;
+create table c25_properties like mpo_new.a11_new;
+create table c26_properties like mpo_new.a11_new;
+create table c32_properties like mpo_new.a11_new;
+create table d11_properties like mpo_new.a11_new;
+create table d21_properties like mpo_new.a11_new;
