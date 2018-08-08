@@ -1024,7 +1024,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 description: null,
                 content: "There was a total of 7 crashes that resulted in an serious injury of non-motorized user along Montana Ave. there were no crashes resulting in a fatality of a pedestrian or a cyclist between 2012 and 2016. \n" +
                 "3 of the 7 crashes occurred in Section 3 , at Montana Ave. and Mattox St. which is a signalized intersection with a pedestrian signal with a marked crosswalk.",
-                note: "Data for Section 1 not available in the TXDOT CRIS database due to roadway ownership.",
+                note: "Only crashes along the state highway segment are shown (Section 2 through 7).",
                 sources: "Texas Department of Transportation CRIS database",
                 overall: false,
                 periods: "2012-2016",
@@ -1151,7 +1151,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 content: "There was a total of 7 fatal crashes and 57 serious injury crashes along Montana Ave. between 2012 and 2016. \n"+
                 "Majority of serious injuries occurred between Paisano Dr. and Joe Battle Blvd. (Sections 2, 3, 4).\n"+
                 "3 of the 7 fatal crashes occurred in Section 5, between Tierra Este Rd. and Tierra Dorada.",
-                note: "Data for Section 1 not available in the TXDOT CRIS database due to roadway ownership.",
+                note: "Only crashes along the state highway segment are shown (Section 2 through 7).",
                 sources: "Texas Department of Transportation CRIS database",
                 overall: false,
                 periods: "2012-2016",
