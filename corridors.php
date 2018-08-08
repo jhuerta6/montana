@@ -1023,7 +1023,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 short: "B.2.2. Crashes involving non-motorized users",
                 description: null,
                 content: "There was a total of 7 crashes that resulted in an serious injury of non-motorized user along Montana Ave. there were no crashes resulting in a fatality of a pedestrian or a cyclist between 2012 and 2016. \n" +
-                "3 of the 7 crashes occurred in Section 3 , at Montana Ave. and Mattox St. which is a signalized intersection with a pedestrian signal with a marked crosswalk.",
+                "3 of the 7 crashes occurred in Section 3, at Montana Ave. and Mattox St.",
                 note: "Data for Section 1 not available in the TXDOT CRIS database due to roadway ownership.",
                 sources: "Texas Department of Transportation CRIS database",
                 overall: false,
@@ -3409,8 +3409,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                                 l.appendChild(div);
 
                                 var div = document.createElement('div');
-                                div.innerHTML = "<img src='img/redsquare.png' height='10px'/> Crash involving a pedestrian" +
-                                    "<br> <img src='img/orangesquare.png' height='10px'/> Crash involving a cyclist";
+                                div.innerHTML = "<img src='img/redsquare.png' height='10px'/> Crash involving a pedestrian (serious injury or fatality)" +
+                                    "<br> <img src='img/orangesquare.png' height='10px'/> Crash involving a cyclist (serious injury or fatality)";
                                 var newLegend = document.createElement('div');
                                 newLegend = document.getElementById('legend_content_multi_'+(z+1));
                                 document.getElementById('legend').style.visibility = "visible";
@@ -4910,8 +4910,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                         $('#legendSpawner').find('*').not('h3').remove();
                         var spawner = document.getElementById('legendSpawner');
                         var div = document.createElement('div');
-                        div.innerHTML = "<img src='img/redsquare.png' height='10px'/> Crash involving a pedestrian" +
-                            "<br> <img src='img/orangesquare.png' height='10px'/> Crash involving a cyclist";
+                        div.innerHTML = "<img src='img/redsquare.png' height='10px'/> Crash involving a pedestrian (serious injury or fatality)" +
+                            "<br> <img src='img/orangesquare.png' height='10px'/> Crash involving a cyclist (serious injury or fatality)";
                         var newLegend = document.createElement('div');
                         newLegend = document.getElementById('legend');
                         document.getElementById('legend').style.visibility = "visible";
