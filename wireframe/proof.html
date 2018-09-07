@@ -29,8 +29,8 @@
 <body>
 
 <ul id="slide-out" class="sidenav">
-    <li><a href="#!">Toolbox</a></li>
-    <li><a href="#!">Charts & Info</a></li>
+    <li><a id="toolbox" onclick="appear('toolbox')" href="#!">Toolbox</a></li>
+    <li><a id="charts" onclick="appear('charts')" href="#!">Charts & Info</a></li>
     <li class="no-padding">
         <ul class="collapsible collapsible-accordion">
             <li>
@@ -68,6 +68,10 @@
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/materialize.min.js"></script>
 <script>
+    $(document).ready(function(){
+        $('.sidenav').sidenav();
+        $('.collapsible').collapsible();
+    });
     let map;
     function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
@@ -75,10 +79,10 @@
             center: new google.maps.LatLng(31.837465,-106.2851078)
         });
     }
-    $(document).ready(function(){
-        $('.sidenav').sidenav();
-        $('.collapsible').collapsible();
-    });
+
+    function appear(str){
+        console.log(str);
+    }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCY0B3_Fr1vRpgJDdbvNmrVyXmoOOtiq64&callback=initMap" async defer></script>
 </html>
