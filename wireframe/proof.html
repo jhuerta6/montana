@@ -68,7 +68,7 @@
     <div class="row">
         <div class="col s5">
             <div class="card-panel">
-                <span id="title_card" class="card-title">Card Title <i class="material-icons right">close</i></span>
+                <span id="title_card" class="card-title">Card Title</span>  <a onclick="hide()" href="#" class="material-icons right">close</a>
                 <p id="info_card"> Information for</p>
             </div>
         </div>
@@ -97,6 +97,10 @@
         $("#draggable").removeClass("hide");
         $("#info_card").text("Here we will display everything for "+str);
         $("#title_card").text(str);
+    }
+
+    function hide(){
+        $("#draggable").addClass("hide");
     }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCY0B3_Fr1vRpgJDdbvNmrVyXmoOOtiq64&callback=initMap" async defer></script>
