@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wireframe - MPO</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        #map {
+            height: 100%;
+            /*width: 100%;*/
+            /*left: 0;*/
+            /*position: relative;*/
+            /*top: -2%;*/
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+
+<ul id="slide-out" class="sidenav">
+    <li><a href="#!">Toolbox</a></li>
+    <li><a href="#!">Charts & Info</a></li>
+    <li class="no-padding">
+        <ul class="collapsible collapsible-accordion">
+            <li>
+                <a class="collapsible-header">Options<i class="material-icons">arrow_drop_down</i></a>
+                <div class="collapsible-body">
+                    <ul>
+                        <li><a href="#!">First Example</a></li>
+                        <li><a href="#!">Second Example</a></li>
+                        <li><a href="#!">Third Example</a></li>
+                        <li><a href="#!">Fourth Example</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+</ul>
+<a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+<div id="map"></div>
+</body>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<script>
+    let map;
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: -34.397, lng: 150.644},
+            zoom: 8
+        });
+    }
+    $(document).ready(function(){
+        $('.sidenav').sidenav();
+        $('.collapsible').collapsible();
+    });
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCY0B3_Fr1vRpgJDdbvNmrVyXmoOOtiq64&callback=initMap" async defer></script>
+</html>
