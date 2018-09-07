@@ -29,8 +29,8 @@
 <body>
 
 <ul id="slide-out" class="sidenav">
-    <li><a id="toolbox" onclick="appear('toolbox')" href="#!">Toolbox</a></li>
-    <li><a id="charts" onclick="appear('charts')" href="#!">Charts & Info</a></li>
+    <li><a id="toolbox" onclick="appear('Toolbox')" href="#!">Toolbox</a></li>
+    <li><a id="charts" onclick="appear('Charts & Info')" href="#!">Charts & Info</a></li>
     <li class="no-padding">
         <ul class="collapsible collapsible-accordion">
             <li>
@@ -64,13 +64,26 @@
 
 <div id="map"></div>
 
+<div id="draggable" class="ui-widget-content hide">
+    <div class="row">
+        <div class="col s5">
+            <div class="card-panel">
+                <span id="title_card" class="card-title">Card Title <i class="material-icons right">close</i></span>
+                <p id="info_card"> Information for</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 <script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="ui/jquery-ui.js"></script>
 <script type="text/javascript" src="js/materialize.min.js"></script>
 <script>
     $(document).ready(function(){
         $('.sidenav').sidenav();
         $('.collapsible').collapsible();
+        $("#draggable").draggable();
     });
     let map;
     function initMap() {
@@ -81,7 +94,9 @@
     }
 
     function appear(str){
-        console.log(str);
+        $("#draggable").removeClass("hide");
+        $("#info_card").text("Here we will display everything for "+str);
+        $("#title_card").text(str);
     }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCY0B3_Fr1vRpgJDdbvNmrVyXmoOOtiq64&callback=initMap" async defer></script>
