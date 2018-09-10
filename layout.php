@@ -173,6 +173,17 @@
         #legend img {
             vertical-align: middle;
         }
+        /*#map {*/
+            /*height: 100%;*/
+            /*width: 100%;*/
+            /*left: 0;*/
+            /*position: relative;*/
+        /*}*/
+        /*html, body {*/
+            /*height: 100%;*/
+            /*margin: 0;*/
+            /*padding: 0;*/
+        /*}*/
         /*@media (min-width: 768px) {*/
         /*.modal-xl {*/
         /*width: 90%;*/
@@ -978,10 +989,11 @@
                 PMMC / MPO & CTIS
             </a>
         </nav>
-        <main class="col-md-11 float-left col px-5 pl-md-2 pt-2 main">
+        <main class="col-md-11 float-left">
             <br>
-            <div class="container center-block center-align text-center">
-                <h1>Hello world</h1>
+            <div class="">
+                <div id="map"></div>
+<!--                <h1>Hello world</h1>-->
             </div>
             <!--            <div class="page-header">-->
             <!--                <h2>Bootstrap 4 Sidebar Menu</h2>-->
