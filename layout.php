@@ -913,7 +913,7 @@
     <div class="row d-flex d-md-block flex-nowrap wrapper">
         <div class="col-md-1 float-left col-1 pl-0 pr-0 collapse width show" id="sidebar" >
             <div class="list-group border-0 card text-center text-md-left">
-                <a href="#menu1" class="list-group-item d-inline-block collapsed" data-toggle="collapse" aria-expanded="false"><i class="fa fa-dashboard"></i> <span class="d-none d-md-inline">Item 1</span> </a>
+                <a href="#menu1" class="list-group-item d-inline-block collapsed" data-toggle="collapse" aria-expanded="false"><i class="fa fa-dashboard"></i> <span class="d-none d-md-inline">Toolbox</span> </a>
                 <div class="collapse" id="menu1" data-parent="#sidebar">
                     <a href="#menu1sub1" class="list-group-item" data-toggle="collapse" aria-expanded="false">Subitem 1 </a>
                     <div class="collapse" id="menu1sub1" data-parent="#menu1">
@@ -949,8 +949,8 @@
                     </div>
                     <a href="#" class="list-group-item">Subitem 3</a>
                 </div>
-                <a href="#" class="list-group-item d-inline-block collapsed"><i class="fa fa-film"></i> <span class="d-none d-md-inline">Item 2</span></a>
-                <a href="#menu3" class="list-group-item d-inline-block collapsed" data-toggle="collapse" aria-expanded="false"><i class="fa fa-book"></i> <span class="d-none d-md-inline">Item 3 </span></a>
+                <a href="#" class="list-group-item d-inline-block collapsed"><i class="fa fa-film"></i> <span class="d-none d-md-inline">Charts & Info</span></a>
+                <a href="#menu3" class="list-group-item d-inline-block collapsed" data-toggle="collapse" aria-expanded="false"><i class="fa fa-book"></i> <span class="d-none d-md-inline">Options</span></a>
                 <div class="collapse" id="menu3" data-parent="#sidebar">
                     <a href="#" class="list-group-item" data-parent="#menu3">3.1</a>
                     <a href="#menu3sub2" class="list-group-item" data-toggle="collapse" aria-expanded="false">3.2 </a>
@@ -961,7 +961,7 @@
                     </div>
                     <a href="#" class="list-group-item" data-parent="#menu3">3.3</a>
                 </div>
-                <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-heart"></i> <span class="d-none d-md-inline">Item 4</span></a>
+                <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-heart"></i> <span class="d-none d-md-inline">Like</span></a>
                 <!--                <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-list"></i> <span class="d-none d-md-inline">Item 5</span></a>-->
                 <!--                <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-clock-o"></i> <span class="d-none d-md-inline">Link</span></a>-->
                 <!--                <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-th"></i> <span class="d-none d-md-inline">Link</span></a>-->
@@ -980,38 +980,38 @@
         </nav>
         <main class="col-md-11 float-left col px-5 pl-md-2 pt-2 main">
             <br>
-            <div class="container">
-
+            <div class="container center-block center-align text-center">
+                <h1>Hello world</h1>
             </div>
-            <div class="page-header">
-                <h2>Bootstrap 4 Sidebar Menu</h2>
-            </div>
-            <p class="lead">A responsive, multi-level vertical accordion.</p>
-            <hr>
-            <div class="row">
-                <div class="col-lg-6">
-                    <button role="button" class="btn btn-danger" data-toggle="collapse" data-target="#demo" aria-expanded="true">
-                        horizontal collapsible
-                    </button>
-                    <div id="demo" class="width collapse show" aria-expanded="true">
-                        <div class="list-group" style="width:400px">
-                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <button role="button" class="btn btn-danger" data-toggle="collapse" data-target="#demo2" aria-expanded="true">
-                        vertical collapsible
-                    </button>
-                    <div id="demo2" class="height collapse show" aria-expanded="true">
-                        <div>
-                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!--            <div class="page-header">-->
+            <!--                <h2>Bootstrap 4 Sidebar Menu</h2>-->
+            <!--            </div>-->
+            <!--            <p class="lead">A responsive, multi-level vertical accordion.</p>-->
+            <!--            <hr>-->
+            <!--            <div class="row">-->
+            <!--                <div class="col-lg-6">-->
+            <!--                    <button role="button" class="btn btn-danger" data-toggle="collapse" data-target="#demo" aria-expanded="true">-->
+            <!--                        horizontal collapsible-->
+            <!--                    </button>-->
+            <!--                    <div id="demo" class="width collapse show" aria-expanded="true">-->
+            <!--                        <div class="list-group" style="width:400px">-->
+            <!--                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>-->
+            <!--                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--                <div class="col-lg-6">-->
+            <!--                    <button role="button" class="btn btn-danger" data-toggle="collapse" data-target="#demo2" aria-expanded="true">-->
+            <!--                        vertical collapsible-->
+            <!--                    </button>-->
+            <!--                    <div id="demo2" class="height collapse show" aria-expanded="true">-->
+            <!--                        <div>-->
+            <!--                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>-->
+            <!--                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
         </main>
     </div>
 </div>
