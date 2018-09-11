@@ -207,6 +207,42 @@
         /*max-width:1200px;*/
         /*}*/
         /*}*/
+
+        /****/
+        /*.comment {*/
+            /*opacity: .6;*/
+            /*font-style: italic;*/
+            /*position: absolute;*/
+            /*left: 40%;*/
+        /*}*/
+        /*.modal*/
+        /*{*/
+            /*overflow: hidden;*/
+        /*}*/
+        /*.modal-dialog{*/
+            /*margin-right: 0;*/
+            /*margin-left: 0;*/
+        /*}*/
+        /*.modal-header{*/
+            /*height:30px;background-color:#444;*/
+            /*color:#ddd;*/
+        /*}*/
+        /*.modal-title{*/
+            /*margin-top:-10px;*/
+            /*font-size:16px;*/
+        /*}*/
+        /*.modal-header .close{*/
+            /*margin-top:-10px;*/
+            /*color:#fff;*/
+        /*}*/
+        /*.modal-body{*/
+            /*color:#888;*/
+        /*}*/
+        /*.modal-body p {*/
+            /*text-align:center;*/
+            /*padding-top:10px;*/
+        /*}*/
+        /****/
     </style>
 </head>
 <body>
@@ -939,8 +975,31 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <div class="panel" id="toolbox">
-                <p> Testing appear - toolbox</p>
+            <div id="toolbox-modal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title float-left">Toolbox</h4>
+                            <button  type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="comment">
+                                /* load ide ui */
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button id="loadpage" type="button" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+            <div class="card" id="toolbox">
+<!--                <p> Testing appear - toolbox</p>-->
             </div>
         </div>
     </div>
@@ -950,7 +1009,7 @@
     <div class="row d-flex d-md-block flex-nowrap wrapper">
         <div class="col-md-2 float-left col-1 pl-0 pr-0 collapse width show" id="sidebar" >
             <div class="list-group border-0 card text-center text-md-left">
-                <a href="#menu1" class="list-group-item d-inline-block collapsed" data-toggle="collapse" onclick="appear('toolbox')" aria-expanded="false"><i class="fa fa-dashboard"></i> <span class="d-none d-md-inline">Toolbox</span> </a>
+                <a class="list-group-item d-inline-block collapsed" href="#toolbox-modal" data-backdrop="false" data-toggle="modal" onclick="appear('toolbox')" aria-expanded="false"><i class="fa fa-dashboard"></i> <span class="d-none d-md-inline">Toolbox</span> </a>
                 <div class="collapse" id="menu1" data-parent="#sidebar">
                     <a href="#menu1sub1" class="list-group-item" data-toggle="collapse" aria-expanded="false">Subitem 1 </a>
                     <div class="collapse" id="menu1sub1" data-parent="#menu1">
@@ -1051,6 +1110,7 @@
 
 <!--END OF PDF BUTTON SCRIPTS AND LIBRARIES-->
 <script src="js/jquery.js"></script>
+<script src="wireframe/ui/jquery-ui.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <!--<script src="js/bootstrap.js"></script>-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -1447,6 +1507,10 @@
     var temp_map_1;
     var onMultiple = false;
     $(document).ready(function(){
+        $("#toolbox-modal").draggable({
+            handle: ".modal-header"
+        });
+
         $("#toolbox").hide();
         $('.carousel').carousel({
             interval: 0
