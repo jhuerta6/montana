@@ -174,8 +174,12 @@
             vertical-align: middle;
         }
         #map {
-            height: 44vw;
-            width: auto;
+            height: 95vh;
+            width: 120%;
+        }
+        body {
+            background-color: #343a40!important;
+            overflow: hidden;
         }
         /*#map {*/
             /*height: 100%;*/
@@ -944,12 +948,6 @@
 
 <div class="container-fluid" >
     <div class="row d-flex d-md-block flex-nowrap wrapper">
-        <nav class="navbar navbar-dark bg-dark">
-            <a href="#" data-target="#sidebar" data-toggle="collapse"><i class="fa fa-navicon fa-2x py-2 p-1"></i></a>
-            <a class="navbar-brand" href="#">
-                PMMC / MPO & CTIS
-            </a>
-        </nav>
         <div class="col-md-2 float-left col-1 pl-0 pr-0 collapse width show" id="sidebar" >
             <div class="list-group border-0 card text-center text-md-left">
                 <a href="#menu1" class="list-group-item d-inline-block collapsed" data-toggle="collapse" onclick="appear('toolbox')" aria-expanded="false"><i class="fa fa-dashboard"></i> <span class="d-none d-md-inline">Toolbox</span> </a>
@@ -1013,7 +1011,12 @@
         </div>
 
         <main class="col-md-10 float-left">
-            <br>
+            <nav class="navbar navbar-dark bg-dark">
+                <a href="#" data-target="#sidebar" data-toggle="collapse"><i class="fa fa-navicon fa-2x py-2 p-1"></i></a>
+                <a class="navbar-brand" href="#">
+                    PMMC / MPO & CTIS
+                </a>
+            </nav>
                 <div id="map"></div>
         </main>
     </div>
