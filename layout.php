@@ -919,12 +919,21 @@
 </div>
 
 -->
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="panel" id="toolbox">
+                <p> Testing appear - toolbox</p>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="container-fluid" >
     <div class="row d-flex d-md-block flex-nowrap wrapper">
         <div class="col-md-1 float-left col-1 pl-0 pr-0 collapse width show" id="sidebar" >
             <div class="list-group border-0 card text-center text-md-left">
-                <a href="#menu1" class="list-group-item d-inline-block collapsed" data-toggle="collapse" aria-expanded="false"><i class="fa fa-dashboard"></i> <span class="d-none d-md-inline">Toolbox</span> </a>
+                <a href="#menu1" class="list-group-item d-inline-block collapsed" data-toggle="collapse" onclick="appear('toolbox')" aria-expanded="false"><i class="fa fa-dashboard"></i> <span class="d-none d-md-inline">Toolbox</span> </a>
                 <div class="collapse" id="menu1" data-parent="#sidebar">
                     <a href="#menu1sub1" class="list-group-item" data-toggle="collapse" aria-expanded="false">Subitem 1 </a>
                     <div class="collapse" id="menu1sub1" data-parent="#menu1">
@@ -1453,6 +1462,7 @@
     var temp_map_1;
     var onMultiple = false;
     $(document).ready(function(){
+        $("#toolbox").hide();
         $('.carousel').carousel({
             interval: 0
         });
@@ -2429,8 +2439,23 @@
         });
 
     }); //end document.ready
+
     var from_year_slide = 2012;
     var to_year_slide = 2012;
+
+
+    function appear(id){
+        console.log("In appear function: "+id);
+        let x = id;
+        x = ("#"+id);
+        if($(x).is(":hidden")){
+            $(x).show();
+        }
+        else{
+            $(x).hide();
+        }
+
+    }
 
     function removeDisclaimers(){
         $("#hh_disclaimer").hide();
