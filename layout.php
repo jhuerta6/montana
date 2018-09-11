@@ -922,7 +922,7 @@
 
 <div class="container-fluid" >
     <div class="row d-flex d-md-block flex-nowrap wrapper">
-        <div class="col-md-1 float-left col-1 pl-0 pr-0 collapse width show" id="sidebar" >
+        <div class="col-md-2 float-left col-1 pl-0 pr-0 collapse width show" id="sidebar" >
             <div class="list-group border-0 card text-center text-md-left">
                 <a href="#menu1" class="list-group-item d-inline-block collapsed" data-toggle="collapse" aria-expanded="false"><i class="fa fa-dashboard"></i> <span class="d-none d-md-inline">Toolbox</span> </a>
                 <div class="collapse" id="menu1" data-parent="#sidebar">
@@ -989,7 +989,7 @@
                 PMMC / MPO & CTIS
             </a>
         </nav>
-        <main class="col-md-11 float-left">
+        <main class="col-md-10 float-left">
             <br>
             <div class="">
                 <div id="map"></div>
