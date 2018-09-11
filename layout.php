@@ -173,16 +173,29 @@
         #legend img {
             vertical-align: middle;
         }
+        #map {
+            height: 44vw;
+            width: auto;
+        }
         /*#map {*/
             /*height: 100%;*/
             /*width: 100%;*/
-            /*left: 0;*/
-            /*position: relative;*/
+            /*!*left: 0;*!*/
+            /*!*position: relative;*!*/
         /*}*/
         /*html, body {*/
             /*height: 100%;*/
             /*margin: 0;*/
             /*padding: 0;*/
+        /*}*/
+        /*html, body, #map, .col-md-10, .float-left, .row {*/
+            /*width: 100%;*/
+            /*height: 100%;*/
+            /*margin: 0;*/
+            /*padding: 0;*/
+        /*}*/
+        /*#map {*/
+            /*position: relative;*/
         /*}*/
         /*@media (min-width: 768px) {*/
         /*.modal-xl {*/
@@ -931,6 +944,12 @@
 
 <div class="container-fluid" >
     <div class="row d-flex d-md-block flex-nowrap wrapper">
+        <nav class="navbar navbar-dark bg-dark">
+            <a href="#" data-target="#sidebar" data-toggle="collapse"><i class="fa fa-navicon fa-2x py-2 p-1"></i></a>
+            <a class="navbar-brand" href="#">
+                PMMC / MPO & CTIS
+            </a>
+        </nav>
         <div class="col-md-2 float-left col-1 pl-0 pr-0 collapse width show" id="sidebar" >
             <div class="list-group border-0 card text-center text-md-left">
                 <a href="#menu1" class="list-group-item d-inline-block collapsed" data-toggle="collapse" onclick="appear('toolbox')" aria-expanded="false"><i class="fa fa-dashboard"></i> <span class="d-none d-md-inline">Toolbox</span> </a>
@@ -992,47 +1011,10 @@
                 <!--                <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-star"></i> <span class="d-none d-md-inline">Link</span></a>-->
             </div>
         </div>
-        <nav class="navbar navbar-dark bg-dark">
-            <a href="#" data-target="#sidebar" data-toggle="collapse"><i class="fa fa-navicon fa-2x py-2 p-1"></i></a>
-            <a class="navbar-brand" href="#">
-                PMMC / MPO & CTIS
-            </a>
-        </nav>
+
         <main class="col-md-10 float-left">
             <br>
-            <div class="">
                 <div id="map"></div>
-<!--                <h1>Hello world</h1>-->
-            </div>
-            <!--            <div class="page-header">-->
-            <!--                <h2>Bootstrap 4 Sidebar Menu</h2>-->
-            <!--            </div>-->
-            <!--            <p class="lead">A responsive, multi-level vertical accordion.</p>-->
-            <!--            <hr>-->
-            <!--            <div class="row">-->
-            <!--                <div class="col-lg-6">-->
-            <!--                    <button role="button" class="btn btn-danger" data-toggle="collapse" data-target="#demo" aria-expanded="true">-->
-            <!--                        horizontal collapsible-->
-            <!--                    </button>-->
-            <!--                    <div id="demo" class="width collapse show" aria-expanded="true">-->
-            <!--                        <div class="list-group" style="width:400px">-->
-            <!--                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>-->
-            <!--                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>-->
-            <!--                        </div>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--                <div class="col-lg-6">-->
-            <!--                    <button role="button" class="btn btn-danger" data-toggle="collapse" data-target="#demo2" aria-expanded="true">-->
-            <!--                        vertical collapsible-->
-            <!--                    </button>-->
-            <!--                    <div id="demo2" class="height collapse show" aria-expanded="true">-->
-            <!--                        <div>-->
-            <!--                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>-->
-            <!--                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>-->
-            <!--                        </div>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--            </div>-->
         </main>
     </div>
 </div>
