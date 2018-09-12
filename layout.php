@@ -1003,7 +1003,7 @@
                                 <div class="tab-content" id="myTabContent">
                                     <div class="tab-pane fade show active" id="default">
 
-                                        <div id="main_default">
+                                        <div id="main_default"><br>
                                             <div class="input-group" id="muni_dropbox">
                                                 <span class="input-group-text" id="add_on">Municipalities</span>
                                                 <select type="text" class="custom-select" placeholder="Municipality" aria-describedby="add_on" id="select_muni">
@@ -1035,17 +1035,17 @@
                                         </div>
 
                                     </div>
-                                    <div class="tab-pane fade" id="filt">
-
-
-
-                                    </div>
                                     <div class="tab-pane fade" id="filters">
 
 
 
                                     </div>
                                     <div class="tab-pane fade" id="statistics">
+
+
+
+                                    </div>
+                                    <div class="tab-pane fade" id="timeline">
 
 
 
