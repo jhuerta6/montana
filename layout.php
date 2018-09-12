@@ -978,28 +978,88 @@
             <div id="toolbox-modal" class="modal fade">
                 <div class="modal-dialog">
                     <div class="modal-content">
+
                         <div class="modal-header">
                             <h4 class="modal-title float-left">Toolbox</h4>
                             <button  type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
                         <div class="modal-body">
+                            <div id="individual_tabs">
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#default">Display</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#filters">Filter</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#statistics">AOI</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#timeline">Timeline</a>
+                                    </li>
+                                </ul>
 
-                            <div class="comment">
-                                /* load ide ui */
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="default">
+
+                                        <div id="main_default">
+                                            <div class="input-group" id="muni_dropbox">
+                                                <span class="input-group-text" id="add_on">Municipalities</span>
+                                                <select type="text" class="custom-select" placeholder="Municipality" aria-describedby="add_on" id="select_muni">
+                                                    <option value="" disabled selected>Select a Municipality</option>
+                                                </select>
+                                            </div>
+                                            <br>
+                                            <div class="input-group" id="section_dropbox">
+                                                <span class="input-group-text" id="add_on">Sections</span>
+                                                <select type="text" class="custom-select" placeholder="Section" aria-describedby="add_on" id="select_section">
+                                                    <option value="" disabled selected>Select a Section</option>
+                                                </select>
+                                            </div>
+                                            <br>
+
+                                            <div class="input-group" id="boundary_dropbox">
+                                                <span class="input-group-text" id="add_on">Boundary</span>
+                                                <select type="text" class="custom-select" placeholder="Boundary" aria-describedby="add_on" id="select_bound">
+                                                    <option value="" disabled selected>Select a Boundary</option>
+                                                </select>
+                                            </div>
+                                            <br>
+
+                                            <div id="default_singular">
+                                                <div class="input-group-text" id="add_on_single">
+                                                    <input type="checkbox" value="" id="check_singular" checked> &nbsp; Show Performance Measure
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="tab-pane fade" id="filt">
+
+
+
+                                    </div>
+                                    <div class="tab-pane fade" id="filters">
+
+
+
+                                    </div>
+                                    <div class="tab-pane fade" id="statistics">
+
+
+
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <button id="loadpage" type="button" class="btn btn-primary">Save</button>
-                        </div>
+                        <!--                        <div class="modal-footer">-->
+                        <!--                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>-->
+                        <!--                            <button id="loadpage" type="button" class="btn btn-primary">Save</button>-->
+                        <!--                        </div>-->
                     </div>
-                    <!-- /.modal-content -->
                 </div>
-                <!-- /.modal-dialog -->
-            </div>
-            <!-- /.modal -->
-            <div class="card" id="toolbox">
-<!--                <p> Testing appear - toolbox</p>-->
             </div>
         </div>
     </div>
@@ -1527,7 +1587,7 @@
         $("#corridor_individual_panel").hide();
         $("#section_individual_panel").hide();
         $("#main_default").hide();
-        $("#individual_tabs").hide();
+        //$("#individual_tabs").hide();
         $("#individual_buttons").hide();
         $("#clear").hide();
         $("#print").hide();
