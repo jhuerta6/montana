@@ -1037,17 +1037,71 @@
                                     </div>
                                     <div class="tab-pane fade" id="filters">
 
-
+                                        <div id="single_filters_to">
+                                            <br>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="form-check">
+                                                        <p class="form-check-label">
+                                                            <input class="form-check-input" type="radio" name="radios" id="biggerThan" value="bigger">
+                                                            Bigger than the unit value
+                                                        </p>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <p class="form-check-label">
+                                                            <input class="form-check-input" type="radio" name="radios" id="smallerThan" value="smaller">
+                                                            Smaller than the unit value
+                                                        </p>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <p class="form-check-label">
+                                                            <input class="form-check-input" type="radio" name="radios" id="equalTo" value="equal">
+                                                            Equal to the unit value
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="col"><br>
+                                                    <div class="input-group toPDF">
+                                                        <div data-toggle="tooltip" data-placement="top" title="The unit value used to compare the data values" class="input-group-text" id="basic-addon3">unit</div>
+                                                        <input type="number" class="form-control" value="1" min="0"placeholder="...units" id="filter_units" aria-describedby="basic-addon3">
+                                                    </div><br>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-success form-control" type="button" id="runFilters" onClick="runFilters()">Display W/ Filters</button>
+                                        </div>
 
                                     </div>
-                                    <div class="tab-pane fade" id="statistics">
-
-
-
+                                    <div class="tab-pane fade" id="statistics"><br>
+                                        <h4 class="text-center">Area of Interest</h4>
+                                        Your drawn rectangle will become the Area of Interest (AOI), and you can choose to display only the data that touches the AOI when you click "Display w/ AOI". <br>
+                                        <strong>Note:</strong> The information presented in the Summary reflects all of the data available in the Performance Measure, not parts of the data.
+                                        <button data-toggle="tooltip" data-placement="top" title="Only bring up the data touched by the Area Of Interest" class="btn btn-outline-success form-control" type="button" id="runAOI" onClick="runAOI()">Display using AOI</button><br><br>
+                                        <button type="button" class="btn btn-outline-warning form-control" id="draw" onclick="drawAnotherRectangle();">Clear AOI</button><br>
                                     </div>
                                     <div class="tab-pane fade" id="timeline">
 
-
+                                        <div id="not_display_timeline" class="text-center"><br>
+                                            <h4> Select Planning Block "C. Community to Region", then select Performance Measure "C.3.2 Crashes Involving All Users" to see this tool's implementation. </h4>
+                                        </div>
+                                        <div id="display_timeline">
+                                            <p> As of right now, you can only select data from <strong>Crashes</strong>. </p>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <form class="form-inline">
+                                                        <label class="my-1 mr-2" for="timegen_seconds">Delay in seconds:</label>
+                                                        <input id="timegen_seconds" class="" min="1" max="10" value="1" type="number" placeholder="How many seconds long?"><br>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="bit">Select the years: </label>
+                                                    <input id="slide_depth" type="text" class="span2" value="" data-slider-min="2012" data-slider-max="2016" data-slider-step="1" data-slider-value="[0,0]"/><br><br>
+                                            </div>
+                                            <div class="text-center" id="update_time_text"></div>
+                                            <div id="timeline_dialog_panel" class="panel panel-default">
+                                                <div class="panel-body" id="timeline_dialog"></div>
+                                            </div>
+                                        </div>
 
                                     </div>
                                 </div>
