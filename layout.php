@@ -1163,7 +1163,7 @@
                             <div id="section_individual_panel" class="panel panel-default" style="visibility: visible;">
                                 <h3 class="text-center">Section Level Analysis</h3><br>
                                 <ul class="nav nav-tabs">
-                                    <li class="nav nav-tabs"><a class="nav-link active" data-toggle="tab" href="#sections_multi_1" data-target="#sections_multi_1">Section #1</a></li>
+                                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#sections_multi_1" data-target="#sections_multi_1">Section #1</a></li>
                                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sections_multi_2" data-target="#sections_multi_2">Section #2</a></li>
                                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sections_multi_3" data-target="#sections_multi_3">Section #3</a></li>
                                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sections_multi_4" data-target="#sections_multi_4">Section #4</a></li>
@@ -1205,7 +1205,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title float-left">Select Corridor</h4>
+                            <h4 class="modal-title float-left">Select Corridor, Planning Block & PM</h4>
                             <button  type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
                         <div class="modal-body">
@@ -1236,42 +1236,6 @@
                     </div>
                 </div>
             </div>
-<!--            <div id="planning-modal" class="modal fade">-->
-<!--                <div class="modal-dialog">-->
-<!--                    <div class="modal-content">-->
-<!--                        <div class="modal-header">-->
-<!--                            <h4 class="modal-title float-left">Select Planning Block</h4>-->
-<!--                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
-<!--                        </div>-->
-<!--                        <div class="modal-body">-->
-<!--                            <div class="input-group">-->
-<!--                                <span class="input-group-text" id="add_on">Planning Block</span>-->
-<!--                                <select type="text" class="custom-select" placeholder="Block Level" aria-describedby="add_on" id="select_blocks">-->
-<!--                                    <option value="" disabled selected>Select a Planning Block</option>-->
-<!--                                </select>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div id="pm-modal" class="modal fade">-->
-<!--                <div class="modal-dialog">-->
-<!--                    <div class="modal-content">-->
-<!--                        <div class="modal-header">-->
-<!--                            <h4 class="modal-title float-left">Select Performance Measure</h4>-->
-<!--                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
-<!--                        </div>-->
-<!--                        <div class="modal-body">-->
-<!--                            <div class="input-group" id="singular_pm_select">-->
-<!--                                <span class="input-group-text" id="add_on">Performance Measure</span>-->
-<!--                                <select type="text" class="custom-select" placeholder="Performance Measure" aria-describedby="add_on" id="select_pm">-->
-<!--                                    <option value="" disabled selected>Select a Performance Measure</option>-->
-<!--                                </select>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
         </div>
     </div>
 </div>
