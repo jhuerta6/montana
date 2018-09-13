@@ -1198,51 +1198,56 @@
                 </div>
             </div>
             <div id="corridor-modal" class="modal fade">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title float-left">Select Corridor</h4>
-                        <button  type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <p>hello</p>
-<!--                        <div class="input-group">-->
-<!--                            <span class="input-group-addon" id="add_on_corridor">Corridor</span>-->
-<!--                            <select type="text" class="form-control" placeholder="Corridor" aria-describedby="add_on_corridor" id="select_corridor">-->
-<!--                                <option value="no" selected>Select a Corridor</option>-->
-<!--                                <option id="montana_corridor" value="montana_corridor">Montana Corridor</option>-->
-<!--                            </select>-->
-<!--                        </div>-->
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title float-left">Select Corridor</h4>
+                            <button  type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="add_on_corridor">Corridor</span>
+                                <select type="text" class="form-control" placeholder="Corridor" aria-describedby="add_on_corridor" id="select_corridor">
+                                    <option value="no" selected>Select a Corridor</option>
+                                    <option id="montana_corridor" value="montana_corridor">Montana Corridor</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div id="planning-modal" class="modal fade">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title float-left">Select Planning Block</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="input-group">
-                            <span class="input-group-addon" id="add_on">Planning Block</span>
-                            <select type="text" class="form-control" placeholder="Block Level" aria-describedby="add_on" id="select_blocks">
-                                <option value="" disabled selected>Select a Planning Block</option>
-                            </select>
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title float-left">Select Planning Block</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="add_on">Planning Block</span>
+                                <select type="text" class="form-control" placeholder="Block Level" aria-describedby="add_on" id="select_blocks">
+                                    <option value="" disabled selected>Select a Planning Block</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div id="pm-modal" class="modal fade">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title float-left">Select Performance Measure</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="input-group" id="singular_pm_select">
-                            <span class="input-group-addon" id="add_on">Performance Measure</span>
-                            <select type="text" class="form-control" placeholder="Performance Measure" aria-describedby="add_on" id="select_pm">
-                                <option value="" disabled selected>Select a Performance Measure</option>
-                            </select>
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title float-left">Select Performance Measure</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-group" id="singular_pm_select">
+                                <span class="input-group-addon" id="add_on">Performance Measure</span>
+                                <select type="text" class="form-control" placeholder="Performance Measure" aria-describedby="add_on" id="select_pm">
+                                    <option value="" disabled selected>Select a Performance Measure</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
