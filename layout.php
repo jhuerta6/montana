@@ -1142,6 +1142,10 @@
                                 </div>
                             </div>
 
+                            <div class="card">
+                                <div id="modes"></div>
+                            </div>
+
                             <div id="data-holder" class="panel panel-default">
                                 <h3 class="text-center">Summary</h3><br>
                                 <div id="pm_description" class="container panel panel-default"></div>
@@ -1206,52 +1210,68 @@
                         </div>
                         <div class="modal-body">
                             <div class="input-group">
-                                <span class="input-group-addon" id="add_on_corridor">Corridor</span>
-                                <select type="text" class="form-control" placeholder="Corridor" aria-describedby="add_on_corridor" id="select_corridor">
+                                <span class="input-group-text" id="add_on_corridor">Corridor</span>
+                                <select type="text" class="custom-select" placeholder="Corridor" aria-describedby="add_on_corridor" id="select_corridor">
                                     <option value="no" selected>Select a Corridor</option>
                                     <option id="montana_corridor" value="montana_corridor">Montana Corridor</option>
                                 </select>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="planning-modal" class="modal fade">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title float-left">Select Planning Block</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body">
+
+
                             <div class="input-group">
-                                <span class="input-group-addon" id="add_on">Planning Block</span>
-                                <select type="text" class="form-control" placeholder="Block Level" aria-describedby="add_on" id="select_blocks">
+                                <span class="input-group-text" id="add_on">Planning Block</span>
+                                <select type="text" class="custom-select" placeholder="Block Level" aria-describedby="add_on" id="select_blocks">
                                     <option value="" disabled selected>Select a Planning Block</option>
                                 </select>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="pm-modal" class="modal fade">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title float-left">Select Performance Measure</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body">
+
                             <div class="input-group" id="singular_pm_select">
-                                <span class="input-group-addon" id="add_on">Performance Measure</span>
-                                <select type="text" class="form-control" placeholder="Performance Measure" aria-describedby="add_on" id="select_pm">
+                                <span class="input-group-text" id="add_on">Performance Measure</span>
+                                <select type="text" class="custom-select" placeholder="Performance Measure" aria-describedby="add_on" id="select_pm">
                                     <option value="" disabled selected>Select a Performance Measure</option>
                                 </select>
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
+<!--            <div id="planning-modal" class="modal fade">-->
+<!--                <div class="modal-dialog">-->
+<!--                    <div class="modal-content">-->
+<!--                        <div class="modal-header">-->
+<!--                            <h4 class="modal-title float-left">Select Planning Block</h4>-->
+<!--                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+<!--                        </div>-->
+<!--                        <div class="modal-body">-->
+<!--                            <div class="input-group">-->
+<!--                                <span class="input-group-text" id="add_on">Planning Block</span>-->
+<!--                                <select type="text" class="custom-select" placeholder="Block Level" aria-describedby="add_on" id="select_blocks">-->
+<!--                                    <option value="" disabled selected>Select a Planning Block</option>-->
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div id="pm-modal" class="modal fade">-->
+<!--                <div class="modal-dialog">-->
+<!--                    <div class="modal-content">-->
+<!--                        <div class="modal-header">-->
+<!--                            <h4 class="modal-title float-left">Select Performance Measure</h4>-->
+<!--                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+<!--                        </div>-->
+<!--                        <div class="modal-body">-->
+<!--                            <div class="input-group" id="singular_pm_select">-->
+<!--                                <span class="input-group-text" id="add_on">Performance Measure</span>-->
+<!--                                <select type="text" class="custom-select" placeholder="Performance Measure" aria-describedby="add_on" id="select_pm">-->
+<!--                                    <option value="" disabled selected>Select a Performance Measure</option>-->
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
     </div>
 </div>
@@ -1263,13 +1283,11 @@
                 <a href="#menu3" class="list-group-item d-inline-block collapsed" data-toggle="collapse" aria-expanded="false"><i class="fa fa-tasks"></i> <span class="d-none d-md-inline">Selectors</span></a>
                 <div class="collapse" id="menu3" data-parent="#sidebar">
                     <a class="list-group-item" href="#corridor-modal" data-backdrop="false" data-toggle="modal" onclick="appear('corridor')">Corridor</a>
-                    <a class="list-group-item" href="#planning-modal" data-backdrop="false" data-toggle="modal" onclick="appear('pb')">Planning Block</a>
-                    <a class="list-group-item" href="#pm-modal" data-backdrop="false" data-toggle="modal" onclick="appear('pm')">Performance Measure</a>
+                    <a class="list-group-item" href="#corridor-modal" data-backdrop="false" data-toggle="modal" onclick="appear('pb')">Planning Block</a>
+                    <a class="list-group-item" href="#corridor-modal" data-backdrop="false" data-toggle="modal" onclick="appear('pm')">Performance Measure</a>
                 </div>
                 <a class="list-group-item d-inline-block collapsed" href="#toolbox-modal" data-backdrop="false" data-toggle="modal" onclick="appear('toolbox')"><i class="fa fa-gears"></i> <span class="d-none d-md-inline">Toolbox</span> </a>
-
                 <a class="list-group-item d-inline-block collapsed" href="#charts-modal" data-backdrop="false" data-toggle="modal" onclick="appear('charts')"><i class="fa fa-bar-chart"></i> <span class="d-none d-md-inline">Charts & Info</span></a>
-
                 <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-certificate"></i> <span class="d-none d-md-inline">Tutorial</span></a>
                 <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-info"></i> <span class="d-none d-md-inline">About PMEPC</span></a>
                 <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class=""></i> <span class="d-none d-md-inline"></span></a>
@@ -1277,12 +1295,11 @@
                 <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-print"></i> <span class="d-none d-md-inline">Print</span></a>
             </div>
         </div>
-
         <main class="col-md-10 float-left">
             <nav class="navbar navbar-dark bg-dark">
                 <a href="#" data-target="#sidebar" data-toggle="collapse"><i class="fa fa-navicon fa-2x py-2 p-1"></i></a>
                 <a class="navbar-brand" href="#">
-                    PMMC / MPO & CTIS
+                    PMEPC / MPO & CTIS
                 </a>
             </nav>
                 <div id="map"></div>
@@ -1725,14 +1742,6 @@
         });
 
         $("#corridor-modal").draggable({
-            handle: ".modal-header"
-        });
-
-        $("#planning-modal").draggable({
-            handle: ".modal-header"
-        });
-
-        $("#pm-modal").draggable({
             handle: ".modal-header"
         });
 
