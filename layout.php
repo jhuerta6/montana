@@ -1095,7 +1095,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="bit">Select the years: </label>
-                                                    <input id="slide_depth" type="text" class="span2" value="" data-slider-min="2012" data-slider-max="2016" data-slider-step="1" data-slider-value="[0,0]"/><br><br>
+                                                <input id="slide_depth" type="text" class="span2" value="" data-slider-min="2012" data-slider-max="2016" data-slider-step="1" data-slider-value="[0,0]"/><br><br>
                                             </div>
                                             <div class="text-center" id="update_time_text"></div>
                                             <div id="timeline_dialog_panel" class="panel panel-default">
@@ -1115,6 +1115,88 @@
                     </div>
                 </div>
             </div>
+            <div id="charts-modal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title float-left">Charts & Info</h4>
+                            <button  type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div id="legend_panel" class="panel panel-default toPDF" style='visibility: visible;'>
+                                <h3 class="text-center">Legend</h3><br>
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item"><a data-toggle="tab" href="#legend_one" data-target="#legend_one">PM</a></li>
+                                    <li class="nav-item"><a data-toggle="tab" href="#sections_one" data-target="#sections_one">Section</a></li>
+                                </ul>
+                                <div class="tab-content" >
+                                    <div id="legend_one" class="tab-pane fade in active"><br>
+
+                                        <div id="legend" class="container panel panel-default">Please select a PM</div>
+                                    </div>
+                                    <div id="sections_one" class="tab-pane fade"><br>
+
+                                        <div id="legend_section" class="container panel panel-default">Click the Sections dropdown box and select 'Montana Corridor' to display sections</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="data-holder" class="panel panel-default">
+                                <h3 class="text-center">Summary</h3><br>
+                                <div id="pm_description" class="container panel panel-default"></div>
+                                <div id="pm_data" class="container panel panel-default"></div>
+                            </div>
+
+                            <div id="corridor_individual_panel" class="panel panel-default" style="visibility: visible;">
+                                <h3 class="text-center">Corridor Level Analysis</h3><br>
+                                <div class="chart" id="chart_selected"> </div>
+                                <div id="logScale0">
+                                    <h5>Note: Logarithmic Scaling was used for this graph.</h5>
+                                </div>
+                            </div>
+
+                            <div id="section_individual_panel" class="panel panel-default" style="visibility: visible;">
+                                <h3 class="text-center">Section Level Analysis</h3><br>
+                                <ul class="nav nav-tabs">
+                                    <li class="nav nav-tabs"><a class="nav-link active" data-toggle="tab" href="#sections_multi_1" data-target="#sections_multi_1">Section #1</a></li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sections_multi_2" data-target="#sections_multi_2">Section #2</a></li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sections_multi_3" data-target="#sections_multi_3">Section #3</a></li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sections_multi_4" data-target="#sections_multi_4">Section #4</a></li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sections_multi_5" data-target="#sections_multi_5">Section #5</a></li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sections_multi_6" data-target="#sections_multi_6">Section #6</a></li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sections_multi_7" data-target="#sections_multi_7">Section #7</a></li>
+                                </ul>
+                                <div class="tab-content" >
+                                    <div id="sections_multi_1" class="tab-pane fade in active"><br>
+                                        <div class="chart" id="table_selected_1"> </div><br>
+                                    </div>
+                                    <div id="sections_multi_2" class="tab-pane fade"><br>
+                                        <div class="chart" id="table_selected_2"> </div><br>
+                                    </div>
+                                    <div id="sections_multi_3" class="tab-pane fade"><br>
+                                        <div class="chart" id="table_selected_3"> </div><br>
+                                    </div>
+                                    <div id="sections_multi_4" class="tab-pane fade"><br>
+                                        <div class="chart" id="table_selected_4"> </div><br>
+                                    </div>
+                                    <div id="sections_multi_5" class="tab-pane fade"><br>
+                                        <div class="chart" id="table_selected_5"> </div><br>
+                                    </div>
+                                    <div id="sections_multi_6" class="tab-pane fade"><br>
+                                        <div class="chart" id="table_selected_6"> </div><br>
+                                    </div>
+                                    <div id="sections_multi_7" class="tab-pane fade"><br>
+                                        <div class="chart" id="table_selected_7"> </div><br>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -1123,63 +1205,21 @@
     <div class="row d-flex d-md-block flex-nowrap wrapper">
         <div class="col-md-2 float-left col-1 pl-0 pr-0 collapse width show" id="sidebar" >
             <div class="list-group border-0 card text-center text-md-left">
-                <a class="list-group-item d-inline-block collapsed" href="#toolbox-modal" data-backdrop="false" data-toggle="modal" onclick="appear('toolbox')" aria-expanded="false"><i class="fa fa-dashboard"></i> <span class="d-none d-md-inline">Toolbox</span> </a>
-                <div class="collapse" id="menu1" data-parent="#sidebar">
-                    <a href="#menu1sub1" class="list-group-item" data-toggle="collapse" aria-expanded="false">Subitem 1 </a>
-                    <div class="collapse" id="menu1sub1" data-parent="#menu1">
-                        <a href="#" class="list-group-item" data-parent="#menu1sub1">Subitem a</a>
-                        <a href="#" class="list-group-item" data-parent="#menu1sub1">Subitem b</a>
-                        <a href="#menu1sub1sub1" class="list-group-item" data-toggle="collapse" aria-expanded="false">Subitem c </a>
-                        <div class="collapse" id="menu1sub1sub1">
-                            <a href="#" class="list-group-item" data-parent="#menu1sub1sub1">Subitem c.1</a>
-                            <a href="#" class="list-group-item" data-parent="#menu1sub1sub1">Subitem c.2</a>
-                        </div>
-                        <a href="#" class="list-group-item" data-parent="#menu1sub1">Subitem d</a>
-                        <a href="#menu1sub1sub2" class="list-group-item" data-toggle="collapse" aria-expanded="false">Subitem e </a>
-                        <div class="collapse" id="menu1sub1sub2">
-                            <a href="#" class="list-group-item">Subitem e.1</a>
-                            <a href="#" class="list-group-item">Subitem e.2</a>
-                        </div>
-                    </div>
-                    <a href="#menu1sub2" class="list-group-item" data-toggle="collapse" aria-expanded="false">Subitem 2</a>
-                    <div class="collapse" id="menu1sub2" data-parent="#menu1">
-                        <a href="#" class="list-group-item" data-parent="#menu1sub1">Subitem 1 a</a>
-                        <a href="#" class="list-group-item" data-parent="#menu1sub1">Subitem 2 b</a>
-                        <a href="#menu1sub1sub1" class="list-group-item" data-toggle="collapse" aria-expanded="false">Subitem 3 c </a>
-                        <div class="collapse" id="menu1sub1sub1">
-                            <a href="#" class="list-group-item" data-parent="#menu1sub1sub1">Subitem 3 c.1</a>
-                            <a href="#" class="list-group-item" data-parent="#menu1sub1sub1">Subitem 3 c.2</a>
-                        </div>
-                        <a href="#" class="list-group-item" data-parent="#menu1sub1">Subitem 4 d</a>
-                        <a href="#menu1sub1sub2" class="list-group-item" data-toggle="collapse" aria-expanded="false">Subitem 5 e </a>
-                        <div class="collapse" id="menu1sub1sub2">
-                            <a href="#" class="list-group-item" data-parent="#menu1sub1sub2">Subitem 5 e.1</a>
-                            <a href="#" class="list-group-item" data-parent="#menu1sub1sub2">Subitem 5 e.2</a>
-                        </div>
-                    </div>
-                    <a href="#" class="list-group-item">Subitem 3</a>
-                </div>
-                <a href="#" class="list-group-item d-inline-block collapsed"><i class="fa fa-film"></i> <span class="d-none d-md-inline">Charts & Info</span></a>
-                <a href="#menu3" class="list-group-item d-inline-block collapsed" data-toggle="collapse" aria-expanded="false"><i class="fa fa-book"></i> <span class="d-none d-md-inline">Options</span></a>
+                <a href="#menu3" class="list-group-item d-inline-block collapsed" data-toggle="collapse" aria-expanded="false"><i class="fa fa-tasks"></i> <span class="d-none d-md-inline">Selectors</span></a>
                 <div class="collapse" id="menu3" data-parent="#sidebar">
-                    <a href="#" class="list-group-item" data-parent="#menu3">3.1</a>
-                    <a href="#menu3sub2" class="list-group-item" data-toggle="collapse" aria-expanded="false">3.2 </a>
-                    <div class="collapse" id="menu3sub2">
-                        <a href="#" class="list-group-item" data-parent="#menu3sub2">3.2 a</a>
-                        <a href="#" class="list-group-item" data-parent="#menu3sub2">3.2 b</a>
-                        <a href="#" class="list-group-item" data-parent="#menu3sub2">3.2 c</a>
-                    </div>
-                    <a href="#" class="list-group-item" data-parent="#menu3">3.3</a>
+                    <a class="list-group-item" href="#corridor-modal" data-backdrop="false" data-toggle="modal" onclick="appear('corridor')">Corridor</a>
+                    <a class="list-group-item" href="#planning-modal" data-backdrop="false" data-toggle="modal" onclick="appear('pb')">Planning Block</a>
+                    <a class="list-group-item" href="#pm-modal" data-backdrop="false" data-toggle="modal" onclick="appear('pm')">Performance Measure</a>
                 </div>
-                <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-heart"></i> <span class="d-none d-md-inline">Like</span></a>
-                <!--                <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-list"></i> <span class="d-none d-md-inline">Item 5</span></a>-->
-                <!--                <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-clock-o"></i> <span class="d-none d-md-inline">Link</span></a>-->
-                <!--                <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-th"></i> <span class="d-none d-md-inline">Link</span></a>-->
-                <!--                <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-gear"></i> <span class="d-none d-md-inline">Link</span></a>-->
-                <!--                <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-calendar"></i> <span class="d-none d-md-inline">Link</span></a>-->
-                <!--                <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-envelope"></i> <span class="d-none d-md-inline">Link</span></a>-->
-                <!--                <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-bar-chart-o"></i> <span class="d-none d-md-inline">Link</span></a>-->
-                <!--                <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-star"></i> <span class="d-none d-md-inline">Link</span></a>-->
+                <a class="list-group-item d-inline-block collapsed" href="#toolbox-modal" data-backdrop="false" data-toggle="modal" onclick="appear('toolbox')"><i class="fa fa-gears"></i> <span class="d-none d-md-inline">Toolbox</span> </a>
+
+                <a class="list-group-item d-inline-block collapsed" href="#charts-modal" data-backdrop="false" data-toggle="modal" onclick="appear('charts')"><i class="fa fa-bar-chart"></i> <span class="d-none d-md-inline">Charts & Info</span></a>
+
+                <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-certificate"></i> <span class="d-none d-md-inline">Tutorial</span></a>
+                <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-info"></i> <span class="d-none d-md-inline">About PMEPC</span></a>
+                <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class=""></i> <span class="d-none d-md-inline"></span></a>
+                <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-trash-o"></i> <span class="d-none d-md-inline">Clear</span></a>
+                <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-print"></i> <span class="d-none d-md-inline">Print</span></a>
             </div>
         </div>
 
@@ -1622,6 +1662,10 @@
     var onMultiple = false;
     $(document).ready(function(){
         $("#toolbox-modal").draggable({
+            handle: ".modal-header"
+        });
+
+        $("#charts-modal").draggable({
             handle: ".modal-header"
         });
 
