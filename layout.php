@@ -1131,7 +1131,7 @@
                                     <li class="nav-item"><a data-toggle="tab" href="#sections_one" data-target="#sections_one">Section</a></li>
                                 </ul>
                                 <div class="tab-content" >
-                                    <div id="legend_one" class="tab-pane fade in active"><br>
+                                    <div id="legend_one" class="tab-pane fade in active show"><br>
 
                                         <div id="legend" class="container panel panel-default">Please select a PM</div>
                                     </div>
@@ -1172,7 +1172,7 @@
                                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sections_multi_7" data-target="#sections_multi_7">Section #7</a></li>
                                 </ul>
                                 <div class="tab-content" >
-                                    <div id="sections_multi_1" class="tab-pane fade in active"><br>
+                                    <div id="sections_multi_1" class="tab-pane fade in active show"><br>
                                         <div class="chart" id="table_selected_1"> </div><br>
                                     </div>
                                     <div id="sections_multi_2" class="tab-pane fade"><br>
