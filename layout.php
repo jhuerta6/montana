@@ -1039,8 +1039,9 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                                             </div>
                                             <div class="text-center" id="update_time_text"></div>
                                             <div id="timeline_dialog_panel" class="panel panel-default">
-                                                <div class="panel-body" id="timeline_dialog"></div><br>
+                                                <div class="panel-body" id="timeline_dialog"></div>
                                             </div>
+                                            <br>
                                             <button type="button" class="btn btn-outline-info form-control" id="time_btn" onclick="timegen();">Generate Timeline</button>
                                         </div>
 
