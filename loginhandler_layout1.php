@@ -25,7 +25,7 @@
                 		$_SESSION['in_mpo'] = true;
                     $_SESSION['username'] = $username;
                     $_SESSION['id'] = $row['id'];
-										header('Location: corridors.php');
+										header('Location: layout.php');
                 }
                 else{
                     echo "Username or password incorrect";

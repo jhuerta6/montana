@@ -1,3 +1,10 @@
+<?php
+session_start();
+if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
+    header('Location: login_layout1.php');
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1127,8 +1134,8 @@
                             <div id="legend_panel" class="panel panel-default toPDF" style='visibility: visible;'>
                                 <h3 class="text-center">Legend</h3><br>
                                 <ul class="nav nav-tabs">
-                                    <li class="nav-item"><a data-toggle="tab" href="#legend_one" data-target="#legend_one">PM</a></li>
-                                    <li class="nav-item"><a data-toggle="tab" href="#sections_one" data-target="#sections_one">Section</a></li>
+                                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#legend_one" data-target="#legend_one">PM</a></li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sections_one" data-target="#sections_one">Section</a></li>
                                 </ul>
                                 <div class="tab-content" >
                                     <div id="legend_one" class="tab-pane fade in active show"><br>
@@ -1141,17 +1148,17 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <br>
                             <div class="card">
                                 <div id="modes"></div>
                             </div>
-
+                            <br>
                             <div id="data-holder" class="panel panel-default">
                                 <h3 class="text-center">Summary</h3><br>
                                 <div id="pm_description" class="container panel panel-default"></div>
                                 <div id="pm_data" class="container panel panel-default"></div>
                             </div>
-
+                            <br>
                             <div id="corridor_individual_panel" class="panel panel-default" style="visibility: visible;">
                                 <h3 class="text-center">Corridor Level Analysis</h3><br>
                                 <div class="chart" id="chart_selected"> </div>
@@ -1236,6 +1243,75 @@
                     </div>
                 </div>
             </div>
+            <div id="aboutmodal"  class="modal fade">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4>MPO Performance Measures for El Paso Corridors</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-header">
+                            <p>Interactive web application for visualizing the performance measures of El Paso corridors.</p>
+                            <p>Support and funding provided by El Paso Metropolitan Planning Organization.</p>
+                        </div>
+                        <div class="modal-body">
+                            <p>Final Report:</p>
+                            <a href="documents/final.pdf">Development of a Sustainable Performance-Based Methodology for Strategic Metropolitan Planning Based on MAP-21</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="slidesmodal" class="modal fade" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-xl" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="center-block text-center">Introduction</h4>
+                        </div>
+                        <div class="center-block text-center modal-header modal-xl">
+                            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                                <!-- Indicators -->
+                                <ol class="carousel-indicators">
+                                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                                    <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+                                </ol>
+
+                                <!-- Wrapper for slides -->
+                                <div class="carousel-inner" width="100%" role="listbox">
+                                    <div class="item active">
+                                        <img class="center-block text-center" src="./slides/new/Slide1.PNG" alt="">
+                                    </div>
+                                    <div class="item">
+                                        <img class="center-block text-center" src="./slides/new/Slide2.PNG" alt="">
+                                    </div>
+                                    <div class="item">
+                                        <img class="center-block text-center" src="./slides/new/Slide3.PNG" alt="">
+                                    </div>
+                                    <div class="item">
+                                        <img class="center-block text-center" src="./slides/new/Slide4.PNG" alt="">
+                                    </div>
+                                </div>
+
+                                <!-- Controls -->
+                                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                    <!--            <span class="icon-prev"></span>-->
+                                </a>
+                                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                    <!--            <span class="icon-next"></span>-->
+                                </a>
+                            </div><br>
+                            <!--                    <p>Interactive web application for visualizing the performance measures of El Paso corridors.</p>-->
+                            <!--                    <p>Support and funding provided by El Paso Metropolitan Planning Organization.</p>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -1252,11 +1328,11 @@
                 </div>
                 <a class="list-group-item d-inline-block collapsed" href="#toolbox-modal" data-backdrop="false" data-toggle="modal" onclick="appear('toolbox')"><i class="fa fa-gears"></i> <span class="d-none d-md-inline">Toolbox</span> </a>
                 <a class="list-group-item d-inline-block collapsed" href="#charts-modal" data-backdrop="false" data-toggle="modal" onclick="appear('charts')"><i class="fa fa-bar-chart"></i> <span class="d-none d-md-inline">Charts & Info</span></a>
-                <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-certificate"></i> <span class="d-none d-md-inline">Tutorial</span></a>
-                <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-info"></i> <span class="d-none d-md-inline">About PMEPC</span></a>
+                <a href="tutorial.php" target="_blank" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-certificate"></i> <span class="d-none d-md-inline">Tutorial</span></a>
+                <a data-toggle="modal" href="#aboutmodal" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-info"></i> <span class="d-none d-md-inline">About PMEPC</span></a>
                 <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class=""></i> <span class="d-none d-md-inline"></span></a>
-                <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-trash-o"></i> <span class="d-none d-md-inline">Clear</span></a>
-                <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-print"></i> <span class="d-none d-md-inline">Print</span></a>
+                <a onclick="clearMeta()" href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-trash-o"></i> <span class="d-none d-md-inline">Clear</span></a>
+                <a onclick="pdf()" href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-print"></i> <span class="d-none d-md-inline">Print</span></a>
             </div>
         </div>
         <main class="col-md-10 float-left">
@@ -1272,10 +1348,10 @@
 </div>
 
 <!--PDF BUTTON SCRIPTS AND LIBRARIES-->
-<script src="https://kendo.cdn.telerik.com/2017.2.621/js/jquery.min.js"></script>
-<script src="https://kendo.cdn.telerik.com/2017.2.621/js/jszip.min.js"></script>
-<script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.all.min.js"></script>
-<script src="https://kendo.cdn.telerik.com/2017.3.913/js/pako_deflate.min.js"></script>
+<!--<script src="https://kendo.cdn.telerik.com/2017.2.621/js/jquery.min.js"></script>-->
+<!--<script src="https://kendo.cdn.telerik.com/2017.2.621/js/jszip.min.js"></script>-->
+<!--<script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.all.min.js"></script>-->
+<!--<script src="https://kendo.cdn.telerik.com/2017.3.913/js/pako_deflate.min.js"></script>-->
 <script type="text/javascript">
     function pdf(){
         // Convert the DOM element to a drawing using kendo.drawing.drawDOM
@@ -1713,7 +1789,7 @@
         $('.carousel').carousel({
             interval: 0
         });
-        $('#slidesmodal').modal('show');
+        //$('#slidesmodal').modal('show');
         /**AS the user enters, disappear the tools **/
         //$("#main_default, #defaultbtn").hide();
         //$("#filters, #filtersbtn").hide();
@@ -1798,11 +1874,11 @@
                 var nl = document.createElement('div');
                 nl = document.getElementById('legend_section');
                 nl.appendChild(div);
-                var div = document.createElement('div');
-                div.innerHTML = squareboxes[i] +" Section " + (i+1);
-                var newLegend_multi = document.createElement('div');
-                newLegend_multi = document.getElementById('legend_section_multi');
-                newLegend_multi.appendChild(div);
+                // var div = document.createElement('div');
+                // div.innerHTML = squareboxes[i] +" Section " + (i+1);
+                // var newLegend_multi = document.createElement('div');
+                // newLegend_multi = document.getElementById('legend_section_multi');
+                // newLegend_multi.appendChild(div);
             }
 
             if(checked == true){ //sections
@@ -3264,8 +3340,8 @@
                     title: name,
                     legend: { position: 'none'},
                     animation:{ duration: 1000, easing: 'inAndOut', startup: true },
-                    "width":1000,
-                    "height":400,
+                    // "width":1000,
+                    // "height":400,
                     hAxis: { minValue: 0, maxValue: max,
                         viewWindow: {
                             min: 0,
@@ -3281,8 +3357,8 @@
                         title: name,
                         legend: { position: 'none'},
                         animation:{ duration: 1000, easing: 'inAndOut', startup: true },
-                        "width":1000,
-                        "height":400,
+                        // "width":1000,
+                        // "height":400,
                         hAxis: {
                             ticks: [0, 75, 150, 225, 310], format: in_hAxis },
                         vAxis: {}
@@ -3293,8 +3369,8 @@
                         title: name,
                         legend: {position: 'none'},
                         animation: {duration: 1000, easing: 'inAndOut', startup: true},
-                        "width": 1000,
-                        "height": 400,
+                        // "width": 1000,
+                        // "height": 400,
                         hAxis: {minValue: 0, maxValue: max, format: in_hAxis, logScale: true},
                         vAxis: {}
                     };
@@ -3304,8 +3380,8 @@
                         title: name,
                         legend: {position: 'none'},
                         animation: {duration: 1000, easing: 'inAndOut', startup: true},
-                        "width": 1000,
-                        "height": 400,
+                        // "width": 1000,
+                        // "height": 400,
                         hAxis: {minValue: 0, maxValue: max, format: in_hAxis},
                         vAxis: {}
                     };
