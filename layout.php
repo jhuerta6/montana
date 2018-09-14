@@ -16,10 +16,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
     <title>PMEPC</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <!--    <link href="css/bootstrap.css" rel="stylesheet">-->
     <link href="css/custom.css" rel="stylesheet" type="text/css">
-    <!--    <link href="css/modern-business.css" rel="stylesheet">-->
-    <!--    <link href="css/font-awesome.css" rel="stylesheet" type="text/css">-->
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -169,10 +166,6 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
             font-family: Arial, sans-serif;
             background: #fff;
             padding: 6px;
-            /*margin: 30px;
-            border: 3px solid #000;
-            margin-top: 25px;
-            margin-bottom: 20px;*/
         }
         #legend h3 {
             margin-top: 0;
@@ -188,71 +181,10 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
             background-color: #343a40!important;
             overflow: hidden;
         }
-        /*#map {*/
-            /*height: 100%;*/
-            /*width: 100%;*/
-            /*!*left: 0;*!*/
-            /*!*position: relative;*!*/
-        /*}*/
-        /*html, body {*/
-            /*height: 100%;*/
-            /*margin: 0;*/
-            /*padding: 0;*/
-        /*}*/
-        /*html, body, #map, .col-md-10, .float-left, .row {*/
-            /*width: 100%;*/
-            /*height: 100%;*/
-            /*margin: 0;*/
-            /*padding: 0;*/
-        /*}*/
-        /*#map {*/
-            /*position: relative;*/
-        /*}*/
-        /*@media (min-width: 768px) {*/
-        /*.modal-xl {*/
-        /*width: 90%;*/
-        /*max-width:1200px;*/
-        /*}*/
-        /*}*/
-
-        /****/
-        /*.comment {*/
-            /*opacity: .6;*/
-            /*font-style: italic;*/
-            /*position: absolute;*/
-            /*left: 40%;*/
-        /*}*/
-        /*.modal*/
-        /*{*/
-            /*overflow: hidden;*/
-        /*}*/
-        /*.modal-dialog{*/
-            /*margin-right: 0;*/
-            /*margin-left: 0;*/
-        /*}*/
-        /*.modal-header{*/
-            /*height:30px;background-color:#444;*/
-            /*color:#ddd;*/
-        /*}*/
-        /*.modal-title{*/
-            /*margin-top:-10px;*/
-            /*font-size:16px;*/
-        /*}*/
-        /*.modal-header .close{*/
-            /*margin-top:-10px;*/
-            /*color:#fff;*/
-        /*}*/
-        /*.modal-body{*/
-            /*color:#888;*/
-        /*}*/
-        /*.modal-body p {*/
-            /*text-align:center;*/
-            /*padding-top:10px;*/
-        /*}*/
-        /****/
     </style>
 </head>
 <body>
+
 <!--
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <h3 class="text-center" style="color:#FF8000; padding-left:35px;">MPO Performance Measures for El Paso Corridors
@@ -979,6 +911,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
 </div>
 
 -->
+
 <div class="container">
     <div class="row">
         <div class="col">
@@ -1102,12 +1035,13 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                                             </div>
                                             <div class="form-group">
                                                 <label for="bit">Select the years: </label>
-                                                <input id="slide_depth" type="text" class="span2" value="" data-slider-min="2012" data-slider-max="2016" data-slider-step="1" data-slider-value="[0,0]"/><br><br>
+                                                <input id="slide_depth" type="text" class="span2" value="" data-slider-min="2012" data-slider-max="2016" data-slider-step="1" data-slider-value="[0,0]"/><br>
                                             </div>
                                             <div class="text-center" id="update_time_text"></div>
                                             <div id="timeline_dialog_panel" class="panel panel-default">
-                                                <div class="panel-body" id="timeline_dialog"></div>
+                                                <div class="panel-body" id="timeline_dialog"></div><br>
                                             </div>
+                                            <button type="button" class="btn btn-outline-info form-control" id="time_btn" onclick="timegen();">Generate Timeline</button>
                                         </div>
 
                                     </div>
@@ -1378,7 +1312,6 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
 <script src="js/jquery.js"></script>
 <script src="wireframe/ui/jquery-ui.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<!--<script src="js/bootstrap.js"></script>-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="js/jquery.autocomplete.min.js"></script>
