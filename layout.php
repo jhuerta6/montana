@@ -1066,20 +1066,36 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                         </div>
                         <div class="modal-body">
 
-                            <div id="legend_panel" class="panel panel-default toPDF" style='visibility: visible;'>
-                                <h3 class="text-center">Legend</h3><br>
-                                <ul class="nav nav-tabs">
-                                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#legend_one" data-target="#legend_one">PM</a></li>
-                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sections_one" data-target="#sections_one">Section</a></li>
-                                </ul>
-                                <div class="tab-content" >
-                                    <div id="legend_one" class="tab-pane fade in active show"><br>
-
-                                        <div id="legend" class="container panel panel-default">Please select a PM</div>
+                            <div class="accordion" id="accordionExample">
+                                <div class="card">
+                                    <div class="card-header" id="headingOne">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                Legend
+                                            </button>
+                                        </h5>
                                     </div>
-                                    <div id="sections_one" class="tab-pane fade"><br>
 
-                                        <div id="legend_section" class="container panel panel-default">Click the Sections dropdown box and select 'Montana Corridor' to display sections</div>
+                                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                        <div class="card-body">
+                                            <div id="legend_panel" class="panel panel-default toPDF" style='visibility: visible;'>
+                                                <h3 class="text-center">Legend</h3><br>
+                                                <ul class="nav nav-tabs">
+                                                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#legend_one" data-target="#legend_one">PM</a></li>
+                                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sections_one" data-target="#sections_one">Section</a></li>
+                                                </ul>
+                                                <div class="tab-content" >
+                                                    <div id="legend_one" class="tab-pane fade in active show"><br>
+
+                                                        <div id="legend" class="container panel panel-default">Please select a PM</div>
+                                                    </div>
+                                                    <div id="sections_one" class="tab-pane fade"><br>
+
+                                                        <div id="legend_section" class="container panel panel-default">Click the Sections dropdown box and select 'Montana Corridor' to display sections</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
