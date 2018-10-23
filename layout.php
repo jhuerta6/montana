@@ -1262,24 +1262,22 @@
                                     <div id="collapse1" class="collapse show" aria-labelledby="heading1" data-parent="#accordionExample1">
                                         <div class="card-body">
                                             <div class="row">
-                                                <div class="col">
-                                                    <div class="card" style="">
-                                                        <img class="card-img-top" src="./img/brightgreensquare.PNG" alt="Card image cap">
+                                                <div class="col-sm-6" style="background-color: green">
+                                                    <div class="card">
                                                         <div class="card-body">
                                                             <h5 class="card-title">Condition of Pavement</h5>
                                                             <p class="card-text">67% of pavement has met its target.</p>
-                                                            <a href="#" class="btn btn-primary">Run</a>
+                                                            <a href="#" class="btn btn-success">Run</a>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col">
+                                                <div class="col-sm-6">
                                                     <br>
-                                                    <div class="card" style="width: 18rem;">
-                                                        <img class="card-img-top" src="" alt="Card image cap">
+                                                    <div class="card">
                                                         <div class="card-body">
-                                                            <h5 class="card-title">Card title</h5>
-                                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                                                            <h5 class="card-title">Performance Measure</h5>
+                                                            <p class="card-text">Some performance measure that it is not passing.</p>
+                                                            <a href="#" class="btn btn-danger">Run</a>
                                                         </div>
                                                     </div>
                                                 </div>
