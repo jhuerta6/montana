@@ -1083,7 +1083,7 @@
                                                     <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#legend_one" data-target="#legend_one">PM</a></li>
                                                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sections_one" data-target="#sections_one">Section</a></li>
                                                 </ul>
-                                                <div class="tab-content" >
+                                                <div class="tab-content">
                                                     <div id="legend_one" class="tab-pane fade in active show"><br>
 
                                                         <div id="legend" class="container panel panel-default">Please select a PM</div>
@@ -1262,7 +1262,7 @@
                                     <div id="collapse1" class="collapse show" aria-labelledby="heading1" data-parent="#accordionExample1">
                                         <div class="card-body">
                                             <div class="row">
-                                                <div class="col-md-4">
+                                                <div class="col">
                                                     <div class="card" style="">
                                                         <img class="card-img-top" src="./img/brightgreensquare.PNG" alt="Card image cap">
                                                         <div class="card-body">
@@ -1272,7 +1272,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col">
                                                     <br>
                                                     <div class="card" style="width: 18rem;">
                                                         <img class="card-img-top" src="" alt="Card image cap">
@@ -1415,20 +1415,20 @@
                 <div class="collapse" id="menu3" data-parent="#sidebar">
                     <table id="multimodal-corridors" style="width:15%; margin-left: 5%">
                         <tr>
-                            <td><a class="list-group-item big-font" data-backdrop="false" data-toggle="modal" onclick="console.log('clicked 1')">1</a></td>
-                            <td><a style="background-color: white; color: #0D47A1;" class="list-group-item big-font" data-backdrop="false" data-toggle="modal">2</a>
+                            <td><button type="button" class="btn btn-light btn-lg" data-backdrop="false" data-toggle="modal tooltip" data-placement="top" title="Alameda" onclick="console.log('clicked 1')">Al</button></td>
+                            <td><button  type="button" class="btn btn-light btn-lg " style="background-color: white; color: #0D47A1;"  data-backdrop="false" data-toggle="modal tooltip" data-placement="top" title="Doniphan">Do</button>
                             </td>
-                            <td><a class="list-group-item big-font" data-backdrop="false" data-toggle="modal">3</a></td>
+                            <td><button  type="button" class="btn btn-light btn-lg "  data-backdrop="false" data-toggle="modal tooltip" data-placement="top" title="Dyer">Dy</button></td>
                         </tr>
                         <tr>
-                            <td><a class="list-group-item big-font" data-backdrop="false" data-toggle="modal">4</a></td>
-                            <td><a class="list-group-item big-font" data-backdrop="false" data-toggle="modal" onclick="console.log('clicked 5')">5</a></td>
-                            <td><a class="list-group-item big-font" data-backdrop="false" data-toggle="modal">6</a></td>
+                            <td><button  type="button" class="btn btn-light btn-lg "  data-backdrop="false" data-toggle="modal tooltip" data-placement="top" title="Horizon">Hn</button></td>
+                            <td><button  type="button" class="btn btn-light btn-lg "  data-backdrop="false" data-toggle="modal tooltip" data-placement="top" title="Mesa" onclick="console.log('clicked 5')">Ms</button></td>
+                            <td><button  type="button" class="btn btn-light btn-lg "  data-backdrop="false" data-toggle="modal tooltip" data-placement="top" title="Montana">Mn</button></td>
                         </tr>
                         <tr>
-                            <td><a class="list-group-item big-font" data-backdrop="false" data-toggle="modal">7</a></td>
-                            <td><a class="list-group-item big-font" data-backdrop="false" data-toggle="modal">8</a></td>
-                            <td><a class="list-group-item big-font"  data-backdrop="false" data-toggle="modal">9</a></td>
+                            <td><button  type="button" class="btn btn-light btn-lg "  data-backdrop="false" data-toggle="modal tooltip" data-placement="top" title="Yarbrough">Yr</button></td>
+                            <td><button  type="button" class="btn btn-light btn-lg "  data-backdrop="false" data-toggle="modal tooltip" data-placement="top" title="Zaragoza">Zr</button></td>
+                            <td><button  type="button" class="btn btn-light btn-lg "   data-backdrop="false" data-toggle="modal tooltip" data-placement="top" title="Tooltip on top">9</button></td>
                         </tr>
                     </table>
                     <!-- on clicks: onclick="appear('pm'), onclick="appear('corridor'), onclick="appear('pb'), onclick="appear('pb')-->
@@ -1454,7 +1454,7 @@
                     PMEPC / MPO & CTIS
                 </a>
             </nav>
-                <div id="map"></div>
+            <div id="map"></div>
         </main>
     </div>
 </div>
@@ -1520,8 +1520,8 @@
                 mode: ["T"],
                 description: "",
                 content: "9% and 12% of population in Section 1 and 2 respectively live within a 1/2 mile of transit service with a headway of 20 minutes or less. \n" +
-                "In all other sections, the percentage of population served by frequent transit is 0. \n" +
-                "Only 4% of population in the Montana Corridor lives within a 1/2 mile of high frequency transit. However, when looking at transit of all frequencies, then 79% of population lives within 1/2 mile.",
+                    "In all other sections, the percentage of population served by frequent transit is 0. \n" +
+                    "Only 4% of population in the Montana Corridor lives within a 1/2 mile of high frequency transit. However, when looking at transit of all frequencies, then 79% of population lives within 1/2 mile.",
                 overall: false,
                 note: null,
                 sources: "Sunmetro, ACS 2011-2015",
@@ -1538,8 +1538,8 @@
                 mode: ["B"],
                 description: "",
                 content: "This performance measure compares the mileage of existing bikeways with the mileage suggested in the 2016 COEP Bike Plan. \n"+
-                "Existing bikeways within 1 mile of Montana corridor are 16.36 miles. The goal in the 2016 COEP BIke Plan is 132.66 miles. \n" +
-                "Section 1 and 6 do not have any bicycle infrastructure, in other sections the build-out is between 11% and 18%.",
+                    "Existing bikeways within 1 mile of Montana corridor are 16.36 miles. The goal in the 2016 COEP BIke Plan is 132.66 miles. \n" +
+                    "Section 1 and 6 do not have any bicycle infrastructure, in other sections the build-out is between 11% and 18%.",
                 note: null,
                 sources: "City of El Paso",
                 overall: true,
@@ -1556,8 +1556,8 @@
                 mode: ["B"],
                 description: "",
                 content: "More than 60% of population has access to bikeways in Sections 2, 3, 4. \n" +
-                "In Section 1 only 1% and in Section 6 & 7 0% of population. \n" +
-                "Overall, 47% of Montana Corridor population lines within 1/2 mile of existing bikeways.",
+                    "In Section 1 only 1% and in Section 6 & 7 0% of population. \n" +
+                    "Overall, 47% of Montana Corridor population lines within 1/2 mile of existing bikeways.",
                 note: null,
                 sources: "City of El Paso, ACS 2011-2015",
                 overall: false,
@@ -1574,7 +1574,7 @@
                 mode: ["T", "W"],
                 description: "",
                 content: "Majority of Sunmetro bus stops on highly trafficked roadways are not located in proximity of crosswalks, therefore safe access to transit may be compromised. \n" +
-                "Along the corridor only 72 out of 309 bus stops on high-traffic roads (ADT > 9,000) were located within 150 ft. from a marked crosswalk.",
+                    "Along the corridor only 72 out of 309 bus stops on high-traffic roads (ADT > 9,000) were located within 150 ft. from a marked crosswalk.",
                 note: null,
                 sources: "Sunmetro, City of El Paso",
                 overall: false,
@@ -1591,7 +1591,7 @@
                 mode: ["T", "B"],
                 description: "",
                 content: "Currently only the Five Points Transfer Center and Eastside Transfer Center offer bicycle parking. \n" +
-                "In the future, Brio Montana stations will also have bicycle racks.",
+                    "In the future, Brio Montana stations will also have bicycle racks.",
                 note: null,
                 sources: "Observation",
                 overall: false,
@@ -1608,8 +1608,8 @@
                 mode: ["D","T","W","B"],
                 description: "",
                 content: "12% of households within the Montana Corridor do not own a car. \n" +
-                "Sections 1 & 7 have the highest number of households without a car. \n" +
-                "Only 1% of households in Section 5 does not own any vehicle.",
+                    "Sections 1 & 7 have the highest number of households without a car. \n" +
+                    "Only 1% of households in Section 5 does not own any vehicle.",
                 //note: "Disclaimer for Section Level Analysis: * for which data is available.",
                 note: null,
                 sources: "ACS 2011-2015",
@@ -1627,7 +1627,7 @@
                 mode: ["D","T","W","B"],
                 description: "",
                 content: "In the map, a block group is considered disadvantaged when more than 1/3 of population is disadvantaged. \n" +
-                "Section 1 has the highest number of potentially transportation-disadvantaged people.",
+                    "Section 1 has the highest number of potentially transportation-disadvantaged people.",
                 note: null,
                 sources: "ACS 2011-2015",
                 overall: false,
@@ -1644,7 +1644,7 @@
                 short: "B.1.2. Street Density",
                 description: null,
                 content: "The most dense network of roadways and sidewalks can be found in Section 1\n" +
-                "Bikeway density is highest in Section 4",
+                    "Bikeway density is highest in Section 4",
                 note: "Missing data for sidewalks and bikeways east of Zaragoza Rd.",
                 sources: "EPMPO roadways, City of El Paso sidewalks and bikeways",
                 overall: false,
@@ -1661,8 +1661,8 @@
                 short: "B.1.4. Jobs/Housing balance ratio",
                 description: null,
                 content: "Housing Rich (ratio < 1) are majority of block groups in Sections 3, 4, 5, 6, 7. \n" +
-                "Balanced (1 to 1.29) is one block group in Section 1. \n" +
-                "Job Rich ( > 1.29) are majority of block groups in Section 2, as well as many block groups in Section 1.",
+                    "Balanced (1 to 1.29) is one block group in Section 1. \n" +
+                    "Job Rich ( > 1.29) are majority of block groups in Section 2, as well as many block groups in Section 1.",
                 note: null,
                 sources: "ACS 2011-2015, U.S. Census Longitudinal Employer-Household Dynamics 2015",
                 overall: false,
@@ -1679,7 +1679,7 @@
                 short: "B.2.2. Crashes involving non-motorized users",
                 description: null,
                 content: "There was a total of 7 crashes that resulted in an serious injury of non-motorized user along Montana Ave. there were no crashes resulting in a fatality of a pedestrian or a cyclist between 2012 and 2016. \n" +
-                "3 of the 7 crashes occurred in Section 3 , at Montana Ave. and Mattox St.",
+                    "3 of the 7 crashes occurred in Section 3 , at Montana Ave. and Mattox St.",
                 note: "Only crashes along the state highway segment are shown (Section 2 through 7).",
                 sources: "Texas Department of Transportation CRIS database",
                 overall: false,
@@ -1733,7 +1733,7 @@
                 short: "C.2.2. Bus stops nearby bikeways",
                 description: null,
                 content: "Overall 23% of transit stops are located within 600 ft. of existing bikeways. \n" +
-                "Sections 3, 4, and 5 have more than 50% of bus stops located within 600 ft. of existing bikeways.",
+                    "Sections 3, 4, and 5 have more than 50% of bus stops located within 600 ft. of existing bikeways.",
                 note: null,
                 sources: "Sunmetro, City of El Paso",
                 overall: false,
@@ -1750,8 +1750,8 @@
                 short: "C.2.3. Park & ride parking spaces",
                 description: null,
                 content: "Two park and ride facilities with a total capacity of 153 parking spaces are currently located within the Montana Corridor serving routes that have daily ridership below 1,000 passengers. \n" +
-                "Section 2 has a 103-space park and ride lot at the Eastside Transfer Center. \n" +
-                "Section 5 has a 50-space park and ride lot at Edgemere/RC Poe.",
+                    "Section 2 has a 103-space park and ride lot at the Eastside Transfer Center. \n" +
+                    "Section 5 has a 50-space park and ride lot at Edgemere/RC Poe.",
                 note: null,
                 sources: "Observations",
                 overall: false,
@@ -1768,10 +1768,10 @@
                 short: "C.2.4. Transit daily ridership",
                 description: null,
                 content: "20,928 passengers daily travelled in Sunmetro routes along the Montana Ave. corridor in 2016 \n"+
-                "Highest daily ridership was recorded in the following routes providing service in Sections 1 and 2: route 59 (15-minute interval, 3,100 passengers), route 35 (40-minute interval, 2,600 passengers), "+
-                "route 50 (40-minute interval, 2,000 passengers), route 61 (50-minute interval, 1,200 passengers), route 7 (55-minute interval, 1,100 passengers), and route 66 (55-minute interval, 1,000 passengers). \n"+
-                "Lowest daily ridership was recorded in routes providing service in Sections 1, 2, 3, 4, and 5: route 30 (70-minute interval, 60 passengers), route 31 (90-minute interval, 50 passengers), and route 75 "+
-                "(service 5 times a day, 20 passengers).",
+                    "Highest daily ridership was recorded in the following routes providing service in Sections 1 and 2: route 59 (15-minute interval, 3,100 passengers), route 35 (40-minute interval, 2,600 passengers), "+
+                    "route 50 (40-minute interval, 2,000 passengers), route 61 (50-minute interval, 1,200 passengers), route 7 (55-minute interval, 1,100 passengers), and route 66 (55-minute interval, 1,000 passengers). \n"+
+                    "Lowest daily ridership was recorded in routes providing service in Sections 1, 2, 3, 4, and 5: route 30 (70-minute interval, 60 passengers), route 31 (90-minute interval, 50 passengers), and route 75 "+
+                    "(service 5 times a day, 20 passengers).",
                 note: "Analysis at the section level was not possible due to ridership collected at a route-level rather than a stop-level",
                 sources: "Sunmetro",
                 overall: false,
@@ -1788,7 +1788,7 @@
                 short: "C.3.1. Travel time index",
                 description: null,
                 content: "On average, passenger vehicles travelling along the corridor experienced up to 1.9-times longer travel time compared to free-flow conditions. \n"+
-                "The Travel Time Index ranged between 1.3 (Section 7) and 1.9 (Section 2).",
+                    "The Travel Time Index ranged between 1.3 (Section 7) and 1.9 (Section 2).",
                 note: "Data was not available for Section 1 (between Piedras St. and Paisano Dr.) because it is not a state highway.",
                 sources: "National Performance Management Research Data Set (NPMRDS)",
                 overall: false,
@@ -1805,8 +1805,8 @@
                 short: "C.3.2 Crashes involving all users",
                 description: null,
                 content: "There was a total of 7 fatal crashes and 57 serious injury crashes along Montana Ave. between 2012 and 2016. \n"+
-                "Majority of serious injuries occurred between Paisano Dr. and Joe Battle Blvd. (Sections 2, 3, 4).\n"+
-                "3 of the 7 fatal crashes occurred in Section 5, between Tierra Este Rd. and Tierra Dorada.",
+                    "Majority of serious injuries occurred between Paisano Dr. and Joe Battle Blvd. (Sections 2, 3, 4).\n"+
+                    "3 of the 7 fatal crashes occurred in Section 5, between Tierra Este Rd. and Tierra Dorada.",
                 note: "Only crashes along the state highway segment are shown (Section 2 through 7).",
                 sources: "Texas Department of Transportation CRIS database",
                 overall: false,
@@ -1828,7 +1828,7 @@
             d11:{
                 short: "D.1.1. Pavements in poor condition",
                 content: "19 miles within the Montana Ave. corridor are in poor condition, most of them are located in Section 1 and 2. \n"+
-                "Section 6 and 7 have no roadways in poor condition.",
+                    "Section 6 and 7 have no roadways in poor condition.",
                 sources: "FHWA Highway Performance Management System (HPMS)",
                 periods: "2015",
                 note: "Mileage reflects only roadways that were collected in HPMS that year.",
@@ -1859,7 +1859,7 @@
             d31:{
                 short: "D.3.1.Truck Travel Time Index",
                 content: "On average, trucks travelling along the corridor experienced up to a double travel time.\n"+
-                "The Travel Time Index Ranged between 1.3 (Section 7) and 2.3 (Section 2)",
+                    "The Travel Time Index Ranged between 1.3 (Section 7) and 2.3 (Section 2)",
                 sources: "National Performance Management Research Data Set (NPMRDS)",
                 periods: "February 2017 - July 2017",
                 note: "Data was not available for Section 1 (between Piedras St. and Paisano Dr.)",
@@ -6574,7 +6574,7 @@
             var fatal = 0;
             var image = {
                 url: "./icons/crash_orange" +
-                ".png"
+                    ".png"
             };
         }
         var point_obj = {lat: parseFloat(dataCrashes.lat), lng: parseFloat(dataCrashes.lon)};
