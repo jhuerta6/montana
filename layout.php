@@ -1142,6 +1142,7 @@
                                 <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
                                     <div class="card-body">
                                         <div class="card">
+                                            <p> This performance measure does not have a corridor level analysis.</p>
                                             <div id="corridor_individual_panel" class="panel panel-default" style="visibility: visible;">
                                                 <h3 class="text-center">Corridor Level Analysis</h3><br>
                                                 <div class="chart" id="chart_selected"> </div>
@@ -1242,7 +1243,7 @@
                 </div>
             </div>
             <div id="pms-modal" class="modal fade">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title float-left">Performance Measures</h4>
@@ -1262,21 +1263,20 @@
                                     <div id="collapse1" class="collapse show" aria-labelledby="heading1" data-parent="#accordionExample1">
                                         <div class="card-body">
                                             <div class="row">
-                                                <div class="col-sm-6" style="background-color: green">
-                                                    <div class="card">
+                                                <div class="col-sm-6" >
+                                                    <div class="card" style="background:rgba(0,255,0,0.5)">
                                                         <div class="card-body">
-                                                            <h5 class="card-title">Condition of Pavement</h5>
+                                                            <h5 class="card-title">Pavement in Poor Condition</h5>
                                                             <p class="card-text">67% of pavement has met its target.</p>
-                                                            <a href="#" class="btn btn-success">Run</a>
+                                                            <a href="#" class="btn btn-success" onclick="runPavement()">Run</a>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <br>
-                                                    <div class="card">
+                                                    <div class="card" style="background:rgba(255,0,0,0.5)">
                                                         <div class="card-body">
-                                                            <h5 class="card-title">Performance Measure</h5>
-                                                            <p class="card-text">Some performance measure that it is not passing.</p>
+                                                            <h5 class="card-title">Performance Measure (PM)</h5>
+                                                            <p class="card-text">Some PM that it's not passing.</p>
                                                             <a href="#" class="btn btn-danger">Run</a>
                                                         </div>
                                                     </div>
@@ -1295,7 +1295,25 @@
                                     </div>
                                     <div id="collapse2" class="collapse" aria-labelledby="heading2" data-parent="#accordionExample1">
                                         <div class="card-body">
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="card" style="background:rgba(255,0,0,0.5)">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">Performance Measure (PM)</h5>
+                                                            <p class="card-text">Some PM that it's not passing.</p>
+                                                            <a href="#" class="btn btn-danger">Run</a>
+                                                        </div>
+                                                    </div>
+                                                </div><div class="col-sm-6">
+                                                    <div class="card" style="background:rgba(255,0,0,0.5)">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">Performance Measure (PM)</h5>
+                                                            <p class="card-text">Some PM that it's not passing.</p>
+                                                            <a href="#" class="btn btn-danger">Run</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1309,7 +1327,25 @@
                                     </div>
                                     <div id="collapse3" class="collapse" aria-labelledby="heading3" data-parent="#accordionExample1">
                                         <div class="card-body">
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="card" style="background:rgba(255,0,0,0.5)">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">Performance Measure (PM)</h5>
+                                                            <p class="card-text">Some PM that it's not passing.</p>
+                                                            <a href="#" class="btn btn-danger">Run</a>
+                                                        </div>
+                                                    </div>
+                                                </div><div class="col-sm-6">
+                                                    <div class="card" style="background:rgba(255,0,0,0.5)">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">Performance Measure (PM)</h5>
+                                                            <p class="card-text">Some PM that it's not passing.</p>
+                                                            <a href="#" class="btn btn-danger">Run</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1323,7 +1359,26 @@
                                     </div>
                                     <div id="collapse4" class="collapse" aria-labelledby="heading4" data-parent="#accordionExample1">
                                         <div class="card-body">
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="card" style="background:rgba(255,0,0,0.5)">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">Performance Measure (PM)</h5>
+                                                            <p class="card-text">Some PM that it's not passing.</p>
+                                                            <a href="#" class="btn btn-danger">Run</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="card" style="background:rgba(255,0,0,0.5)">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">Performance Measure (PM)</h5>
+                                                            <p class="card-text">Some PM that it's not passing.</p>
+                                                            <a href="#" class="btn btn-danger">Run</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -2875,6 +2930,153 @@
     var from_year_slide = 2012;
     var to_year_slide = 2012;
 
+    function runPavement(){
+        // console.log(app);
+        // console.log(pm_mpo);
+        pm_mpo.pm = "iri";
+        pm_mpo.name_pm = "D.1.1. Pavements in poor condition";
+        pm_mpo.chart1 = "iri";
+        pm_mpo.getMode = "polygons";
+        pm_mpo.label = "no filter";
+        //$("#modes").empty();
+
+        $("#single_filters_to").show();
+        $("#display_timeline").hide();
+        $("#not_display_timeline").show();
+        $("#modes").empty();
+        $("#modes").show();
+        $("#data-holder").hide();
+        $("#corridor_individual_panel").show();
+        $("#intro_2").remove();
+        //$("#section_individual_panel").show();
+        $("#main_default").show();
+        $("#individual_tabs").show();
+        $("#individual_buttons").show();
+        $("#clear").show();
+        $("#print").show();
+        $("#tutorial").show();
+        $("#global_buttons").show();
+
+        if(onMultiple == false){
+            clearCharts();
+            removePolygons();
+        }
+        else{
+
+            //$("#legend").empty();
+        }
+        $("#pm_description,#pm_data").empty();
+        $("#label_container").hide();
+        $("#disabled").prop("disabled", "true");
+
+        if("D.1.1. Pavements in poor condition" == blocks.d.d31.short){
+            drawChartTTI();
+            $("#label_container").show();
+            $("#labels").val(7);
+            pm_mpo.pm =  blocks.d.d31.key;
+        }
+        else if("D.1.1. Pavements in poor condition" == blocks.c.c23.short){
+            drawChartc23();
+        }
+        else if("D.1.1. Pavements in poor condition" == blocks.c.c31.short){
+            drawChartTti_normal();
+            $("#label_container").show();
+            $("#labels").val(7);
+        }
+        else if("D.1.1. Pavements in poor condition" == blocks.a.a11.short){
+            drawChart_a11();
+        }
+        else if("D.1.1. Pavements in poor condition" == blocks.c.c32.short){
+            $("#display_timeline").show();
+            $("#not_display_timeline").hide();
+        }
+        else if(
+            "D.1.1. Pavements in poor condition" == "A-2-3) Car-Free Households" || "D.1.1. Pavements in poor condition" == "A-2-4) Transportation Disadvantaged Households" ||
+            "D.1.1. Pavements in poor condition" == "B-1-4) Jobs-Housing Ratio" || "D.1.1. Pavements in poor condition" == "B-3-1-A) Estimated Emissions CO" ||
+            "D.1.1. Pavements in poor condition" == "B-3-1-B) Estimated Emissions PM"
+        ){
+            $("#label_container").show();
+        }
+
+        var panel_body = document.getElementById("modes");
+        panel_body.className = "panel panel-body text-center";
+        var p_mode = document.createElement("p");
+        p_mode.innerHTML ="<h4 class=\"text-center\"> Modes of Transportation: </h4>";
+        panel_body.appendChild(p_mode);
+        pm_mpo.name_pm = "D.1.1. Pavements in poor condition";
+        var block = "d";
+        var inmode = [];
+
+        for(var i = 0; i < blocks[block].pms.length; i++){
+            var block_pm = blocks[block].pms[i];
+            if(blocks[block][block_pm].short == "D.1.1. Pavements in poor condition"){
+                pm_mpo.pm = blocks[block][block_pm].key;
+                pm_mpo.filter_prop = blocks[block][block_pm].key;
+                pm_mpo.filter_prop_n = "D.1.1. Pavements in poor condition";
+                pm_mpo.chart1 =  blocks[block][block_pm].key;
+                for(var j = 0; j < blocks[block][block_pm].mode.length; j++){
+                    var p_mode = document.createElement("span");
+                    var mode = blocks[block][block_pm].mode[j];
+                    p_mode.innerHTML = modes_full[mode] + " ";
+                    inmode.push(mode);
+                    panel_body.appendChild(p_mode);
+                }
+            }
+        }
+
+        var mode_arr = ["D","T","W","B","F"];
+        for(var i = 0; i < mode_arr.length; i++){
+            if(!inmode.includes(mode_arr[i])){
+                var p_mode = document.createElement("span");
+                p_mode.innerHTML = modes[mode_arr[i]] + " ";
+                panel_body.appendChild(p_mode);
+            }
+        }
+
+        /** Aqui es donde llenaremos los reportes individuales **/
+        $("#pm_description,#pm_data").empty();
+        var pm_content = document.getElementById("pm_description");
+        var pm_data = document.getElementById("pm_data");
+        $("#data-holder").show();
+
+        var block = "d";
+        for(var i = 0; i < blocks[block].pms.length; i++){
+            var block_pm = blocks[block].pms[i];
+            if(blocks[block][block_pm].short == "D.1.1. Pavements in poor condition"){
+                var p_content = document.createElement('p');
+                p_content.innerHTML = blocks[block][block_pm].content;
+                pm_content.appendChild(p_content);
+                if(blocks[block][block_pm].periods == null){}
+                else{
+                    var p_periods = document.createElement('p');
+                    p_periods.innerHTML = "<strong> Analysis period: </strong>" + blocks[block][block_pm].periods;
+                    pm_data.appendChild(p_periods);
+                }
+
+                if(blocks[block][block_pm].note == null){}
+                else{
+                    var p_note = document.createElement('p');
+                    p_note.innerHTML = "<strong> Note: </strong>"+blocks[block][block_pm].note;
+                    pm_data.appendChild(p_note);
+                }
+
+                if(blocks[block][block_pm].sources == null){}
+                else{
+                    var p_sources = document.createElement('p');
+                    p_sources.innerHTML = "<strong>Data sources: </strong>" + blocks[block][block_pm].sources;
+                    pm_data.appendChild(p_sources);
+                }
+
+            }
+        }
+
+        runMPO();
+        $('#charts-modal').modal({
+            focus: false,
+            backdrop: false
+        });
+        $("#pms-modal").modal('toggle');
+    }
 
     function appear(id){
         console.log("In appear function: "+id);
