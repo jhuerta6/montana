@@ -22,6 +22,10 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <style>
 
+        .change-button {
+            background-color: white; color: #0D47A1;
+        }
+
         #sidebar {
             overflow: hidden;
             z-index: 3;
@@ -1468,20 +1472,19 @@
                 <div class="collapse" id="menu3" data-parent="#sidebar">
                     <table id="multimodal-corridors" style="width:15%; margin-left: 5%">
                         <tr>
-                            <td><button type="button" class="btn btn-light btn-lg" data-backdrop="false" data-toggle="modal tooltip" data-placement="top" title="Alameda" onclick="console.log('clicked 1')">Al</button></td>
-                            <td><button  type="button" class="btn btn-light btn-lg " style="background-color: white; color: #0D47A1;"  data-backdrop="false" data-toggle="modal tooltip" data-placement="top" title="Doniphan">Do</button>
-                            </td>
-                            <td><button  type="button" class="btn btn-light btn-lg "  data-backdrop="false" data-toggle="modal tooltip" data-placement="top" title="Dyer">Dy</button></td>
+                            <td><button type="button" class="btn btn-dark btn-lg" data-backdrop="false" id="al" data-toggle="modal tooltip" data-placement="top" title="Alameda" onclick="show_buffer('al')">Al</button></td>
+                            <td><button type="button" class="btn btn-dark btn-lg" data-backdrop="false" id="do" data-toggle="modal tooltip" data-placement="top" title="Doniphan" onclick="show_buffer('do')">Do</button></td>
+                            <td><button type="button" class="btn btn-dark btn-lg" data-backdrop="false" id="dy" data-toggle="modal tooltip" data-placement="top" title="Dyer" onclick="show_buffer('dy')">Dy</button></td>
                         </tr>
                         <tr>
-                            <td><button  type="button" class="btn btn-light btn-lg "  data-backdrop="false" data-toggle="modal tooltip" data-placement="top" title="Horizon">Hn</button></td>
-                            <td><button  type="button" class="btn btn-light btn-lg "  data-backdrop="false" data-toggle="modal tooltip" data-placement="top" title="Mesa" onclick="console.log('clicked 5')">Ms</button></td>
-                            <td><button  type="button" class="btn btn-light btn-lg "  data-backdrop="false" data-toggle="modal tooltip" data-placement="top" title="Montana">Mn</button></td>
+                            <td><button type="button" class="btn btn-dark btn-lg" data-backdrop="false" id="hn" data-toggle="modal tooltip" data-placement="top" title="Horizon" onclick="show_buffer('hn')">Hn</button></td>
+                            <td><button type="button" class="btn btn-dark btn-lg" data-backdrop="false" id="ms" data-toggle="modal tooltip" data-placement="top" title="Mesa" onclick="show_buffer('ms')">Ms</button></td>
+                            <td><button type="button" class="btn btn-dark btn-lg" data-backdrop="false" id="mn" data-toggle="modal tooltip" data-placement="top" title="Montana" onclick="show_buffer('mn')">Mn</button></td>
                         </tr>
                         <tr>
-                            <td><button  type="button" class="btn btn-light btn-lg "  data-backdrop="false" data-toggle="modal tooltip" data-placement="top" title="Yarbrough">Yr</button></td>
-                            <td><button  type="button" class="btn btn-light btn-lg "  data-backdrop="false" data-toggle="modal tooltip" data-placement="top" title="Zaragoza">Zr</button></td>
-                            <td><button  type="button" class="btn btn-light btn-lg "   data-backdrop="false" data-toggle="modal tooltip" data-placement="top" title="Tooltip on top">9</button></td>
+                            <td><button type="button" class="btn btn-dark btn-lg" data-backdrop="false" id="yr" data-toggle="modal tooltip" data-placement="top" title="Yarbrough" onclick="show_buffer('yr')">Yr</button></td>
+                            <td><button type="button" class="btn btn-dark btn-lg" data-backdrop="false" id="zr" data-toggle="modal tooltip" data-placement="top" title="Zaragoza" onclick="show_buffer('zr')">Zr</button></td>
+                            <td><button type="button" class="btn btn-dark btn-lg" data-backdrop="false" id="9" data-toggle="modal tooltip" data-placement="top" title="Tooltip on top" onclick="show_buffer('9')">9</button></td>
                         </tr>
                     </table>
                     <!-- on clicks: onclick="appear('pm'), onclick="appear('corridor'), onclick="appear('pb'), onclick="appear('pb')-->
@@ -2928,11 +2931,18 @@
     }); //end document.ready
 
     var from_year_slide = 2012;
-    var to_year_slide = 2012;
+    var to_year_slide = 2012
+
+    function show_buffer(btn){
+        if(!$("#"+btn).hasClass("change-button")){
+            $("#"+btn).addClass("change-button");
+        }
+        else{
+            $("#"+btn).removeClass("change-button");
+        }
+    }
 
     function runPavement(){
-        // console.log(app);
-        // console.log(pm_mpo);
         pm_mpo.pm = "iri";
         pm_mpo.name_pm = "D.1.1. Pavements in poor condition";
         pm_mpo.chart1 = "iri";
