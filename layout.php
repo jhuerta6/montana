@@ -1,10 +1,10 @@
 <?php
-//session_start();
-//if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
-//    header('Location: login_layout1.php');
-//    exit();
-//}
-//?>
+session_start();
+if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
+    header('Location: login_layout1.php');
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
