@@ -1,10 +1,10 @@
 <?php
-session_start();
-if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
-    header('Location: login_layout1.php');
-    exit();
-}
-?>
+//session_start();
+//if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
+//    header('Location: login_layout1.php');
+//    exit();
+//}
+//?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1065,9 +1065,9 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                             <button  type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
                         <div class="modal-body">
-
                             <div class="accordion" id="accordionExample">
                                 <div class="card">
+
                                     <div class="card-header" id="headingOne">
                                         <h5 class="mb-0">
                                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -1075,8 +1075,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                                             </button>
                                         </h5>
                                     </div>
-
-                                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <div id="legend_panel" class="panel panel-default toPDF" style='visibility: visible;'>
                                                 <h3 class="text-center">Legend</h3><br>
@@ -1097,66 +1096,114 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="card">
-                                <div id="modes"></div>
-                            </div>
-                            <br>
-                            <div id="data-holder" class="panel panel-default">
-                                <h3 class="text-center">Summary</h3><br>
-                                <div id="pm_description" class="container panel panel-default"></div>
-                                <div id="pm_data" class="container panel panel-default"></div>
-                            </div>
-                            <br>
-                            <div id="corridor_individual_panel" class="panel panel-default" style="visibility: visible;">
-                                <h3 class="text-center">Corridor Level Analysis</h3><br>
-                                <div class="chart" id="chart_selected"> </div>
-                                <div id="logScale0">
-                                    <h5>Note: Logarithmic Scaling was used for this graph.</h5>
-                                </div>
-                            </div>
 
-                            <div id="section_individual_panel" class="panel panel-default" style="visibility: visible;">
-                                <h3 class="text-center">Section Level Analysis</h3><br>
-                                <ul class="nav nav-tabs">
-                                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#sections_multi_1" data-target="#sections_multi_1">Section #1</a></li>
-                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sections_multi_2" data-target="#sections_multi_2">Section #2</a></li>
-                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sections_multi_3" data-target="#sections_multi_3">Section #3</a></li>
-                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sections_multi_4" data-target="#sections_multi_4">Section #4</a></li>
-                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sections_multi_5" data-target="#sections_multi_5">Section #5</a></li>
-                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sections_multi_6" data-target="#sections_multi_6">Section #6</a></li>
-                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sections_multi_7" data-target="#sections_multi_7">Section #7</a></li>
-                                </ul>
-                                <div class="tab-content" >
-                                    <div id="sections_multi_1" class="tab-pane fade in active show"><br>
-                                        <div class="chart" id="table_selected_1"> </div><br>
+                                    <div class="card-header" id="headingTwo">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                                Modes of Transportation
+                                            </button>
+                                        </h5>
                                     </div>
-                                    <div id="sections_multi_2" class="tab-pane fade"><br>
-                                        <div class="chart" id="table_selected_2"> </div><br>
+                                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                        <div class="card-body">
+                                            <div class="card">
+                                                <div id="modes"></div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div id="sections_multi_3" class="tab-pane fade"><br>
-                                        <div class="chart" id="table_selected_3"> </div><br>
+
+                                    <div class="card-header" id="headingThree">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                                                Summary
+                                            </button>
+                                        </h5>
                                     </div>
-                                    <div id="sections_multi_4" class="tab-pane fade"><br>
-                                        <div class="chart" id="table_selected_4"> </div><br>
-                                    </div>
-                                    <div id="sections_multi_5" class="tab-pane fade"><br>
-                                        <div class="chart" id="table_selected_5"> </div><br>
-                                    </div>
-                                    <div id="sections_multi_6" class="tab-pane fade"><br>
-                                        <div class="chart" id="table_selected_6"> </div><br>
-                                    </div>
-                                    <div id="sections_multi_7" class="tab-pane fade"><br>
-                                        <div class="chart" id="table_selected_7"> </div><br>
+                                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                        <div class="card-body">
+                                            <div class="card">
+                                                <div id="data-holder" class="panel panel-default">
+                                                    <h3 class="text-center">Summary</h3><br>
+                                                    <div id="pm_description" class="container panel panel-default"></div>
+                                                    <div id="pm_data" class="container panel panel-default"></div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
+                                <div class="card-header" id="headingFour">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                                            Corridor Level Analysis
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="card">
+                                            <div id="corridor_individual_panel" class="panel panel-default" style="visibility: visible;">
+                                                <h3 class="text-center">Corridor Level Analysis</h3><br>
+                                                <div class="chart" id="chart_selected"> </div>
+                                                <div id="logScale0">
+                                                    <h5>Note: Logarithmic Scaling was used for this graph.</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card-header" id="headingFive">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="true" aria-controls="collapsFiveo">
+                                            Section Level Analysis
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="card">
+                                            <div id="section_individual_panel" class="panel panel-default" style="visibility: visible;">
+                                                <h3 class="text-center">Section Level Analysis</h3><br>
+                                                <ul class="nav nav-tabs">
+                                                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#sections_multi_1" data-target="#sections_multi_1">Section #1</a></li>
+                                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sections_multi_2" data-target="#sections_multi_2">Section #2</a></li>
+                                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sections_multi_3" data-target="#sections_multi_3">Section #3</a></li>
+                                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sections_multi_4" data-target="#sections_multi_4">Section #4</a></li>
+                                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sections_multi_5" data-target="#sections_multi_5">Section #5</a></li>
+                                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sections_multi_6" data-target="#sections_multi_6">Section #6</a></li>
+                                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sections_multi_7" data-target="#sections_multi_7">Section #7</a></li>
+                                                </ul>
+                                                <div class="tab-content" >
+                                                    <div id="sections_multi_1" class="tab-pane fade in active show"><br>
+                                                        <div class="chart" id="table_selected_1"> </div><br>
+                                                    </div>
+                                                    <div id="sections_multi_2" class="tab-pane fade"><br>
+                                                        <div class="chart" id="table_selected_2"> </div><br>
+                                                    </div>
+                                                    <div id="sections_multi_3" class="tab-pane fade"><br>
+                                                        <div class="chart" id="table_selected_3"> </div><br>
+                                                    </div>
+                                                    <div id="sections_multi_4" class="tab-pane fade"><br>
+                                                        <div class="chart" id="table_selected_4"> </div><br>
+                                                    </div>
+                                                    <div id="sections_multi_5" class="tab-pane fade"><br>
+                                                        <div class="chart" id="table_selected_5"> </div><br>
+                                                    </div>
+                                                    <div id="sections_multi_6" class="tab-pane fade"><br>
+                                                        <div class="chart" id="table_selected_6"> </div><br>
+                                                    </div>
+                                                    <div id="sections_multi_7" class="tab-pane fade"><br>
+                                                        <div class="chart" id="table_selected_7"> </div><br>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
             <div id="corridor-modal" class="modal fade">
@@ -1194,7 +1241,100 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                     </div>
                 </div>
             </div>
-            <div id="aboutmodal"  class="modal fade">
+            <div id="pms-modal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title float-left">Performance Measures</h4>
+                            <button  type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="accordion" id="accordionExample1">
+                                <div class="card">
+                                    <div class="card-header" id="heading1">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                                                Driving
+                                            </button>
+                                        </h5>
+                                    </div>
+
+                                    <div id="collapse1" class="collapse show" aria-labelledby="heading1" data-parent="#accordionExample1">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="card" style="">
+                                                        <img class="card-img-top" src="./img/brightgreensquare.PNG" alt="Card image cap">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">Condition of Pavement</h5>
+                                                            <p class="card-text">67% of pavement has met its target.</p>
+                                                            <a href="#" class="btn btn-primary">Run</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <br>
+                                                    <div class="card" style="width: 18rem;">
+                                                        <img class="card-img-top" src="" alt="Card image cap">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">Card title</h5>
+                                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header" id="heading2">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                                                Transit
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="collapse2" class="collapse" aria-labelledby="heading2" data-parent="#accordionExample1">
+                                        <div class="card-body">
+                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header" id="heading3">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                                                Walking
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="collapse3" class="collapse" aria-labelledby="heading3" data-parent="#accordionExample1">
+                                        <div class="card-body">
+                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header" id="heading4">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                                                Biking
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="collapse4" class="collapse" aria-labelledby="heading4" data-parent="#accordionExample1">
+                                        <div class="card-body">
+                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="aboutmodal" class="modal fade">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -1271,11 +1411,32 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
     <div class="row d-flex d-md-block flex-nowrap wrapper">
         <div class="col-md-2 float-left col-1 pl-0 pr-0 collapse width" id="sidebar" >
             <div class="list-group border-0 card text-center text-md-left">
-                <a href="#menu3" class="list-group-item d-inline-block collapsed" data-toggle="collapse" aria-expanded="false"><i class="fa fa-tasks"></i> <span class="d-none d-md-inline">Selectors</span></a>
+                <a href="#menu3" class="list-group-item d-inline-block collapsed" data-toggle="collapse" aria-expanded="false"><i class="fa fa-tasks"></i> <span class="d-none d-md-inline">Multimodal Corridors</span></a>
                 <div class="collapse" id="menu3" data-parent="#sidebar">
-                    <a class="list-group-item" href="#corridor-modal" data-backdrop="false" data-toggle="modal" onclick="appear('corridor')">Corridor</a>
-                    <a class="list-group-item" href="#corridor-modal" data-backdrop="false" data-toggle="modal" onclick="appear('pb')">Planning Block</a>
-                    <a class="list-group-item" href="#corridor-modal" data-backdrop="false" data-toggle="modal" onclick="appear('pm')">Performance Measure</a>
+                    <table id="multimodal-corridors" style="width:15%; margin-left: 5%">
+                        <tr>
+                            <td><a class="list-group-item big-font" data-backdrop="false" data-toggle="modal" onclick="console.log('clicked 1')">1</a></td>
+                            <td><a style="background-color: white; color: #0D47A1;" class="list-group-item big-font" data-backdrop="false" data-toggle="modal">2</a>
+                            </td>
+                            <td><a class="list-group-item big-font" data-backdrop="false" data-toggle="modal">3</a></td>
+                        </tr>
+                        <tr>
+                            <td><a class="list-group-item big-font" data-backdrop="false" data-toggle="modal">4</a></td>
+                            <td><a class="list-group-item big-font" data-backdrop="false" data-toggle="modal" onclick="console.log('clicked 5')">5</a></td>
+                            <td><a class="list-group-item big-font" data-backdrop="false" data-toggle="modal">6</a></td>
+                        </tr>
+                        <tr>
+                            <td><a class="list-group-item big-font" data-backdrop="false" data-toggle="modal">7</a></td>
+                            <td><a class="list-group-item big-font" data-backdrop="false" data-toggle="modal">8</a></td>
+                            <td><a class="list-group-item big-font"  data-backdrop="false" data-toggle="modal">9</a></td>
+                        </tr>
+                    </table>
+                    <!-- on clicks: onclick="appear('pm'), onclick="appear('corridor'), onclick="appear('pb'), onclick="appear('pb')-->
+                    <!-- hrefs: href="#corridor-modal"-->
+                    <a class="list-group-item" href="#pms-modal" data-backdrop="false" data-toggle="modal">Performance Measures</a>
+                    <a class="list-group-item" href="#corridor-modal" data-backdrop="false" data-toggle="modal">Corridor & Segment</a>
+                    <a class="list-group-item" data-backdrop="false" data-toggle="modal">Interactive AOI</a>
+                    <a class="list-group-item" data-backdrop="false" data-toggle="modal">Benchmarking</a>
                 </div>
                 <a class="list-group-item d-inline-block collapsed" href="#toolbox-modal" data-backdrop="false" data-toggle="modal" onclick="appear('toolbox')"><i class="fa fa-gears"></i> <span class="d-none d-md-inline">Toolbox</span> </a>
                 <a class="list-group-item d-inline-block collapsed" href="#charts-modal" data-backdrop="false" data-toggle="modal" onclick="appear('charts')"><i class="fa fa-bar-chart"></i> <span class="d-none d-md-inline">Charts & Info</span></a>
