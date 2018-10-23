@@ -1146,7 +1146,8 @@
                                 <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
                                     <div class="card-body">
                                         <div class="card">
-                                            <p> This performance measure does not have a corridor level analysis.</p>
+<!--                                            <p> This performance measure does not have a corridor level analysis.</p>-->
+                                            <img src="./img/sara.jpg">
                                             <div id="corridor_individual_panel" class="panel panel-default" style="visibility: visible;">
                                                 <h3 class="text-center">Corridor Level Analysis</h3><br>
                                                 <div class="chart" id="chart_selected"> </div>
@@ -1272,7 +1273,7 @@
                                                         <div class="card-body">
                                                             <h5 class="card-title">Pavement in Poor Condition</h5>
                                                             <p class="card-text">67% of pavement has met its target.</p>
-                                                            <a href="#" class="btn btn-success" onclick="runPavement()">Run</a>
+                                                            <a href="" data-backdrop="false" data-toggle="modal" class="btn btn-success" onclick="runPavement()">Run</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1484,7 +1485,7 @@
                         <tr>
                             <td><button type="button" class="btn btn-dark btn-lg" data-backdrop="false" id="yr" data-toggle="modal tooltip" data-placement="top" title="Yarbrough" onclick="show_buffer('yr')">Yr</button></td>
                             <td><button type="button" class="btn btn-dark btn-lg" data-backdrop="false" id="zr" data-toggle="modal tooltip" data-placement="top" title="Zaragoza" onclick="show_buffer('zr')">Zr</button></td>
-                            <td><button type="button" class="btn btn-dark btn-lg" data-backdrop="false" id="9" data-toggle="modal tooltip" data-placement="top" title="Tooltip on top" onclick="show_buffer('9')">9</button></td>
+                            <td><button type="button" class="btn btn-dark btn-lg" data-backdrop="false" id="9" data-toggle="modal tooltip" data-placement="top" title="Montwood" onclick="show_buffer('mw')">Mw</button></td>
                         </tr>
                     </table>
                     <!-- on clicks: onclick="appear('pm'), onclick="appear('corridor'), onclick="appear('pb'), onclick="appear('pb')-->
@@ -2936,9 +2937,52 @@
     function show_buffer(btn){
         if(!$("#"+btn).hasClass("change-button")){
             $("#"+btn).addClass("change-button");
+            removeBoundary();
+                    pm_mpo.pm = "montana_boundary";
+                pm_mpo.getMode = "polygons";
+
+                var getparams = app.payload;
+                var bounds = app.map.getBounds();
+                getparams.NE = bounds.getNorthEast().toJSON(); //north east corner
+                getparams.SW = bounds.getSouthWest().toJSON(); //south-west corner
+                pm_mpo.NE = getparams.NE;
+                pm_mpo.SW = getparams.SW;
+
+                $.get('mpo_handler.php', pm_mpo, function(data){
+                    //var colorArr = ['#bebebe','#959595','#6b6b6b','#555555','#303030','#131313','#000000'];
+                    for(key in data.coords){
+                        var polyCoordis = [];
+                        temp = wktFormatter(data.coords[key]['POLYGON']);
+                        for (var i = 0; i < temp.length; i++) {
+                            polyCoordis.push(temp[i]);
+                        }
+                        var color;
+                        let des_val = data.coords[key]['value'];
+                        if(pm_mpo.pm == "montana_boundary"){
+                            des_val = "Montana Corridor";
+                        }
+                        var polygon = new google.maps.Polygon({
+                            description: "Boundary",
+                            description_value: des_val,
+                            paths: polyCoordis,
+                            strokeColor: "black",
+                            strokeOpacity: 1,
+                            strokeWeight: 3,
+                            fillColor: 'white',
+                            fillOpacity: 0.05, //0.60
+                            zIndex: -99
+                        });
+                        polygon.setOptions({ zIndex: -99 });
+                        polygon.addListener('mouseover', bound);
+                        app.boundary.push(polygon);
+                        polygon.setMap(app.map);
+                    }
+                });
+
         }
         else{
             $("#"+btn).removeClass("change-button");
+
         }
     }
 
@@ -3081,10 +3125,8 @@
         }
 
         runMPO();
-        $('#charts-modal').modal({
-            focus: false,
-            backdrop: false
-        });
+        //appear("charts");
+        //$("#charts-modal").modal('toggle');
         $("#pms-modal").modal('toggle');
     }
 
