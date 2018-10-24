@@ -538,6 +538,9 @@ function getPolygons(){
         elseif($data->pm == "montana_boundary"){
             $query = "SELECT astext(SHAPE) AS POLYGON, objectid as value FROM corridor_outline AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
         }
+        elseif($data->pm == "alameda_buffer"){
+            $query = "SELECT astext(SHAPE) AS POLYGON, objectid as value FROM alameda_buffer AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
+        }
         /*elseif($data->pm == "b_workers"){
             $query = "SELECT objectid, astext(SHAPE) AS POLYGON, $data->pm as value FROM polygon AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
         }*/
