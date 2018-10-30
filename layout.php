@@ -1555,7 +1555,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
 <script src="https://cdn.rawgit.com/bjornharrtell/jsts/gh-pages/1.4.0/jsts.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.8.1/css/bootstrap-slider.css" />
 <script>
-    var app = {map:null, municipality:[], boundary:[], sections:[], crashes_used:[], polygons:[], polygons2:[], polygons3:[], label:"no filter", payload:{getMode:"polygons", runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, property:null, district:null, depth:0, from_depth:0, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0}};
+    var app = {map:null, municipality:[], boundary:[], sections:[], crashes_used:[], polygons:[], polygons2:[], polygons3:[], buffers:[], label:"no filter", payload:{getMode:"polygons", runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, property:null, district:null, depth:0, from_depth:0, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0}};
     var pm_mpo = {pm1:null, pm2:null, pm3:null,name_pm:null, pm:null, NE:null, SW:null, label:"no filter", getMode:"polygons", to_draw:null, draw_charts: false, runAOI:false, runLine:false, runPoly:false, runRec:false, runFilters:false, depth_method:null, AoI:null, lineString:null, chart1:null, chart1n:null, chart2:null, chart2n:null, chart3:null, chart3n:null, chart4:null, chart4n:null, filter_prop:null, filter_prop_n:null, filter_value:false, filter_units:0};
     var multi = {pm1:null, pm2:null, pm3:null};
     var hecho = false;
@@ -2932,40 +2932,67 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
     }); //end document.ready
 
     var from_year_slide = 2012;
-    var to_year_slide = 2012
+    var to_year_slide = 2012;
 
     function show_buffer(btn){
-        //console.log(btn);
         if(!$("#"+btn).hasClass("change-button")){
             $("#"+btn).addClass("change-button");
-            //removeBoundary();
             if(btn == "mn"){
                 pm_mpo.pm = "montana_boundary";
+                app.buffers[pm_mpo.pm] = [];
             }
             else if(btn == "al"){
                 pm_mpo.pm = "alameda_buffer";
+                app.buffers[pm_mpo.pm] = [];
+            }
+            else if(btn == "do"){
+                pm_mpo.pm = "doniphan_buffer";
+                app.buffers[pm_mpo.pm] = [];
+            }
+            else if(btn == "dy"){
+                pm_mpo.pm = "dyer_buffer";
+                app.buffers[pm_mpo.pm] = [];
+            }
+            else if(btn == "hn"){
+                pm_mpo.pm = "horizon_buffer";
+                app.buffers[pm_mpo.pm] = [];
+            }
+            else if(btn == "ms"){
+                pm_mpo.pm = "mesa_buffer";
+                app.buffers[pm_mpo.pm] = [];
+            }
+            else if(btn == "yr"){
+                pm_mpo.pm = "yarbrough_buffer";
+                app.buffers[pm_mpo.pm] = [];
+            }
+            else if(btn == "zr"){
+                pm_mpo.pm = "zaragoza_buffer";
+                app.buffers[pm_mpo.pm] = [];
+            }
+            else if(btn == "mw"){
+                pm_mpo.pm = "montwood_buffer";
+                app.buffers[pm_mpo.pm] = [];
             }
             else{
                 return;
             }
+
             pm_mpo.getMode = "polygons";
 
-            var getparams = app.payload;
-            var bounds = app.map.getBounds();
-            getparams.NE = bounds.getNorthEast().toJSON(); //north east corner
+            let getparams = app.payload;
+            let bounds = app.map.getBounds();
+            getparams.NE = bounds.getNorthEast().toJSON(); //north-east corner
             getparams.SW = bounds.getSouthWest().toJSON(); //south-west corner
             pm_mpo.NE = getparams.NE;
             pm_mpo.SW = getparams.SW;
 
             $.get('mpo_handler.php', pm_mpo, function(data){
-                //var colorArr = ['#bebebe','#959595','#6b6b6b','#555555','#303030','#131313','#000000'];
                 for(key in data.coords){
-                    var polyCoordis = [];
-                    temp = wktFormatter(data.coords[key]['POLYGON']);
-                    for (var i = 0; i < temp.length; i++) {
+                    let polyCoordis = [];
+                    let temp = wktFormatter(data.coords[key]['POLYGON']); //parser
+                    for (let i = 0; i < temp.length; i++) {
                         polyCoordis.push(temp[i]);
                     }
-                    var color;
                     let des_val = data.coords[key]['value'];
                     if(pm_mpo.pm == "montana_boundary"){
                         des_val = "Montana Corridor";
@@ -2973,8 +3000,11 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                     else if(pm_mpo.pm == "alameda_buffer"){
                         des_val = "Alameda Corridor";
                     }
+                    else{
+                        des_val = "needs description...";
+                    }
                     var polygon = new google.maps.Polygon({
-                        description: "Boundary",
+                        description: "Buffer",
                         description_value: des_val,
                         paths: polyCoordis,
                         strokeColor: "black",
@@ -2985,15 +3015,83 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                         zIndex: -99
                     });
                     polygon.setOptions({ zIndex: -99 });
-                    polygon.addListener('mouseover', bound);
-                    app.boundary.push(polygon);
+                    //polygon.addListener('mouseover', bound); //incorrectly giving boundary, should say buffer
+                    app.buffers[pm_mpo.pm].push(polygon);
                     polygon.setMap(app.map);
+                }
+
+                for (key in data.corridor) {
+                    //console.log(key);
                 }
             });
         }
         else{
             $("#"+btn).removeClass("change-button");
-            removeBoundary();
+            if(btn == "mn"){
+                pm_mpo.pm = "montana_boundary";
+                for(let i = 0; i < app.buffers[pm_mpo.pm].length; i++){
+                    app.buffers[pm_mpo.pm][i].setMap(null);
+                }
+                pm_mpo.pm = "";
+            }
+            else if(btn == "al"){
+                pm_mpo.pm = "alameda_buffer";
+                for(let i = 0; i < app.buffers[pm_mpo.pm].length; i++){
+                    app.buffers[pm_mpo.pm][i].setMap(null);
+                }
+                pm_mpo.pm = "";
+            }else if(btn == "do"){
+                pm_mpo.pm = "doniphan_buffer";
+                for(let i = 0; i < app.buffers[pm_mpo.pm].length; i++){
+                    app.buffers[pm_mpo.pm][i].setMap(null);
+                }
+                pm_mpo.pm = "";
+            }
+            else if(btn == "dy"){
+                pm_mpo.pm = "dyer_buffer";
+                for(let i = 0; i < app.buffers[pm_mpo.pm].length; i++){
+                    app.buffers[pm_mpo.pm][i].setMap(null);
+                }
+                pm_mpo.pm = "";
+            }
+            else if(btn == "hn"){
+                pm_mpo.pm = "horizon_buffer";
+                for(let i = 0; i < app.buffers[pm_mpo.pm].length; i++){
+                    app.buffers[pm_mpo.pm][i].setMap(null);
+                }
+                pm_mpo.pm = "";
+            }
+            else if(btn == "ms"){
+                pm_mpo.pm = "mesa_buffer";
+                for(let i = 0; i < app.buffers[pm_mpo.pm].length; i++){
+                    app.buffers[pm_mpo.pm][i].setMap(null);
+                }
+                pm_mpo.pm = "";
+            }
+            else if(btn == "yr"){
+                pm_mpo.pm = "yarbrough_buffer";
+                for(let i = 0; i < app.buffers[pm_mpo.pm].length; i++){
+                    app.buffers[pm_mpo.pm][i].setMap(null);
+                }
+                pm_mpo.pm = "";
+            }
+            else if(btn == "zr"){
+                pm_mpo.pm = "zaragoza_buffer";
+                for(let i = 0; i < app.buffers[pm_mpo.pm].length; i++){
+                    app.buffers[pm_mpo.pm][i].setMap(null);
+                }
+                pm_mpo.pm = "";
+            }
+            else if(btn == "mw"){
+                pm_mpo.pm = "montwood_buffer";
+                for(let i = 0; i < app.buffers[pm_mpo.pm].length; i++){
+                    app.buffers[pm_mpo.pm][i].setMap(null);
+                }
+                pm_mpo.pm = "";
+            }
+            else{
+                return;
+            }
         }
     }
 

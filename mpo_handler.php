@@ -537,6 +537,139 @@ function getPolygons(){
         }
         elseif($data->pm == "montana_boundary"){
             $query = "SELECT astext(SHAPE) AS POLYGON, objectid as value FROM corridor_outline AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
+//            $query_line = "SELECT astext(SHAPE) AS POLYGON, objectid as value FROM montana_corridor AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
+//            $result = mysqli_query($conn, $query_line);
+//            $result = fetchAll($result);
+//
+//            $ordered_line =  array();
+//            $ids_line = array();
+//            $ids_line = array_unique($result, SORT_REGULAR);
+//
+//            for($i = 0; $i < sizeof($result); $i++){
+//                if(isset($ids_line[$i])){
+//                    array_push($ordered_line, $ids_line[$i]);
+//                }
+//            }
+//            $toReturn['corridor'] = '$ordered_line';
+        }
+        elseif($data->pm == "doniphan_buffer"){
+            $query = "SELECT astext(SHAPE) AS POLYGON, objectid as value FROM doniphan_buffer AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
+//            $query_line = "SELECT astext(SHAPE) AS POLYGON, objectid as value FROM doniphan_corridor AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
+//            $result = mysqli_query($conn, $query_line);
+//            $result = fetchAll($result);
+//
+//            $ordered_line =  array();
+//            $ids_line = array();
+//            $ids_line = array_unique($result, SORT_REGULAR);
+//
+//            for($i = 0; $i < sizeof($result); $i++){
+//                if(isset($ids_line[$i])){
+//                    array_push($ordered_line, $ids_line[$i]);
+//                }
+//            }
+//            $toReturn['corridor'] = '$ordered_line';
+        }
+        elseif($data->pm == "dyer_buffer"){
+            $query = "SELECT astext(SHAPE) AS POLYGON, objectid as value FROM dyer_buffer AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
+//            $query_line = "SELECT astext(SHAPE) AS POLYGON, objectid as value FROM dyer_corridor AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
+//            $result = mysqli_query($conn, $query_line);
+//            $result = fetchAll($result);
+//
+//            $ordered_line =  array();
+//            $ids_line = array();
+//            $ids_line = array_unique($result, SORT_REGULAR);
+//
+//            for($i = 0; $i < sizeof($result); $i++){
+//                if(isset($ids_line[$i])){
+//                    array_push($ordered_line, $ids_line[$i]);
+//                }
+//            }
+//            $toReturn['corridor'] = '$ordered_line';
+        }
+        elseif($data->pm == "horizon_buffer"){
+            $query = "SELECT astext(SHAPE) AS POLYGON, objectid as value FROM horizon_buffer AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
+//            $query_line = "SELECT astext(SHAPE) AS POLYGON, objectid as value FROM horizon_corridor AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
+//            $result = mysqli_query($conn, $query_line);
+//            $result = fetchAll($result);
+//
+//            $ordered_line =  array();
+//            $ids_line = array();
+//            $ids_line = array_unique($result, SORT_REGULAR);
+//
+//            for($i = 0; $i < sizeof($result); $i++){
+//                if(isset($ids_line[$i])){
+//                    array_push($ordered_line, $ids_line[$i]);
+//                }
+//            }
+//            $toReturn['corridor'] = '$ordered_line';
+        }
+        elseif($data->pm == "mesa_buffer"){
+            $query = "SELECT astext(SHAPE) AS POLYGON, objectid as value FROM mesa_buffer AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
+//            $query_line = "SELECT astext(SHAPE) AS POLYGON, objectid as value FROM mesa_corridor AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
+//            $result = mysqli_query($conn, $query_line);
+//            $result = fetchAll($result);
+//
+//            $ordered_line =  array();
+//            $ids_line = array();
+//            $ids_line = array_unique($result, SORT_REGULAR);
+//
+//            for($i = 0; $i < sizeof($result); $i++){
+//                if(isset($ids_line[$i])){
+//                    array_push($ordered_line, $ids_line[$i]);
+//                }
+//            }
+//            $toReturn['corridor'] = '$ordered_line';
+        }
+        elseif($data->pm == "montwood_buffer"){
+            $query = "SELECT astext(SHAPE) AS POLYGON, objectid as value FROM montwood_buffer AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
+//            $query_line = "SELECT astext(SHAPE) AS POLYGON, objectid as value FROM montwood_corridor AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
+//            $result = mysqli_query($conn, $query_line);
+//            $result = fetchAll($result);
+//
+//            $ordered_line =  array();
+//            $ids_line = array();
+//            $ids_line = array_unique($result, SORT_REGULAR);
+//
+//            for($i = 0; $i < sizeof($result); $i++){
+//                if(isset($ids_line[$i])){
+//                    array_push($ordered_line, $ids_line[$i]);
+//                }
+//            }
+//            $toReturn['corridor'] = '$ordered_line';
+        }
+        elseif($data->pm == "yarbrough_buffer"){
+            $query = "SELECT astext(SHAPE) AS POLYGON, objectid as value FROM yarbrough_buffer AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
+//            $query_line = "SELECT astext(SHAPE) AS POLYGON, objectid as value FROM yarbrough_corridor AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
+//            $result = mysqli_query($conn, $query_line);
+//            $result = fetchAll($result);
+//
+//            $ordered_line =  array();
+//            $ids_line = array();
+//            $ids_line = array_unique($result, SORT_REGULAR);
+//
+//            for($i = 0; $i < sizeof($result); $i++){
+//                if(isset($ids_line[$i])){
+//                    array_push($ordered_line, $ids_line[$i]);
+//                }
+//            }
+//            $toReturn['corridor'] = '$ordered_line';
+        }
+        elseif($data->pm == "zaragoza_buffer"){
+            $query = "SELECT astext(SHAPE) AS POLYGON, objectid as value FROM zaragoza_buffer AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
+//            $query_line = "SELECT astext(SHAPE) AS POLYGON, objectid as value FROM zaragoza_corridor AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
+//            $result = mysqli_query($conn, $query_line);
+//            $result = fetchAll($result);
+//
+//            $ordered_line =  array();
+//            $ids_line = array();
+//            $ids_line = array_unique($result, SORT_REGULAR);
+//
+//            for($i = 0; $i < sizeof($result); $i++){
+//                if(isset($ids_line[$i])){
+//                    array_push($ordered_line, $ids_line[$i]);
+//                }
+//            }
+//            $toReturn['corridor'] = '$ordered_line';
         }
         elseif($data->pm == "alameda_buffer"){
             $query = "SELECT astext(SHAPE) AS POLYGON, objectid as value FROM alameda_buffer AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
