@@ -673,6 +673,21 @@ function getPolygons(){
         }
         elseif($data->pm == "alameda_buffer"){
             $query = "SELECT astext(SHAPE) AS POLYGON, objectid as value FROM alameda_buffer AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
+            //$query = "SELECT astext(SHAPE) AS POLYGON, objectid as value FROM montana_corridor AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
+//            $query_line = "SELECT astext(SHAPE) AS POLYGON, objectid as value FROM montana_corridor AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 3), p.SHAPE)";
+//            $result = mysqli_query($conn, $query_line);
+//            $result = fetchAll($result);
+//
+//            $ordered_line =  array();
+//            $ids_line = array();
+//            $ids_line = array_unique($result, SORT_REGULAR);
+//
+//            for($i = 0; $i < sizeof($result); $i++){
+//                if(isset($ids_line[$i])){
+//                    array_push($ordered_line, $ids_line[$i]);
+//                }
+//            }
+//            $toReturn['corridor'] = $ordered_line;
         }
         /*elseif($data->pm == "b_workers"){
             $query = "SELECT objectid, astext(SHAPE) AS POLYGON, $data->pm as value FROM polygon AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 1), p.SHAPE)";
