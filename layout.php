@@ -2940,45 +2940,53 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
             if(btn == "mn"){
                 pm_mpo.pm = "montana_boundary";
                 app.buffers[pm_mpo.pm] = [];
+                app.buffers[pm_mpo.pm + "_corridor"] = [];
             }
             else if(btn == "al"){
                 pm_mpo.pm = "alameda_buffer";
                 app.buffers[pm_mpo.pm] = [];
+                app.buffers[pm_mpo.pm + "_corridor"] = [];
             }
             else if(btn == "do"){
                 pm_mpo.pm = "doniphan_buffer";
                 app.buffers[pm_mpo.pm] = [];
+                app.buffers[pm_mpo.pm + "_corridor"] = [];
             }
             else if(btn == "dy"){
                 pm_mpo.pm = "dyer_buffer";
                 app.buffers[pm_mpo.pm] = [];
+                app.buffers[pm_mpo.pm + "_corridor"] = [];
             }
             else if(btn == "hn"){
                 pm_mpo.pm = "horizon_buffer";
                 app.buffers[pm_mpo.pm] = [];
+                app.buffers[pm_mpo.pm + "_corridor"] = [];
             }
             else if(btn == "ms"){
                 pm_mpo.pm = "mesa_buffer";
                 app.buffers[pm_mpo.pm] = [];
+                app.buffers[pm_mpo.pm + "_corridor"] = [];
             }
             else if(btn == "yr"){
                 pm_mpo.pm = "yarbrough_buffer";
                 app.buffers[pm_mpo.pm] = [];
+                app.buffers[pm_mpo.pm + "_corridor"] = [];
             }
             else if(btn == "zr"){
                 pm_mpo.pm = "zaragoza_buffer";
                 app.buffers[pm_mpo.pm] = [];
+                app.buffers[pm_mpo.pm + "_corridor"] = [];
             }
             else if(btn == "mw"){
                 pm_mpo.pm = "montwood_buffer";
                 app.buffers[pm_mpo.pm] = [];
+                app.buffers[pm_mpo.pm + "_corridor"] = [];
             }
             else{
                 return;
             }
 
             pm_mpo.getMode = "polygons";
-
             let getparams = app.payload;
             let bounds = app.map.getBounds();
             getparams.NE = bounds.getNorthEast().toJSON(); //north-east corner
@@ -2995,10 +3003,31 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                     }
                     let des_val = data.coords[key]['value'];
                     if(pm_mpo.pm == "montana_boundary"){
-                        des_val = "Montana Corridor";
+                        des_val = "Montana Buffer";
                     }
                     else if(pm_mpo.pm == "alameda_buffer"){
-                        des_val = "Alameda Corridor";
+                        des_val = "Alameda Buffer";
+                    }
+                    else if(pm_mpo.pm == "doniphan_buffer"){
+                        des_val = "Doniphan Buffer";
+                    }
+                    else if(pm_mpo.pm == "dyer_buffer"){
+                        des_val = "Dyer Buffer";
+                    }
+                    else if(pm_mpo.pm == "horizon_buffer"){
+                        des_val = "Horizon Buffer";
+                    }
+                    else if(pm_mpo.pm == "mesa_buffer"){
+                        des_val = "Mesa Buffer";
+                    }
+                    else if(pm_mpo.pm == "yarbrough_buffer"){
+                        des_val = "Yarbrough Buffer";
+                    }
+                    else if(pm_mpo.pm == "zaragoza_buffer"){
+                        des_val = "Zaragoza Buffer";
+                    }
+                    else if(pm_mpo.pm == "montwood_buffer"){
+                        des_val = "Montwood Buffer";
                     }
                     else{
                         des_val = "needs description...";
@@ -3015,14 +3044,80 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                         zIndex: -99
                     });
                     polygon.setOptions({ zIndex: -99 });
-                    //polygon.addListener('mouseover', bound); //incorrectly giving boundary, should say buffer
+                    polygon.addListener('click', bound);
                     app.buffers[pm_mpo.pm].push(polygon);
                     polygon.setMap(app.map);
                 }
 
                 for (key in data.corridor) {
-                    //console.log(key);
+                    var temp = []; //gets created after each line/data
+                    var to_color = [];
+                    x = data.corridor[key]['POLYGON'];
+                    temp.push(x);
+                    var reader = new jsts.io.WKTReader();
+                    var a = reader.read(x);
+                    if(a.getGeometryType() == "LineString"){
+                        var coord;
+                        var ln = a.getCoordinates();
+                        for (var i = 0; i < ln.length; i++) {
+                            coord = {lat: ln[i]['y'], lng: ln[i]['x']};
+                            to_color.push(coord);
+                        }
+                    }else{
+                        var coord;
+                        var multi = a.getCoordinates();
+                        for (var i = 0; i < multi.length; i++) {
+                            coord = {lat: multi[i]['y'], lng: multi[i]['x']};
+                            to_color.push(coord);
+                        }
+                    }
+
+                    if(pm_mpo.pm == "montana_boundary"){
+                        des_val = "Montana Corridor";
+                    }
+                    else if(pm_mpo.pm == "alameda_buffer"){
+                        des_val = "Alameda Corridor";
+                    }
+                    else if(pm_mpo.pm == "doniphan_buffer"){
+                        des_val = "Doniphan Corridor";
+                    }
+                    else if(pm_mpo.pm == "dyer_buffer"){
+                        des_val = "Dyer Corridor";
+                    }
+                    else if(pm_mpo.pm == "horizon_buffer"){
+                        des_val = "Horizon Corridor";
+                    }
+                    else if(pm_mpo.pm == "mesa_buffer"){
+                        des_val = "Mesa Corridor";
+                    }
+                    else if(pm_mpo.pm == "yarbrough_buffer"){
+                        des_val = "Yarbrough Corridor";
+                    }
+                    else if(pm_mpo.pm == "zaragoza_buffer"){
+                        des_val = "Zaragoza Corridor";
+                    }
+                    else if(pm_mpo.pm == "montwood_buffer"){
+                        des_val = "Montwood Corridor";
+                    }
+                    else{
+                        des_val = "needs description...";
+                    }
+
+                    var line = new google.maps.Polyline({
+                        path: to_color,
+                        value: data.corridor[key]['value'],
+                        strokeColor: 'red',
+                        strokeOpacity: 1.0,
+                        strokeWeight: 4,
+                        zIndex: 1
+                    });
+
+                    line.setMap(app.map);
+                    line.setOptions({ zIndex: 1 });
+                    line.addListener('click', bound);
+                    app.buffers[pm_mpo.pm+"_corridor"].push(line);
                 }
+
             });
         }
         else{
@@ -3038,6 +3133,9 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 pm_mpo.pm = "alameda_buffer";
                 for(let i = 0; i < app.buffers[pm_mpo.pm].length; i++){
                     app.buffers[pm_mpo.pm][i].setMap(null);
+                }
+                for(let i = 0; i < app.buffers[pm_mpo.pm + "_corridor"].length; i++){
+                    app.buffers[pm_mpo.pm + "_corridor"][i].setMap(null);
                 }
                 pm_mpo.pm = "";
             }else if(btn == "do"){
