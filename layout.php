@@ -13,7 +13,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>MWT</title>
+    <title>Multimodal Web Tool</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href="css/custom.css" rel="stylesheet" type="text/css">
@@ -1508,7 +1508,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
             <nav class="navbar navbar-dark bg-dark">
                 <a href="#" data-target="#sidebar" data-toggle="collapse"><i class="fa fa-navicon fa-2x py-2 p-1"></i></a>
                 <a class="navbar-brand" href="#">
-                    MWT / Multimodal Web Tool
+                    Multimodal Web Tool
                 </a>
             </nav>
             <div id="map"></div>
@@ -3044,7 +3044,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                         zIndex: -99
                     });
                     polygon.setOptions({ zIndex: -99 });
-                    polygon.addListener('click', bound);
+                    polygon.addListener('click', buffer);
                     app.buffers[pm_mpo.pm].push(polygon);
                     polygon.setMap(app.map);
                 }
@@ -3071,6 +3071,8 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                             to_color.push(coord);
                         }
                     }
+
+                    let des_val = "";
 
                     if(pm_mpo.pm == "montana_boundary"){
                         des_val = "Montana Corridor";
@@ -3114,7 +3116,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
 
                     line.setMap(app.map);
                     line.setOptions({ zIndex: 1 });
-                    line.addListener('click', bound);
+                    line.addListener('click', corridor);
                     app.buffers[pm_mpo.pm+"_corridor"].push(line);
                 }
 
@@ -7352,9 +7354,6 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         var max = min = med = avg = 0;
         //parameters: key so we know which query to make, and the position of which chart, if multiple
         //get the legend separation as well
-
-
-
     }
 
     function nullChecker(){
@@ -7743,9 +7742,22 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
         app.infoWindow.open(app.map);
     }
 
-
     function bound(event){
         text = "Boundary: " + this.description_value;
+        app.infoWindow.setContent(text);
+        app.infoWindow.setPosition(event.latLng);
+        app.infoWindow.open(app.map);
+    }
+
+    function buffer(event){
+        let text = "Buffer: " + this.description_value;
+        app.infoWindow.setContent(text);
+        app.infoWindow.setPosition(event.latLng);
+        app.infoWindow.open(app.map);
+    }
+
+    function corridor(event){
+        let text = "Corridor: " + this.value;
         app.infoWindow.setContent(text);
         app.infoWindow.setPosition(event.latLng);
         app.infoWindow.open(app.map);
