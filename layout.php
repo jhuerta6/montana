@@ -1953,6 +1953,10 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
             handle: ".modal-header"
         });
 
+        $("#pms-modal").draggable({
+            handle: ".modal-header"
+        });
+
         $("#toolbox").hide();
         $('.carousel').carousel({
             interval: 0
