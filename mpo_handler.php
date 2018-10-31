@@ -536,7 +536,7 @@ function getPolygons(){
             $query = "SELECT astext(SHAPE) AS POLYGON, name as value FROM mpoboudary AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
         }
         elseif($data->pm == "montana_boundary"){
-            $query = "SELECT astext(SHAPE) AS POLYGON, objectid as value FROM corridor_outline AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
+            $query = "SELECT astext(SHAPE) AS POLYGON, objectid as value FROM montana_buffer AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
             $query_line = "SELECT astext(SHAPE) AS POLYGON, objectid as value FROM montana_corridor AS p WHERE ST_INTERSECTS(ST_GEOMFROMTEXT(@geom1, 2), p.SHAPE)";
             $result = mysqli_query($conn, $query_line);
             $result = fetchAll($result);

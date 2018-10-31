@@ -3105,7 +3105,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
 
                     var line = new google.maps.Polyline({
                         path: to_color,
-                        value: data.corridor[key]['value'],
+                        value: des_val,
                         strokeColor: 'red',
                         strokeOpacity: 1.0,
                         strokeWeight: 4,
@@ -3127,6 +3127,9 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 for(let i = 0; i < app.buffers[pm_mpo.pm].length; i++){
                     app.buffers[pm_mpo.pm][i].setMap(null);
                 }
+                for(let i = 0; i < app.buffers[pm_mpo.pm + "_corridor"].length; i++){
+                    app.buffers[pm_mpo.pm + "_corridor"][i].setMap(null);
+                }
                 pm_mpo.pm = "";
             }
             else if(btn == "al"){
@@ -3143,12 +3146,18 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 for(let i = 0; i < app.buffers[pm_mpo.pm].length; i++){
                     app.buffers[pm_mpo.pm][i].setMap(null);
                 }
+                for(let i = 0; i < app.buffers[pm_mpo.pm + "_corridor"].length; i++){
+                    app.buffers[pm_mpo.pm + "_corridor"][i].setMap(null);
+                }
                 pm_mpo.pm = "";
             }
             else if(btn == "dy"){
                 pm_mpo.pm = "dyer_buffer";
                 for(let i = 0; i < app.buffers[pm_mpo.pm].length; i++){
                     app.buffers[pm_mpo.pm][i].setMap(null);
+                }
+                for(let i = 0; i < app.buffers[pm_mpo.pm + "_corridor"].length; i++){
+                    app.buffers[pm_mpo.pm + "_corridor"][i].setMap(null);
                 }
                 pm_mpo.pm = "";
             }
@@ -3157,12 +3166,18 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 for(let i = 0; i < app.buffers[pm_mpo.pm].length; i++){
                     app.buffers[pm_mpo.pm][i].setMap(null);
                 }
+                for(let i = 0; i < app.buffers[pm_mpo.pm + "_corridor"].length; i++){
+                    app.buffers[pm_mpo.pm + "_corridor"][i].setMap(null);
+                }
                 pm_mpo.pm = "";
             }
             else if(btn == "ms"){
                 pm_mpo.pm = "mesa_buffer";
                 for(let i = 0; i < app.buffers[pm_mpo.pm].length; i++){
                     app.buffers[pm_mpo.pm][i].setMap(null);
+                }
+                for(let i = 0; i < app.buffers[pm_mpo.pm + "_corridor"].length; i++){
+                    app.buffers[pm_mpo.pm + "_corridor"][i].setMap(null);
                 }
                 pm_mpo.pm = "";
             }
@@ -3171,6 +3186,9 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 for(let i = 0; i < app.buffers[pm_mpo.pm].length; i++){
                     app.buffers[pm_mpo.pm][i].setMap(null);
                 }
+                for(let i = 0; i < app.buffers[pm_mpo.pm + "_corridor"].length; i++){
+                    app.buffers[pm_mpo.pm + "_corridor"][i].setMap(null);
+                }
                 pm_mpo.pm = "";
             }
             else if(btn == "zr"){
@@ -3178,12 +3196,18 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                 for(let i = 0; i < app.buffers[pm_mpo.pm].length; i++){
                     app.buffers[pm_mpo.pm][i].setMap(null);
                 }
+                for(let i = 0; i < app.buffers[pm_mpo.pm + "_corridor"].length; i++){
+                    app.buffers[pm_mpo.pm + "_corridor"][i].setMap(null);
+                }
                 pm_mpo.pm = "";
             }
             else if(btn == "mw"){
                 pm_mpo.pm = "montwood_buffer";
                 for(let i = 0; i < app.buffers[pm_mpo.pm].length; i++){
                     app.buffers[pm_mpo.pm][i].setMap(null);
+                }
+                for(let i = 0; i < app.buffers[pm_mpo.pm + "_corridor"].length; i++){
+                    app.buffers[pm_mpo.pm + "_corridor"][i].setMap(null);
                 }
                 pm_mpo.pm = "";
             }
