@@ -13,7 +13,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>PMEPC</title>
+    <title>MWT</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href="css/custom.css" rel="stylesheet" type="text/css">
@@ -1508,7 +1508,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
             <nav class="navbar navbar-dark bg-dark">
                 <a href="#" data-target="#sidebar" data-toggle="collapse"><i class="fa fa-navicon fa-2x py-2 p-1"></i></a>
                 <a class="navbar-brand" href="#">
-                    PMEPC / MPO & CTIS
+                    MWT / Multimodal Web Tool
                 </a>
             </nav>
             <div id="map"></div>
