@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
+if(!isset($_SESSION['in']) OR !$_SESSION['in']){
     header('Location: login.php');
     exit();
 }
