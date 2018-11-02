@@ -1257,29 +1257,37 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                         <div class="modal-body">
                             <div class="accordion" id="accordionExample1">
                                 <div class="card">
-                                    <div class="card-header" id="heading1">
+                                    <div class="card-header text-center" id="heading1">
                                         <h5 class="mb-0">
                                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
                                                 Driving
                                             </button>
                                         </h5>
                                     </div>
-
                                     <div id="collapse1" class="collapse show" aria-labelledby="heading1" data-parent="#accordionExample1">
                                         <div class="card-body">
                                             <div class="row">
-                                                <div class="col-sm-6" >
+                                                <div class="col-sm-4" >
                                                     <div class="card" style="background:rgba(0,255,0,0.5)">
-                                                        <div class="card-body">
+                                                        <div class="card-body text-center">
                                                             <h5 class="card-title">Pavement in Poor Condition</h5>
                                                             <p class="card-text">67% of pavement has met its target.</p>
                                                             <a href="" data-backdrop="false" data-toggle="modal" class="btn btn-success" onclick="runPavement()">Run</a>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-6">
+                                                <div class="col-sm-4">
                                                     <div class="card" style="background:rgba(255,0,0,0.5)">
-                                                        <div class="card-body">
+                                                        <div class="card-body text-center">
+                                                            <h5 class="card-title">Performance Measure (PM)</h5>
+                                                            <p class="card-text">Some PM that it's not passing.</p>
+                                                            <a href="#" class="btn btn-danger">Run</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="card" style="background:rgba(255,0,0,0.5)">
+                                                        <div class="card-body text-center">
                                                             <h5 class="card-title">Performance Measure (PM)</h5>
                                                             <p class="card-text">Some PM that it's not passing.</p>
                                                             <a href="#" class="btn btn-danger">Run</a>
@@ -1291,7 +1299,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                                     </div>
                                 </div>
                                 <div class="card">
-                                    <div class="card-header" id="heading2">
+                                    <div class="card-header text-center" id="heading2">
                                         <h5 class="mb-0">
                                             <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
                                                 Transit
@@ -1323,7 +1331,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                                     </div>
                                 </div>
                                 <div class="card">
-                                    <div class="card-header" id="heading3">
+                                    <div class="card-header text-center" id="heading3">
                                         <h5 class="mb-0">
                                             <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
                                                 Walking
@@ -1355,7 +1363,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                                     </div>
                                 </div>
                                 <div class="card">
-                                    <div class="card-header" id="heading4">
+                                    <div class="card-header text-center" id="heading4">
                                         <h5 class="mb-0">
                                             <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
                                                 Biking
@@ -3112,10 +3120,10 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                     var line = new google.maps.Polyline({
                         path: to_color,
                         value: des_val,
-                        strokeColor: 'red',
+                        strokeColor: 'yellow',
                         strokeOpacity: 1.0,
                         strokeWeight: 4,
-                        zIndex: 1
+                        zIndex: -99
                     });
 
                     line.setMap(app.map);
@@ -6157,7 +6165,7 @@ if(!isset($_SESSION['in_mpo']) OR !$_SESSION['in_mpo']){
                             strokeColor: color,
                             strokeOpacity: 1.0,
                             strokeWeight: 4,
-                            zIndex: 1
+                            zIndex: 99
                         });
                         line.setMap(app.map);
                         line.setOptions({ zIndex: 1 });
