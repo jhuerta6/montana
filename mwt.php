@@ -802,7 +802,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.8.1/css/bootstrap-slider.css" />
 <script>
     function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
+        let map = new google.maps.Map(document.getElementById('map'), {
             zoom: 11,
             center: new google.maps.LatLng(31.837465,-106.2851078),
             mapTypeId: 'terrain'
