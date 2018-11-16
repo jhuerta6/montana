@@ -801,6 +801,12 @@
 <script src="https://cdn.rawgit.com/bjornharrtell/jsts/gh-pages/1.4.0/jsts.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.8.1/css/bootstrap-slider.css" />
 <script>
+    $(document).ready(function(){
+        console.log("hey");
+        $.get('mwt_populate_pms.php', function(data){
+            console.log(data);
+        });
+    });
     function initMap() {
         let map = new google.maps.Map(document.getElementById('map'), { //callback
             zoom: 11,
