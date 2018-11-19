@@ -800,54 +800,41 @@
 <script src="https://cdn.rawgit.com/bjornharrtell/jsts/gh-pages/1.4.0/jsts.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.8.1/css/bootstrap-slider.css" />
 <script>
-    $(document).ready(function(){
-        let map;
-        // console.log("hey");
-        $.get('mwt_populate_pms.php', function(data){
-            // console.log(data);
+    $(document).ready(function(){ //when the document loads
+        let map; // global variable for map 
+        $.get('mwt_populate_pms.php', function(data){ // ajax call to populate all the pms
+            // missing implementation
+            // populate programatically
         });
     });
 
-    function test_pavement(){
-        let example = {key: "mn_pave"};
-        $.get('mwt_handler.php', example, function(data){
-            for(index in data.shape_arr){
-                //console.log(data.shape_arr[index]['value']);
-                let shp = data.shape_arr[index]['shape'];
-                let reader = new jsts.io.WKTReader();
-                let r = reader.read(shp);
-                let to_color = [];
+    function test_pavement(){ // hardcoded method to display pavement
+        let example = {key: "mn_pave"}; // hardcoded object, used to send data to back-end
+        $.get('mwt_handler.php', example, function(data){ // ajax call to populate pavement lines
+            for(index in data.shape_arr){ // iterates through every index in the returned element (data['shape_arr'])
+                let shp = data.shape_arr[index]['shape']; // shape is LINESTRING or MULTILINESTRING
+                let reader = new jsts.io.WKTReader(); // 3rd party tool to handle multiple shapes
+                let r = reader.read(shp); // r becomes an object from the 3rd party tool, for a single shp
+                let to_visualize = []; // used to populate the map (latitude & longitude)
 
-                if(r.getGeometryType() == "LineString"){
-                    let coord;
-                    let ln = r.getCoordinates();
-                    for (let i = 0; i < ln.length; i++) {
-                        coord = {lat: ln[i]['y'], lng: ln[i]['x']};
-                        to_color.push(coord);
-                    }
-                }
-                else{
-                    let coord;
-                    let multi = r.getCoordinates();
-                    for (let i = 0; i < multi.length; i++) {
-                        coord = {lat: multi[i]['y'], lng: multi[i]['x']};
-                        to_color.push(coord);
-                    }
+                let coord; // will be an object to push coordinates to populate the map
+                let ln = r.getCoordinates(); // parses the shape into lat & lng
+                for (let i = 0; i < ln.length; i++) {
+                    coord = {lat: ln[i]['y'], lng: ln[i]['x']}; // this is how lat & lng is interpreted by the tool
+                    to_visualize.push(coord); // pushing the interpretation to our to_visualize array
                 }
 
-                let line = new google.maps.Polyline({
-                            path: to_color,
-                            value: data.shape_arr[index]['value'],
+                let line = new google.maps.Polyline({ // it is a POLYLINE
+                            path: to_visualize, // polyline has a path, defined by lat & lng 
+                            value: data.shape_arr[index]['value'], // iri (attribute for the pavement condition score)
                             strokeColor: 'black',
                             strokeOpacity: 1.0,
                             strokeWeight: 4,
-                            zIndex: 99
+                            zIndex: 99 // on top of every other shape
                 });
-                //console.log(line);
                 line.setMap(map);
-                //line.setOptions({ zIndex: 1 });
-                //line.addListener('click', lineInfo_pavement);
-                //polygons["pm1"].push(line);
+                //line.addListener('click', lineInfo_pavement); // listener for tooltip; "on'click'"
+                //polygons["pm1"].push(line); // could store into global array for easy/fast erasing and re-populating
             }
         });
     }
