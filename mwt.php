@@ -538,7 +538,7 @@
                                                         <div class="card-body text-center">
                                                             <h5 class="card-title">Pavement in Poor Condition</h5>
                                                             <p class="card-text">67% of pavement has met its target.</p>
-                                                            <a href="" data-backdrop="false" data-toggle="modal" class="btn btn-success" onclick="runPavement()">Run</a>
+                                                            <a href="" data-backdrop="false" data-toggle="modal" class="btn btn-success" onclick="test_pavement()">Run</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -789,7 +789,6 @@
         </main>
     </div>
 </div>
-
 <script src="js/jquery.js"></script>
 <script src="wireframe/ui/jquery-ui.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -802,13 +801,59 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.8.1/css/bootstrap-slider.css" />
 <script>
     $(document).ready(function(){
-        console.log("hey");
+        let map;
+        // console.log("hey");
         $.get('mwt_populate_pms.php', function(data){
-            console.log(data);
+            // console.log(data);
         });
     });
+
+    function test_pavement(){
+        let example = {key: "mn_pave"};
+        $.get('mwt_handler.php', example, function(data){
+            for(index in data.shape_arr){
+                //console.log(data.shape_arr[index]['value']);
+                let shp = data.shape_arr[index]['shape'];
+                let reader = new jsts.io.WKTReader();
+                let r = reader.read(shp);
+                let to_color = [];
+
+                if(r.getGeometryType() == "LineString"){
+                    let coord;
+                    let ln = r.getCoordinates();
+                    for (let i = 0; i < ln.length; i++) {
+                        coord = {lat: ln[i]['y'], lng: ln[i]['x']};
+                        to_color.push(coord);
+                    }
+                }
+                else{
+                    let coord;
+                    let multi = r.getCoordinates();
+                    for (let i = 0; i < multi.length; i++) {
+                        coord = {lat: multi[i]['y'], lng: multi[i]['x']};
+                        to_color.push(coord);
+                    }
+                }
+
+                let line = new google.maps.Polyline({
+                            path: to_color,
+                            value: data.shape_arr[index]['value'],
+                            strokeColor: 'black',
+                            strokeOpacity: 1.0,
+                            strokeWeight: 4,
+                            zIndex: 99
+                });
+                //console.log(line);
+                line.setMap(map);
+                //line.setOptions({ zIndex: 1 });
+                //line.addListener('click', lineInfo_pavement);
+                //polygons["pm1"].push(line);
+            }
+        });
+    }
+
     function initMap() {
-        let map = new google.maps.Map(document.getElementById('map'), { //callback
+        map = new google.maps.Map(document.getElementById('map'), { //callback
             zoom: 11,
             center: new google.maps.LatLng(31.837465,-106.2851078),
             mapTypeId: 'terrain'
