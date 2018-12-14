@@ -954,18 +954,36 @@
     }
 
     function wktFormatter(poly){
-        new_poly = poly.slice(9,-2);
-        new_poly = new_poly.split("),(");
-        len = new_poly.length;
-        shape_s = [];
-        for (var j = 0; j < len; j++) {
-            polyCoordi = [];
-            polyTemp = new_poly[j].split(",");
-            for(i = 0; i<polyTemp.length; i++){
-                temp = polyTemp[i].split(" ");
-                polyCoordi.push({lat: parseFloat(temp[1]), lng: parseFloat(temp[0])});
+        let name = poly.slice(0,7);
+        let shape_s = [];
+        if(name == "MULTIPO"){ // Multipolygon parser
+            let new_poly = poly.slice(15,-3);
+            new_poly = new_poly.split(")),((");
+            console.log(new_poly);
+            let len = new_poly.length;
+            for (var j = 0; j < len; j++) {
+                let polyCoordi = [];
+                let polyTemp = new_poly[j].split(",");
+                for(i = 0; i<polyTemp.length; i++){
+                    let temp = polyTemp[i].split(" ");
+                    polyCoordi.push({lat: parseFloat(temp[1]), lng: parseFloat(temp[0])});
+                }
+                shape_s[j] = polyCoordi;
             }
-            shape_s[j] = polyCoordi;
+        }
+        else{ // Polygon parser
+            let new_poly = poly.slice(9,-2);
+            new_poly = new_poly.split("),(");
+            let len = new_poly.length;
+            for (var j = 0; j < len; j++) {
+                let polyCoordi = [];
+                let polyTemp = new_poly[j].split(",");
+                for(i = 0; i<polyTemp.length; i++){
+                    let temp = polyTemp[i].split(" ");
+                    polyCoordi.push({lat: parseFloat(temp[1]), lng: parseFloat(temp[0])});
+                }
+                shape_s[j] = polyCoordi;
+            }    
         }
         return shape_s;
     }
