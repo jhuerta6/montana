@@ -18,14 +18,13 @@ while($temporal = mysqli_fetch_assoc($result)){ // loops through $result array, 
 }
 
 $pm_table = $tables[0]['found_in_table']; // table name where we will find the data for our particular pm
-
 $corridor_key = explode("_", $key); // extract the corridor key into an array
 $corridor_key = $corridor_key[0]; // following our DB and naming conventions, the $corridor_key will be found at the 0 index
 // $corridor_key can be either mn, al, do, dy, hn, ms, yr, zr, or mw
 
 $shape = array(); // for the data that will be returned, shape and value
 //$query = "select astext(SHAPE) as shape, iri as value from $pm_table where corridor_key = '$corridor_key'"; // temporal note: find an elegant way to generalize this
-$query = "select astext(SHAPE) as shape from $pm_table where corridor_key = '$corridor_key'"; // temporal note: find an elegant way to generalize this
+$query = "select astext(SHAPE) as shape from $pm_table where corridor_key = '$key'"; // temporal note: find an elegant way to generalize this
 // another temporal note: not all lines will be pavement that will fetch "iri as value"
 $result = mysqli_query($conn, $query); 
 

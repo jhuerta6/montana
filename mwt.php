@@ -13,7 +13,7 @@
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <style>
+<style>
 
     .change-button {
         background-color: white; color: #0D47A1;
@@ -554,9 +554,9 @@
                                                         <div class="col-sm-4">
                                                             <div class="card" style="background:rgba(255,0,0,0.5)">
                                                                 <div class="card-body text-center">
-                                                                    <h5 class="card-title">Performance Measure (PM)</h5>
+                                                                    <h5 class="card-title">PM Bridges (Points)</h5>
                                                                     <p class="card-text">Some PM that it's not passing.</p>
-                                                                    <a href="#" class="btn btn-danger">Run</a>
+                                                                    <a href="#" class="btn btn-danger" onclick="shape_handler('pmbridge','all_pmbridge','point')">Run</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -737,7 +737,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+    </div>
 
         <div class="container-fluid" >
             <div class="row d-flex d-md-block flex-nowrap wrapper">
@@ -793,20 +793,17 @@
         <script src="wireframe/ui/jquery-ui.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script src="https://cdn.rawgit.com/bjornharrtell/jsts/gh-pages/1.4.0/jsts.min.js"></script>
-        <script>
+<script>
     $(document).ready(function(){ //when the document loads
         let map; // global variable for map 
         $.get('mwt_populate_pms.php', function(data){ // ajax call to populate all the pms
             // missing implementation
-            console.log(data);
+            // console.log(data);
             // populate programatically
         });
     });
 
     function shape_handler(found, key, method){
-        console.log(found);
-        console.log(key);
-        console.log(method);
         let example = {key: key};
         if(method == "line"){
             $.get('mwt_handler.php', example, function(data){ // ajax call to populate pavement lines
@@ -830,20 +827,37 @@
                             strokeOpacity: 1.0,
                             strokeWeight: 4,
                             zIndex: 99 // on top of every other shape
-                    });
-                line.setMap(map);
+                        });
+                    line.setMap(map);
                 //line.addListener('click', lineInfo_pavement); // listener for tooltip; "on'click'"
                 //polygons["pm1"].push(line); // could store into global array for easy/fast erasing and re-populating
-                }
-            });
+            }
+        });
         }
         else if(method == "point"){
-            
+            $.get('mwt_handler.php', example, function(data){ // ajax call to populate pavement lines
+                for(index in data.shape_arr){ 
+                    let temp = wktFormatterPoint(data.shape_arr[index]['shape']);
+                    let to_visualize = [];
+                    for (var i = 0; i < temp.length; i++) {
+                        to_visualize.push(temp[i]);
+                    }
+                    //console.log(temp);
+                    //console.log(to_visualize);
+                    let point  = new google.maps.Marker({
+                        position: to_visualize,
+                        title: 'Example',
+                        value: 'some value for bridges'
+                    });
+                    //point.addListener('click', pointInfo);
+                    point.setMap(map);
+                    //points["pm1"].push(point); // could store into global array for easy/fast erasing and re-populating
+                }
+            });
         }
         else{ //polygons
             $.get('mwt_handler.php', example, function(data){ // ajax call to populate pavement lines
                 for(index in data.shape_arr){ // iterates through every index in the returned element (data['shape_arr'])
-                    console.log(index);
                     let temp = wktFormatter(data.shape_arr[index]['shape']);
                     let to_visualize = [];
                     for (var i = 0; i < temp.length; i++) {
@@ -959,7 +973,6 @@
         if(name == "MULTIPO"){ // Multipolygon parser
             let new_poly = poly.slice(15,-3);
             new_poly = new_poly.split(")),((");
-            console.log(new_poly);
             let len = new_poly.length;
             for (var j = 0; j < len; j++) {
                 let polyCoordi = [];
@@ -988,6 +1001,27 @@
         return shape_s;
     }
 
+    function wktFormatterPoint(point){
+        // let name = point.slice(0,5);
+        // console.log(name);
+        let shape_s = [];
+        let new_point = point.slice(6,-2);
+        //console.log(new_point);
+        new_point = new_point.split("),(");
+        //console.log(new_point);
+        let len = new_point.length;
+        for (var j = 0; j < len; j++) {
+            let pointCoordi = [];
+            let pointTemp = new_point[j].split(",");
+            for(i = 0; i<pointTemp.length; i++){
+                let temp = pointTemp[i].split(" ");
+                pointCoordi.push({lat: parseFloat(temp[1]), lng: parseFloat(temp[0])});
+            }
+            shape_s[j] = pointCoordi;
+        }    
+        //console.log(shape_s);
+        return shape_s;
+    }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCY0B3_Fr1vRpgJDdbvNmrVyXmoOOtiq64&libraries=drawing&callback=initMap"async defer></script>
 </body>
