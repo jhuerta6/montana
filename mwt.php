@@ -835,15 +835,10 @@
         });
         }
         else if(method == "point"){
-            $.get('mwt_handler.php', example, function(data){ // ajax call to populate pavement lines
+            $.get('mwt_handler.php', example, function(data){ // ajax call to populate points
                 for(index in data.shape_arr){ 
                     let temp = wktFormatterPoint(data.shape_arr[index]['shape']);
-                    let to_visualize = [];
-                    for (var i = 0; i < temp.length; i++) {
-                        to_visualize.push(temp[i]);
-                    }
-                    //console.log(temp);
-                    //console.log(to_visualize);
+                    let to_visualize = temp[0][0];
                     let point  = new google.maps.Marker({
                         position: to_visualize,
                         title: 'Example',
