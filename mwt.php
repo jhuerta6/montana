@@ -838,7 +838,7 @@
             $.get('mwt_handler.php', example, function(data){ // ajax call to populate points
                 for(index in data.shape_arr){ 
                     let temp = wktFormatterPoint(data.shape_arr[index]['shape']);
-                    let to_visualize = temp[0][0];
+                    let to_visualize = temp[0][0]; // should fix return method
                     let point  = new google.maps.Marker({
                         position: to_visualize,
                         title: 'Example',
