@@ -837,12 +837,15 @@
         else if(method == "point"){
             $.get('mwt_handler.php', example, function(data){ // ajax call to populate points
                 for(index in data.shape_arr){ 
-                    let temp = wktFormatterPoint(data.shape_arr[index]['shape']);
-                    let to_visualize = temp[0][0]; // should fix return method
+                    //let temp = wktFormatterPoint(data.shape_arr[index]['shape']);
+                    //let to_visualize = temp[0][0]; // should fix return method
+                    let to_visualize = {lat: parseFloat(data.shape_arr[index].lat_dd), lng: parseFloat(data.shape_arr[index].long_dd)};
+                    let image = "./img/markers/black_dot.svg";
                     let point  = new google.maps.Marker({
                         position: to_visualize,
                         title: 'Example',
-                        value: 'some value for bridges'
+                        value: 'some value for bridges',
+                        icon: image
                     });
                     //point.addListener('click', pointInfo);
                     point.setMap(map);

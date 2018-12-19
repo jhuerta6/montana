@@ -24,7 +24,12 @@ $corridor_key = $corridor_key[0]; // following our DB and naming conventions, th
 
 $shape = array(); // for the data that will be returned, shape and value
 //$query = "select astext(SHAPE) as shape, iri as value from $pm_table where corridor_key = '$corridor_key'"; // temporal note: find an elegant way to generalize this
-$query = "select astext(SHAPE) as shape from $pm_table where corridor_key = '$key'"; // temporal note: find an elegant way to generalize this
+if($key == "all_pmbridge"){
+	$query = "select lat_dd, long_dd from $pm_table where corridor_key = '$key'";
+}
+else{
+	$query = "select astext(SHAPE) as shape from $pm_table where corridor_key = '$key'"; // temporal note: find an elegant way to generalize this
+}
 // another temporal note: not all lines will be pavement that will fetch "iri as value"
 $result = mysqli_query($conn, $query); 
 
