@@ -18,41 +18,61 @@ $conn = mysqli_connect('ctis.utep.edu', 'ctis', '19691963', 'mpo_test_jhuerta');
  //NonSOV_e = a - b
 $col_a = "b08301e1";
 $col_b = "B08301e3";
-$sql = "SELECT ".$col_a." FROM pm1;";
-$sql .= "SELECT ".$col_b." FROM pm1;";
+// Start of multi query example- it works, all data is concatenated though.
+//$sql = "SELECT ".$col_a." FROM pm1;";
+//$sql .= "SELECT ".$col_b." FROM pm1;";
 
 // Execute multi query
-if (mysqli_multi_query($conn,$sql))
-{
-    do
-    {
-        // Store first result set
-        if ($result=mysqli_store_result($conn)) {
-            // Fetch one and one row
-            while ($row=mysqli_fetch_row($result))
-            {
-                printf("%s\n",$row[0]);
-            }
-            // Free result set
-            mysqli_free_result($result);
-        }
-    }
-    while (mysqli_next_result($conn));
+//if (mysqli_multi_query($conn,$sql))
+//{
+//    do
+//    {
+//        // Store first result set
+//        if ($result=mysqli_store_result($conn)) {
+//            // Fetch one and one row
+//            while ($row=mysqli_fetch_row($result))
+//            {
+//                printf("%s\n",$row[0]);
+//            }
+//            // Free result set
+//            mysqli_free_result($result);
+//        }
+//    }
+//    while (mysqli_next_result($conn));
+//}
+//
+//mysqli_close($conn);
+// end of multi query
+
+//single query approach
+$query = "SELECT b08301e1 FROM pm1;";
+$result = mysqli_query($conn, $query); // do the query, store in result
+$arr_1 = array();
+while($row = $result->fetch_array()){
+    $arr_1[]= $row;
 }
+echo "<div class='container'>";
+sort($arr_1);
+foreach ($arr_1 as $key => $value){
+    print_r($value[$col_a]."\n");
+    echo "<br>";
+}
+echo "<hr></div>";
 
+
+//start of second pass
+$query = "SELECT b08301e3 FROM pm1;";
+$result = mysqli_query($conn, $query); // do the query, store in result
+$arr_2 = array();
+while($row = $result->fetch_array()){
+    $arr_2[]= $row;
+}
+echo "<div class='container'>";
+sort($arr_2);
+foreach ($arr_2 as $key => $value){
+    print_r($value[$col_b]."\n");
+    echo "<br>";
+}
+echo "</div>";
 mysqli_close($conn);
-
-//$query = "SELECT b08301e1 FROM pm1;";
-//$result = mysqli_query($conn, $query); // do the query, store in result
-//$arr = array();
-//while($row = $result->fetch_array()){
-//    $arr[]= $row;
-//}
-//echo "<div class='container'>";
-//sort($arr);
-//foreach ($arr as $key => $value){
-//    print_r($value[$col_a]."\n");
-//    echo "<br>";
-//}
-//echo "</div>";
 ?>
