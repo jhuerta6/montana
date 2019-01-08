@@ -17,7 +17,7 @@ $conn = mysqli_connect('ctis.utep.edu', 'ctis', '19691963', 'mpo_test_jhuerta');
 $col_a = "b08301e1";
 $col_b = "B08301e3";
 
-$query = "SELECT $col_a FROM mpo_test_jhuerta.pm1;";
+$query = "SELECT b08301e1 FROM mpo_test_jhuerta.pm1;";
 $result = mysqli_query($conn, $query); // do the query, store in result
 
 while($temporal = mysqli_fetch_assoc($result)){ // loops through $result array, stores into $temporal
