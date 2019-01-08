@@ -17,7 +17,7 @@ $conn = mysqli_connect('ctis.utep.edu', 'ctis', '19691963', 'mpo_test_jhuerta');
  //cols a = B08301e1 , b = B08301e3
  //NonSOV_e = a - b
 $col_a = "b08301e1";
-$col_b = "B08301e3";
+$col_b = "b08301e3";
 // Start of multi query example- it works, all data is concatenated though.
 //$sql = "SELECT ".$col_a." FROM pm1;";
 //$sql .= "SELECT ".$col_b." FROM pm1;";
@@ -52,12 +52,12 @@ while($row = $result->fetch_array()){
     $arr_1[]= $row;
 }
 echo "<div class='container'>";
-sort($arr_1);
+
 foreach ($arr_1 as $key => $value){
     print_r($value[$col_a]."\n");
     echo "<br>";
 }
-echo "<hr></div>";
+echo "</div>";
 
 
 //start of second pass
@@ -67,8 +67,8 @@ $arr_2 = array();
 while($row = $result->fetch_array()){
     $arr_2[]= $row;
 }
-echo "<div class='container'>";
-sort($arr_2);
+echo "<div class='container'><hr>";
+
 foreach ($arr_2 as $key => $value){
     print_r($value[$col_b]."\n");
     echo "<br>";
