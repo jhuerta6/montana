@@ -23,10 +23,12 @@ $query = "SELECT b08301e1 FROM pm1;";
 $result = mysqli_query($conn, $query); // do the query, store in result
 $arr = array();
 while($row = $result->fetch_array()){
-    $arr[]= $row;
+    $arr= $row;
 }
 echo "<div class='container'>";
-foreach ($arr as $key => $value){echo $value;}
+foreach ($arr as $a){
+    echo $a[$col_a];
+}
 
 echo "</div>";
 ?>
