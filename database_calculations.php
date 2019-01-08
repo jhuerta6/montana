@@ -26,6 +26,7 @@ while($row = $result->fetch_array()){
     $arr[]= $row;
 }
 echo "<div class='container'>";
+sort($arr);
 foreach ($arr as $key => $value){
     print_r($value[$col_a]."\n");
     echo "<br>";
