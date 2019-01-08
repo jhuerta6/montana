@@ -27,7 +27,7 @@ while($row = $result->fetch_array()){
 }
 echo "<div class='container'>";
 foreach ($arr as $key => $value){
-    print_r($key[$col_a]);
+    print_r($key);
 }
 echo "</div>";
 ?>
