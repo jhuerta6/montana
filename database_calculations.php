@@ -23,5 +23,5 @@ $result = mysqli_query($conn, $query); // do the query, store in result
 while($temporal = mysqli_fetch_assoc($result)){ // loops through $result array, stores into $temporal
     array_push($tables, $temporal); // pushes $temporal to our desired array
 }
-echo $tables;
+echo "<script>console.log('" . json_encode($tables) . "');</script>";
 ?>
