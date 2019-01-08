@@ -18,18 +18,41 @@ $conn = mysqli_connect('ctis.utep.edu', 'ctis', '19691963', 'mpo_test_jhuerta');
  //NonSOV_e = a - b
 $col_a = "b08301e1";
 $col_b = "B08301e3";
+$sql = "SELECT ".$col_a." FROM pm1;";
+$sql .= "SELECT ".$col_b." FROM pm1;";
 
-$query = "SELECT b08301e1 FROM pm1;";
-$result = mysqli_query($conn, $query); // do the query, store in result
-$arr = array();
-while($row = $result->fetch_array()){
-    $arr[]= $row;
+// Execute multi query
+if (mysqli_multi_query($conn,$sql))
+{
+    do
+    {
+        // Store first result set
+        if ($result=mysqli_store_result($conn)) {
+            // Fetch one and one row
+            while ($row=mysqli_fetch_row($result))
+            {
+                printf("%s\n",$row[0]);
+            }
+            // Free result set
+            mysqli_free_result($result);
+        }
+    }
+    while (mysqli_next_result($conn));
 }
-echo "<div class='container'>";
-sort($arr);
-foreach ($arr as $key => $value){
-    print_r($value[$col_a]."\n");
-    echo "<br>";
-}
-echo "</div>";
+
+mysqli_close($conn);
+
+//$query = "SELECT b08301e1 FROM pm1;";
+//$result = mysqli_query($conn, $query); // do the query, store in result
+//$arr = array();
+//while($row = $result->fetch_array()){
+//    $arr[]= $row;
+//}
+//echo "<div class='container'>";
+//sort($arr);
+//foreach ($arr as $key => $value){
+//    print_r($value[$col_a]."\n");
+//    echo "<br>";
+//}
+//echo "</div>";
 ?>
