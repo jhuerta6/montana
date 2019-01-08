@@ -26,6 +26,6 @@ while($row = $result->fetch_array()){
     $arr= $row;
 }
 echo "<div class='container'>";
-print_r($arr);
+echo $arr[$col_a];
 echo "</div>";
 ?>
