@@ -19,12 +19,11 @@ $conn = mysqli_connect('ctis.utep.edu', 'ctis', '19691963', 'mpo_test_jhuerta');
 $col_a = "b08301e1";
 $col_b = "B08301e3";
 
-//$query = "SELECT b08301e1 FROM pm1;";
-//$result = mysqli_query($conn, $query); // do the query, store in result
-if ($result = $conn->query("SELECT b08301e1 FROM pm1;")) {
-    printf("Select returned %d rows.\n", $result->num_rows);
-
-    /* free result set */
-    $result->close();
+$query = "SELECT b08301e1 FROM pm1;";
+$result = mysqli_query($conn, $query); // do the query, store in result
+$arr = array();
+while($row = $result->fetch_array()){
+    $arr[] = $row;
 }
+print_r($arr);
 ?>
