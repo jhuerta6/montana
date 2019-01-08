@@ -25,5 +25,6 @@ $arr = array();
 while($row = $result->fetch_array()){
     $arr[] = $row;
 }
-print_r($arr);
+echo json_encode($arr);
+//print_r($arr);
 ?>
