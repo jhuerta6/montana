@@ -25,9 +25,7 @@ $arr = array();
 while($row = $result->fetch_array()){
     $arr[] = $row;
 }
-echo json_encode($arr);
-foreach ($arr as &$item){
-    echo $item;
-}
-//print_r($arr);
+echo "<div class='container'>";
+print_r($arr);
+echo "</div>";
 ?>
