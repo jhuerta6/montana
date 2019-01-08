@@ -26,9 +26,6 @@ while($row = $result->fetch_array()){
     $arr= $row;
 }
 echo "<div class='container'>";
-foreach ($arr as $a){
-    echo $a[$col_a];
-}
-
+echo $arr;
 echo "</div>";
 ?>
