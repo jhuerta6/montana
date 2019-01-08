@@ -12,15 +12,19 @@ ini_set('max_execution_time', 30000); //300 seconds = 5 minutes
 //connection to utep database
 $conn = mysqli_connect('ctis.utep.edu', 'ctis', '19691963', 'mpo_test_jhuerta');
 
-mysqli_close($conn);
+//mysqli_close($conn);
 // calculating: NonSOV_e: [X08_COMMUTING.B08301e1] - [X08_COMMUTING.B08301e3]
  //cols a = B08301e1 , b = B08301e3
  //NonSOV_e = a - b
 $col_a = "b08301e1";
 $col_b = "B08301e3";
 
-$query = "SELECT b08301e1 FROM pm1;";
-$result = mysqli_query($conn, $query); // do the query, store in result
+//$query = "SELECT b08301e1 FROM pm1;";
+//$result = mysqli_query($conn, $query); // do the query, store in result
+if ($result = $conn->query("SELECT b08301e1 FROM pm1;")) {
+    printf("Select returned %d rows.\n", $result->num_rows);
 
-echo "<script>console.log('" . json_encode($result) . "');</script>";
+    /* free result set */
+    $result->close();
+}
 ?>
