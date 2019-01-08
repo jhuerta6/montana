@@ -23,7 +23,7 @@ $query = "SELECT b08301e1 FROM pm1;";
 $result = mysqli_query($conn, $query); // do the query, store in result
 $arr = array();
 while($row = $result->fetch_array()){
-    $arr[] = $row;
+    $arr= $row;
 }
 echo "<div class='container'>";
 print_r($arr);
