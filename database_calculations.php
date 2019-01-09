@@ -20,7 +20,8 @@ $calculation = [];
 $data1 = getCol($conn,$col_a,"pm1");
 $data2 = getCol($conn,$col_b,"pm1");
 $arrlength = count($data1);
-
+echo "<div class='row'>
+        <div class='col-md-3'>";
 // loop through data and insert calculation into array
 // pseudo code: loop(arr[x] = data1[x] - data2[x];)
 echo "NonSOV_e<br>";
@@ -29,7 +30,10 @@ for($x = 0; $x < $arrlength; $x++) {
     echo $calculation[$x]; // 'echo' for visualization & testing purposes
     echo "<br>";
 }
-echo "<hr>";
+echo "</div>
+    </div>
+    <hr>";
+
 //////////////////////////////////////---End of NonSOV_e--/////////////////////////////////////////////////
 
 //////////////////////////////////////---NonSOV_m begin--/////////////////////////////////////////////////
@@ -43,6 +47,8 @@ $data1 = getCol($conn,$B08301m1,"pm1");
 $data2 = getCol($conn,$B08301m3,"pm1");
 $arrlength = count($data1);
 
+echo "<div class='row'>
+        <div class='col-md-3'>";
 // loop through data and insert calculation into array
 // pseudo code: loop(arr[x] = data1[x] - data2[x];)
 echo "NonSOV_m<br>";
@@ -51,7 +57,9 @@ for($x = 0; $x < $arrlength; $x++) {
     echo $calculation[$x]; // 'echo' for visualization & testing purposes
     echo "<br>";
 }
-echo "<hr>";
+echo "</div>
+    </div>
+    <hr>";
 //////////////////////////////////////---End of NonSOV_m--/////////////////////////////////////////////////
 
 
