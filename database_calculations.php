@@ -79,7 +79,7 @@ $data2 = getCol($conn,$col_b,"pm1");
 $nonsov = [];
 $arrlength = count($data1);
 for($x = 0; $x < $arrlength; $x++) {
-    array_push($nonsov,$data1[$x] - $data2[$x]);
+    array_push($nonsov,number_format((float)$data1[$x] - $data2[$x],6));
     echo $nonsov[$x];
     echo "<br>";
 }
