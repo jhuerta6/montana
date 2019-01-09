@@ -22,7 +22,7 @@ $data2 = getCol($conn,$col_b,"pm1");
 $arrlength = count($data1);
 echo "<div class='container'>
         <div class='row'>
-        <div class='col-md-6'>";
+        <div class='col'>";
 // loop through data and insert calculation into array
 // pseudo code: loop(arr[x] = data1[x] - data2[x];)
 echo "NonSOV_e<br>";
@@ -47,7 +47,7 @@ $data1 = getCol($conn,$B08301m1,"pm1");
 $data2 = getCol($conn,$B08301m3,"pm1");
 $arrlength = count($data1);
 
-echo "<div class='col-md-6'>";
+echo "<div class='col'>";
 // loop through data and insert calculation into array
 // pseudo code: loop(arr[x] = data1[x] - data2[x];)
 echo "NonSOV_m<br>";
