@@ -28,10 +28,11 @@ echo "<div class='container-fluid'>
 echo "NonSOV_e<br>";
 for($x = 0; $x < $arrlength; $x++) {
     array_push($calculation,number_format((float)$data1[$x] - $data2[$x],6));
-    echo $calculation[$x]; // 'echo' for visualization & testing purposes
+    echo "<ul>";
+    echo "<li>.$calculation[$x]"; // 'echo' for visualization & testing purposes
     echo "<br>";
 }
-echo "</div>";
+echo "</ul></div>";
 
 //////////////////////////////////////---End of NonSOV_e--/////////////////////////////////////////////////
 
@@ -52,10 +53,11 @@ echo "<div class='col-lg-6'>";
 echo "NonSOV_m<br>";
 for($x = 0; $x < $arrlength; $x++) {
     array_push($calculation,number_format((float)$data1[$x] - $data2[$x],6));
-    echo $calculation[$x]; // 'echo' for visualization & testing purposes
+    echo "<ul>";
+    echo "<li>.$calculation[$x]"; // 'echo' for visualization & testing purposes
     echo "<br>";
 }
-echo "</div>
+echo "</ul></div>
     </div>
     </div>";
 
