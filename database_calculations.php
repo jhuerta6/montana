@@ -30,8 +30,7 @@ for($x = 0; $x < $arrlength; $x++) {
     echo $calculation[$x]; // 'echo' for visualization & testing purposes
     echo "<br>";
 }
-echo "</div>
-    <hr>";
+echo "</div>";
 
 //////////////////////////////////////---End of NonSOV_e--/////////////////////////////////////////////////
 
@@ -56,8 +55,7 @@ for($x = 0; $x < $arrlength; $x++) {
     echo "<br>";
 }
 echo "</div>
-    </div>
-    <hr>";
+    </div>";
 //////////////////////////////////////---End of NonSOV_m--/////////////////////////////////////////////////
 
 
