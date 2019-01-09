@@ -81,10 +81,10 @@ $arrlength = count($data2);
 echo "<div class='col'>";
 // loop through data and insert calculation into array
 // pseudo code: loop(arr[x] = data1[x] * data2[x];)
-echo "Ratio_Area<br>";
+echo "PM_RatioIn_e<br>";
 echo "<ol>";
 for($x = 0; $x < $arrlength; $x++) {
-    array_push($calculation,number_format((float)$data1[$x] * $data2[$x],6));
+    array_push($calculation,number_format((float)$data1[$x] * $data2[$x],11));
 
     echo "<li> $calculation[$x]"; // 'echo' for visualization & testing purposes
 }
