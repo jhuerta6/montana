@@ -10,6 +10,9 @@ ini_set('max_execution_time', 30000); //300 seconds = 5 minutes
 //connection to utep database
 $conn = mysqli_connect('ctis.utep.edu', 'ctis', '19691963', 'mpo_test_jhuerta');
 
+// Dictionary to store results
+$lookup_result = array();
+
 //////////////////////////////////////---NonSOV_e begin--/////////////////////////////////////////////////
 //  calculating: NonSOV_e: [X08_COMMUTING.B08301e1] - [X08_COMMUTING.B08301e3]
 //  cols a = B08301e1 , b = B08301e3
@@ -32,6 +35,7 @@ for($x = 0; $x < $arrlength; $x++) {
 
     echo "<li> $calculation[$x]"; // 'echo' for visualization & testing purposes
 }
+$lookup_result["nonsov_e"] = $calculation;
 echo "</ul></div>";
 
 //////////////////////////////////////---End of NonSOV_e--/////////////////////////////////////////////////
@@ -40,11 +44,11 @@ echo "</ul></div>";
 //  calculating: NonSOV_m: [X08_COMMUTING.B08301m1] - [X08_COMMUTING.B08301m3]
 //  cols a = B08301m1 , b = B08301m3
 //  NonSOV_m = a - b
-$B08301m1 = "b08301m1";
-$B08301m3 = "b08301m3";
+$col_a = "b08301m1";
+$col_b = "b08301m3";
 $calculation = [];
-$data1 = getCol($conn,$B08301m1,"pm1");
-$data2 = getCol($conn,$B08301m3,"pm1");
+$data1 = getCol($conn,$col_a,"pm1");
+$data2 = getCol($conn,$col_b,"pm1");
 $arrlength = count($data1);
 
 echo "<div class='col'>";
@@ -56,15 +60,38 @@ for($x = 0; $x < $arrlength; $x++) {
     array_push($calculation,number_format((float)$data1[$x] - $data2[$x],6));
 
     echo "<li> $calculation[$x]"; // 'echo' for visualization & testing purposes
-
 }
+$lookup_result["nonsov_m"] = $calculation;
 echo "</ul></div>
-    </div>
-    </div>
-    <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css\" integrity=\"sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS\" crossorigin=\"anonymous\">
+    
 ";
 
 //////////////////////////////////////---End of NonSOV_m--/////////////////////////////////////////////////
+
+//////////////////////////////////////---PM_RatioIN_e begin--/////////////////////////////////////////////////
+//  calculating: PM_RatioIN_e: [tl_2017_48_bg_Clip1.NonSOV_e] * [tl_2017_48_bg_Clip1.Ratio_Area]
+//  cols a = NonSOV_e , b = Ratio_Area
+//  PM_RatioIN_e = a * b
+// col a not needed
+$col_b = "ratio_area";
+$calculation = [];
+$data1= array_values($lookup_result["nonsov_e"]);
+$data2 = getCol($conn,$col_b,"pm1");
+$arrlength = count($data2);
+echo "<div class='col'>";
+// loop through data and insert calculation into array
+// pseudo code: loop(arr[x] = data1[x] * data2[x];)
+echo "Ratio_Area<br>";
+echo "<ol>";
+for($x = 0; $x < $arrlength; $x++) {
+    array_push($calculation,number_format((float)$data1[$x] * $data2[$x],6));
+
+    echo "<li> $calculation[$x]"; // 'echo' for visualization & testing purposes
+}
+$lookup_result["ratioin_e"] = $calculation;
+echo "</ul></div>
+    
+";
 
 
 
@@ -102,4 +129,8 @@ function getCol($conn,$colName,$tableName){
 
 // at the end, close connection
 mysqli_close($conn);
+echo "</div>
+    </div>
+    <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css\" integrity=\"sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS\" crossorigin=\"anonymous\">
+";
 ?>
