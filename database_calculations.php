@@ -45,34 +45,55 @@ $col_b = "b08301e3";
 // end of multi query
 
 //single query approach
-$query = "SELECT b08301e1 FROM pm1;";
-$result = mysqli_query($conn, $query); // do the query, store in result
-$arr_1 = array();
-while($row = $result->fetch_array()){
-    $arr_1[]= $row;
-}
-echo "<div class='container'>";
+//$query = "SELECT b08301e1 FROM pm1;";
+//$result = mysqli_query($conn, $query); // do the query, store in result
+//$arr_1 = array();
+//while($row = $result->fetch_array()){
+//    $arr_1[]= $row;
+//}
+//echo "<div class='container'>";
+//
+//foreach ($arr_1 as $key => $value){
+//    print_r($value[$col_a]."\n");
+//    echo "<br>";
+//}
+//echo "</div>";
 
-foreach ($arr_1 as $key => $value){
-    print_r($value[$col_a]."\n");
+
+function getCol($conn,$colName,$tableName){
+    $toReturn = [];
+    $query = "SELECT $colName FROM $tableName;";
+    $result = mysqli_query($conn, $query); // do the query, store in result
+    $arr_1 = array();
+    while($row = $result->fetch_array()){
+        $arr_1[]= $row;
+    }
+    foreach ($arr_1 as $key => $value){
+         array_push($toReturn,$value[$colName]);
+
+    }
+    return $toReturn;
+}
+$data = getCol($conn,$col_a,"pm1");
+$arrlength = count($data);
+for($x = 0; $x < $arrlength; $x++) {
+    echo $data[$x];
     echo "<br>";
 }
-echo "</div>";
 
-
-//start of second pass
-$query = "SELECT b08301e3 FROM pm1;";
-$result = mysqli_query($conn, $query); // do the query, store in result
-$arr_2 = array();
-while($row = $result->fetch_array()){
-    $arr_2[]= $row;
-}
-echo "<div class='container'><hr>";
-
-foreach ($arr_2 as $key => $value){
-    print_r($value[$col_b]."\n");
-    echo "<br>";
-}
-echo "</div>";
+////start of second pass
+//$query = "SELECT b08301e3 FROM pm1;";
+//$result = mysqli_query($conn, $query); // do the query, store in result
+//$arr_2 = array();
+//while($row = $result->fetch_array()){
+//    $arr_2[]= $row;
+//}
+//echo "<div class='container'><hr>";
+//
+//foreach ($arr_2 as $key => $value){
+//    print_r($value[$col_b]."\n");
+//    echo "<br>";
+//}
+//echo "</div>";
 mysqli_close($conn);
 ?>
