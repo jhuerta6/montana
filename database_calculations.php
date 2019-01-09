@@ -75,7 +75,7 @@ function getCol($conn,$colName,$tableName){
     return $toReturn;
 }
 $data1 = getCol($conn,$col_a,"pm1");
-$data2 = getCol($conn,$col_b,"pm1");
+$data2 = getCol($conn,$col_b,"pm2");
 $nonsov = [];
 $arrlength = count($data);
 for($x = 0; $x < $arrlength; $x++) {
