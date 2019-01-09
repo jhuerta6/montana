@@ -26,11 +26,11 @@ echo "<div class='container-fluid'>
 // loop through data and insert calculation into array
 // pseudo code: loop(arr[x] = data1[x] - data2[x];)
 echo "NonSOV_e<br>";
-echo "<ul>";
-for($x = 0; $x < $arrlength; $x++) {
+echo "<ol>";
+for($x = 0; $x < 5; $x++) {
     array_push($calculation,number_format((float)$data1[$x] - $data2[$x],6));
 
-    echo "<li>.$calculation[$x]"; // 'echo' for visualization & testing purposes
+    echo "<li> $calculation[$x]"; // 'echo' for visualization & testing purposes
 }
 echo "</ul></div>";
 
@@ -51,11 +51,11 @@ echo "<div class='col-lg-6'>";
 // loop through data and insert calculation into array
 // pseudo code: loop(arr[x] = data1[x] - data2[x];)
 echo "NonSOV_m<br>";
-echo "<ul>";
-for($x = 0; $x < $arrlength; $x++) {
+echo "<ol>";
+for($x = 0; $x < 5; $x++) {
     array_push($calculation,number_format((float)$data1[$x] - $data2[$x],6));
 
-    echo "<li>.$calculation[$x]"; // 'echo' for visualization & testing purposes
+    echo "<li> $calculation[$x]"; // 'echo' for visualization & testing purposes
 
 }
 echo "</ul></div>
