@@ -74,10 +74,13 @@ function getCol($conn,$colName,$tableName){
     }
     return $toReturn;
 }
-$data = getCol($conn,$col_a,"pm1");
+$data1 = getCol($conn,$col_a,"pm1");
+$data2 = getCol($conn,$col_b,"pm1");
+$nonsov = [];
 $arrlength = count($data);
 for($x = 0; $x < $arrlength; $x++) {
-    echo $data[$x];
+    array_push($nonsov,$data1[$x] - $data2[$x]);
+    echo $nonsov[$x];
     echo "<br>";
 }
 
