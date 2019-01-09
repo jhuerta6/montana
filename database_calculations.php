@@ -9,9 +9,28 @@ ini_set('memory_limit', '-1');
 ini_set('max_execution_time', 30000); //300 seconds = 5 minutes
 //connection to utep database
 $conn = mysqli_connect('ctis.utep.edu', 'ctis', '19691963', 'mpo_test_jhuerta');
+// Dictionary to store all column_name => data_within
+$dataset = array();
 
 // Dictionary to store results
 $lookup_result = array();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //////////////////////////////////////---NonSOV_e begin--/////////////////////////////////////////////////
 //  calculating: NonSOV_e: [X08_COMMUTING.B08301e1] - [X08_COMMUTING.B08301e3]
@@ -65,14 +84,14 @@ $lookup_result["nonsov_m"] = $calculation;
 echo "</ul></div>
     
 ";
-
 //////////////////////////////////////---End of NonSOV_m--/////////////////////////////////////////////////
+
 
 //////////////////////////////////////---PM_RatioIN_e begin--/////////////////////////////////////////////////
 //  calculating: PM_RatioIN_e: [tl_2017_48_bg_Clip1.NonSOV_e] * [tl_2017_48_bg_Clip1.Ratio_Area]
 //  cols a = NonSOV_e , b = Ratio_Area
 //  PM_RatioIN_e = a * b
-// col a not needed
+// col_a not needed
 $col_b = "ratio_area";
 $calculation = [];
 $data1= array_values($lookup_result["nonsov_e"]);
@@ -89,9 +108,10 @@ for($x = 0; $x < $arrlength; $x++) {
     echo "<li> $calculation[$x]"; // 'echo' for visualization & testing purposes
 }
 $lookup_result["ratioin_e"] = $calculation;
-echo "</ul></div>
-    
-";
+echo "</ul></div>";
+//////////////////////////////////////---PM_RatioIN_e END--/////////////////////////////////////////////////
+
+//calculating: PM_RatioIN_m: [tl_2017_48_bg_Clip1.NonSOV_m] * [tl_2017_48_bg_Clip1.Ratio_Area]
 
 
 
