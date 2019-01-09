@@ -20,7 +20,8 @@ $calculation = [];
 $data1 = getCol($conn,$col_a,"pm1");
 $data2 = getCol($conn,$col_b,"pm1");
 $arrlength = count($data1);
-echo "<div class='row'>
+echo "<div class='container-fluid'>
+        <div class='row'>
         <div class='col-lg-6'>";
 // loop through data and insert calculation into array
 // pseudo code: loop(arr[x] = data1[x] - data2[x];)
@@ -55,7 +56,9 @@ for($x = 0; $x < $arrlength; $x++) {
     echo "<br>";
 }
 echo "</div>
+    </div>
     </div>";
+
 //////////////////////////////////////---End of NonSOV_m--/////////////////////////////////////////////////
 
 
