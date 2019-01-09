@@ -14,28 +14,45 @@ $conn = mysqli_connect('ctis.utep.edu', 'ctis', '19691963', 'mpo_test_jhuerta');
 //  calculating: NonSOV_e: [X08_COMMUTING.B08301e1] - [X08_COMMUTING.B08301e3]
 //  cols a = B08301e1 , b = B08301e3
 //  NonSOV_e = a - b
-$B08301e1 = "b08301e1";
-$B08301e3 = "b08301e3";
-$nonSOV_e = [];
-$data1 = getCol($conn,$B08301e1,"pm1");
-$data2 = getCol($conn,$B08301e3,"pm1");
+$col_a = "b08301e1";
+$col_b = "b08301e3";
+$calculation = [];
+$data1 = getCol($conn,$col_a,"pm1");
+$data2 = getCol($conn,$col_b,"pm1");
 $arrlength = count($data1);
 
 // loop through data and insert calculation into array
 // pseudo code: loop(arr[x] = data1[x] - data2[x];)
-echo "NonSOV_e";
+echo "NonSOV_e<br>";
 for($x = 0; $x < $arrlength; $x++) {
-    array_push($nonSOV_e,number_format((float)$data1[$x] - $data2[$x],6));
-    echo $nonSOV_e[$x]; // 'echo' for visualization & testing purposes
+    array_push($calculation,number_format((float)$data1[$x] - $data2[$x],6));
+    echo $calculation[$x]; // 'echo' for visualization & testing purposes
     echo "<br>";
 }
 echo "<hr>";
 //////////////////////////////////////---End of NonSOV_e--/////////////////////////////////////////////////
 
 //////////////////////////////////////---NonSOV_m begin--/////////////////////////////////////////////////
+//  calculating: NonSOV_m: [X08_COMMUTING.B08301m1] - [X08_COMMUTING.B08301m3]
+//  cols a = B08301m1 , b = B08301m3
+//  NonSOV_m = a - b
+$B08301m1 = "b08301m1";
+$B08301m3 = "b08301m3";
+$calculation = [];
+$data1 = getCol($conn,$B08301m1,"pm1");
+$data2 = getCol($conn,$B08301m3,"pm1");
+$arrlength = count($data1);
 
-
-
+// loop through data and insert calculation into array
+// pseudo code: loop(arr[x] = data1[x] - data2[x];)
+echo "NonSOV_m<br>";
+for($x = 0; $x < $arrlength; $x++) {
+    array_push($calculation,number_format((float)$data1[$x] - $data2[$x],6));
+    echo $calculation[$x]; // 'echo' for visualization & testing purposes
+    echo "<br>";
+}
+echo "<hr>";
+//////////////////////////////////////---End of NonSOV_m--/////////////////////////////////////////////////
 
 
 
