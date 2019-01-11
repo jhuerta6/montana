@@ -18,7 +18,10 @@ $lookup_result = array();
 $larry = getCol($conn,"pm1");
 var_dump($larry);
 
-
+$test = [];
+for ($x = 0; $x < count($larry);$x++){
+    echo $larry["b08301e19"]."\n";
+}
 
 
 
