@@ -20,7 +20,7 @@ $larry = getCol($conn,"pm1");
 
 $test = [];
 for ($x = 0; $x < sizeof($larry);$x++){
-    echo "$x: ".$larry["b08301e19"]."\n";
+    echo "$x: ".$larry[$x]["b08301e19"]."\n";
 }
 
 
