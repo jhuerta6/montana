@@ -19,8 +19,8 @@ $larry = getCol($conn,"pm1");
 //var_dump($larry);
 
 $test = [];
-for ($x = 0; $x < count($larry);$x++){
-    echo $larry["b08301e19"]."\n";
+for ($x = 0; $x < sizeof($larry);$x++){
+    echo "$x: ".$larry["b08301e19"]."\n";
 }
 
 
