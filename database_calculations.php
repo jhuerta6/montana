@@ -16,7 +16,7 @@ $dataset = array();
 $lookup_result = array();
 
 $larry = getCol($conn,"pm1");
-var_dump($larry);
+//var_dump($larry);
 
 $test = [];
 for ($x = 0; $x < count($larry);$x++){
