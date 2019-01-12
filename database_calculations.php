@@ -10,17 +10,12 @@ ini_set('max_execution_time', 30000); //300 seconds = 5 minutes
 //connection to utep database
 $conn = mysqli_connect('ctis.utep.edu', 'ctis', '19691963', 'mpo_test_jhuerta');
 // Dictionary to store all column_name => data_within
-$dataset = array();
-
-// Dictionary to store results
-$lookup_result = array();
-
-$larry = getCol($conn,"pm1");
-//var_dump($larry);
+$source_table = getCol($conn,"pm1");
+//var_dump($source_table);
 
 $test = [];
-for ($x = 0; $x < sizeof($larry);$x++){
-    echo "$x: ".$larry[$x]["b08301e19"]."\n";
+for ($x = 0; $x < sizeof($source_table);$x++){
+    echo "$x: ".$source_table[$x]["b08301e19"]."\n";
 }
 
 
