@@ -62,9 +62,14 @@ $b08301e10 = getCol($source_table,"b08301e10");
 $b08301m10 = getCol($source_table,"b08301m10");
 $b08301e18 = getCol($source_table, "b08301e18");
 
-echo $b08301e1;
+printArr($b08301e1);
 
-
+function printArr($arr)
+{
+    for ($x = 0; $x < sizeof($arr); $x++) {
+        echo $arr[x]."\n";
+    }
+}
 
 
 
