@@ -10,130 +10,80 @@ ini_set('max_execution_time', 30000); //300 seconds = 5 minutes
 //connection to utep database
 $conn = mysqli_connect('ctis.utep.edu', 'ctis', '19691963', 'mpo_test_jhuerta');
 // Dictionary to store all column_name => data_within
-$source_table = getCol($conn,"pm1");
-//var_dump($source_table);
+$source_table = getTable($conn,"pm1");
+//column names to retrieve:
+/*
+B08301m1
+B08301e3
+B08301m3
+NonSOV_e
+NonSOV_m
+Ratio_Area
+B08301e1
+B08301e10
+B08301m10
+B08301e18
+B08301m18
+B08301e19
+ * */
 
-$test = [];
-for ($x = 0; $x < sizeof($source_table);$x++){
-    echo "$x: ".$source_table[$x]["b08301e19"]."\n";
+/*Operations:
+NonSOV_e: B08301e1 - B08301e3
+
+NonSOV_m: B08301m1 - B08301m3
+
+PM_RatioIN_e: NonSOV_e * Ratio_Area
+
+PM_RatioIN_m: NonSOV_m * Ratio_Area
+
+PM1_pct_NonSOV_e: NonSOV_e  / B08301e1
+
+PM1_pct_NonSOV_m: NonSOV_m  / B08301m1
+
+PM2_pct_PublicTrans_e: B08301e10  / B08301e1
+
+PM2_pct_PublicTrans_m: B08301m10  / B08301m1
+
+PM2_pct_Biking_e: B08301e18  / B08301e1
+
+PM2_pct_Biking_m B08301m18  / B08301m1
+
+PM2_pct_Walking_e: B08301e19  / B08301e1
+
+PM2_pct_Walking_m: B08301m19 / B08301m1
+*/
+
+$b08301m1 = getCol($source_table,"b08301m1");
+$b08301m3 = getCol($source_table,"b08301m3");
+
+$b08301e1 = getCol($source_table,"b08301e1");
+$b08301e3 = getCol($source_table,"b08301e3");
+
+$ratio_area = getCol($source_table,"ratio_Area");
+$b08301e10 = getCol($source_table,"b08301e10");
+$b08301m10 = getCol($source_table,"b08301m10");
+$b08301e18 = getCol($source_table, "b08301e18");
+
+
+
+
+
+
+function getCol($source,$colName)
+{
+    $toReturn = [];
+    for ($x = 0; $x < sizeof($source); $x++) {
+        array_push($toReturn,$source[$x][$colName]);
+    }
+    return $toReturn;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//////////////////////////////////////---NonSOV_e begin--/////////////////////////////////////////////////
-//  calculating: NonSOV_e: [X08_COMMUTING.B08301e1] - [X08_COMMUTING.B08301e3]
-//  cols a = B08301e1 , b = B08301e3
-//  NonSOV_e = a - b
-//$col_a = "b08301e1";
-//$col_b = "b08301e3";
-//$calculation = [];
-//$data1 = getCol($conn,$col_a,"pm1");
-//$data2 = getCol($conn,$col_b,"pm1");
-//$arrlength = count($data1);
-//echo "<div class='container'>
-//        <div class='row'>
-//        <div class='col'>";
-//// loop through data and insert calculation into array
-//// pseudo code: loop(arr[x] = data1[x] - data2[x];)
-//echo "NonSOV_e<br>";
-//echo "<ol>";
-//for($x = 0; $x < $arrlength; $x++) {
-//    array_push($calculation,number_format((float)$data1[$x] - $data2[$x],6));
-//
-//    echo "<li> $calculation[$x]"; // 'echo' for visualization & testing purposes
-//}
-//$lookup_result["nonsov_e"] = $calculation;
-//echo "</ul></div>";
-//
-////////////////////////////////////////---End of NonSOV_e--/////////////////////////////////////////////////
-//
-////////////////////////////////////////---NonSOV_m begin--/////////////////////////////////////////////////
-////  calculating: NonSOV_m: [X08_COMMUTING.B08301m1] - [X08_COMMUTING.B08301m3]
-////  cols a = B08301m1 , b = B08301m3
-////  NonSOV_m = a - b
-//$col_a = "b08301m1";
-//$col_b = "b08301m3";
-//$calculation = [];
-//$data1 = getCol($conn,$col_a,"pm1");
-//$data2 = getCol($conn,$col_b,"pm1");
-//$arrlength = count($data1);
-//
-//echo "<div class='col'>";
-//// loop through data and insert calculation into array
-//// pseudo code: loop(arr[x] = data1[x] - data2[x];)
-//echo "NonSOV_m<br>";
-//echo "<ol>";
-//for($x = 0; $x < $arrlength; $x++) {
-//    array_push($calculation,number_format((float)$data1[$x] - $data2[$x],6));
-//
-//    echo "<li> $calculation[$x]"; // 'echo' for visualization & testing purposes
-//}
-//$lookup_result["nonsov_m"] = $calculation;
-//echo "</ul></div>
-//
-//";
-//////////////////////////////////////---End of NonSOV_m--/////////////////////////////////////////////////
-
-
-//////////////////////////////////////---PM_RatioIN_e begin--/////////////////////////////////////////////////
-//  calculating: PM_RatioIN_e: [tl_2017_48_bg_Clip1.NonSOV_e] * [tl_2017_48_bg_Clip1.Ratio_Area]
-//  cols a = NonSOV_e , b = Ratio_Area
-//  PM_RatioIN_e = a * b
-// col_a not needed
-//$col_b = "ratio_area";
-//$calculation = [];
-//$data1= array_values($lookup_result["nonsov_e"]);
-//$data2 = getCol($conn,$col_b,"pm1");
-//$arrlength = count($data2);
-//echo "<div class='col'>";
-//// loop through data and insert calculation into array
-//// pseudo code: loop(arr[x] = data1[x] * data2[x];)
-//echo "PM_RatioIn_e<br>";
-//echo "<ol>";
-//for($x = 0; $x < $arrlength; $x++) {
-//    array_push($calculation,number_format((float)$data1[$x] * $data2[$x],11));
-//
-//    echo "<li> $calculation[$x]"; // 'echo' for visualization & testing purposes
-//}
-//$lookup_result["ratioin_e"] = $calculation;
-//echo "</ul></div>";
-//////////////////////////////////////---PM_RatioIN_e END--/////////////////////////////////////////////////
-
-//calculating: PM_RatioIN_m: [tl_2017_48_bg_Clip1.NonSOV_m] * [tl_2017_48_bg_Clip1.Ratio_Area]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //implemented functions:
-/* 1. getCol(x,y,z): receives 3 inputs, outputs 1 array of type: $array = [];
+/* 1. getTable(connection, table ): receives 2 inputs, outputs 1 array of type: $array = [];
  *Precondition:
- * @required (connection != False && colName exists in tableName)
+ * @required (connection != False && table exists in database)
  */
-function getCol($conn,$tableName){
+function getTable($conn, $tableName){
     $toReturn = [];
     $query = "SELECT * FROM $tableName;";
     $result = mysqli_query($conn, $query); // do the query, store in result
@@ -141,16 +91,8 @@ function getCol($conn,$tableName){
     while($row = mysqli_fetch_assoc($result)){
         array_push($toReturn,$row);
     }
-//    foreach ($arr_1 as $key => $value){
-//        array_push($toReturn,$value[$colName]);
-//    }
     return $toReturn;
 }
-
 // at the end, close connection
 mysqli_close($conn);
-echo "</div>
-    </div>
-    <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css\" integrity=\"sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS\" crossorigin=\"anonymous\">
-";
 ?>
