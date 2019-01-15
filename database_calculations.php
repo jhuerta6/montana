@@ -61,12 +61,14 @@ $ratio_area = getCol($source_table,"ratio_Area");
 $b08301e10 = getCol($source_table,"b08301e10");
 $b08301m10 = getCol($source_table,"b08301m10");
 $b08301e18 = getCol($source_table, "b08301e18");
-echo json_encode($b08301e1) . "\n";
-//
-//foreach ($b08301e1 as $x){
-//    echo $x . "\n";
-//
-//}
+
+//Operations: NonSOV_e: B08301e1 - B08301e3
+$NonSOV_e = [];
+for($i = 0; $i < count($source_table);$i++){
+    echo $b08301e1[$i];
+}
+
+
 
 
 
