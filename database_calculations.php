@@ -9,8 +9,17 @@ ini_set('memory_limit', '-1');
 ini_set('max_execution_time', 30000); //300 seconds = 5 minutes
 //connection to utep database
 $conn = mysqli_connect('ctis.utep.edu', 'ctis', '19691963', 'mpo_test_jhuerta');
-// Dictionary to store all column_name => data_within
+// Dictionary to store all column_name => data_within   IMPORTANT: CONNECT ONCE ONLY
 $source_table = getTable($conn,"pm1");
+global $table_size;
+$table_size = count($source_table);
+
+global $results_array;// to store all calculated operations
+$results_array = [];
+global $names_array; // to store all the operation names or key
+$names_array = [];
+global $names_and_results; // to store all operation names or keys with results.. key => value
+$names_and_results = array();
 //column names to retrieve:
 /*
 B08301m1
@@ -25,33 +34,8 @@ B08301m10
 B08301e18
 B08301m18
 B08301e19
-
-Operations:
-NonSOV_e: B08301e1 - B08301e3
-
-NonSOV_m: B08301m1 - B08301m3
-
-PM_RatioIN_e: NonSOV_e * Ratio_Area
-
-PM_RatioIN_m: NonSOV_m * Ratio_Area
-
-PM1_pct_NonSOV_e: NonSOV_e  / B08301e1
-
-PM1_pct_NonSOV_m: NonSOV_m  / B08301m1
-
-PM2_pct_PublicTrans_e: B08301e10  / B08301e1
-
-PM2_pct_PublicTrans_m: B08301m10  / B08301m1
-
-PM2_pct_Biking_e: B08301e18  / B08301e1
-
-PM2_pct_Biking_m B08301m18  / B08301m1
-
-PM2_pct_Walking_e: B08301e19  / B08301e1
-
-PM2_pct_Walking_m: B08301m19 / B08301m1
 */
-
+// accessing the source_table data structure with function "getCol()" instead of connecting to DB every single time
 $b08301m1 = getCol($source_table,"b08301m1");
 $b08301m3 = getCol($source_table,"b08301m3");
 $b08301e1 = getCol($source_table,"b08301e1");
@@ -61,40 +45,62 @@ $b08301e10 = getCol($source_table,"b08301e10");
 $b08301m10 = getCol($source_table,"b08301m10");
 $b08301e18 = getCol($source_table, "b08301e18");
 
-
-/*
-Code # | Operation
-1      | NonSOV_e: B08301e1 - B08301e3
-2      | NonSOV_m: B08301m1 - B08301m3
-3      | PM_RatioIN_e: NonSOV_e * Ratio_Area
-4      | PM_RatioIN_m: NonSOV_m * Ratio_Area
-5      | PM1_pct_NonSOV_e: NonSOV_e  / B08301e1
-6      | PM1_pct_NonSOV_m: NonSOV_m  / B08301m1
-7      | PM2_pct_PublicTrans_e: B08301e10  / B08301e1
-8      | PM2_pct_PublicTrans_m: B08301m10  / B08301m1
-9      | PM2_pct_Biking_e: B08301e18  / B08301e1
-10     | PM2_pct_Biking_m B08301m18  / B08301m1
-11     | PM2_pct_Walking_e: B08301e19  / B08301e1
-12     | PM2_pct_Walking_m: B08301m19 / B08301m1
-
+/*Operation *results* will be stored in indexed array for better accesibility and modifiability
+ADD MORE WHEN HERE WHEN NEEDED
+Index # | Operation
+0      | NonSOV_e: B08301e1 - B08301e3
+1      | NonSOV_m: B08301m1 - B08301m3
+2      | PM_RatioIN_e: NonSOV_e * Ratio_Area
+3      | PM_RatioIN_m: NonSOV_m * Ratio_Area
+4      | PM1_pct_NonSOV_e: NonSOV_e  / B08301e1
+5      | PM1_pct_NonSOV_m: NonSOV_m  / B08301m1
+6      | PM2_pct_PublicTrans_e: B08301e10  / B08301e1
+7      | PM2_pct_PublicTrans_m: B08301m10  / B08301m1
+8      | PM2_pct_Biking_e: B08301e18  / B08301e1
+9      | PM2_pct_Biking_m B08301m18  / B08301m1
+10     | PM2_pct_Walking_e: B08301e19  / B08301e1
+11     | PM2_pct_Walking_m: B08301m19 / B08301m1
 */
-$NonSOV_e = [];
-$NonSOV_m = [];
-$PM_RationIN_e = [];
-$PM_RationIN_m = [];
+addCalculationName("NonSOV_e");
+$NonSOV_e = subtract_cols($b08301e1,$b08301e3);
+addCalculationArray($NonSOV_e);
 
-for($i = 0; $i < count($source_table);$i++){
- /* 1 */    array_push($NonSOV_e,$b08301e1[$i] - $b08301e3[$i]);
- /* 2 */    array_push($NonSOV_m,$b08301m1[$i] - $b08301m3[$i]);
- /* 3 */    array_push($PM_RationIN_e, $NonSOV_e[$i] * $ratio_area[$i]);
- /* 4 */    array_push($PM_RationIN_m,$NonSOV_m[$i] * $ratio_area[$i]);
-}
+addCalculationName("NonSOV_m");
+$NonSOV_m = subtract_cols($b08301m1,$b08301m3);
+addCalculationArray($NonSOV_m);
 
-$toJSON = array('NonSOV_e'=>$NonSOV_e, 'NonSov_m'=>$NonSOV_m);
+addCalculationName("PM_RationIN_e");
+$PM_RationIN_e = multiply_cols($NonSOV_e,$ratio_area);
+addCalculationArray($PM_RationIN_e);
 
-$fp = fopen('results.json', 'w');
-fwrite($fp,json_encode($toJSON,JSON_PRETTY_PRINT));
-fclose($fp);
+//$PM_RationIN_m = [];
+addCalculationName("PM_RationIN_m");
+
+//$PM1_pct_NonSOV_e= [];
+addCalculationName("M1_pct_NonSOV_e");
+
+//$PM1_pct_NonSOV_m= [];
+addCalculationName("M1_pct_NonSOV_m");
+
+//$PM2_pct_PublicTrans_e = [];
+addCalculationName("PM2_pct_PublicTrans_e");
+
+//$PM2_pct_PublicTrans_m = [];
+addCalculationName("PM2_pct_PublicTrans_m");
+
+//$PM2_pct_Biking_e = [];
+addCalculationName("PM2_pct_Biking_e");
+
+//$PM2_pct_Biking_m = [];
+addCalculationName("PM2_pct_Biking_m");
+
+//$PM2_pct_Walking_e = [];
+addCalculationName("PM2_pct_Walking_e");
+
+//$PM2_pct_Walking_m = [];
+addCalculationName("PM2_pct_Walking_m");
+
+
 
 
 function getCol($source,$colName)
@@ -121,6 +127,56 @@ function getTable($conn, $tableName){
     }
     return $toReturn;
 }
+//divides each index of 2 arrays. Returns array = [arr1[i] / arr2[i]]
+function divide_cols($col1, $col2){
+    $result = array_map(function($val1, $val2) {
+        if($val2 == 0){ return 0;}
+        return $val1 / $val2;
+    }, $col1, $col2);
+    return $result;
+}
+//subtract each index of 2 arrays. Returns array = [arr1[i] - arr2[i]]
+function subtract_cols($col1, $col2){
+    $result = array_map(function($val1, $val2) {
+        return $val1 - $val2;
+    }, $col1, $col2);
+    return $result;
+}
+//adds each index of 2 arrays. Returns array = [arr1[i] + arr2[i]]
+function add_cols($col1, $col2){
+    $result = array_map(function($val1, $val2) {
+        return $val1 + $val2;
+    }, $col1, $col2);
+    return $result;
+}
+//multiply each index of 2 arrays. Returns array = [arr1[i] * arr2[i]]
+function multiply_cols($col1, $col2){
+    $result = array_map(function($val1, $val2) {
+        return $val1 * $val2;
+    }, $col1, $col2);
+    return $result;
+}
+function addCalculationArray($array){// append new calculation result to the end of global array
+    array_push($GLOBALS['results_array'],$array);
+}
+function addCalculationName($name){//append new calculation name at the end... MUST be used after "addCalculationArray"
+    array_push($GLOBALS['names_array'],$name);
+}
+/*grabs results_array and names_array, creates a key => value array, in this script the key is names_array[x]
+ At the end, it creates a JSON file with key -> value pairs
+
+*/
+function createJSONFile(){
+    $table_length = $GLOBALS['table_size'];
+    for($index = 0; $index <$table_length; $index++){
+        $GLOBALS['names_and_results'][$GLOBALS['names_array'][$index]] =$GLOBALS['results_array'][$index];
+    }
+
+    $fp = fopen('results.json', 'w');
+    fwrite($fp,json_encode($GLOBALS['names_and_results'],JSON_PRETTY_PRINT));
+    fclose($fp);
+}
 // at the end, close connection
+createJSONFile();
 mysqli_close($conn);
 ?>
