@@ -63,7 +63,7 @@ $b08301m10 = getCol($source_table,"b08301m10");
 $b08301e18 = getCol($source_table, "b08301e18");
 
 foreach ($b08301e1 as $x){
-    echo $x;
+    echo $x . "\n";
 
 }
 
