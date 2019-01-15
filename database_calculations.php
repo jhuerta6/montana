@@ -97,7 +97,6 @@ fwrite($fp,json_encode($toJSON,JSON_PRETTY_PRINT));
 fclose($fp);
 
 
-
 function getCol($source,$colName)
 {
     $toReturn = [];
