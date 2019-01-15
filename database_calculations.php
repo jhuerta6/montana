@@ -60,6 +60,9 @@ $ratio_area = getCol($source_table,"ratio_area");
 $b08301e10 = getCol($source_table,"b08301e10");
 $b08301m10 = getCol($source_table,"b08301m10");
 $b08301e18 = getCol($source_table, "b08301e18");
+foreach ($b08301m1 as $value){
+    echo $value;
+}
 
 /*
 Code # | Operation
@@ -88,9 +91,7 @@ for($i = 0; $i < count($source_table);$i++){
  /* 3 */    array_push($PM_RationIN_e, $NonSOV_e[$x] * $ratio_area[$x]);
  /* 4 */    array_push($PM_RationIN_m,$NonSOV_m[$x] * $ratio_area[$x]);
 }
-foreach ($NonSOV_e as $value){
-    echo $value;
-}
+
 //$toJSON = array('NonSOV_e'=>$NonSOV_e, 'NonSov_m'=>$NonSOV_m);
 //
 //$fp = fopen('results.json', 'w');
