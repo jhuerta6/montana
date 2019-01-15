@@ -88,15 +88,16 @@ for($i = 0; $i < count($source_table);$i++){
  /* 3 */    array_push($PM_RationIN_e, $NonSOV_e[$x] * $ratio_area[$x]);
  /* 4 */    array_push($PM_RationIN_m,$NonSOV_m[$x] * $ratio_area[$x]);
 }
-$toJSON = array('NonSOV_e'=>$NonSOV_e, 'NonSov_m'=>$NonSOV_m);
+foreach ($NonSOV_e as $value){
+    echo $value;
+}
+//$toJSON = array('NonSOV_e'=>$NonSOV_e, 'NonSov_m'=>$NonSOV_m);
+//
+//$fp = fopen('results.json', 'w');
+//fwrite($fp,json_encode($toJSON,JSON_PRETTY_PRINT));
+//fclose($fp);
 
-$fp = fopen('results.json', 'w');
-fwrite($fp,json_encode($toJSON,JSON_PRETTY_PRINT));
-fclose($fp);
 
-
-
-function toJSONfile($arr){}
 
 function getCol($source,$colName)
 {
