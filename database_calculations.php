@@ -55,15 +55,14 @@ PM2_pct_Walking_m: B08301m19 / B08301m1
 
 $b08301m1 = getCol($source_table,"b08301m1");
 $b08301m3 = getCol($source_table,"b08301m3");
-
 $b08301e1 = getCol($source_table,"b08301e1");
 $b08301e3 = getCol($source_table,"b08301e3");
-
 $ratio_area = getCol($source_table,"ratio_Area");
 $b08301e10 = getCol($source_table,"b08301e10");
 $b08301m10 = getCol($source_table,"b08301m10");
 $b08301e18 = getCol($source_table, "b08301e18");
 
+echo $b08301e1;
 
 
 
