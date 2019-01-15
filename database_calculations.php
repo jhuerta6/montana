@@ -60,9 +60,7 @@ $ratio_area = getCol($source_table,"ratio_area");
 $b08301e10 = getCol($source_table,"b08301e10");
 $b08301m10 = getCol($source_table,"b08301m10");
 $b08301e18 = getCol($source_table, "b08301e18");
-foreach ($b08301m1 as $value){
-    echo $value . "\n";
-}
+
 
 /*
 Code # | Operation
@@ -86,17 +84,17 @@ $PM_RationIN_e = [];
 $PM_RationIN_m = [];
 
 for($i = 0; $i < count($source_table);$i++){
- /* 1 */    array_push($NonSOV_e,$b08301e1[$x] - $b08301e3[$x]);
- /* 2 */    array_push($NonSOV_m,$b08301m1[$x] - $b08301m3[$x]);
- /* 3 */    array_push($PM_RationIN_e, $NonSOV_e[$x] * $ratio_area[$x]);
- /* 4 */    array_push($PM_RationIN_m,$NonSOV_m[$x] * $ratio_area[$x]);
+ /* 1 */    array_push($NonSOV_e,$b08301e1[$i] - $b08301e3[$i]);
+ /* 2 */    array_push($NonSOV_m,$b08301m1[$i] - $b08301m3[$i]);
+ /* 3 */    array_push($PM_RationIN_e, $NonSOV_e[$i] * $ratio_area[$i]);
+ /* 4 */    array_push($PM_RationIN_m,$NonSOV_m[$i] * $ratio_area[$i]);
 }
 
-//$toJSON = array('NonSOV_e'=>$NonSOV_e, 'NonSov_m'=>$NonSOV_m);
-//
-//$fp = fopen('results.json', 'w');
-//fwrite($fp,json_encode($toJSON,JSON_PRETTY_PRINT));
-//fclose($fp);
+$toJSON = array('NonSOV_e'=>$NonSOV_e, 'NonSov_m'=>$NonSOV_m);
+
+$fp = fopen('results.json', 'w');
+fwrite($fp,json_encode($toJSON,JSON_PRETTY_PRINT));
+fclose($fp);
 
 
 
