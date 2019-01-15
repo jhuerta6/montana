@@ -25,9 +25,8 @@ B08301m10
 B08301e18
 B08301m18
 B08301e19
- * */
 
-/*Operations:
+Operations:
 NonSOV_e: B08301e1 - B08301e3
 
 NonSOV_m: B08301m1 - B08301m3
@@ -57,20 +56,47 @@ $b08301m1 = getCol($source_table,"b08301m1");
 $b08301m3 = getCol($source_table,"b08301m3");
 $b08301e1 = getCol($source_table,"b08301e1");
 $b08301e3 = getCol($source_table,"b08301e3");
-$ratio_area = getCol($source_table,"ratio_Area");
+$ratio_area = getCol($source_table,"ratio_area");
 $b08301e10 = getCol($source_table,"b08301e10");
 $b08301m10 = getCol($source_table,"b08301m10");
 $b08301e18 = getCol($source_table, "b08301e18");
 
-//Operations: NonSOV_e: B08301e1 - B08301e3
+/*
+Code # | Operation
+1      | NonSOV_e: B08301e1 - B08301e3
+2      | NonSOV_m: B08301m1 - B08301m3
+3      | PM_RatioIN_e: NonSOV_e * Ratio_Area
+4      | PM_RatioIN_m: NonSOV_m * Ratio_Area
+5      | PM1_pct_NonSOV_e: NonSOV_e  / B08301e1
+6      | PM1_pct_NonSOV_m: NonSOV_m  / B08301m1
+7      | PM2_pct_PublicTrans_e: B08301e10  / B08301e1
+8      | PM2_pct_PublicTrans_m: B08301m10  / B08301m1
+9      | PM2_pct_Biking_e: B08301e18  / B08301e1
+10     | PM2_pct_Biking_m B08301m18  / B08301m1
+11     | PM2_pct_Walking_e: B08301e19  / B08301e1
+12     | PM2_pct_Walking_m: B08301m19 / B08301m1
+
+*/
 $NonSOV_e = [];
+$NonSOV_m = [];
+$PM_RationIN_e = [];
+$PM_RationIN_m = [];
+
 for($i = 0; $i < count($source_table);$i++){
-    echo $b08301e1[$i];
+ /* 1 */    array_push($NonSOV_e,$b08301e1[$x] - $b08301e3[$x]);
+ /* 2 */    array_push($NonSOV_m,$b08301m1[$x] - $b08301m3[$x]);
+ /* 3 */    array_push($PM_RationIN_e, $NonSOV_e[$x] * $ratio_area[$x]);
+ /* 4 */    array_push($PM_RationIN_m,$NonSOV_m[$x] * $ratio_area[$x]);
 }
+$toJSON = array('NonSOV_e'=>$NonSOV_e, 'NonSov_m'=>$NonSOV_m);
+
+$fp = fopen('results.json', 'w');
+fwrite($fp,json_encode($toJSON,JSON_PRETTY_PRINT));
+fclose($fp);
 
 
 
-
+function toJSONfile($arr){}
 
 function getCol($source,$colName)
 {
