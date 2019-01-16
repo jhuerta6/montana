@@ -9,7 +9,8 @@ ini_set('memory_limit', '-1');
 ini_set('max_execution_time', 30000); //300 seconds = 5 minutes
 //connection to utep database
 $conn = mysqli_connect('ctis.utep.edu', 'ctis', '19691963', 'mpo_test_jhuerta');
-// Dictionary to store all column_name => data_within   IMPORTANT: CONNECT ONCE ONLY
+
+// Dictionary to store all column_name => data_within
 $source_table = getTable($conn,"pm1");
 global $table_size;
 $table_size = count($source_table);
@@ -44,9 +45,12 @@ $ratio_area = getCol($source_table,"ratio_area");
 $b08301e10 = getCol($source_table,"b08301e10");
 $b08301m10 = getCol($source_table,"b08301m10");
 $b08301e18 = getCol($source_table, "b08301e18");
+$b08301m18 = getCol($source_table, "b08301m18");
+$b08301e19 = getCol($source_table, "b08301e19");
+$b08301m19 = getCol($source_table, "b08301m19");
 
-/*Operation *results* will be stored in indexed array for better accesibility and modifiability
-ADD MORE WHEN HERE WHEN NEEDED
+/*Operation *results* will be stored in array for better accesibility and modifiability
+ADD MORE HERE WHEN WHEN NEEDED
 Index # | Operation
 0      | NonSOV_e: B08301e1 - B08301e3
 1      | NonSOV_m: B08301m1 - B08301m3
@@ -60,47 +64,55 @@ Index # | Operation
 9      | PM2_pct_Biking_m B08301m18  / B08301m1
 10     | PM2_pct_Walking_e: B08301e19  / B08301e1
 11     | PM2_pct_Walking_m: B08301m19 / B08301m1
+
 */
-addCalculationName("NonSOV_e");
-$NonSOV_e = subtract_cols($b08301e1,$b08301e3);
-addCalculationArray($NonSOV_e);
+/*      */addCalculationName("NonSOV_e");
+/*   0  */$NonSOV_e = subtract_cols($b08301e1,$b08301e3);
+/*      */addCalculationArray($NonSOV_e);
 
-addCalculationName("NonSOV_m");
-$NonSOV_m = subtract_cols($b08301m1,$b08301m3);
-addCalculationArray($NonSOV_m);
+/*      */addCalculationName("NonSOV_m");
+/*   1  */$NonSOV_m = subtract_cols($b08301m1,$b08301m3);
+/*      */addCalculationArray($NonSOV_m);
 
-addCalculationName("PM_RationIN_e");
-$PM_RationIN_e = multiply_cols($NonSOV_e,$ratio_area);
-addCalculationArray($PM_RationIN_e);
+/*      */addCalculationName("PM_RationIN_e");
+/*   2  */$PM_RationIN_e = multiply_cols($NonSOV_e,$ratio_area);
+/*      */addCalculationArray($PM_RationIN_e);
 
-//$PM_RationIN_m = [];
-addCalculationName("PM_RationIN_m");
+/*      */addCalculationName("PM_RationIN_m");
+/*   3  */$PM_RationIN_m = multiply_cols($NonSOV_m,$ratio_area);
+/*      */addCalculationArray($PM_RationIN_m);
 
-//$PM1_pct_NonSOV_e= [];
-addCalculationName("M1_pct_NonSOV_e");
+/*      */addCalculationName("PM1_pct_NonSOV_e");
+/*   4  */$PM1_pct_NonSOV_e= divide_cols($NonSOV_e, $b08301e1);
+/*      */addCalculationArray($PM1_pct_NonSOV_e);
 
-//$PM1_pct_NonSOV_m= [];
-addCalculationName("M1_pct_NonSOV_m");
+/*      */addCalculationName("PM1_pct_NonSOV_m");
+/*   5  */$PM1_pct_NonSOV_m= divide_cols($NonSOV_m,$b08301m1);
+/*      */addCalculationArray($PM1_pct_NonSOV_m);
 
-//$PM2_pct_PublicTrans_e = [];
-addCalculationName("PM2_pct_PublicTrans_e");
+/*      */addCalculationName("PM2_pct_PublicTrans_e");
+/*   6  */$PM2_pct_PublicTrans_e = divide_cols($b08301e10,$b08301e1);
+/*      */addCalculationArray($PM2_pct_PublicTrans_e);
 
-//$PM2_pct_PublicTrans_m = [];
-addCalculationName("PM2_pct_PublicTrans_m");
+/*      */addCalculationName("PM2_pct_PublicTrans_m");
+/*   7  */$PM2_pct_PublicTrans_m = divide_cols($b08301m10,$b08301m1);
+/*      */addCalculationArray($PM2_pct_PublicTrans_m);
 
-//$PM2_pct_Biking_e = [];
-addCalculationName("PM2_pct_Biking_e");
+/*      */addCalculationName("PM2_pct_Biking_e");
+/*   8  */$PM2_pct_Biking_e = divide_cols($b08301e18,$b08301e1);
+/*      */addCalculationArray($PM2_pct_Biking_e);
 
-//$PM2_pct_Biking_m = [];
-addCalculationName("PM2_pct_Biking_m");
+/*      */addCalculationName("PM2_pct_Biking_m");
+/*   9  */$PM2_pct_Biking_m = divide_cols($b08301m18,$b08301m1);
+/*      */addCalculationArray($PM2_pct_Biking_m);
 
-//$PM2_pct_Walking_e = [];
-addCalculationName("PM2_pct_Walking_e");
+/*      */addCalculationName("PM2_pct_Walking_e");
+/*  10  */$PM2_pct_Walking_e = divide_cols($b08301e19,$b08301e1);
+/*      */addCalculationArray($PM2_pct_Walking_e);
 
-//$PM2_pct_Walking_m = [];
-addCalculationName("PM2_pct_Walking_m");
-
-
+/*      */addCalculationName("PM2_pct_Walking_m");
+/*  11  */$PM2_pct_Walking_m = divide_cols($b08301m19,$b08301m1);
+/*      */addCalculationArray($PM2_pct_Walking_m);
 
 
 function getCol($source,$colName)
