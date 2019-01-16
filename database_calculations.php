@@ -64,11 +64,10 @@ Index # | Operation
 9      | PM2_pct_Biking_m B08301m18  / B08301m1
 10     | PM2_pct_Walking_e: B08301e19  / B08301e1
 11     | PM2_pct_Walking_m: B08301m19 / B08301m1
+12     | SOV = 100 - AVGs_sum[0,4,6,8,10]
 
 
 */
-
-
 /*      */addCalculationName("NonSOV_e");
 /*   0  */$NonSOV_e = subtract_cols($b08301e1,$b08301e3);
 /*      */addCalculationArray($NonSOV_e);
@@ -87,17 +86,18 @@ Index # | Operation
 
 /*      */addCalculationName("PM1_pct_NonSOV_e");
 /*   4  */$PM1_pct_NonSOV_e= divide_cols($NonSOV_e, $b08301e1);
-$PM1_pct_NonSOV_e= col_times100($PM1_pct_NonSOV_e);
+            $PM1_pct_NonSOV_e= col_times100($PM1_pct_NonSOV_e);
+
 /*      */addCalculationArray($PM1_pct_NonSOV_e);
 
 /*      */addCalculationName("PM1_pct_NonSOV_m");
 /*   5  */$PM1_pct_NonSOV_m= divide_cols($NonSOV_m,$b08301m1);
-$PM1_pct_NonSOV_m= col_times100($PM1_pct_NonSOV_m);
+          $PM1_pct_NonSOV_m= col_times100($PM1_pct_NonSOV_m);
 /*      */addCalculationArray($PM1_pct_NonSOV_m);
 
 /*      */addCalculationName("PM2_pct_PublicTrans_e");
 /*   6  */$PM2_pct_PublicTrans_e = divide_cols($b08301e10,$b08301e1);
-$PM2_pct_PublicTrans_e = col_times100($PM2_pct_PublicTrans_e);
+          $PM2_pct_PublicTrans_e = col_times100($PM2_pct_PublicTrans_e);
 /*      */addCalculationArray($PM2_pct_PublicTrans_e);
 
 /*      */addCalculationName("PM2_pct_PublicTrans_m");
@@ -125,11 +125,25 @@ $PM2_pct_Walking_e= col_times100($PM2_pct_Walking_e);
 $PM2_pct_Walking_m= col_times100($PM2_pct_Walking_m);
 /*      */addCalculationArray($PM2_pct_Walking_m);
 
+/*      */
+addCalculationName("SOV");
+/*  12  */
+$SOV = [];
+$avg_0 = array_sum($NonSOV_e)/count($NonSOV_e);
+$avg_4 = array_sum($PM1_pct_NonSOV_e)/count($PM1_pct_NonSOV_e);
+$avg_6 = array_sum($PM2_pct_PublicTrans_e)/count($PM2_pct_PublicTrans_e);
+$avg_8 = array_sum($PM2_pct_Biking_e)/count($PM2_pct_Biking_e);
+$avg_10 = array_sum($PM2_pct_Walking_e)/count($PM2_pct_Walking_e);
+$total_SOV = 100 - ($avg_0 + $avg_4 + $avg_6 + $avg_8 + $avg_10);
+array_push($SOV,$total_SOV);
+addCalculationArray($SOV);
 
-<<<<<<< HEAD
+
+
+
 //retrieves an array from a list of arrays
-=======
->>>>>>> wireframe
+
+
 function getCol($source,$colName)
 {
     $toReturn = [];
