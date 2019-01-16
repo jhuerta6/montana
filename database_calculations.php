@@ -65,7 +65,10 @@ Index # | Operation
 10     | PM2_pct_Walking_e: B08301e19  / B08301e1
 11     | PM2_pct_Walking_m: B08301m19 / B08301m1
 
+
 */
+
+
 /*      */addCalculationName("NonSOV_e");
 /*   0  */$NonSOV_e = subtract_cols($b08301e1,$b08301e3);
 /*      */addCalculationArray($NonSOV_e);
@@ -115,7 +118,7 @@ Index # | Operation
 /*      */addCalculationArray($PM2_pct_Walking_m);
 
 
-
+//retrieves an array from a list of arrays
 function getCol($source,$colName)
 {
     $toReturn = [];
