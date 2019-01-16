@@ -129,12 +129,11 @@ $PM2_pct_Walking_m= col_times100($PM2_pct_Walking_m);
 addCalculationName("SOV");
 /*  12  */
 $SOV = [];
-$avg_0 = array_sum($NonSOV_e)/count($NonSOV_e);
 $avg_4 = array_sum($PM1_pct_NonSOV_e)/count($PM1_pct_NonSOV_e);
 $avg_6 = array_sum($PM2_pct_PublicTrans_e)/count($PM2_pct_PublicTrans_e);
 $avg_8 = array_sum($PM2_pct_Biking_e)/count($PM2_pct_Biking_e);
 $avg_10 = array_sum($PM2_pct_Walking_e)/count($PM2_pct_Walking_e);
-$total_SOV = 100 - ($avg_0 + $avg_4 + $avg_6 + $avg_8 + $avg_10);
+$total_SOV = 100 - ($avg_4 + $avg_6 + $avg_8 + $avg_10);
 array_push($SOV,$total_SOV);
 addCalculationArray($SOV);
 
