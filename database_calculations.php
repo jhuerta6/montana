@@ -84,34 +84,42 @@ Index # | Operation
 
 /*      */addCalculationName("PM1_pct_NonSOV_e");
 /*   4  */$PM1_pct_NonSOV_e= divide_cols($NonSOV_e, $b08301e1);
+$PM1_pct_NonSOV_e= col_times100($PM1_pct_NonSOV_e);
 /*      */addCalculationArray($PM1_pct_NonSOV_e);
 
 /*      */addCalculationName("PM1_pct_NonSOV_m");
 /*   5  */$PM1_pct_NonSOV_m= divide_cols($NonSOV_m,$b08301m1);
+$PM1_pct_NonSOV_m= col_times100($PM1_pct_NonSOV_m);
 /*      */addCalculationArray($PM1_pct_NonSOV_m);
 
 /*      */addCalculationName("PM2_pct_PublicTrans_e");
 /*   6  */$PM2_pct_PublicTrans_e = divide_cols($b08301e10,$b08301e1);
+$PM2_pct_PublicTrans_e = col_times100($PM2_pct_PublicTrans_e);
 /*      */addCalculationArray($PM2_pct_PublicTrans_e);
 
 /*      */addCalculationName("PM2_pct_PublicTrans_m");
 /*   7  */$PM2_pct_PublicTrans_m = divide_cols($b08301m10,$b08301m1);
+$PM2_pct_PublicTrans_m= col_times100($PM2_pct_PublicTrans_m);
 /*      */addCalculationArray($PM2_pct_PublicTrans_m);
 
 /*      */addCalculationName("PM2_pct_Biking_e");
 /*   8  */$PM2_pct_Biking_e = divide_cols($b08301e18,$b08301e1);
+$PM2_pct_Biking_e= col_times100($PM2_pct_Biking_e);
 /*      */addCalculationArray($PM2_pct_Biking_e);
 
 /*      */addCalculationName("PM2_pct_Biking_m");
 /*   9  */$PM2_pct_Biking_m = divide_cols($b08301m18,$b08301m1);
+$PM2_pct_Biking_m= col_times100($PM2_pct_Biking_m);
 /*      */addCalculationArray($PM2_pct_Biking_m);
 
 /*      */addCalculationName("PM2_pct_Walking_e");
 /*  10  */$PM2_pct_Walking_e = divide_cols($b08301e19,$b08301e1);
+$PM2_pct_Walking_e= col_times100($PM2_pct_Walking_e);
 /*      */addCalculationArray($PM2_pct_Walking_e);
 
 /*      */addCalculationName("PM2_pct_Walking_m");
 /*  11  */$PM2_pct_Walking_m = divide_cols($b08301m19,$b08301m1);
+$PM2_pct_Walking_m= col_times100($PM2_pct_Walking_m);
 /*      */addCalculationArray($PM2_pct_Walking_m);
 
 
@@ -138,6 +146,12 @@ function getTable($conn, $tableName){
         array_push($toReturn,$row);
     }
     return $toReturn;
+}
+function col_times100($col1){
+    $result = array_map(function($val1) {
+        return $val1 *100 ;
+    }, $col1);
+    return $result;
 }
 //divides each index of 2 arrays. Returns array = [arr1[i] / arr2[i]]
 function divide_cols($col1, $col2){
