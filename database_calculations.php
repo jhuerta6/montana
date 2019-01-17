@@ -138,42 +138,41 @@ $end_point_allpm25 = getCol($pm25_table,"end_point");
 /*      */// IMPORTANT - DO NOT SORT any array - DO NOT LOSE the object ID
 /*      */$mileage_difference = subtract_cols($end_point_allpm25,$begin_point_allpm25);
 /*      */for($x =0;$x < $table_size_pm25 - 1; $x++ ){
-    /*      */    if($IRI_full2017_pm25[$x] <= 94){
-        /*      */        $good_conditions[$x] = array();
-        /*      */        $good_conditions[$x]['id'] = $IDs_pm25[$x];
-        /*      */        $good_conditions[$x]['mile_diff'] = $mileage_difference[$x];
-        /*      */        $good_conditions[$x]['iri'] =$IRI_full2017_pm25[$x];
-        /*      */    }
-    /*      */    else if($IRI_full2017_pm25[$x] > 94 && $IRI_full2017_pm25[$x] <= 170){
-        /*      */        $fair_conditions[$x] = array();
-        /*      */        $fair_conditions[$x]['id'] = $IDs_pm25[$x];
-        /*      */        $fair_conditions[$x]['mile_diff'] = $mileage_difference[$x];
-        /*      */        $fair_conditions[$x]['iri'] =$IRI_full2017_pm25[$x];
-        /*      */    }
-    /*      */    else{
-        /*      */        $poor_conditions[$x] = array();
-        /*      */        $poor_conditions[$x]['id'] = $IDs_pm25[$x];
-        /*      */        $poor_conditions[$x]['mile_diff'] = $mileage_difference[$x];
-        /*      */        $poor_conditions[$x]['iri'] =$IRI_full2017_pm25[$x];
-        /*      */    }
-    /*      */}
+/*      */    if($IRI_full2017_pm25[$x] <= 94){
+/*      */        $good_conditions[$x] = array();
+/*      */        $good_conditions[$x]['id'] = $IDs_pm25[$x];
+/*      */        $good_conditions[$x]['mile_diff'] = $mileage_difference[$x];
+/*      */        $good_conditions[$x]['iri'] =$IRI_full2017_pm25[$x];
+/*      */    }
+/*      */    else if($IRI_full2017_pm25[$x] > 94 && $IRI_full2017_pm25[$x] <= 170){
+/*      */        $fair_conditions[$x] = array();
+/*      */        $fair_conditions[$x]['id'] = $IDs_pm25[$x];
+/*      */        $fair_conditions[$x]['mile_diff'] = $mileage_difference[$x];
+/*      */        $fair_conditions[$x]['iri'] =$IRI_full2017_pm25[$x];
+/*      */    }
+/*      */    else{
+/*      */        $poor_conditions[$x] = array();
+/*      */        $poor_conditions[$x]['id'] = $IDs_pm25[$x];
+/*      */        $poor_conditions[$x]['mile_diff'] = $mileage_difference[$x];
+/*      */        $poor_conditions[$x]['iri'] =$IRI_full2017_pm25[$x];
+/*      */    }
+/*      */}
 /*      */$iri_good_total_miles = 0;
 /*      */foreach ($good_conditions as $x){
-    /*      */    $iri_good_total_miles += $x['mile_diff'];
-    /*      */}
+/*      */    $iri_good_total_miles += $x['mile_diff'];
+/*      */}
 /*      */$iri_fair_total_miles = 0;
 /*      */foreach ($fair_conditions as $x){
-    /*      */    $iri_fair_total_miles += $x['mile_diff'];
-    /*      */}
+/*      */    $iri_fair_total_miles += $x['mile_diff'];
+/*      */}
 /*      */$iri_poor_total_miles = 0;
 /*      */foreach ($poor_conditions as $x){
-    /*      */    $iri_poor_total_miles += $x['mile_diff'];
-    /*      */}
+/*      */    $iri_poor_total_miles += $x['mile_diff'];
+/*      */}
 /*      */$IRI_GOOD_FAIR_BAD_totals = array(array('Good_total_2017'=>$iri_good_total_miles,'Fair_total_2017'=>$iri_fair_total_miles,'Poor_total_2017'=>$iri_poor_total_miles));
 /*      */addCalculationName("IRI_Good_Fair_Bad_2017");
 /*      */addCalculationArray($IRI_GOOD_FAIR_BAD_totals);
-/*      */echo json_encode($IRI_GOOD_FAIR_BAD_totals);
-/*      */
+
 
 
 
