@@ -22,6 +22,7 @@ $names_and_results = array();
 // Dictionary to store all column_name => data_within
 /*         For PM1 & PM2             */
 $pm1_pm2_table = getFullTable($conn,"pm1");
+global $table_size_pm1pm2;
 $table_size_pm1pm2 = count($pm1_pm2_table);
 
 $b08301m1 = getCol($pm1_pm2_table,"b08301m1");
@@ -36,14 +37,6 @@ $b08301m18 = getCol($pm1_pm2_table, "b08301m18");
 $b08301e19 = getCol($pm1_pm2_table, "b08301e19");
 $b08301m19 = getCol($pm1_pm2_table, "b08301m19");
 
-/*--------------- For PM25 --------------------- */
-
-$pm25_table = getFullTable($conn,"pm25");
-$table_size_pm25= count($pm25_table);
-$IRI_full2017_pm25 = getCol($pm25_table,"iri");
-$IDs_pm25 = getCol($pm25_table,"objectid");
-$begin_point_allpm25 = getCol($pm25_table,"begin_poin");//typo in DB mpo_test_jhuerta table pm25
-$end_point_allpm25 = getCol($pm25_table,"end_point");
 
 /*Operation *results* will be stored in array for better accesibility and modifiability
 ADD MORE HERE WHEN WHEN NEEDED
@@ -130,48 +123,59 @@ Index # | Operation
 /*      */array_push($SOV,$total_SOV);
 /*      */addCalculationArray($SOV);
 
+/*--------------- For PM25 --------------------- */
+
+$pm25_table = getFullTable($conn,"pm25");
+$table_size_pm25= count($pm25_table);
+$IRI_full2017_pm25 = getCol($pm25_table,"iri");
+$IDs_pm25 = getCol($pm25_table,"objectid");
+$begin_point_allpm25 = getCol($pm25_table,"begin_poin");//typo in DB mpo_test_jhuerta table pm25
+$end_point_allpm25 = getCol($pm25_table,"end_point");
+
 /*      */$good_conditions = array();// 0 - 94
 /*  13  */$fair_conditions = array();// 95 - 170
 /*      */$poor_conditions = array(); // 171+
 /*      */// IMPORTANT - DO NOT SORT any array - DO NOT LOSE the object ID
 /*      */$mileage_difference = subtract_cols($end_point_allpm25,$begin_point_allpm25);
 /*      */for($x =0;$x < $table_size_pm25 - 1; $x++ ){
-/*      */    if($IRI_full2017_pm25[$x] <= 94){
-/*      */        $good_conditions[$x] = array();
-/*      */        $good_conditions[$x]['id'] = $IDs_pm25[$x];
-/*      */        $good_conditions[$x]['mile_diff'] = $mileage_difference[$x];
-/*      */        $good_conditions[$x]['iri'] =$IRI_full2017_pm25[$x];
-/*      */    }
-/*      */    else if($IRI_full2017_pm25[$x] > 94 && $IRI_full2017_pm25[$x] <= 170){
-/*      */        $fair_conditions[$x] = array();
-/*      */        $fair_conditions[$x]['id'] = $IDs_pm25[$x];
-/*      */        $fair_conditions[$x]['mile_diff'] = $mileage_difference[$x];
-/*      */        $fair_conditions[$x]['iri'] =$IRI_full2017_pm25[$x];
-/*      */    }
-/*      */    else{
-/*      */        $poor_conditions[$x] = array();
-/*      */        $poor_conditions[$x]['id'] = $IDs_pm25[$x];
-/*      */        $poor_conditions[$x]['mile_diff'] = $mileage_difference[$x];
-/*      */        $poor_conditions[$x]['iri'] =$IRI_full2017_pm25[$x];
-/*      */    }
-/*      */}
+    /*      */    if($IRI_full2017_pm25[$x] <= 94){
+        /*      */        $good_conditions[$x] = array();
+        /*      */        $good_conditions[$x]['id'] = $IDs_pm25[$x];
+        /*      */        $good_conditions[$x]['mile_diff'] = $mileage_difference[$x];
+        /*      */        $good_conditions[$x]['iri'] =$IRI_full2017_pm25[$x];
+        /*      */    }
+    /*      */    else if($IRI_full2017_pm25[$x] > 94 && $IRI_full2017_pm25[$x] <= 170){
+        /*      */        $fair_conditions[$x] = array();
+        /*      */        $fair_conditions[$x]['id'] = $IDs_pm25[$x];
+        /*      */        $fair_conditions[$x]['mile_diff'] = $mileage_difference[$x];
+        /*      */        $fair_conditions[$x]['iri'] =$IRI_full2017_pm25[$x];
+        /*      */    }
+    /*      */    else{
+        /*      */        $poor_conditions[$x] = array();
+        /*      */        $poor_conditions[$x]['id'] = $IDs_pm25[$x];
+        /*      */        $poor_conditions[$x]['mile_diff'] = $mileage_difference[$x];
+        /*      */        $poor_conditions[$x]['iri'] =$IRI_full2017_pm25[$x];
+        /*      */    }
+    /*      */}
 /*      */$iri_good_total_miles = 0;
 /*      */foreach ($good_conditions as $x){
-/*      */    $iri_good_total_miles += $x['iri'];
-/*      */}
+    /*      */    $iri_good_total_miles += $x['mile_diff'];
+    /*      */}
 /*      */$iri_fair_total_miles = 0;
 /*      */foreach ($fair_conditions as $x){
-/*      */    $iri_fair_total_miles += $x['iri'];
-/*      */}
+    /*      */    $iri_fair_total_miles += $x['mile_diff'];
+    /*      */}
 /*      */$iri_poor_total_miles = 0;
 /*      */foreach ($poor_conditions as $x){
-/*      */    $iri_poor_total_miles += $x['iri'];
-/*      */}
+    /*      */    $iri_poor_total_miles += $x['mile_diff'];
+    /*      */}
 /*      */$IRI_GOOD_FAIR_BAD_totals = array(array('Good_total_2017'=>$iri_good_total_miles,'Fair_total_2017'=>$iri_fair_total_miles,'Poor_total_2017'=>$iri_poor_total_miles));
 /*      */addCalculationName("IRI_Good_Fair_Bad_2017");
 /*      */addCalculationArray($IRI_GOOD_FAIR_BAD_totals);
+/*      */echo json_encode($IRI_GOOD_FAIR_BAD_totals);
 /*      */
-/*      */
+
+
 
 //retrieves an array from a list of arrays
 function getCol($source,$colName)
@@ -245,8 +249,8 @@ function addCalculationName($name){//append new calculation name at the end... M
 
 */
 function createJSONFile(){
-    $table_length = $GLOBALS['table_size'];
-    for($index = 0; $index <$table_length; $index++){
+    $table_length = $GLOBALS['table_size_pm1pm2'];
+    for($index = 0; $index <$table_length -1 ; $index++){
         $GLOBALS['names_and_results'][$GLOBALS['names_array'][$index]] =$GLOBALS['results_array'][$index];
     }
 
