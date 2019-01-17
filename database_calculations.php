@@ -167,10 +167,10 @@ Index # | Operation
 /*      */foreach ($poor_conditions as $x){
 /*      */    $iri_poor_total_miles += $x['iri'];
 /*      */}
-/*      */$IRI_GOOD_FAIR_BAD_totals = array('Good_total_2017'=>$iri_good_total_miles,'Fair_total_2017'=>$iri_fair_total_miles,'Poor_total_2017'=>$iri_poor_total_miles);
+/*      */$IRI_GOOD_FAIR_BAD_totals = array(array('Good_total_2017'=>$iri_good_total_miles,'Fair_total_2017'=>$iri_fair_total_miles,'Poor_total_2017'=>$iri_poor_total_miles));
 /*      */addCalculationName("IRI_Good_Fair_Bad_2017");
 /*      */addCalculationArray($IRI_GOOD_FAIR_BAD_totals);
-/*      */echo json_encode($IRI_GOOD_FAIR_BAD_totals);
+/*      */
 /*      */
 
 //retrieves an array from a list of arrays
