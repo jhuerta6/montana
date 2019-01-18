@@ -173,7 +173,78 @@ $end_point_allpm25 = getCol($pm25_table,"end_point");
 /*      */addCalculationName("IRI_Good_Fair_Bad_2017");
 /*      */addCalculationArray($IRI_GOOD_FAIR_BAD_totals);
 
+/*------------------- For PM 26 -----------------------*/
+//Get all tables
+$pm26_texas_2018 = getFullTable($conn,"texas_pm26");
+$pm26_new_mex_2018 = getFullTable($conn,"new_mex_pm26");
+//TEXAS
+$deck_cond_TX18= getCol($pm26_texas_2018,"deck_cond_");
+$superstruc_TX18= getCol($pm26_texas_2018,"superstruc");
+$substruc_c_TX18= getCol($pm26_texas_2018,"substruc_c");
 
+//New Mexico
+$deck_cond_NM18= getCol($pm26_new_mex_2018,"dkrating");
+$superstruc_NM18= getCol($pm26_new_mex_2018,"suprating");
+$substruc_c_NM18= getCol($pm26_new_mex_2018,"subrating");
+
+//Change N to 999 TEEEEXAS
+$texas_lowest_pm26_rating = [];
+for($x = 0; $x <count($deck_cond_TX18);$x++ ){
+    if ($deck_cond_TX18[$x] == "N"){
+        $deck_cond_TX18[$x] = 999;
+    }
+    if ($superstruc_TX18[$x] == "N"){
+        $superstruc_TX18[$x] = 999;
+    }
+    if ($substruc_c_TX18[$x] == "N"){
+        $substruc_c_TX18[$x] = 999;
+    }
+    //if they are all equal
+    if($deck_cond_TX18[$x] == $superstruc_TX18[$x] && $deck_cond_TX18[$x] == $substruc_c_TX18[$x]){
+        array_push($texas_lowest_pm26_rating,$deck_cond_TX18[$x]);
+    }
+    //if a < b && a < c {a is the lowest}
+    if ($deck_cond_TX18[$x] < $superstruc_TX18[$x] && $deck_cond_TX18[$x] < $substruc_c_TX18[$x]){
+        array_push($texas_lowest_pm26_rating,$deck_cond_TX18[$x]);
+    }
+    //if we reach this line, then we know that a is not the lowest. Is it b or c?
+    if($superstruc_TX18[$x] < $substruc_c_TX18[$x]){
+        array_push($texas_lowest_pm26_rating,$superstruc_TX18[$x]);
+    }
+    //if we reach this point it means that neither a or b are the lowest
+    else{
+        array_push($texas_lowest_pm26_rating,$substruc_c_TX18[$x]);
+    }
+}
+//Change N to 999 New Mexico
+$newMex_lowest_pm26_rating = [];
+for($x = 0; $x <count($deck_cond_NM18);$x++ ){
+    if ($deck_cond_NM18[$x] == "N"){
+        $deck_cond_NM18[$x] = 999;
+    }
+    if ($superstruc_NM18[$x] == "N"){
+        $superstruc_NM18[$x] = 999;
+    }
+    if ($substruc_c_NM18[$x] == "N"){
+        $substruc_c_NM18[$x] = 999;
+    }
+    //if they are all equal
+    if($deck_cond_NM18[$x] == $superstruc_NM18[$x] && $deck_cond_NM18[$x] == $substruc_c_NM18[$x]){
+        array_push($newMex_lowest_pm26_rating,$deck_cond_NM18[$x]);
+        }
+    //if a < b && a < c {a is the lowest}
+    if ($deck_cond_NM18[$x] < $superstruc_NM18[$x] && $deck_cond_NM18[$x] < $substruc_c_NM18[$x]){
+        array_push($newMex_lowest_pm26_rating,$deck_cond_NM18[$x]);
+    }
+    //if we reach this line, then we know that a is not the lowest. Is it b or c?
+    if($superstruc_NM18[$x] < $substruc_c_NM18[$x]){
+        array_push($newMex_lowest_pm26_rating,$superstruc_NM18[$x]);
+    }
+    //if we reach this point it means that neither a or b are the lowest
+    else {
+        array_push($newMex_lowest_pm26_rating, $substruc_c_NM18[$x]);
+    }
+}
 
 
 //retrieves an array from a list of arrays
@@ -258,6 +329,6 @@ function createJSONFile(){
     fclose($fp);
 }
 // at the end, close connection
-createJSONFile();
+//createJSONFile();
 mysqli_close($conn);
 ?>
