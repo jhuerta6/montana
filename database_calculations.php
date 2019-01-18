@@ -169,9 +169,9 @@ $end_point_allpm25 = getCol($pm25_table,"end_point");
 /*      */foreach ($poor_conditions as $x){
 /*      */    $iri_poor_total_miles += $x['mile_diff'];
 /*      */}
-/*      */$IRI_GOOD_FAIR_BAD_totals = array(array('Good_total_2017'=>$iri_good_total_miles,'Fair_total_2017'=>$iri_fair_total_miles,'Poor_total_2017'=>$iri_poor_total_miles));
-/*      */addCalculationName("IRI_Good_Fair_Bad_2017");
-/*      */addCalculationArray($IRI_GOOD_FAIR_BAD_totals);
+/*      */$PM25_GOOD_FAIR_BAD_totals = array(array('Good_total_2017'=>$iri_good_total_miles,'Fair_total_2017'=>$iri_fair_total_miles,'Poor_total_2017'=>$iri_poor_total_miles));
+/*      */addCalculationName("PM25_Good_Fair_Bad_2017");
+/*      */addCalculationArray($PM25_GOOD_FAIR_BAD_totals);
 
 /*------------------- For PM 26 -----------------------*/
 //Get all tables
@@ -245,6 +245,39 @@ for($x = 0; $x <count($deck_cond_NM18);$x++ ){
         array_push($newMex_lowest_pm26_rating, $substruc_c_NM18[$x]);
     }
 }
+
+//Now we have two arrays without the N values
+//next step: merge TX and NM because MPO boundary is (TX + NM)
+$mpo_pm26_2018 = array_merge($texas_lowest_pm26_rating,$newMex_lowest_pm26_rating);
+// next step -> filter results by good[7 - 9], fair[5,6], poor[0 - 4]  conditions and 'no_data'
+
+$pm26_good_count = 0;
+$pm26_fair_count = 0;
+$pm26_poor_count = 0;
+$pm26_no_data_count = 0;
+
+for($x =0;$x < count($mpo_pm26_2018) - 1; $x++ ){
+    if($mpo_pm26_2018[$x] >= 7 && $mpo_pm26_2018[$x] <= 9 ){
+        $pm26_good_count++;
+    }
+    if($mpo_pm26_2018[$x] >= 5 && $mpo_pm26_2018[$x] <= 6 ){
+        $pm26_fair_count++;
+    }
+    if($mpo_pm26_2018[$x] >= 0 && $mpo_pm26_2018[$x] <= 4 ){
+        $pm26_poor_count++;
+    }
+    if($mpo_pm26_2018[$x] == 999){
+        $pm26_no_data_count++;
+    }
+}
+$PM26_GOOD_FAIR_BAD_totals = array(array(
+    'Good_total_2018'=>$pm26_good_count,
+    'Fair_total_2018'=>$pm26_fair_count,
+    'Poor_total_2018'=>$pm26_poor_count,
+    'No_data_total_2018'=>$pm26_no_data_count));
+
+addCalculationName("PM26_Good_Fair_Bad_2018");
+addCalculationArray($PM26_GOOD_FAIR_BAD_totals);
 
 
 //retrieves an array from a list of arrays
@@ -329,6 +362,6 @@ function createJSONFile(){
     fclose($fp);
 }
 // at the end, close connection
-//createJSONFile();
+createJSONFile();
 mysqli_close($conn);
 ?>
